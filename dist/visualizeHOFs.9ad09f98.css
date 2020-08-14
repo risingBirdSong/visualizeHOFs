@@ -4,5 +4,18 @@
   justify-content: center;
 }
 
+.numArr {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+.num {
+  color: red;
+}
+
+.arrBrkt {
+}
+
 
 /*# sourceMappingURL=/visualizeHOFs.9ad09f98.css.map */

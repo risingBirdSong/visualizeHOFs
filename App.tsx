@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import Map from "./components/Map";
 const App = () => {
   return (
     <main className="container">
@@ -22,6 +22,7 @@ const App = () => {
           </li>
         </ul>
       </nav>
+      <Map />
     </main>
   );
 };

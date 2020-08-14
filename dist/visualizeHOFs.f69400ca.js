@@ -28285,7 +28285,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"App.tsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -28328,16 +28328,109 @@ Object.defineProperty(exports, "__esModule", {
 
 var React = __importStar(require("react"));
 
+var react_1 = require("react");
+
+var cls;
+
+(function (cls) {
+  cls["numArr"] = "numArr";
+  cls["num"] = "num";
+  cls["arrBrkt"] = "arrBrkt";
+})(cls || (cls = {}));
+
+var Map = function Map() {
+  var _a = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+      nums = _a[0],
+      setNums = _a[1];
+
+  return React.createElement("div", null, React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center"
+    }
+  }, React.createElement("h3", {
+    style: {
+      display: "flex",
+      justifySelf: "center"
+    }
+  }, "num array")), React.createElement("ul", {
+    className: cls.numArr + " valign-wrapper row pink lighten-4"
+  }, React.createElement("h1", {
+    className: cls.arrBrkt
+  }, "["), nums.map(function (num, idx) {
+    return React.createElement("li", {
+      className: "col s1",
+      key: idx
+    }, React.createElement("p", {
+      className: cls.num
+    }, num));
+  }), React.createElement("h1", {
+    className: cls.arrBrkt
+  }, "]")));
+};
+
+exports.default = Map;
+},{"react":"node_modules/react/index.js"}],"App.tsx":[function(require,module,exports) {
+"use strict";
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __importStar(require("react"));
+
+var Map_1 = __importDefault(require("./components/Map"));
+
 var App = function App() {
   return React.createElement("main", {
     className: "container"
   }, React.createElement("nav", null, React.createElement("ul", {
     className: "row"
-  }, React.createElement("li", null, React.createElement("a", null, "about")), React.createElement("li", null, React.createElement("a", null, "further reading")), React.createElement("li", null, React.createElement("a", null, "map")), React.createElement("li", null, React.createElement("a", null, "filter")), React.createElement("li", null, React.createElement("a", null, "reduce")))));
+  }, React.createElement("li", null, React.createElement("a", null, "about")), React.createElement("li", null, React.createElement("a", null, "further reading")), React.createElement("li", null, React.createElement("a", null, "map")), React.createElement("li", null, React.createElement("a", null, "filter")), React.createElement("li", null, React.createElement("a", null, "reduce")))), React.createElement(Map_1.default, null));
 };
 
 exports.default = App;
-},{"react":"node_modules/react/index.js"}],"index.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/Map":"components/Map.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -28419,7 +28512,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64422" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51211" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

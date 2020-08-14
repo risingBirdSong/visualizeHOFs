@@ -3,3 +3,16 @@
   align-self: center;
   justify-content: center;
 }
+
+.numArr {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+.num {
+  color: red;
+}
+
+.arrBrkt {
+}
