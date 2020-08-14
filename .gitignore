@@ -1,1 +1,7 @@
-node_modules
+
+# compiled output
+/dist
+/.cache
+
+# dependencies
+/node_modules
