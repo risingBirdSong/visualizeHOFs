@@ -28348,7 +28348,12 @@ var cls;
   cls["numArr"] = "numArr";
   cls["num"] = "num";
   cls["arrBrkt"] = "arrBrkt";
+  cls["callbackFunc"] = "callbackFunc";
 })(cls || (cls = {}));
+
+var doubleNumber = function doubleNumber(num) {
+  return num * 2;
+};
 
 var Map = function Map() {
   var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
@@ -28361,12 +28366,18 @@ var Map = function Map() {
       display: "flex",
       justifyContent: "center"
     }
-  }, React.createElement("h3", {
+  }, React.createElement("h4", null, "callback function")), React.createElement("div", {
+    style: {
+      padding: "5px",
+      marginTop: "5px"
+    },
+    className: "".concat(cls.callbackFunc, "  purple lighten-3")
+  }, React.createElement("h5", null, "const doubleNumber = (num: number) ", "=>", " ", "{", " "), React.createElement("h5", null, " return num * 2; "), React.createElement("h5", null, " ", "};", " ")), React.createElement("div", {
     style: {
       display: "flex",
-      justifySelf: "center"
+      justifyContent: "center"
     }
-  }, "num array")), React.createElement("ul", {
+  }, React.createElement("h3", null, "inputArray : number[]")), React.createElement("ul", {
     className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4")
   }, React.createElement("h1", {
     className: cls.arrBrkt
@@ -28525,7 +28536,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56525" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60401" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
