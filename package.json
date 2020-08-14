@@ -1,0 +1,27 @@
+{
+  "name": "visualizehofs",
+  "version": "1.0.0",
+  "description": "Playing around with visualizing Higher Order Functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/risingBirdSong/visualizeHOFs.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/risingBirdSong/visualizeHOFs/issues"
+  },
+  "homepage": "https://github.com/risingBirdSong/visualizeHOFs#readme",
+  "dependencies": {
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "parcel-bundler": "^1.12.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.9.7"
+  }
+}
