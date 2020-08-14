@@ -28288,6 +28288,14 @@ if ("development" === 'production') {
 },{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
   Object.defineProperty(o, k2, {
@@ -28339,9 +28347,10 @@ var cls;
 })(cls || (cls = {}));
 
 var Map = function Map() {
-  var _a = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-      nums = _a[0],
-      setNums = _a[1];
+  var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+      _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
+      nums = _react_1$useState2[0],
+      setNums = _react_1$useState2[1];
 
   return React.createElement("div", null, React.createElement("div", {
     style: {
@@ -28354,7 +28363,7 @@ var Map = function Map() {
       justifySelf: "center"
     }
   }, "num array")), React.createElement("ul", {
-    className: cls.numArr + " valign-wrapper row pink lighten-4"
+    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4")
   }, React.createElement("h1", {
     className: cls.arrBrkt
   }, "["), nums.map(function (num, idx) {
