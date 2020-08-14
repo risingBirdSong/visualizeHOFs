@@ -6,7 +6,7 @@
 
 ### animate the process of the transform function being applied to each number individually
 
-### design / layout
+# design / layout
 
 ### consider using react router to make the links take the user to different components.
 
