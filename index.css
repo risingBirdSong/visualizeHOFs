@@ -4,6 +4,17 @@
   justify-content: center;
 }
 
+.array p {
+  font-size: 1.5em;
+}
+
+.bracket {
+  font-size: 4.2rem;
+  line-height: 110%;
+  margin-top: 1rem;
+  margin-bottom: 1.8rem;
+}
+
 .numArr {
   display: flex;
   align-self: center;

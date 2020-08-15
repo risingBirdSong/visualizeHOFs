@@ -5,21 +5,11 @@ const App = () => {
     <main className="container">
       <nav>
         <ul className="row">
-          <li>
-            <a>about</a>
-          </li>
-          <li>
-            <a>further reading</a>
-          </li>
-          <li>
-            <a>map</a>
-          </li>
-          <li>
-            <a>filter</a>
-          </li>
-          <li>
-            <a>reduce</a>
-          </li>
+          <li><a>About</a></li>
+          <li><a>Further Reading</a></li>
+          <li><a className="active">Map</a></li>
+          <li><a>Filter</a></li>
+          <li><a>Reduce</a></li>
         </ul>
       </nav>
       <Map />
