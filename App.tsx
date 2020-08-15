@@ -7,7 +7,7 @@ const App = () => {
         <ul className="row">
           <li><a>About</a></li>
           <li><a>Further Reading</a></li>
-          <li><a className="active">Map</a></li>
+          <li className="active"><a>Map</a></li>
           <li><a>Filter</a></li>
           <li><a>Reduce</a></li>
         </ul>
