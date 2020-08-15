@@ -14,8 +14,41 @@ const doubleNumber = (num: number) => {
 
 const Map = () => {
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [algoUnderWay, setAlgoUnderWay] = useState(false);
+  const [outputArray, setOutputArray] = useState([1]);
+
+  const stateObj = {
+    nums: nums,
+    algoUnderWay: algoUnderWay,
+    outputArray: outputArray,
+  };
+
+  const setStateObj = {
+    setNums: setNums,
+    setAlgoUnderWay: setAlgoUnderWay,
+    outputArray: setOutputArray,
+  };
+
+  const takeStep = () => {
+    console.log("taking step");
+    setStateObj.setAlgoUnderWay(true);
+  };
+
   return (
     <div>
+      <ul className="row ">
+        <li>
+          <button onClick={takeStep} className="waves-effect waves-light btn">
+            step
+          </button>
+        </li>
+        <li>
+          <button className="waves-effect waves-light btn">todo 1 </button>
+        </li>
+        <li>
+          <button className="waves-effect waves-light btn">todo 2</button>
+        </li>
+      </ul>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h4>callback function</h4>
       </div>
@@ -32,9 +65,11 @@ const Map = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h3>inputArray : number[]</h3>
       </div>
-      <ul className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}>
+      <ul
+        className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
+      >
         <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
-        {nums.map((num, idx) => {
+        {stateObj.nums.map((num, idx) => {
           return (
             <li className={"col s1"} key={idx}>
               <p className={cls.num}>{num}</p>
@@ -43,6 +78,7 @@ const Map = () => {
         })}
         <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
       </ul>
+      {algoUnderWay ? outputArray : ""}
     </div>
   );
 };
