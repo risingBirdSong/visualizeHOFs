@@ -32,8 +32,8 @@ const Map = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h3>inputArray : number[]</h3>
       </div>
-      <ul className={`${cls.numArr} valign-wrapper row pink lighten-4`}>
-        <h1 className={cls.arrBrkt}>[</h1>
+      <ul className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}>
+        <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
         {nums.map((num, idx) => {
           return (
             <li className={"col s1"} key={idx}>
@@ -41,7 +41,7 @@ const Map = () => {
             </li>
           );
         })}
-        <h1 className={cls.arrBrkt}>]</h1>
+        <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
       </ul>
     </div>
   );
