@@ -24,3 +24,9 @@
 .num {
   color: red;
 }
+
+.overlay {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}

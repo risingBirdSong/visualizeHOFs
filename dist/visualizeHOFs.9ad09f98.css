@@ -25,5 +25,11 @@
   color: red;
 }
 
+.overlay {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+
 
 /*# sourceMappingURL=/visualizeHOFs.9ad09f98.css.map */

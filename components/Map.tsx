@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import { Stage, Layer, Star, Text } from "react-konva";
 
 enum cls {
   numArr = "numArr",
@@ -8,11 +9,47 @@ enum cls {
   callbackFunc = "callbackFunc",
 }
 
+function generateShapes() {
+  return [...Array(10)].map((_, i) => ({
+    id: i.toString(),
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    rotation: Math.random() * 180,
+    isDragging: false,
+  }));
+}
+
+const INITIAL_STATE = generateShapes();
+
 const doubleNumber = (num: number) => {
   return num * 2;
 };
 
 const Map = () => {
+  const [stars, setStars] = React.useState(INITIAL_STATE);
+
+  const handleDragStart = (e: any) => {
+    const id = e.target.id();
+    setStars(
+      stars.map((star) => {
+        return {
+          ...star,
+          isDragging: star.id === id,
+        };
+      })
+    );
+  };
+  const handleDragEnd = (e: any) => {
+    setStars(
+      stars.map((star) => {
+        return {
+          ...star,
+          isDragging: false,
+        };
+      })
+    );
+  };
+
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [algoUnderWay, setAlgoUnderWay] = useState(false);
   const [stepNumber, setStepNumber] = useState(-1);
@@ -59,61 +96,62 @@ const Map = () => {
   };
 
   return (
-    <div>
-      <ul className="row ">
-        <li>
-          <button onClick={takeStep} className="waves-effect waves-light btn">
-            step
-          </button>
-        </li>
-        <li>
-          <button className="waves-effect waves-light btn">todo 1 </button>
-        </li>
-        <li>
-          <button className="waves-effect waves-light btn">todo 2</button>
-        </li>
-      </ul>
-      <div style={{ display: "flex", justifyContent: "center" }}></div>
-      <div
-        style={{
-          padding: "5px",
-          marginTop: "5px",
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-        className={`${cls.callbackFunc}  purple lighten-3 valign-wrapper center-align`}
-      >
-        <h5 className="purple lighten-2" style={{ padding: "3px" }}>
-          callback function
-        </h5>
-
+    <div className="allApp">
+      <div className="foundation">
+        <ul className="row ">
+          <li>
+            <button onClick={takeStep} className="waves-effect waves-light btn">
+              step
+            </button>
+          </li>
+          <li>
+            <button className="waves-effect waves-light btn">todo 1 </button>
+          </li>
+          <li>
+            <button className="waves-effect waves-light btn">todo 2</button>
+          </li>
+        </ul>
+        <div style={{ display: "flex", justifyContent: "center" }}></div>
         <div
-          className="functionCode"
-          style={{ display: "flex", flexDirection: "column" }}
+          style={{
+            padding: "5px",
+            marginTop: "5px",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+          className={`${cls.callbackFunc}  purple lighten-3 valign-wrapper center-align`}
         >
-          {algoUnderWay ? (
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <h5 className="input">
-                input :{" "}
-                {stateObj.nums[stateObj.curIdx]
-                  ? stateObj.nums[stateObj.curIdx]
-                  : "undefined"}
-              </h5>
-              <h5 className="output">
-                output :{" "}
-                {stateObj.nums[stateObj.curIdx]
-                  ? doubleNumber(stateObj.nums[stateObj.curIdx])
-                  : "undefined"}
-              </h5>
+          <h5 className="purple lighten-2" style={{ padding: "3px" }}>
+            callback function
+          </h5>
+
+          <div
+            className="functionCode"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            {algoUnderWay ? (
+              <div style={{ display: "flex", justifyContent: "space-around" }}>
+                <h5 className="input">
+                  input :{" "}
+                  {stateObj.nums[stateObj.curIdx]
+                    ? stateObj.nums[stateObj.curIdx]
+                    : "undefined"}
+                </h5>
+                <h5 className="output">
+                  output :{" "}
+                  {stateObj.nums[stateObj.curIdx]
+                    ? doubleNumber(stateObj.nums[stateObj.curIdx])
+                    : "undefined"}
+                </h5>
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="funcBody">
+              <h5>const doubleNumber = (num: number) {"=>"}</h5>
+              <h5> num * 2 </h5>
             </div>
-          ) : (
-            ""
-          )}
-          <div className="funcBody">
-            <h5>const doubleNumber = (num: number) {"=>"}</h5>
-            <h5> num * 2 </h5>
-          </div>
-          {/* <div style={{ display: "flex", justifyContent: "center" }}>
+            {/* <div style={{ display: "flex", justifyContent: "center" }}>
             {algoUnderWay ? (
               <h5 className="output">
                 output :{" "}
@@ -125,37 +163,16 @@ const Map = () => {
               ""
             )}
           </div> */}
+          </div>
         </div>
-      </div>
 
-      <ul
-        className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
-      >
-        <h5>inputArr : number[] </h5>
-        <h5>=</h5>
-        <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
-        {stateObj.nums.map((num, idx) => {
-          return (
-            <li className={"col s1"} key={idx}>
-              {idx === stateObj.curIdx ? (
-                <p className={`${cls.num} pink lighten-3`}>{num}</p>
-              ) : (
-                <p className={cls.num}>{num}</p>
-              )}
-            </li>
-          );
-        })}
-        <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
-      </ul>
-
-      {algoUnderWay ? (
         <ul
           className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
         >
-          <h5>output : number[] </h5>
+          <h5>inputArr : number[] </h5>
           <h5>=</h5>
           <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
-          {stateObj.outputArray.map((num, idx) => {
+          {stateObj.nums.map((num, idx) => {
             return (
               <li className={"col s1"} key={idx}>
                 {idx === stateObj.curIdx ? (
@@ -168,9 +185,64 @@ const Map = () => {
           })}
           <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
         </ul>
-      ) : (
-        ""
-      )}
+
+        {algoUnderWay ? (
+          <ul
+            className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
+          >
+            <h5>output : number[] </h5>
+            <h5>=</h5>
+            <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
+            {stateObj.outputArray.map((num, idx) => {
+              return (
+                <li className={"col s1"} key={idx}>
+                  {idx === stateObj.curIdx ? (
+                    <p className={`${cls.num} pink lighten-3`}>{num}</p>
+                  ) : (
+                    <p className={cls.num}>{num}</p>
+                  )}
+                </li>
+              );
+            })}
+            <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
+          </ul>
+        ) : (
+          ""
+        )}
+      </div>
+      <Stage
+        width={window.innerWidth}
+        height={window.innerHeight}
+        className="overlay"
+      >
+        <Layer>
+          <Text text="Try to drag a star" />
+          {stars.map((star) => (
+            <Star
+              key={star.id}
+              id={star.id}
+              x={star.x}
+              y={star.y}
+              numPoints={5}
+              innerRadius={20}
+              outerRadius={40}
+              fill="#89b717"
+              opacity={0.8}
+              draggable
+              rotation={star.rotation}
+              shadowColor="black"
+              shadowBlur={10}
+              shadowOpacity={0.6}
+              shadowOffsetX={star.isDragging ? 10 : 5}
+              shadowOffsetY={star.isDragging ? 10 : 5}
+              scaleX={star.isDragging ? 1.2 : 1}
+              scaleY={star.isDragging ? 1.2 : 1}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+            />
+          ))}
+        </Layer>
+      </Stage>
     </div>
   );
 };
