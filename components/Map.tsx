@@ -87,26 +87,29 @@ const Map = () => {
           className="functionCode"
           style={{ display: "flex", flexDirection: "column" }}
         >
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            {algoUnderWay ? (
+          {algoUnderWay ? (
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
               <h5 className="input">
                 input :{" "}
                 {stateObj.nums[stateObj.curIdx]
                   ? stateObj.nums[stateObj.curIdx]
                   : "undefined"}
               </h5>
-            ) : (
-              ""
-            )}
-          </div>
+              <h5 className="output">
+                output :{" "}
+                {stateObj.nums[stateObj.curIdx]
+                  ? doubleNumber(stateObj.nums[stateObj.curIdx])
+                  : "undefined"}
+              </h5>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="funcBody">
-            <h5>
-              const doubleNumber = (num: number) {"=>"} {"{"}{" "}
-            </h5>
-            <h5> return num * 2; </h5>
-            <h5> {"};"} </h5>
+            <h5>const doubleNumber = (num: number) {"=>"}</h5>
+            <h5> num * 2 </h5>
           </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          {/* <div style={{ display: "flex", justifyContent: "center" }}>
             {algoUnderWay ? (
               <h5 className="output">
                 output :{" "}
@@ -117,7 +120,7 @@ const Map = () => {
             ) : (
               ""
             )}
-          </div>
+          </div> */}
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -140,14 +143,7 @@ const Map = () => {
         })}
         <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
       </ul>
-      {algoUnderWay ? (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <h4>output array </h4>
-          <h3>{stateObj.curIdx}</h3>
-        </div>
-      ) : (
-        ""
-      )}
+
       {algoUnderWay ? outputArray : ""}
     </div>
   );
