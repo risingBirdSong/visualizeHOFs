@@ -17,8 +17,7 @@ const Map = () => {
   const [algoUnderWay, setAlgoUnderWay] = useState(false);
   const [stepNumber, setStepNumber] = useState(-1);
   const [curIdx, setCurIdx] = useState(-1);
-  const [outputArray, setOutputArray] = useState([]);
-
+  const [outputArray, setOutputArray] = useState<Number[]>([]);
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -51,6 +50,11 @@ const Map = () => {
     }
     //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
+      if (stateObj.nums[stateObj.curIdx]) {
+        let copy = [...stateObj.outputArray];
+        copy.push(doubleNumber(stateObj.nums[stateObj.curIdx]));
+        setStateObj.setOutputArray(copy);
+      }
     }
   };
 
@@ -144,7 +148,29 @@ const Map = () => {
         <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
       </ul>
 
-      {algoUnderWay ? outputArray : ""}
+      {algoUnderWay ? (
+        <ul
+          className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
+        >
+          <h5>output : number[] </h5>
+          <h5>=</h5>
+          <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
+          {stateObj.outputArray.map((num, idx) => {
+            return (
+              <li className={"col s1"} key={idx}>
+                {idx === stateObj.curIdx ? (
+                  <p className={`${cls.num} pink lighten-3`}>{num}</p>
+                ) : (
+                  <p className={cls.num}>{num}</p>
+                )}
+              </li>
+            );
+          })}
+          <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
+        </ul>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
