@@ -15,23 +15,26 @@ const doubleNumber = (num: number) => {
 const Map = () => {
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [algoUnderWay, setAlgoUnderWay] = useState(false);
-  const [outputArray, setOutputArray] = useState([1]);
+  const [stepNumber, setStepNumber] = useState(-1);
+  const [outputArray, setOutputArray] = useState([]);
 
   const stateObj = {
     nums: nums,
     algoUnderWay: algoUnderWay,
     outputArray: outputArray,
+    stepNumber: stepNumber,
   };
 
   const setStateObj = {
     setNums: setNums,
     setAlgoUnderWay: setAlgoUnderWay,
-    outputArray: setOutputArray,
+    setOutputArray: setOutputArray,
+    setStepNumber: setStepNumber,
   };
 
   const takeStep = () => {
-    console.log("taking step");
     setStateObj.setAlgoUnderWay(true);
+    setStateObj.setStepNumber((val) => ++val);
   };
 
   return (
@@ -49,13 +52,20 @@ const Map = () => {
           <button className="waves-effect waves-light btn">todo 2</button>
         </li>
       </ul>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <h4>callback function</h4>
-      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}></div>
       <div
-        style={{ padding: "5px", marginTop: "5px" }}
-        className={`${cls.callbackFunc}  purple lighten-3`}
+        style={{
+          padding: "5px",
+          marginTop: "5px",
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+        className={`${cls.callbackFunc}  purple lighten-3 valign-wrapper center-align`}
       >
+        <h5 className="purple lighten-2" style={{ padding: "3px" }}>
+          callback function
+        </h5>
+
         <h5>
           const doubleNumber = (num: number) {"=>"} {"{"}{" "}
         </h5>
@@ -63,7 +73,7 @@ const Map = () => {
         <h5> {"};"} </h5>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <h3>inputArray : number[]</h3>
+        <h4>inputArray : number[]</h4>
       </div>
       <ul
         className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
@@ -78,6 +88,14 @@ const Map = () => {
         })}
         <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
       </ul>
+      {algoUnderWay ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <h4>output array </h4>
+          <h3>{stepNumber}</h3>
+        </div>
+      ) : (
+        ""
+      )}
       {algoUnderWay ? outputArray : ""}
     </div>
   );
