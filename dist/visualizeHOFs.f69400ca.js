@@ -56612,28 +56612,6 @@ var doubleNumber = function doubleNumber(num) {
 };
 
 var Map = function Map() {
-  var _React$useState = React.useState(INITIAL_STATE),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      stars = _React$useState2[0],
-      setStars = _React$useState2[1];
-
-  var handleDragStart = function handleDragStart(e) {
-    var id = e.target.id();
-    setStars(stars.map(function (star) {
-      return Object.assign(Object.assign({}, star), {
-        isDragging: star.id === id
-      });
-    }));
-  };
-
-  var handleDragEnd = function handleDragEnd(e) {
-    setStars(stars.map(function (star) {
-      return Object.assign(Object.assign({}, star), {
-        isDragging: false
-      });
-    }));
-  };
-
   var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       nums = _react_1$useState2[0],
@@ -56783,30 +56761,7 @@ var Map = function Map() {
     height: window.innerHeight,
     className: "overlay"
   }, React.createElement(react_konva_1.Layer, null, React.createElement(react_konva_1.Text, {
-    text: "Try to drag a star"
-  }), stars.map(function (star) {
-    return React.createElement(react_konva_1.Star, {
-      key: star.id,
-      id: star.id,
-      x: star.x,
-      y: star.y,
-      numPoints: 5,
-      innerRadius: 20,
-      outerRadius: 40,
-      fill: "#89b717",
-      opacity: 0.8,
-      draggable: true,
-      rotation: star.rotation,
-      shadowColor: "black",
-      shadowBlur: 10,
-      shadowOpacity: 0.6,
-      shadowOffsetX: star.isDragging ? 10 : 5,
-      shadowOffsetY: star.isDragging ? 10 : 5,
-      scaleX: star.isDragging ? 1.2 : 1,
-      scaleY: star.isDragging ? 1.2 : 1,
-      onDragStart: handleDragStart,
-      onDragEnd: handleDragEnd
-    });
+    text: "hello from konva"
   }))));
 };
 
