@@ -123,12 +123,12 @@ const Map = () => {
           </div> */}
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <h4>inputArray : number[]</h4>
-      </div>
+
       <ul
         className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
       >
+        <h5>inputArr : number[] </h5>
+        <h5>=</h5>
         <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
         {stateObj.nums.map((num, idx) => {
           return (
