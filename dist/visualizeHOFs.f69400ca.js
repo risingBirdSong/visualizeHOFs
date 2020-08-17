@@ -56582,7 +56582,8 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
-var react_konva_1 = require("react-konva");
+var react_konva_1 = require("react-konva"); // import { Ellipse } from "konva/types/shapes/Ellipse";
+
 
 var cls;
 
@@ -56631,7 +56632,15 @@ var Map = function Map() {
   }),
       _react_1$useState12 = _slicedToArray(_react_1$useState11, 2),
       curNumCoords = _react_1$useState12[0],
-      setCurNumCoords = _react_1$useState12[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      setCurNumCoords = _react_1$useState12[1];
+
+  var _react_1$useState13 = react_1.useState({
+    x: 0,
+    y: 0
+  }),
+      _react_1$useState14 = _slicedToArray(_react_1$useState13, 2),
+      inputCoords = _react_1$useState14[0],
+      setInputCoords = _react_1$useState14[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -56640,7 +56649,8 @@ var Map = function Map() {
     outputArray: outputArray,
     stepNumber: stepNumber,
     curIdx: curIdx,
-    curNumCoords: curNumCoords
+    curNumCoords: curNumCoords,
+    inputCoords: inputCoords
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -56649,7 +56659,8 @@ var Map = function Map() {
     setOutputArray: setOutputArray,
     setStepNumber: setStepNumber,
     setCurIdx: setCurIdx,
-    setCurNumCoords: setCurNumCoords
+    setCurNumCoords: setCurNumCoords,
+    setInputCoords: setInputCoords
   };
   react_1.useEffect(function () {
     console.log("curNumCoords", curNumCoords);
@@ -56734,7 +56745,20 @@ var Map = function Map() {
       justifyContent: "space-around"
     }
   }, React.createElement("h5", {
-    className: "input"
+    className: "input",
+    ref: function ref(ele) {
+      if (!stateObj.inputCoords) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          setStateObj.setInputCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }
   }, "input :", " ", stateObj.nums[stateObj.curIdx] ? stateObj.nums[stateObj.curIdx] : "undefined"), React.createElement("h5", {
     className: "output"
   }, "output :", " ", stateObj.nums[stateObj.curIdx] ? doubleNumber(stateObj.nums[stateObj.curIdx]) : "undefined")) : "", React.createElement("div", {
@@ -56790,12 +56814,24 @@ var Map = function Map() {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"
-  }, React.createElement(react_konva_1.Layer, null, stateObj.curNumCoords.x ? React.createElement(react_konva_1.Circle, {
-    radius: 20,
-    x: stateObj.curNumCoords.x,
-    y: stateObj.curNumCoords.y,
-    fill: "green"
-  }) : // <Circle radius={20} x={10} y={10} />
+  }, React.createElement(react_konva_1.Layer, null, stateObj.curNumCoords.x ? // <Circle
+  //   radius={20}
+  //   x={stateObj.curNumCoords.x}
+  //   y={stateObj.curNumCoords.y}
+  //   fill="green"
+  // />
+  //@ts-ignore
+  React.createElement(react_konva_1.Line, {
+    stroke: "black",
+    points: [stateObj.curNumCoords.x, stateObj.curNumCoords.y, stateObj.curNumCoords.x - 10, stateObj.curNumCoords.y - 50, stateObj.inputCoords.x - 10, stateObj.inputCoords.y + 50, stateObj.inputCoords.x, stateObj.inputCoords.y],
+    // points={[50, 60, 110, 50, 220, 50, 330, 40]}
+    bezier: true
+  }) : // <Line
+  //   stroke="black"
+  //   points={[50, 50, 200, 50, 200, 200, 50, 200]}
+  //   bezier
+  // />
+  // <Circle radius={20} x={10} y={10} />
   null)));
 };
 

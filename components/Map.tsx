@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState, useRef, useEffect } from "react";
-import { Stage, Layer, Star, Text, Circle } from "react-konva";
+import { Stage, Layer, Star, Text, Circle, Line } from "react-konva";
 import ReactDOM from "react-dom";
-import { Ellipse } from "konva/types/shapes/Ellipse";
+// import { Ellipse } from "konva/types/shapes/Ellipse";
 
 enum cls {
   numArr = "numArr",
@@ -23,6 +23,7 @@ const Map = () => {
   const [curIdx, setCurIdx] = useState(-1);
   const [outputArray, setOutputArray] = useState<Number[]>([]);
   const [curNumCoords, setCurNumCoords] = useState({ x: 0, y: 0 });
+  const [inputCoords, setInputCoords] = useState({ x: 0, y: 0 });
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -31,6 +32,7 @@ const Map = () => {
     stepNumber: stepNumber,
     curIdx: curIdx,
     curNumCoords: curNumCoords,
+    inputCoords: inputCoords,
   };
 
   // same as state object but for set state.
@@ -41,6 +43,7 @@ const Map = () => {
     setStepNumber: setStepNumber,
     setCurIdx: setCurIdx,
     setCurNumCoords: setCurNumCoords,
+    setInputCoords: setInputCoords,
   };
 
   useEffect(() => {
@@ -121,7 +124,18 @@ const Map = () => {
           >
             {algoUnderWay ? (
               <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <h5 className="input">
+                <h5
+                  className="input"
+                  ref={(ele) => {
+                    if (!stateObj.inputCoords) {
+                      let x = ele?.getBoundingClientRect().x;
+                      let y = ele?.getBoundingClientRect().y;
+                      if (x && y) {
+                        setStateObj.setInputCoords({ x, y });
+                      }
+                    }
+                  }}
+                >
                   input :{" "}
                   {stateObj.nums[stateObj.curIdx]
                     ? stateObj.nums[stateObj.curIdx]
@@ -213,13 +227,35 @@ const Map = () => {
       >
         <Layer>
           {stateObj.curNumCoords.x ? (
-            <Circle
-              radius={20}
-              x={stateObj.curNumCoords.x}
-              y={stateObj.curNumCoords.y}
-              fill="green"
+            // <Circle
+            //   radius={20}
+            //   x={stateObj.curNumCoords.x}
+            //   y={stateObj.curNumCoords.y}
+            //   fill="green"
+            // />
+            //@ts-ignore
+
+            <Line
+              stroke="black"
+              points={[
+                stateObj.curNumCoords.x,
+                stateObj.curNumCoords.y,
+                stateObj.curNumCoords.x - 10,
+                stateObj.curNumCoords.y - 50,
+                stateObj.inputCoords.x - 10,
+                stateObj.inputCoords.y + 50,
+                stateObj.inputCoords.x,
+                stateObj.inputCoords.y,
+              ]}
+              // points={[50, 60, 110, 50, 220, 50, 330, 40]}
+              bezier
             />
-          ) : // <Circle radius={20} x={10} y={10} />
+          ) : // <Line
+          //   stroke="black"
+          //   points={[50, 50, 200, 50, 200, 200, 50, 200]}
+          //   bezier
+          // />
+          // <Circle radius={20} x={10} y={10} />
           null}
         </Layer>
       </Stage>
