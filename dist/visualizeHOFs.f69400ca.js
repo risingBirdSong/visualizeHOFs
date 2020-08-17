@@ -56598,6 +56598,14 @@ var doubleNumber = function doubleNumber(num) {
   return num * 2;
 };
 
+var currentTaskE;
+
+(function (currentTaskE) {
+  currentTaskE[currentTaskE["inactive"] = 0] = "inactive";
+  currentTaskE[currentTaskE["input"] = 1] = "input";
+  currentTaskE[currentTaskE["output"] = 2] = "output";
+})(currentTaskE || (currentTaskE = {}));
+
 var Map = function Map() {
   var inputEl = react_1.useRef(null);
 
@@ -56639,8 +56647,29 @@ var Map = function Map() {
     y: 0
   }),
       _react_1$useState14 = _slicedToArray(_react_1$useState13, 2),
-      inputCoords = _react_1$useState14[0],
-      setInputCoords = _react_1$useState14[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      curOutputNumCoords = _react_1$useState14[0],
+      setCurOutputNumCoords = _react_1$useState14[1];
+
+  var _react_1$useState15 = react_1.useState({
+    x: 0,
+    y: 0
+  }),
+      _react_1$useState16 = _slicedToArray(_react_1$useState15, 2),
+      inputCoords = _react_1$useState16[0],
+      setInputCoords = _react_1$useState16[1];
+
+  var _react_1$useState17 = react_1.useState({
+    x: 0,
+    y: 0
+  }),
+      _react_1$useState18 = _slicedToArray(_react_1$useState17, 2),
+      outputCoords = _react_1$useState18[0],
+      setOutPutCoords = _react_1$useState18[1];
+
+  var _react_1$useState19 = react_1.useState(currentTaskE.inactive),
+      _react_1$useState20 = _slicedToArray(_react_1$useState19, 2),
+      currentTask = _react_1$useState20[0],
+      setCurrentTask = _react_1$useState20[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -56650,7 +56679,10 @@ var Map = function Map() {
     stepNumber: stepNumber,
     curIdx: curIdx,
     curNumCoords: curNumCoords,
-    inputCoords: inputCoords
+    inputCoords: inputCoords,
+    outputCoords: outputCoords,
+    currentTask: currentTask,
+    curOutputNumCoords: curOutputNumCoords
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -56660,11 +56692,13 @@ var Map = function Map() {
     setStepNumber: setStepNumber,
     setCurIdx: setCurIdx,
     setCurNumCoords: setCurNumCoords,
-    setInputCoords: setInputCoords
+    setInputCoords: setInputCoords,
+    setOutPutCoords: setOutPutCoords,
+    setCurrentTask: setCurrentTask,
+    setCurOutputNumCoords: setCurOutputNumCoords
   };
-  react_1.useEffect(function () {
-    console.log("curNumCoords", curNumCoords);
-    console.log("inputCoords", inputCoords);
+  react_1.useEffect(function () {// console.log("curNumCoords", curNumCoords);
+    // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
 
   var takeStep = function takeStep() {
@@ -56680,6 +56714,7 @@ var Map = function Map() {
       setStateObj.setCurIdx(function (idx) {
         return ++idx;
       });
+      setStateObj.setCurrentTask(currentTaskE.input);
     } //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
         if (stateObj.nums[stateObj.curIdx]) {
@@ -56687,6 +56722,7 @@ var Map = function Map() {
 
           copy.push(doubleNumber(stateObj.nums[stateObj.curIdx]));
           setStateObj.setOutputArray(copy);
+          setStateObj.setCurrentTask(currentTaskE.output);
         }
       }
   };
@@ -56712,7 +56748,7 @@ var Map = function Map() {
     //   }
     // }}
     className: "waves-effect waves-light btn"
-  }, "step"), console.log("inputEl", inputEl)), React.createElement("li", null, React.createElement("button", {
+  }, "step")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
   }, "todo 1 ")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
@@ -56754,7 +56790,7 @@ var Map = function Map() {
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
         if (x && y) {
-          y += 27;
+          y += 25;
           setStateObj.setInputCoords({
             x: x,
             y: y
@@ -56764,7 +56800,19 @@ var Map = function Map() {
     }
   }, " ", stateObj.nums[stateObj.curIdx]) : "undefined"), React.createElement("h5", {
     className: "output"
-  }, "output :", " ", stateObj.nums[stateObj.curIdx] ? doubleNumber(stateObj.nums[stateObj.curIdx]) : "undefined")) : "", React.createElement("div", {
+  }, "output :", " ", stateObj.nums[stateObj.curIdx] ? React.createElement("span", {
+    ref: function ref(ele) {
+      var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+      var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+      if (x && y && x !== stateObj.outputCoords.x) {
+        setStateObj.setOutPutCoords({
+          x: x,
+          y: y
+        });
+      }
+    }
+  }, " ", doubleNumber(stateObj.nums[stateObj.curIdx]), " ") : "undefined")) : "", React.createElement("div", {
     className: "funcBody"
   }, React.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), React.createElement("h5", null, " num * 2 ")))), React.createElement("ul", {
     className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align array")
@@ -56777,7 +56825,6 @@ var Map = function Map() {
     }, idx === stateObj.curIdx ? React.createElement("p", {
       ref: function ref(ele) {
         //perhaps TODO later remove bang
-        console.log("ele", ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x);
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
@@ -56807,7 +56854,18 @@ var Map = function Map() {
       className: "col s1",
       key: idx
     }, idx === stateObj.curIdx ? React.createElement("p", {
-      className: "".concat(cls.num, " pink lighten-3")
+      className: "".concat(cls.num, " pink lighten-3"),
+      ref: function ref(ele) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y && x !== curOutputNumCoords.x) {
+          setStateObj.setCurOutputNumCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
     }, num) : React.createElement("p", {
       className: cls.num
     }, num));
@@ -56817,25 +56875,31 @@ var Map = function Map() {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"
-  }, React.createElement(react_konva_1.Layer, null, stateObj.curNumCoords.x ? // <Circle
+  }, React.createElement(react_konva_1.Layer, null, stateObj.currentTask === currentTaskE.input ? // <Circle
   //   radius={20}
   //   x={stateObj.curNumCoords.x}
   //   y={stateObj.curNumCoords.y}
   //   fill="green"
   // />
   //@ts-ignore
-  React.createElement(react_konva_1.Line, {
-    stroke: "black",
-    points: [stateObj.curNumCoords.x, stateObj.curNumCoords.y, stateObj.curNumCoords.x - 10, stateObj.curNumCoords.y - 50, stateObj.inputCoords.x - 10, stateObj.inputCoords.y + 50, stateObj.inputCoords.x, stateObj.inputCoords.y],
+  React.createElement(React.Fragment, null, React.createElement(react_konva_1.Line, {
+    stroke: "blue",
+    points: [stateObj.curNumCoords.x, stateObj.curNumCoords.y, stateObj.curNumCoords.x - 10, stateObj.curNumCoords.y - 50, stateObj.inputCoords.x - 10, stateObj.inputCoords.y + 50, stateObj.inputCoords.x + 5, stateObj.inputCoords.y + 6],
     // points={[50, 60, 110, 50, 220, 50, 330, 40]}
     bezier: true
-  }) : // <Line
-  //   stroke="black"
-  //   points={[50, 50, 200, 50, 200, 200, 50, 200]}
-  //   bezier
-  // />
-  // <Circle radius={20} x={10} y={10} />
-  null)));
+  }), React.createElement(react_konva_1.Wedge, {
+    x: stateObj.inputCoords.x + 3,
+    y: stateObj.inputCoords.y,
+    angle: 60,
+    rotation: 60,
+    radius: 14,
+    fill: "blue"
+  })) : stateObj.currentTask === currentTaskE.output ? React.createElement(react_konva_1.Line, {
+    stroke: "purple",
+    points: [stateObj.curOutputNumCoords.x, stateObj.curOutputNumCoords.y, stateObj.curOutputNumCoords.x - 10, stateObj.curOutputNumCoords.y - 50, stateObj.outputCoords.x - 10, stateObj.outputCoords.y + 50, stateObj.outputCoords.x + 5, stateObj.outputCoords.y + 6],
+    // points={[50, 60, 110, 50, 220, 50, 330, 40]}
+    bezier: true
+  }) : null)));
 };
 
 exports.default = Map;

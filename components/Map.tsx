@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useRef, useEffect } from "react";
-import { Stage, Layer, Star, Text, Circle, Line } from "react-konva";
+import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
@@ -15,6 +15,12 @@ const doubleNumber = (num: number) => {
   return num * 2;
 };
 
+enum currentTaskE {
+  "inactive",
+  "input",
+  "output",
+}
+
 const Map = () => {
   const inputEl = useRef(null);
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -23,7 +29,12 @@ const Map = () => {
   const [curIdx, setCurIdx] = useState(-1);
   const [outputArray, setOutputArray] = useState<Number[]>([]);
   const [curNumCoords, setCurNumCoords] = useState({ x: 0, y: 0 });
+  const [curOutputNumCoords, setCurOutputNumCoords] = useState({ x: 0, y: 0 });
   const [inputCoords, setInputCoords] = useState({ x: 0, y: 0 });
+  const [outputCoords, setOutPutCoords] = useState({ x: 0, y: 0 });
+  const [currentTask, setCurrentTask] = useState<currentTaskE>(
+    currentTaskE.inactive
+  );
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -33,6 +44,9 @@ const Map = () => {
     curIdx: curIdx,
     curNumCoords: curNumCoords,
     inputCoords: inputCoords,
+    outputCoords: outputCoords,
+    currentTask: currentTask,
+    curOutputNumCoords: curOutputNumCoords,
   };
 
   // same as state object but for set state.
@@ -44,11 +58,14 @@ const Map = () => {
     setCurIdx: setCurIdx,
     setCurNumCoords: setCurNumCoords,
     setInputCoords: setInputCoords,
+    setOutPutCoords: setOutPutCoords,
+    setCurrentTask: setCurrentTask,
+    setCurOutputNumCoords: setCurOutputNumCoords,
   };
 
   useEffect(() => {
-    console.log("curNumCoords", curNumCoords);
-    console.log("inputCoords", inputCoords);
+    // console.log("curNumCoords", curNumCoords);
+    // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
 
   const takeStep = () => {
@@ -62,6 +79,7 @@ const Map = () => {
     //even steps will pass control to callback funtion to process input ele
     if (stepNumber % 2 === 0) {
       setStateObj.setCurIdx((idx) => ++idx);
+      setStateObj.setCurrentTask(currentTaskE.input);
     }
     //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
@@ -69,6 +87,7 @@ const Map = () => {
         let copy = [...stateObj.outputArray];
         copy.push(doubleNumber(stateObj.nums[stateObj.curIdx]));
         setStateObj.setOutputArray(copy);
+        setStateObj.setCurrentTask(currentTaskE.output);
       }
     }
   };
@@ -96,7 +115,6 @@ const Map = () => {
             >
               step
             </button>
-            {console.log("inputEl", inputEl)}
           </li>
           <li>
             <button className="waves-effect waves-light btn">todo 1 </button>
@@ -134,7 +152,7 @@ const Map = () => {
                           let x = ele?.getBoundingClientRect().x;
                           let y = ele?.getBoundingClientRect().y;
                           if (x && y) {
-                            y += 27;
+                            y += 25;
                             setStateObj.setInputCoords({ x, y });
                           }
                         }
@@ -149,9 +167,22 @@ const Map = () => {
                 </h5>
                 <h5 className="output">
                   output :{" "}
-                  {stateObj.nums[stateObj.curIdx]
-                    ? doubleNumber(stateObj.nums[stateObj.curIdx])
-                    : "undefined"}
+                  {stateObj.nums[stateObj.curIdx] ? (
+                    <span
+                      ref={(ele) => {
+                        let x = ele?.getBoundingClientRect().x;
+                        let y = ele?.getBoundingClientRect().y;
+                        if (x && y && x !== stateObj.outputCoords.x) {
+                          setStateObj.setOutPutCoords({ x, y });
+                        }
+                      }}
+                    >
+                      {" "}
+                      {doubleNumber(stateObj.nums[stateObj.curIdx])}{" "}
+                    </span>
+                  ) : (
+                    "undefined"
+                  )}
                 </h5>
               </div>
             ) : (
@@ -177,8 +208,6 @@ const Map = () => {
                   <p
                     ref={(ele) => {
                       //perhaps TODO later remove bang
-                      console.log("ele", ele?.getBoundingClientRect().x);
-
                       let x = ele?.getBoundingClientRect().x;
                       let y = ele?.getBoundingClientRect().y;
                       if (x && y) {
@@ -213,7 +242,18 @@ const Map = () => {
               return (
                 <li className={"col s1"} key={idx}>
                   {idx === stateObj.curIdx ? (
-                    <p className={`${cls.num} pink lighten-3`}>{num}</p>
+                    <p
+                      className={`${cls.num} pink lighten-3`}
+                      ref={(ele) => {
+                        let x = ele?.getBoundingClientRect().x;
+                        let y = ele?.getBoundingClientRect().y;
+                        if (x && y && x !== curOutputNumCoords.x) {
+                          setStateObj.setCurOutputNumCoords({ x, y });
+                        }
+                      }}
+                    >
+                      {num}
+                    </p>
                   ) : (
                     <p className={cls.num}>{num}</p>
                   )}
@@ -232,7 +272,7 @@ const Map = () => {
         className="overlay"
       >
         <Layer>
-          {stateObj.curNumCoords.x ? (
+          {stateObj.currentTask === currentTaskE.input ? (
             // <Circle
             //   radius={20}
             //   x={stateObj.curNumCoords.x}
@@ -241,28 +281,48 @@ const Map = () => {
             // />
             //@ts-ignore
 
+            <React.Fragment>
+              <Line
+                stroke="blue"
+                points={[
+                  stateObj.curNumCoords.x,
+                  stateObj.curNumCoords.y,
+                  stateObj.curNumCoords.x - 10,
+                  stateObj.curNumCoords.y - 50,
+                  stateObj.inputCoords.x - 10,
+                  stateObj.inputCoords.y + 50,
+                  stateObj.inputCoords.x + 5,
+                  stateObj.inputCoords.y + 6,
+                ]}
+                // points={[50, 60, 110, 50, 220, 50, 330, 40]}
+                bezier
+              />
+              <Wedge
+                x={stateObj.inputCoords.x + 3}
+                y={stateObj.inputCoords.y}
+                angle={60}
+                rotation={60}
+                radius={14}
+                fill="blue"
+              />
+            </React.Fragment>
+          ) : stateObj.currentTask === currentTaskE.output ? (
             <Line
-              stroke="black"
+              stroke="purple"
               points={[
-                stateObj.curNumCoords.x,
-                stateObj.curNumCoords.y,
-                stateObj.curNumCoords.x - 10,
-                stateObj.curNumCoords.y - 50,
-                stateObj.inputCoords.x - 10,
-                stateObj.inputCoords.y + 50,
-                stateObj.inputCoords.x,
-                stateObj.inputCoords.y,
+                stateObj.curOutputNumCoords.x,
+                stateObj.curOutputNumCoords.y,
+                stateObj.curOutputNumCoords.x - 10,
+                stateObj.curOutputNumCoords.y - 50,
+                stateObj.outputCoords.x - 10,
+                stateObj.outputCoords.y + 50,
+                stateObj.outputCoords.x + 5,
+                stateObj.outputCoords.y + 6,
               ]}
               // points={[50, 60, 110, 50, 220, 50, 330, 40]}
               bezier
             />
-          ) : // <Line
-          //   stroke="black"
-          //   points={[50, 50, 200, 50, 200, 200, 50, 200]}
-          //   bezier
-          // />
-          // <Circle radius={20} x={10} y={10} />
-          null}
+          ) : null}
         </Layer>
       </Stage>
     </div>
