@@ -56624,57 +56624,62 @@ var Map = function Map() {
       algoHasFinished = _react_1$useState6[0],
       setAlgoHasFinished = _react_1$useState6[1];
 
-  var _react_1$useState7 = react_1.useState(-1),
+  var _react_1$useState7 = react_1.useState(false),
       _react_1$useState8 = _slicedToArray(_react_1$useState7, 2),
-      stepNumber = _react_1$useState8[0],
-      setStepNumber = _react_1$useState8[1];
+      algoWillReset = _react_1$useState8[0],
+      setAlgoWillReset = _react_1$useState8[1];
 
-  var _react_1$useState9 = react_1.useState(-1),
+  var _react_1$useState9 = react_1.useState(0),
       _react_1$useState10 = _slicedToArray(_react_1$useState9, 2),
-      curIdx = _react_1$useState10[0],
-      setCurIdx = _react_1$useState10[1];
+      stepNumber = _react_1$useState10[0],
+      setStepNumber = _react_1$useState10[1];
 
-  var _react_1$useState11 = react_1.useState([]),
+  var _react_1$useState11 = react_1.useState(-1),
       _react_1$useState12 = _slicedToArray(_react_1$useState11, 2),
-      outputArray = _react_1$useState12[0],
-      setOutputArray = _react_1$useState12[1];
+      curIdx = _react_1$useState12[0],
+      setCurIdx = _react_1$useState12[1];
 
-  var _react_1$useState13 = react_1.useState({
-    x: 0,
-    y: 0
-  }),
+  var _react_1$useState13 = react_1.useState([]),
       _react_1$useState14 = _slicedToArray(_react_1$useState13, 2),
-      curNumCoords = _react_1$useState14[0],
-      setCurNumCoords = _react_1$useState14[1];
+      outputArray = _react_1$useState14[0],
+      setOutputArray = _react_1$useState14[1];
 
   var _react_1$useState15 = react_1.useState({
     x: 0,
     y: 0
   }),
       _react_1$useState16 = _slicedToArray(_react_1$useState15, 2),
-      curOutputNumCoords = _react_1$useState16[0],
-      setCurOutputNumCoords = _react_1$useState16[1];
+      curNumCoords = _react_1$useState16[0],
+      setCurNumCoords = _react_1$useState16[1];
 
   var _react_1$useState17 = react_1.useState({
     x: 0,
     y: 0
   }),
       _react_1$useState18 = _slicedToArray(_react_1$useState17, 2),
-      inputCoords = _react_1$useState18[0],
-      setInputCoords = _react_1$useState18[1];
+      curOutputNumCoords = _react_1$useState18[0],
+      setCurOutputNumCoords = _react_1$useState18[1];
 
   var _react_1$useState19 = react_1.useState({
     x: 0,
     y: 0
   }),
       _react_1$useState20 = _slicedToArray(_react_1$useState19, 2),
-      outputCoords = _react_1$useState20[0],
-      setOutPutCoords = _react_1$useState20[1];
+      inputCoords = _react_1$useState20[0],
+      setInputCoords = _react_1$useState20[1];
 
-  var _react_1$useState21 = react_1.useState(currentTaskE.inactive),
+  var _react_1$useState21 = react_1.useState({
+    x: 0,
+    y: 0
+  }),
       _react_1$useState22 = _slicedToArray(_react_1$useState21, 2),
-      currentTask = _react_1$useState22[0],
-      setCurrentTask = _react_1$useState22[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      outputCoords = _react_1$useState22[0],
+      setOutPutCoords = _react_1$useState22[1];
+
+  var _react_1$useState23 = react_1.useState(currentTaskE.inactive),
+      _react_1$useState24 = _slicedToArray(_react_1$useState23, 2),
+      currentTask = _react_1$useState24[0],
+      setCurrentTask = _react_1$useState24[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -56688,7 +56693,8 @@ var Map = function Map() {
     outputCoords: outputCoords,
     currentTask: currentTask,
     curOutputNumCoords: curOutputNumCoords,
-    algoHasFinished: algoHasFinished
+    algoHasFinished: algoHasFinished,
+    algoWillReset: algoWillReset
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -56702,11 +56708,23 @@ var Map = function Map() {
     setOutPutCoords: setOutPutCoords,
     setCurrentTask: setCurrentTask,
     setCurOutputNumCoords: setCurOutputNumCoords,
-    setAlgoHasFinished: setAlgoHasFinished
+    setAlgoHasFinished: setAlgoHasFinished,
+    setAlgoWillReset: setAlgoWillReset
   };
   react_1.useEffect(function () {// console.log("curNumCoords", curNumCoords);
     // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
+  react_1.useEffect(function () {
+    // console.log("curNumCoords", curNumCoords);
+    // console.log("inputCoords", inputCoords);
+    if (algoHasFinished) {
+      setStateObj.setAlgoWillReset(true);
+      setStateObj.setCurIdx(-1);
+      setStateObj.setCurrentTask(currentTaskE.inactive);
+      setStateObj.setStepNumber(0);
+      setStateObj.setOutputArray([]);
+    }
+  }, [algoHasFinished]);
 
   var takeStep = function takeStep(restart) {
     setStateObj.setAlgoHasStarted(true);
@@ -56716,14 +56734,9 @@ var Map = function Map() {
     // for example, 1 step iterate input, 2 step animate passing num to callback, 3 step processing callback
     // 4 step adding to output...
 
-    if (restart === true) {
-      console.log("has finished");
-      setStateObj.setAlgoHasStarted(true);
+    if (algoWillReset) {
       setStateObj.setAlgoHasFinished(false);
-      setStateObj.setCurIdx(-1);
-      setStateObj.setCurrentTask(currentTaskE.inactive);
-      setStateObj.setStepNumber(-1);
-      setStateObj.setOutputArray([]);
+      setAlgoWillReset(false);
     }
 
     if (stateObj.curIdx === stateObj.nums.length - 1 && stateObj.currentTask === currentTaskE.output) {
@@ -56777,7 +56790,7 @@ var Map = function Map() {
     //   }
     // }}
     className: "waves-effect waves-light btn"
-  }, stateObj.algoHasFinished === true ? "restart" : "step")), React.createElement("li", null, React.createElement("button", {
+  }, !stateObj.algoHasStarted && !stateObj.algoHasFinished ? "start" : stateObj.algoWillReset ? "restart" : "step")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
   }, "todo 1 ")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
@@ -56900,7 +56913,7 @@ var Map = function Map() {
     }, num));
   }), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "]")) : algoHasStarted ? React.createElement("h5", null, "algo complete! click restart to run again") : React.createElement("h5", null, "please click step to begin")), React.createElement(react_konva_1.Stage, {
+  }, "]")) : stateObj.algoWillReset ? React.createElement("h5", null, "algo complete! click restart to run again") : React.createElement("h5", null, "please click start to begin")), React.createElement(react_konva_1.Stage, {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"

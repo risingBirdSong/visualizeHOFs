@@ -26,7 +26,8 @@ const Map = () => {
   const [nums, setNums] = useState([1, 2, 3]);
   const [algoHasStarted, setAlgoHasStarted] = useState(false);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
-  const [stepNumber, setStepNumber] = useState(-1);
+  const [algoWillReset, setAlgoWillReset] = useState(false);
+  const [stepNumber, setStepNumber] = useState(0);
   const [curIdx, setCurIdx] = useState(-1);
   const [outputArray, setOutputArray] = useState<Number[]>([]);
   const [curNumCoords, setCurNumCoords] = useState({ x: 0, y: 0 });
@@ -49,6 +50,7 @@ const Map = () => {
     currentTask: currentTask,
     curOutputNumCoords: curOutputNumCoords,
     algoHasFinished: algoHasFinished,
+    algoWillReset: algoWillReset,
   };
 
   // same as state object but for set state.
@@ -64,12 +66,25 @@ const Map = () => {
     setCurrentTask: setCurrentTask,
     setCurOutputNumCoords: setCurOutputNumCoords,
     setAlgoHasFinished: setAlgoHasFinished,
+    setAlgoWillReset: setAlgoWillReset,
   };
 
   useEffect(() => {
     // console.log("curNumCoords", curNumCoords);
     // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
+
+  useEffect(() => {
+    // console.log("curNumCoords", curNumCoords);
+    // console.log("inputCoords", inputCoords);
+    if (algoHasFinished) {
+      setStateObj.setAlgoWillReset(true);
+      setStateObj.setCurIdx(-1);
+      setStateObj.setCurrentTask(currentTaskE.inactive);
+      setStateObj.setStepNumber(0);
+      setStateObj.setOutputArray([]);
+    }
+  }, [algoHasFinished]);
 
   const takeStep = (restart: boolean) => {
     setStateObj.setAlgoHasStarted(true);
@@ -79,14 +94,9 @@ const Map = () => {
     // for example, 1 step iterate input, 2 step animate passing num to callback, 3 step processing callback
     // 4 step adding to output...
 
-    if (restart === true) {
-      console.log("has finished");
-      setStateObj.setAlgoHasStarted(true);
+    if (algoWillReset) {
       setStateObj.setAlgoHasFinished(false);
-      setStateObj.setCurIdx(-1);
-      setStateObj.setCurrentTask(currentTaskE.inactive);
-      setStateObj.setStepNumber(-1);
-      setStateObj.setOutputArray([]);
+      setAlgoWillReset(false);
     }
 
     if (
@@ -139,7 +149,11 @@ const Map = () => {
               // }}
               className="waves-effect waves-light btn"
             >
-              {stateObj.algoHasFinished === true ? "restart" : "step"}
+              {!stateObj.algoHasStarted && !stateObj.algoHasFinished
+                ? "start"
+                : stateObj.algoWillReset
+                ? "restart"
+                : "step"}
             </button>
           </li>
           <li>
@@ -292,10 +306,10 @@ const Map = () => {
             })}
             <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
           </ul>
-        ) : algoHasStarted ? (
+        ) : stateObj.algoWillReset ? (
           <h5>algo complete! click restart to run again</h5>
         ) : (
-          <h5>please click step to begin</h5>
+          <h5>please click start to begin</h5>
         )}
       </div>
       <Stage
