@@ -56664,7 +56664,8 @@ var Map = function Map() {
   };
   react_1.useEffect(function () {
     console.log("curNumCoords", curNumCoords);
-  }, [curNumCoords]);
+    console.log("inputCoords", inputCoords);
+  }, [curNumCoords, inputCoords]);
 
   var takeStep = function takeStep() {
     setStateObj.setAlgoUnderWay(true);
@@ -56745,13 +56746,15 @@ var Map = function Map() {
       justifyContent: "space-around"
     }
   }, React.createElement("h5", {
-    className: "input",
+    className: "input"
+  }, "input :", " ", stateObj.nums[stateObj.curIdx] ? React.createElement("span", {
     ref: function ref(ele) {
-      if (!stateObj.inputCoords) {
+      if (!stateObj.inputCoords.x) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
         if (x && y) {
+          y += 27;
           setStateObj.setInputCoords({
             x: x,
             y: y
@@ -56759,7 +56762,7 @@ var Map = function Map() {
         }
       }
     }
-  }, "input :", " ", stateObj.nums[stateObj.curIdx] ? stateObj.nums[stateObj.curIdx] : "undefined"), React.createElement("h5", {
+  }, " ", stateObj.nums[stateObj.curIdx]) : "undefined"), React.createElement("h5", {
     className: "output"
   }, "output :", " ", stateObj.nums[stateObj.curIdx] ? doubleNumber(stateObj.nums[stateObj.curIdx]) : "undefined")) : "", React.createElement("div", {
     className: "funcBody"

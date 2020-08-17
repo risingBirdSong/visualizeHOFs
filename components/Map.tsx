@@ -48,7 +48,8 @@ const Map = () => {
 
   useEffect(() => {
     console.log("curNumCoords", curNumCoords);
-  }, [curNumCoords]);
+    console.log("inputCoords", inputCoords);
+  }, [curNumCoords, inputCoords]);
 
   const takeStep = () => {
     setStateObj.setAlgoUnderWay(true);
@@ -124,22 +125,27 @@ const Map = () => {
           >
             {algoUnderWay ? (
               <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <h5
-                  className="input"
-                  ref={(ele) => {
-                    if (!stateObj.inputCoords) {
-                      let x = ele?.getBoundingClientRect().x;
-                      let y = ele?.getBoundingClientRect().y;
-                      if (x && y) {
-                        setStateObj.setInputCoords({ x, y });
-                      }
-                    }
-                  }}
-                >
+                <h5 className="input">
                   input :{" "}
-                  {stateObj.nums[stateObj.curIdx]
-                    ? stateObj.nums[stateObj.curIdx]
-                    : "undefined"}
+                  {stateObj.nums[stateObj.curIdx] ? (
+                    <span
+                      ref={(ele) => {
+                        if (!stateObj.inputCoords.x) {
+                          let x = ele?.getBoundingClientRect().x;
+                          let y = ele?.getBoundingClientRect().y;
+                          if (x && y) {
+                            y += 27;
+                            setStateObj.setInputCoords({ x, y });
+                          }
+                        }
+                      }}
+                    >
+                      {" "}
+                      {stateObj.nums[stateObj.curIdx]}
+                    </span>
+                  ) : (
+                    "undefined"
+                  )}
                 </h5>
                 <h5 className="output">
                   output :{" "}
