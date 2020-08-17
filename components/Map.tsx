@@ -172,7 +172,9 @@ const Map = () => {
                       ref={(ele) => {
                         let x = ele?.getBoundingClientRect().x;
                         let y = ele?.getBoundingClientRect().y;
-                        if (x && y && x !== stateObj.outputCoords.x) {
+                        if (x && y && x + 8 !== stateObj.outputCoords.x) {
+                          y += 28;
+                          x += 8;
                           setStateObj.setOutPutCoords({ x, y });
                         }
                       }}
@@ -307,21 +309,31 @@ const Map = () => {
               />
             </React.Fragment>
           ) : stateObj.currentTask === currentTaskE.output ? (
-            <Line
-              stroke="purple"
-              points={[
-                stateObj.curOutputNumCoords.x,
-                stateObj.curOutputNumCoords.y,
-                stateObj.curOutputNumCoords.x - 10,
-                stateObj.curOutputNumCoords.y - 50,
-                stateObj.outputCoords.x - 10,
-                stateObj.outputCoords.y + 50,
-                stateObj.outputCoords.x + 5,
-                stateObj.outputCoords.y + 6,
-              ]}
-              // points={[50, 60, 110, 50, 220, 50, 330, 40]}
-              bezier
-            />
+            <React.Fragment>
+              <Line
+                stroke="purple"
+                points={[
+                  stateObj.curOutputNumCoords.x + 5,
+                  stateObj.curOutputNumCoords.y - 10,
+                  stateObj.curOutputNumCoords.x - 20,
+                  stateObj.curOutputNumCoords.y - 20,
+                  stateObj.outputCoords.x,
+                  stateObj.outputCoords.y,
+                  stateObj.outputCoords.x,
+                  stateObj.outputCoords.y,
+                ]}
+                // points={[50, 60, 110, 50, 220, 50, 330, 40]}
+                bezier
+              />
+              <Wedge
+                x={stateObj.curOutputNumCoords.x + 3}
+                y={stateObj.curOutputNumCoords.y - 3}
+                angle={60}
+                rotation={-130}
+                radius={14}
+                fill="blue"
+              />
+            </React.Fragment>
           ) : null}
         </Layer>
       </Stage>
