@@ -56877,7 +56877,7 @@ var Map = function Map() {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"
-  }, React.createElement(react_konva_1.Layer, null, stateObj.currentTask === currentTaskE.input ? // <Circle
+  }, stateObj.curIdx < stateObj.nums.length ? React.createElement(react_konva_1.Layer, null, stateObj.currentTask === currentTaskE.input ? // <Circle
   //   radius={20}
   //   x={stateObj.curNumCoords.x}
   //   y={stateObj.curNumCoords.y}
@@ -56908,7 +56908,7 @@ var Map = function Map() {
     rotation: -130,
     radius: 14,
     fill: "blue"
-  })) : null)));
+  })) : null) : null));
 };
 
 exports.default = Map;

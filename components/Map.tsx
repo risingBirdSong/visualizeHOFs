@@ -273,69 +273,71 @@ const Map = () => {
         height={window.innerHeight}
         className="overlay"
       >
-        <Layer>
-          {stateObj.currentTask === currentTaskE.input ? (
-            // <Circle
-            //   radius={20}
-            //   x={stateObj.curNumCoords.x}
-            //   y={stateObj.curNumCoords.y}
-            //   fill="green"
-            // />
-            //@ts-ignore
+        {stateObj.curIdx < stateObj.nums.length ? (
+          <Layer>
+            {stateObj.currentTask === currentTaskE.input ? (
+              // <Circle
+              //   radius={20}
+              //   x={stateObj.curNumCoords.x}
+              //   y={stateObj.curNumCoords.y}
+              //   fill="green"
+              // />
+              //@ts-ignore
 
-            <React.Fragment>
-              <Line
-                stroke="blue"
-                points={[
-                  stateObj.curNumCoords.x,
-                  stateObj.curNumCoords.y,
-                  stateObj.curNumCoords.x - 10,
-                  stateObj.curNumCoords.y - 50,
-                  stateObj.inputCoords.x - 10,
-                  stateObj.inputCoords.y + 50,
-                  stateObj.inputCoords.x + 5,
-                  stateObj.inputCoords.y + 6,
-                ]}
-                // points={[50, 60, 110, 50, 220, 50, 330, 40]}
-                bezier
-              />
-              <Wedge
-                x={stateObj.inputCoords.x + 3}
-                y={stateObj.inputCoords.y}
-                angle={60}
-                rotation={60}
-                radius={14}
-                fill="blue"
-              />
-            </React.Fragment>
-          ) : stateObj.currentTask === currentTaskE.output ? (
-            <React.Fragment>
-              <Line
-                stroke="purple"
-                points={[
-                  stateObj.curOutputNumCoords.x + 5,
-                  stateObj.curOutputNumCoords.y - 10,
-                  stateObj.curOutputNumCoords.x - 20,
-                  stateObj.curOutputNumCoords.y - 20,
-                  stateObj.outputCoords.x,
-                  stateObj.outputCoords.y,
-                  stateObj.outputCoords.x,
-                  stateObj.outputCoords.y,
-                ]}
-                // points={[50, 60, 110, 50, 220, 50, 330, 40]}
-                bezier
-              />
-              <Wedge
-                x={stateObj.curOutputNumCoords.x + 3}
-                y={stateObj.curOutputNumCoords.y - 3}
-                angle={60}
-                rotation={-130}
-                radius={14}
-                fill="blue"
-              />
-            </React.Fragment>
-          ) : null}
-        </Layer>
+              <React.Fragment>
+                <Line
+                  stroke="blue"
+                  points={[
+                    stateObj.curNumCoords.x,
+                    stateObj.curNumCoords.y,
+                    stateObj.curNumCoords.x - 10,
+                    stateObj.curNumCoords.y - 50,
+                    stateObj.inputCoords.x - 10,
+                    stateObj.inputCoords.y + 50,
+                    stateObj.inputCoords.x + 5,
+                    stateObj.inputCoords.y + 6,
+                  ]}
+                  // points={[50, 60, 110, 50, 220, 50, 330, 40]}
+                  bezier
+                />
+                <Wedge
+                  x={stateObj.inputCoords.x + 3}
+                  y={stateObj.inputCoords.y}
+                  angle={60}
+                  rotation={60}
+                  radius={14}
+                  fill="blue"
+                />
+              </React.Fragment>
+            ) : stateObj.currentTask === currentTaskE.output ? (
+              <React.Fragment>
+                <Line
+                  stroke="purple"
+                  points={[
+                    stateObj.curOutputNumCoords.x + 5,
+                    stateObj.curOutputNumCoords.y - 10,
+                    stateObj.curOutputNumCoords.x - 20,
+                    stateObj.curOutputNumCoords.y - 20,
+                    stateObj.outputCoords.x,
+                    stateObj.outputCoords.y,
+                    stateObj.outputCoords.x,
+                    stateObj.outputCoords.y,
+                  ]}
+                  // points={[50, 60, 110, 50, 220, 50, 330, 40]}
+                  bezier
+                />
+                <Wedge
+                  x={stateObj.curOutputNumCoords.x + 3}
+                  y={stateObj.curOutputNumCoords.y - 3}
+                  angle={60}
+                  rotation={-130}
+                  radius={14}
+                  fill="blue"
+                />
+              </React.Fragment>
+            ) : null}
+          </Layer>
+        ) : null}
       </Stage>
     </div>
   );
