@@ -11,18 +11,6 @@ enum cls {
   callbackFunc = "callbackFunc",
 }
 
-function generateShapes() {
-  return [...Array(10)].map((_, i) => ({
-    id: i.toString(),
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    rotation: Math.random() * 180,
-    isDragging: false,
-  }));
-}
-
-const INITIAL_STATE = generateShapes();
-
 const doubleNumber = (num: number) => {
   return num * 2;
 };
@@ -88,17 +76,18 @@ const Map = () => {
           <li>
             <button
               onClick={takeStep}
-              ref={(ele) => {
-                if (!ele) {
-                  console.log("no ref!");
-                  return;
-                }
-                const xCoord = ele.getBoundingClientRect().x;
-                const yCoord = ele.getBoundingClientRect().y;
-                if (!stateObj.curNumCoords.x) {
-                  setStateObj.setCurNumCoords({ x: xCoord, y: yCoord });
-                }
-              }}
+              //TESTING CASE
+              // ref={(ele) => {
+              //   if (!ele) {
+              //     console.log("no ref!");
+              //     return;
+              //   }
+              //   const xCoord = ele.getBoundingClientRect().x;
+              //   const yCoord = ele.getBoundingClientRect().y;
+              //   if (!stateObj.curNumCoords.x) {
+              //     setStateObj.setCurNumCoords({ x: xCoord, y: yCoord });
+              //   }
+              // }}
               className="waves-effect waves-light btn"
             >
               step
@@ -165,7 +154,25 @@ const Map = () => {
             return (
               <li className={"col s1"} key={idx}>
                 {idx === stateObj.curIdx ? (
-                  <p className={`${cls.num} pink lighten-3`}>{num}</p>
+                  <p
+                    ref={(ele) => {
+                      //perhaps TODO later remove bang
+                      console.log("ele", ele?.getBoundingClientRect().x);
+
+                      let x = ele?.getBoundingClientRect().x;
+                      let y = ele?.getBoundingClientRect().y;
+                      if (x && y) {
+                        if (x !== stateObj.curNumCoords.x) {
+                          setStateObj.setCurNumCoords({ x: x, y: y });
+                        }
+                      } else {
+                        console.log("x and y not found");
+                      }
+                    }}
+                    className={`${cls.num} pink lighten-3`}
+                  >
+                    {num}
+                  </p>
                 ) : (
                   <p className={cls.num}>{num}</p>
                 )}

@@ -56520,25 +56520,25 @@ module.exports = _extends({}, ReactKonvaCore);
 },{"./ReactKonvaCore":"node_modules/react-konva/lib/ReactKonvaCore.js","konva":"node_modules/konva/lib/index.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
@@ -56592,20 +56592,6 @@ var cls;
   cls["arrBrkt"] = "arrBrkt";
   cls["callbackFunc"] = "callbackFunc";
 })(cls || (cls = {}));
-
-function generateShapes() {
-  return _toConsumableArray(Array(10)).map(function (_, i) {
-    return {
-      id: i.toString(),
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      rotation: Math.random() * 180,
-      isDragging: false
-    };
-  });
-}
-
-var INITIAL_STATE = generateShapes();
 
 var doubleNumber = function doubleNumber(num) {
   return num * 2;
@@ -56701,22 +56687,18 @@ var Map = function Map() {
     className: "row "
   }, React.createElement("li", null, React.createElement("button", {
     onClick: takeStep,
-    ref: function ref(ele) {
-      if (!ele) {
-        console.log("no ref!");
-        return;
-      }
-
-      var xCoord = ele.getBoundingClientRect().x;
-      var yCoord = ele.getBoundingClientRect().y;
-
-      if (!stateObj.curNumCoords.x) {
-        setStateObj.setCurNumCoords({
-          x: xCoord,
-          y: yCoord
-        });
-      }
-    },
+    //TESTING CASE
+    // ref={(ele) => {
+    //   if (!ele) {
+    //     console.log("no ref!");
+    //     return;
+    //   }
+    //   const xCoord = ele.getBoundingClientRect().x;
+    //   const yCoord = ele.getBoundingClientRect().y;
+    //   if (!stateObj.curNumCoords.x) {
+    //     setStateObj.setCurNumCoords({ x: xCoord, y: yCoord });
+    //   }
+    // }}
     className: "waves-effect waves-light btn"
   }, "step"), console.log("inputEl", inputEl)), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
@@ -56766,6 +56748,23 @@ var Map = function Map() {
       className: "col s1",
       key: idx
     }, idx === stateObj.curIdx ? React.createElement("p", {
+      ref: function ref(ele) {
+        //perhaps TODO later remove bang
+        console.log("ele", ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x);
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          if (x !== stateObj.curNumCoords.x) {
+            setStateObj.setCurNumCoords({
+              x: x,
+              y: y
+            });
+          }
+        } else {
+          console.log("x and y not found");
+        }
+      },
       className: "".concat(cls.num, " pink lighten-3")
     }, num) : React.createElement("p", {
       className: cls.num
