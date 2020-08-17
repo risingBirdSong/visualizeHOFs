@@ -56616,65 +56616,70 @@ var Map = function Map() {
 
   var _react_1$useState3 = react_1.useState(false),
       _react_1$useState4 = _slicedToArray(_react_1$useState3, 2),
-      algoUnderWay = _react_1$useState4[0],
-      setAlgoUnderWay = _react_1$useState4[1];
+      algoHasStarted = _react_1$useState4[0],
+      setAlgoHasStarted = _react_1$useState4[1];
 
-  var _react_1$useState5 = react_1.useState(-1),
+  var _react_1$useState5 = react_1.useState(false),
       _react_1$useState6 = _slicedToArray(_react_1$useState5, 2),
-      stepNumber = _react_1$useState6[0],
-      setStepNumber = _react_1$useState6[1];
+      algoHasFinished = _react_1$useState6[0],
+      setAlgoHasFinished = _react_1$useState6[1];
 
   var _react_1$useState7 = react_1.useState(-1),
       _react_1$useState8 = _slicedToArray(_react_1$useState7, 2),
-      curIdx = _react_1$useState8[0],
-      setCurIdx = _react_1$useState8[1];
+      stepNumber = _react_1$useState8[0],
+      setStepNumber = _react_1$useState8[1];
 
-  var _react_1$useState9 = react_1.useState([]),
+  var _react_1$useState9 = react_1.useState(-1),
       _react_1$useState10 = _slicedToArray(_react_1$useState9, 2),
-      outputArray = _react_1$useState10[0],
-      setOutputArray = _react_1$useState10[1];
+      curIdx = _react_1$useState10[0],
+      setCurIdx = _react_1$useState10[1];
 
-  var _react_1$useState11 = react_1.useState({
-    x: 0,
-    y: 0
-  }),
+  var _react_1$useState11 = react_1.useState([]),
       _react_1$useState12 = _slicedToArray(_react_1$useState11, 2),
-      curNumCoords = _react_1$useState12[0],
-      setCurNumCoords = _react_1$useState12[1];
+      outputArray = _react_1$useState12[0],
+      setOutputArray = _react_1$useState12[1];
 
   var _react_1$useState13 = react_1.useState({
     x: 0,
     y: 0
   }),
       _react_1$useState14 = _slicedToArray(_react_1$useState13, 2),
-      curOutputNumCoords = _react_1$useState14[0],
-      setCurOutputNumCoords = _react_1$useState14[1];
+      curNumCoords = _react_1$useState14[0],
+      setCurNumCoords = _react_1$useState14[1];
 
   var _react_1$useState15 = react_1.useState({
     x: 0,
     y: 0
   }),
       _react_1$useState16 = _slicedToArray(_react_1$useState15, 2),
-      inputCoords = _react_1$useState16[0],
-      setInputCoords = _react_1$useState16[1];
+      curOutputNumCoords = _react_1$useState16[0],
+      setCurOutputNumCoords = _react_1$useState16[1];
 
   var _react_1$useState17 = react_1.useState({
     x: 0,
     y: 0
   }),
       _react_1$useState18 = _slicedToArray(_react_1$useState17, 2),
-      outputCoords = _react_1$useState18[0],
-      setOutPutCoords = _react_1$useState18[1];
+      inputCoords = _react_1$useState18[0],
+      setInputCoords = _react_1$useState18[1];
 
-  var _react_1$useState19 = react_1.useState(currentTaskE.inactive),
+  var _react_1$useState19 = react_1.useState({
+    x: 0,
+    y: 0
+  }),
       _react_1$useState20 = _slicedToArray(_react_1$useState19, 2),
-      currentTask = _react_1$useState20[0],
-      setCurrentTask = _react_1$useState20[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      outputCoords = _react_1$useState20[0],
+      setOutPutCoords = _react_1$useState20[1];
+
+  var _react_1$useState21 = react_1.useState(currentTaskE.inactive),
+      _react_1$useState22 = _slicedToArray(_react_1$useState21, 2),
+      currentTask = _react_1$useState22[0],
+      setCurrentTask = _react_1$useState22[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
     nums: nums,
-    algoUnderWay: algoUnderWay,
+    algoHasStarted: algoHasStarted,
     outputArray: outputArray,
     stepNumber: stepNumber,
     curIdx: curIdx,
@@ -56682,12 +56687,13 @@ var Map = function Map() {
     inputCoords: inputCoords,
     outputCoords: outputCoords,
     currentTask: currentTask,
-    curOutputNumCoords: curOutputNumCoords
+    curOutputNumCoords: curOutputNumCoords,
+    algoHasFinished: algoHasFinished
   }; // same as state object but for set state.
 
   var setStateObj = {
     setNums: setNums,
-    setAlgoUnderWay: setAlgoUnderWay,
+    setAlgoHasStarted: setAlgoHasStarted,
     setOutputArray: setOutputArray,
     setStepNumber: setStepNumber,
     setCurIdx: setCurIdx,
@@ -56695,20 +56701,26 @@ var Map = function Map() {
     setInputCoords: setInputCoords,
     setOutPutCoords: setOutPutCoords,
     setCurrentTask: setCurrentTask,
-    setCurOutputNumCoords: setCurOutputNumCoords
+    setCurOutputNumCoords: setCurOutputNumCoords,
+    setAlgoHasFinished: setAlgoHasFinished
   };
   react_1.useEffect(function () {// console.log("curNumCoords", curNumCoords);
     // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
 
   var takeStep = function takeStep() {
-    setStateObj.setAlgoUnderWay(true);
+    setStateObj.setAlgoHasStarted(true);
     setStateObj.setStepNumber(function (val) {
       return ++val;
     }); // only 2 mod steps so far but could imagin adding more fine grain control later.
     // for example, 1 step iterate input, 2 step animate passing num to callback, 3 step processing callback
     // 4 step adding to output...
     //even steps will pass control to callback funtion to process input ele
+
+    if (stateObj.curIdx > stateObj.nums.length) {
+      setStateObj.setAlgoHasFinished(true);
+      return;
+    }
 
     if (stepNumber % 2 === 0) {
       setStateObj.setCurIdx(function (idx) {
@@ -56776,7 +56788,7 @@ var Map = function Map() {
       display: "flex",
       flexDirection: "column"
     }
-  }, algoUnderWay ? React.createElement("div", {
+  }, algoHasStarted ? React.createElement("div", {
     style: {
       display: "flex",
       justifyContent: "space-around"
@@ -56800,7 +56812,7 @@ var Map = function Map() {
     }
   }, " ", stateObj.nums[stateObj.curIdx]) : "undefined"), React.createElement("h5", {
     className: "output"
-  }, "output :", " ", stateObj.nums[stateObj.curIdx] ? React.createElement("span", {
+  }, "output :", " ", stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.output ? React.createElement("span", {
     ref: function ref(ele) {
       var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
       var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
@@ -56814,7 +56826,7 @@ var Map = function Map() {
         });
       }
     }
-  }, " ", doubleNumber(stateObj.nums[stateObj.curIdx]), " ") : "undefined")) : "", React.createElement("div", {
+  }, " ", doubleNumber(stateObj.nums[stateObj.curIdx]), " ") : stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.input ? React.createElement("span", null, "?") : "undefined")) : "", React.createElement("div", {
     className: "funcBody"
   }, React.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), React.createElement("h5", null, " num * 2 ")))), React.createElement("ul", {
     className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align array")
@@ -56847,7 +56859,7 @@ var Map = function Map() {
     }, num));
   }), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "]")), algoUnderWay ? React.createElement("ul", {
+  }, "]")), algoHasStarted && !algoHasFinished ? React.createElement("ul", {
     className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align array")
   }, React.createElement("h5", null, "output : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
@@ -56873,7 +56885,7 @@ var Map = function Map() {
     }, num));
   }), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "]")) : ""), React.createElement(react_konva_1.Stage, {
+  }, "]")) : algoHasStarted && algoHasStarted ? React.createElement("h5", null, "algo complete!") : React.createElement("h5", null, "please click step to begin")), React.createElement(react_konva_1.Stage, {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"

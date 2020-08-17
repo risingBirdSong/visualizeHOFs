@@ -24,7 +24,8 @@ enum currentTaskE {
 const Map = () => {
   const inputEl = useRef(null);
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  const [algoUnderWay, setAlgoUnderWay] = useState(false);
+  const [algoHasStarted, setAlgoHasStarted] = useState(false);
+  const [algoHasFinished, setAlgoHasFinished] = useState(false);
   const [stepNumber, setStepNumber] = useState(-1);
   const [curIdx, setCurIdx] = useState(-1);
   const [outputArray, setOutputArray] = useState<Number[]>([]);
@@ -38,7 +39,7 @@ const Map = () => {
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
-    algoUnderWay: algoUnderWay,
+    algoHasStarted: algoHasStarted,
     outputArray: outputArray,
     stepNumber: stepNumber,
     curIdx: curIdx,
@@ -47,12 +48,13 @@ const Map = () => {
     outputCoords: outputCoords,
     currentTask: currentTask,
     curOutputNumCoords: curOutputNumCoords,
+    algoHasFinished: algoHasFinished,
   };
 
   // same as state object but for set state.
   const setStateObj = {
     setNums: setNums,
-    setAlgoUnderWay: setAlgoUnderWay,
+    setAlgoHasStarted: setAlgoHasStarted,
     setOutputArray: setOutputArray,
     setStepNumber: setStepNumber,
     setCurIdx: setCurIdx,
@@ -61,6 +63,7 @@ const Map = () => {
     setOutPutCoords: setOutPutCoords,
     setCurrentTask: setCurrentTask,
     setCurOutputNumCoords: setCurOutputNumCoords,
+    setAlgoHasFinished: setAlgoHasFinished,
   };
 
   useEffect(() => {
@@ -69,7 +72,7 @@ const Map = () => {
   }, [curNumCoords, inputCoords]);
 
   const takeStep = () => {
-    setStateObj.setAlgoUnderWay(true);
+    setStateObj.setAlgoHasStarted(true);
     setStateObj.setStepNumber((val) => ++val);
 
     // only 2 mod steps so far but could imagin adding more fine grain control later.
@@ -77,6 +80,10 @@ const Map = () => {
     // 4 step adding to output...
 
     //even steps will pass control to callback funtion to process input ele
+    if (stateObj.curIdx > stateObj.nums.length) {
+      setStateObj.setAlgoHasFinished(true);
+      return;
+    }
     if (stepNumber % 2 === 0) {
       setStateObj.setCurIdx((idx) => ++idx);
       setStateObj.setCurrentTask(currentTaskE.input);
@@ -141,7 +148,7 @@ const Map = () => {
             className="functionCode"
             style={{ display: "flex", flexDirection: "column" }}
           >
-            {algoUnderWay ? (
+            {algoHasStarted ? (
               <div style={{ display: "flex", justifyContent: "space-around" }}>
                 <h5 className="input">
                   input :{" "}
@@ -167,7 +174,8 @@ const Map = () => {
                 </h5>
                 <h5 className="output">
                   output :{" "}
-                  {stateObj.nums[stateObj.curIdx] ? (
+                  {stateObj.nums[stateObj.curIdx] &&
+                  stateObj.currentTask === currentTaskE.output ? (
                     <span
                       ref={(ele) => {
                         let x = ele?.getBoundingClientRect().x;
@@ -182,6 +190,9 @@ const Map = () => {
                       {" "}
                       {doubleNumber(stateObj.nums[stateObj.curIdx])}{" "}
                     </span>
+                  ) : stateObj.nums[stateObj.curIdx] &&
+                    stateObj.currentTask === currentTaskE.input ? (
+                    <span>?</span>
                   ) : (
                     "undefined"
                   )}
@@ -233,7 +244,7 @@ const Map = () => {
           <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
         </ul>
 
-        {algoUnderWay ? (
+        {algoHasStarted && !algoHasFinished ? (
           <ul
             className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
           >
@@ -264,8 +275,10 @@ const Map = () => {
             })}
             <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
           </ul>
+        ) : algoHasStarted && algoHasStarted ? (
+          <h5>algo complete!</h5>
         ) : (
-          ""
+          <h5>please click step to begin</h5>
         )}
       </div>
       <Stage
