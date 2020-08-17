@@ -56609,7 +56609,7 @@ var currentTaskE;
 var Map = function Map() {
   var inputEl = react_1.useRef(null);
 
-  var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+  var _react_1$useState = react_1.useState([1, 2, 3]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       nums = _react_1$useState2[0],
       setNums = _react_1$useState2[1];
@@ -56708,16 +56708,30 @@ var Map = function Map() {
     // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
 
-  var takeStep = function takeStep() {
+  var takeStep = function takeStep(restart) {
     setStateObj.setAlgoHasStarted(true);
     setStateObj.setStepNumber(function (val) {
       return ++val;
     }); // only 2 mod steps so far but could imagin adding more fine grain control later.
     // for example, 1 step iterate input, 2 step animate passing num to callback, 3 step processing callback
     // 4 step adding to output...
-    //even steps will pass control to callback funtion to process input ele
 
-    if (stateObj.curIdx > stateObj.nums.length) {
+    if (restart === true) {
+      console.log("has finished");
+      setStateObj.setAlgoHasStarted(true);
+      setStateObj.setAlgoHasFinished(false);
+      setStateObj.setCurIdx(-1);
+      setStateObj.setCurrentTask(currentTaskE.inactive);
+      setStateObj.setStepNumber(-1);
+      setStateObj.setOutputArray([]);
+    }
+
+    if (stateObj.curIdx === stateObj.nums.length - 1 && stateObj.currentTask === currentTaskE.output) {
+      setStateObj.setAlgoHasFinished(true);
+    } //even steps will pass control to callback funtion to process input ele
+
+
+    if (stateObj.curIdx >= stateObj.nums.length) {
       setStateObj.setAlgoHasFinished(true);
       return;
     }
@@ -56739,6 +56753,7 @@ var Map = function Map() {
       }
   };
 
+  console.log("has finished", stateObj.algoHasFinished);
   return React.createElement("div", {
     className: "allApp"
   }, React.createElement("div", {
@@ -56746,7 +56761,9 @@ var Map = function Map() {
   }, React.createElement("ul", {
     className: "row "
   }, React.createElement("li", null, React.createElement("button", {
-    onClick: takeStep,
+    onClick: function onClick() {
+      takeStep(stateObj.algoHasFinished === true ? true : false);
+    },
     //TESTING CASE
     // ref={(ele) => {
     //   if (!ele) {
@@ -56760,7 +56777,7 @@ var Map = function Map() {
     //   }
     // }}
     className: "waves-effect waves-light btn"
-  }, "step")), React.createElement("li", null, React.createElement("button", {
+  }, stateObj.algoHasFinished === true ? "restart" : "step")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
   }, "todo 1 ")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
@@ -56849,8 +56866,6 @@ var Map = function Map() {
               y: y
             });
           }
-        } else {
-          console.log("x and y not found");
         }
       },
       className: "".concat(cls.num, " pink lighten-3")
@@ -56885,7 +56900,7 @@ var Map = function Map() {
     }, num));
   }), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "]")) : algoHasStarted && algoHasStarted ? React.createElement("h5", null, "algo complete!") : React.createElement("h5", null, "please click step to begin")), React.createElement(react_konva_1.Stage, {
+  }, "]")) : algoHasStarted ? React.createElement("h5", null, "algo complete! click restart to run again") : React.createElement("h5", null, "please click step to begin")), React.createElement(react_konva_1.Stage, {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"

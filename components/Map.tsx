@@ -23,7 +23,7 @@ enum currentTaskE {
 
 const Map = () => {
   const inputEl = useRef(null);
-  const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [nums, setNums] = useState([1, 2, 3]);
   const [algoHasStarted, setAlgoHasStarted] = useState(false);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
   const [stepNumber, setStepNumber] = useState(-1);
@@ -71,7 +71,7 @@ const Map = () => {
     // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
 
-  const takeStep = () => {
+  const takeStep = (restart: boolean) => {
     setStateObj.setAlgoHasStarted(true);
     setStateObj.setStepNumber((val) => ++val);
 
@@ -79,8 +79,24 @@ const Map = () => {
     // for example, 1 step iterate input, 2 step animate passing num to callback, 3 step processing callback
     // 4 step adding to output...
 
+    if (restart === true) {
+      console.log("has finished");
+      setStateObj.setAlgoHasStarted(true);
+      setStateObj.setAlgoHasFinished(false);
+      setStateObj.setCurIdx(-1);
+      setStateObj.setCurrentTask(currentTaskE.inactive);
+      setStateObj.setStepNumber(-1);
+      setStateObj.setOutputArray([]);
+    }
+
+    if (
+      stateObj.curIdx === stateObj.nums.length - 1 &&
+      stateObj.currentTask === currentTaskE.output
+    ) {
+      setStateObj.setAlgoHasFinished(true);
+    }
     //even steps will pass control to callback funtion to process input ele
-    if (stateObj.curIdx > stateObj.nums.length) {
+    if (stateObj.curIdx >= stateObj.nums.length) {
       setStateObj.setAlgoHasFinished(true);
       return;
     }
@@ -98,6 +114,7 @@ const Map = () => {
       }
     }
   };
+  console.log("has finished", stateObj.algoHasFinished);
 
   return (
     <div className="allApp">
@@ -105,7 +122,9 @@ const Map = () => {
         <ul className="row ">
           <li>
             <button
-              onClick={takeStep}
+              onClick={() => {
+                takeStep(stateObj.algoHasFinished === true ? true : false);
+              }}
               //TESTING CASE
               // ref={(ele) => {
               //   if (!ele) {
@@ -120,7 +139,7 @@ const Map = () => {
               // }}
               className="waves-effect waves-light btn"
             >
-              step
+              {stateObj.algoHasFinished === true ? "restart" : "step"}
             </button>
           </li>
           <li>
@@ -227,8 +246,6 @@ const Map = () => {
                         if (x !== stateObj.curNumCoords.x) {
                           setStateObj.setCurNumCoords({ x: x, y: y });
                         }
-                      } else {
-                        console.log("x and y not found");
                       }
                     }}
                     className={`${cls.num} pink lighten-3`}
@@ -275,8 +292,8 @@ const Map = () => {
             })}
             <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
           </ul>
-        ) : algoHasStarted && algoHasStarted ? (
-          <h5>algo complete!</h5>
+        ) : algoHasStarted ? (
+          <h5>algo complete! click restart to run again</h5>
         ) : (
           <h5>please click step to begin</h5>
         )}
