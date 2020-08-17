@@ -1,6 +1,7 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Stage, Layer, Star, Text } from "react-konva";
+import ReactDOM from "react-dom";
 
 enum cls {
   numArr = "numArr",
@@ -26,6 +27,7 @@ const doubleNumber = (num: number) => {
 };
 
 const Map = () => {
+  const inputEl = useRef(null);
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [algoUnderWay, setAlgoUnderWay] = useState(false);
   const [stepNumber, setStepNumber] = useState(-1);
@@ -76,9 +78,21 @@ const Map = () => {
       <div className="foundation">
         <ul className="row ">
           <li>
-            <button onClick={takeStep} className="waves-effect waves-light btn">
+            <button
+              onClick={takeStep}
+              ref={(ele) => {
+                if (!ele) {
+                  console.log("no ref!");
+                  return;
+                }
+                console.log("x", ele.getBoundingClientRect().x);
+                console.log("y", ele.getBoundingClientRect().y);
+              }}
+              className="waves-effect waves-light btn"
+            >
               step
             </button>
+            {console.log("inputEl", inputEl)}
           </li>
           <li>
             <button className="waves-effect waves-light btn">todo 1 </button>
@@ -127,18 +141,6 @@ const Map = () => {
               <h5>const doubleNumber = (num: number) {"=>"}</h5>
               <h5> num * 2 </h5>
             </div>
-            {/* <div style={{ display: "flex", justifyContent: "center" }}>
-            {algoUnderWay ? (
-              <h5 className="output">
-                output :{" "}
-                {stateObj.nums[stateObj.curIdx]
-                  ? doubleNumber(stateObj.nums[stateObj.curIdx])
-                  : "undefined"}
-              </h5>
-            ) : (
-              ""
-            )}
-          </div> */}
           </div>
         </div>
 

@@ -56612,6 +56612,8 @@ var doubleNumber = function doubleNumber(num) {
 };
 
 var Map = function Map() {
+  var inputEl = react_1.useRef(null);
+
   var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       nums = _react_1$useState2[0],
@@ -56686,8 +56688,17 @@ var Map = function Map() {
     className: "row "
   }, React.createElement("li", null, React.createElement("button", {
     onClick: takeStep,
+    ref: function ref(ele) {
+      if (!ele) {
+        console.log("no ref!");
+        return;
+      }
+
+      console.log("x", ele.getBoundingClientRect().x);
+      console.log("y", ele.getBoundingClientRect().y);
+    },
     className: "waves-effect waves-light btn"
-  }, "step")), React.createElement("li", null, React.createElement("button", {
+  }, "step"), console.log("inputEl", inputEl)), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
   }, "todo 1 ")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
