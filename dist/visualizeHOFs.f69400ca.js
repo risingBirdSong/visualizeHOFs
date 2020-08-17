@@ -56637,7 +56637,15 @@ var Map = function Map() {
   var _react_1$useState9 = react_1.useState([]),
       _react_1$useState10 = _slicedToArray(_react_1$useState9, 2),
       outputArray = _react_1$useState10[0],
-      setOutputArray = _react_1$useState10[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      setOutputArray = _react_1$useState10[1];
+
+  var _react_1$useState11 = react_1.useState({
+    x: 0,
+    y: 0
+  }),
+      _react_1$useState12 = _slicedToArray(_react_1$useState11, 2),
+      curNumCoords = _react_1$useState12[0],
+      setCurNumCoords = _react_1$useState12[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -56645,7 +56653,8 @@ var Map = function Map() {
     algoUnderWay: algoUnderWay,
     outputArray: outputArray,
     stepNumber: stepNumber,
-    curIdx: curIdx
+    curIdx: curIdx,
+    curNumCoords: curNumCoords
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -56653,8 +56662,12 @@ var Map = function Map() {
     setAlgoUnderWay: setAlgoUnderWay,
     setOutputArray: setOutputArray,
     setStepNumber: setStepNumber,
-    setCurIdx: setCurIdx
+    setCurIdx: setCurIdx,
+    setCurNumCoords: setCurNumCoords
   };
+  react_1.useEffect(function () {
+    console.log("curNumCoords", curNumCoords);
+  }, [curNumCoords]);
 
   var takeStep = function takeStep() {
     setStateObj.setAlgoUnderWay(true);
@@ -56694,8 +56707,15 @@ var Map = function Map() {
         return;
       }
 
-      console.log("x", ele.getBoundingClientRect().x);
-      console.log("y", ele.getBoundingClientRect().y);
+      var xCoord = ele.getBoundingClientRect().x;
+      var yCoord = ele.getBoundingClientRect().y;
+
+      if (!stateObj.curNumCoords.x) {
+        setStateObj.setCurNumCoords({
+          x: xCoord,
+          y: yCoord
+        });
+      }
     },
     className: "waves-effect waves-light btn"
   }, "step"), console.log("inputEl", inputEl)), React.createElement("li", null, React.createElement("button", {
@@ -56771,9 +56791,13 @@ var Map = function Map() {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"
-  }, React.createElement(react_konva_1.Layer, null, React.createElement(react_konva_1.Text, {
-    text: "hello from konva"
-  }))));
+  }, React.createElement(react_konva_1.Layer, null, stateObj.curNumCoords.x ? React.createElement(react_konva_1.Circle, {
+    radius: 20,
+    x: stateObj.curNumCoords.x,
+    y: stateObj.curNumCoords.y,
+    fill: "green"
+  }) : // <Circle radius={20} x={10} y={10} />
+  null)));
 };
 
 exports.default = Map;
@@ -56827,8 +56851,6 @@ Object.defineProperty(exports, "__esModule", {
 var React = __importStar(require("react"));
 
 var Map_1 = __importDefault(require("./components/Map"));
-
-console.log("force for reployment");
 
 var App = function App() {
   return React.createElement("main", {

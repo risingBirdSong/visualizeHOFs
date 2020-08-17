@@ -1,7 +1,8 @@
 import * as React from "react";
-import { useState, useRef } from "react";
-import { Stage, Layer, Star, Text } from "react-konva";
+import { useState, useRef, useEffect } from "react";
+import { Stage, Layer, Star, Text, Circle } from "react-konva";
 import ReactDOM from "react-dom";
+import { Ellipse } from "konva/types/shapes/Ellipse";
 
 enum cls {
   numArr = "numArr",
@@ -33,6 +34,7 @@ const Map = () => {
   const [stepNumber, setStepNumber] = useState(-1);
   const [curIdx, setCurIdx] = useState(-1);
   const [outputArray, setOutputArray] = useState<Number[]>([]);
+  const [curNumCoords, setCurNumCoords] = useState({ x: 0, y: 0 });
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -40,6 +42,7 @@ const Map = () => {
     outputArray: outputArray,
     stepNumber: stepNumber,
     curIdx: curIdx,
+    curNumCoords: curNumCoords,
   };
 
   // same as state object but for set state.
@@ -49,7 +52,12 @@ const Map = () => {
     setOutputArray: setOutputArray,
     setStepNumber: setStepNumber,
     setCurIdx: setCurIdx,
+    setCurNumCoords: setCurNumCoords,
   };
+
+  useEffect(() => {
+    console.log("curNumCoords", curNumCoords);
+  }, [curNumCoords]);
 
   const takeStep = () => {
     setStateObj.setAlgoUnderWay(true);
@@ -85,8 +93,11 @@ const Map = () => {
                   console.log("no ref!");
                   return;
                 }
-                console.log("x", ele.getBoundingClientRect().x);
-                console.log("y", ele.getBoundingClientRect().y);
+                const xCoord = ele.getBoundingClientRect().x;
+                const yCoord = ele.getBoundingClientRect().y;
+                if (!stateObj.curNumCoords.x) {
+                  setStateObj.setCurNumCoords({ x: xCoord, y: yCoord });
+                }
               }}
               className="waves-effect waves-light btn"
             >
@@ -194,7 +205,15 @@ const Map = () => {
         className="overlay"
       >
         <Layer>
-          <Text text="hello from konva" />
+          {stateObj.curNumCoords.x ? (
+            <Circle
+              radius={20}
+              x={stateObj.curNumCoords.x}
+              y={stateObj.curNumCoords.y}
+              fill="green"
+            />
+          ) : // <Circle radius={20} x={10} y={10} />
+          null}
         </Layer>
       </Stage>
     </div>
