@@ -56679,7 +56679,17 @@ var Map = function Map() {
   var _react_1$useState23 = react_1.useState(currentTaskE.inactive),
       _react_1$useState24 = _slicedToArray(_react_1$useState23, 2),
       currentTask = _react_1$useState24[0],
-      setCurrentTask = _react_1$useState24[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      setCurrentTask = _react_1$useState24[1];
+
+  var _react_1$useState25 = react_1.useState(false),
+      _react_1$useState26 = _slicedToArray(_react_1$useState25, 2),
+      explainer = _react_1$useState26[0],
+      setExplainer = _react_1$useState26[1];
+
+  var _react_1$useState27 = react_1.useState(false),
+      _react_1$useState28 = _slicedToArray(_react_1$useState27, 2),
+      animInput = _react_1$useState28[0],
+      setAnimInput = _react_1$useState28[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -56766,7 +56776,6 @@ var Map = function Map() {
       }
   };
 
-  console.log("has finished", stateObj.algoHasFinished);
   return React.createElement("div", {
     className: "allApp"
   }, React.createElement("div", {
@@ -56791,8 +56800,13 @@ var Map = function Map() {
     // }}
     className: "waves-effect waves-light btn"
   }, !stateObj.algoHasStarted && !stateObj.algoHasFinished ? "start" : stateObj.algoWillReset ? "restart" : "step")), React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect waves-light btn"
-  }, "todo 1 ")), React.createElement("li", null, React.createElement("button", {
+    className: "waves-effect waves-light btn",
+    onClick: function onClick() {
+      setExplainer(function (past) {
+        return !past;
+      });
+    }
+  }, "explain", " ")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
   }, "todo 2"))), React.createElement("div", {
     style: {
@@ -56802,7 +56816,7 @@ var Map = function Map() {
   }), React.createElement("div", {
     style: {
       padding: "5px",
-      marginTop: "5px",
+      marginTop: "2px",
       display: "flex",
       justifyContent: "space-around"
     },
@@ -56827,7 +56841,9 @@ var Map = function Map() {
     className: "input"
   }, "input :", " ", stateObj.nums[stateObj.curIdx] ? React.createElement("span", {
     ref: function ref(ele) {
-      if (!stateObj.inputCoords.x) {
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+
+      if (stateObj.inputCoords.x !== curX) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
@@ -56837,10 +56853,15 @@ var Map = function Map() {
             x: x,
             y: y
           });
+          var numCoords = stateObj.curNumCoords;
+          setStateObj.setCurNumCoords({
+            x: numCoords.x,
+            y: numCoords.y + 1000
+          });
         }
       }
     }
-  }, " ", stateObj.nums[stateObj.curIdx]) : "undefined"), React.createElement("h5", {
+  }, " ", stateObj.nums[stateObj.curIdx]) : ""), React.createElement("h5", {
     className: "output"
   }, "output :", " ", stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.output ? React.createElement("span", {
     ref: function ref(ele) {
@@ -56859,7 +56880,7 @@ var Map = function Map() {
   }, " ", doubleNumber(stateObj.nums[stateObj.curIdx]), " ") : stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.input ? React.createElement("span", null, "?") : "undefined")) : "", React.createElement("div", {
     className: "funcBody"
   }, React.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), React.createElement("h5", null, " num * 2 ")))), React.createElement("ul", {
-    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align array")
+    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align inputArrayNums ").concat(animInput ? "inputArrayNumsAnimate" : "")
   }, React.createElement("h5", null, "inputArr : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
   }, "["), stateObj.nums.map(function (num, idx) {
@@ -56948,7 +56969,27 @@ var Map = function Map() {
     rotation: -130,
     radius: 14,
     fill: "blue"
-  })) : null) : null));
+  })) : null) : null), explainer ? React.createElement("div", {
+    className: "explanation blue lighten-1",
+    style: {
+      display: "flow",
+      padding: "10px"
+    }
+  }, React.createElement("p", null, "map boils down to 3 basic steps"), React.createElement("ul", {
+    className: "explainList"
+  }, React.createElement("li", null, React.createElement("button", {
+    className: "waves-effect waves-light btn",
+    onClick: function onClick() {
+      setAnimInput(true);
+      setTimeout(function () {
+        setAnimInput(false);
+      }, 1000);
+    }
+  }, "iterating the input array")), React.createElement("li", null, React.createElement("button", {
+    className: "waves-effect waves-light btn"
+  }, "invoking the callback function with each element")), React.createElement("li", null, React.createElement("button", {
+    className: "waves-effect waves-light btn"
+  }, "placing the returned value from the callback into the output array")), React.createElement("li", null))) : "");
 };
 
 exports.default = Map;
@@ -57096,7 +57137,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62618" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58145" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

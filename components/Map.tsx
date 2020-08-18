@@ -37,6 +37,8 @@ const Map = () => {
   const [currentTask, setCurrentTask] = useState<currentTaskE>(
     currentTaskE.inactive
   );
+  const [explainer, setExplainer] = useState(false);
+  const [animInput, setAnimInput] = useState(false);
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -124,7 +126,6 @@ const Map = () => {
       }
     }
   };
-  console.log("has finished", stateObj.algoHasFinished);
 
   return (
     <div className="allApp">
@@ -157,7 +158,14 @@ const Map = () => {
             </button>
           </li>
           <li>
-            <button className="waves-effect waves-light btn">todo 1 </button>
+            <button
+              className="waves-effect waves-light btn"
+              onClick={() => {
+                setExplainer((past) => !past);
+              }}
+            >
+              explain{" "}
+            </button>
           </li>
           <li>
             <button className="waves-effect waves-light btn">todo 2</button>
@@ -167,7 +175,7 @@ const Map = () => {
         <div
           style={{
             padding: "5px",
-            marginTop: "5px",
+            marginTop: "2px",
             display: "flex",
             justifyContent: "space-around",
           }}
@@ -188,12 +196,18 @@ const Map = () => {
                   {stateObj.nums[stateObj.curIdx] ? (
                     <span
                       ref={(ele) => {
-                        if (!stateObj.inputCoords.x) {
+                        let curX = ele?.getBoundingClientRect().x;
+                        if (stateObj.inputCoords.x !== curX) {
                           let x = ele?.getBoundingClientRect().x;
                           let y = ele?.getBoundingClientRect().y;
                           if (x && y) {
                             y += 25;
                             setStateObj.setInputCoords({ x, y });
+                            let numCoords = stateObj.curNumCoords;
+                            setStateObj.setCurNumCoords({
+                              x: numCoords.x,
+                              y: numCoords.y + 1000,
+                            });
                           }
                         }
                       }}
@@ -202,7 +216,7 @@ const Map = () => {
                       {stateObj.nums[stateObj.curIdx]}
                     </span>
                   ) : (
-                    "undefined"
+                    ""
                   )}
                 </h5>
                 <h5 className="output">
@@ -242,7 +256,11 @@ const Map = () => {
         </div>
 
         <ul
-          className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
+          className={`${
+            cls.numArr
+          } valign-wrapper row pink lighten-4 center-align inputArrayNums ${
+            animInput ? "inputArrayNumsAnimate" : ""
+          }`}
         >
           <h5>inputArr : number[] </h5>
           <h5>=</h5>
@@ -317,6 +335,9 @@ const Map = () => {
         height={window.innerHeight}
         className="overlay"
       >
+        {/* <Layer>
+          <Circle radius={200} x={200} y={200} fill={"green"}></Circle>
+        </Layer> */}
         {stateObj.curIdx < stateObj.nums.length ? (
           <Layer>
             {stateObj.currentTask === currentTaskE.input ? (
@@ -327,7 +348,6 @@ const Map = () => {
               //   fill="green"
               // />
               //@ts-ignore
-
               <React.Fragment>
                 <Line
                   stroke="blue"
@@ -383,6 +403,43 @@ const Map = () => {
           </Layer>
         ) : null}
       </Stage>
+      {explainer ? (
+        <div
+          className="explanation blue lighten-1"
+          style={{ display: "flow", padding: "10px" }}
+        >
+          <p>map boils down to 3 basic steps</p>
+          <ul className="explainList">
+            <li>
+              <button
+                className="waves-effect waves-light btn"
+                onClick={() => {
+                  setAnimInput(true);
+                  setTimeout(() => {
+                    setAnimInput(false);
+                  }, 1000);
+                }}
+              >
+                iterating the input array
+              </button>
+            </li>
+            <li>
+              <button className="waves-effect waves-light btn">
+                invoking the callback function with each element
+              </button>
+            </li>
+            <li>
+              <button className="waves-effect waves-light btn">
+                placing the returned value from the callback into the output
+                array
+              </button>
+            </li>
+            <li></li>
+          </ul>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

@@ -4,10 +4,6 @@
   justify-content: center;
 }
 
-.array p {
-  font-size: 1.5em;
-}
-
 .bracket {
   font-size: 4.2rem;
   line-height: 110%;
@@ -29,6 +25,44 @@
   position: absolute;
   left: 0px;
   bottom: 0px;
+}
+
+@keyframes backForth {
+  0% {
+    margin-left: -20px;
+    /* font-size: 20px; */
+  }
+  20% {
+    margin-left: 20px;
+    /* font-size: 10px; */
+  }
+  40% {
+    margin-left: -10px;
+    /* font-size: 30px; */
+  }
+  60% {
+    margin-left: 10px;
+    /* font-size: 30px; */
+  }
+  100% {
+    margin-left: 0px;
+    /* font-size: 5px; */
+  }
+}
+
+.inputArrayNumsAnimate {
+  width: 100%;
+  height: 100%;
+  animation-name: backForth;
+  animation-duration: 1s;
+}
+
+.inputArrayNums p {
+  font-size: 1.2em;
+}
+
+.explainList li {
+  margin: 4px;
 }
 
 
