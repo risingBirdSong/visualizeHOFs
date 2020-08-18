@@ -37,6 +37,11 @@ const Map = () => {
   const [currentTask, setCurrentTask] = useState<currentTaskE>(
     currentTaskE.inactive
   );
+  const [explainer, setExplainer] = useState(false);
+  //
+  const [keepFresh, setKeepFresh] = useState(false);
+  const [testingTrue, setTesting] = useState(false);
+
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -68,6 +73,10 @@ const Map = () => {
     setAlgoHasFinished: setAlgoHasFinished,
     setAlgoWillReset: setAlgoWillReset,
   };
+
+  useEffect(() => {
+    setKeepFresh((past) => !past);
+  }, [explainer]);
 
   useEffect(() => {
     // console.log("curNumCoords", curNumCoords);
@@ -124,7 +133,6 @@ const Map = () => {
       }
     }
   };
-  console.log("has finished", stateObj.algoHasFinished);
 
   return (
     <div className="allApp">
@@ -157,12 +165,36 @@ const Map = () => {
             </button>
           </li>
           <li>
-            <button className="waves-effect waves-light btn">todo 1 </button>
+            <button
+              className="waves-effect waves-light btn"
+              onClick={() => {
+                setExplainer((past) => !past);
+              }}
+            >
+              explain{" "}
+            </button>
           </li>
           <li>
             <button className="waves-effect waves-light btn">todo 2</button>
           </li>
         </ul>
+        {explainer ? (
+          <div
+            className="explanation blue lighten-1"
+            style={{ display: "flow" }}
+          >
+            <p style={{ padding: "8px" }}>
+              {" "}
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit,
+              sunt accusantium necessitatibus quaerat amet fugiat eos officia
+              provident, veritatis qui impedit possimus consequuntur porro
+              reiciendis velit dolore? Corrupti, cumque non!
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div style={{ display: "flex", justifyContent: "center" }}></div>
         <div
           style={{
@@ -185,10 +217,35 @@ const Map = () => {
               <div style={{ display: "flex", justifyContent: "space-around" }}>
                 <h5 className="input">
                   input :{" "}
-                  {stateObj.nums[stateObj.curIdx] ? (
+                  {stateObj.nums[stateObj.curIdx] && keepFresh ? (
                     <span
                       ref={(ele) => {
-                        if (!stateObj.inputCoords.x) {
+                        let curX = ele?.getBoundingClientRect().x;
+                        console.log("init y", ele?.getBoundingClientRect().y);
+                        if (stateObj.inputCoords.x !== curX) {
+                          let x = ele?.getBoundingClientRect().x;
+                          let y = ele?.getBoundingClientRect().y;
+                          if (x && y) {
+                            y += 25;
+                            setStateObj.setInputCoords({ x, y });
+                            let numCoords = stateObj.curNumCoords;
+                            setStateObj.setCurNumCoords({
+                              x: numCoords.x,
+                              y: numCoords.y + 1000,
+                            });
+                          }
+                        }
+                      }}
+                    >
+                      {" "}
+                      {stateObj.nums[stateObj.curIdx]}
+                    </span>
+                  ) : (
+                    <span
+                      ref={(ele) => {
+                        console.log("2nd y", ele?.getBoundingClientRect().y);
+                        let curX = ele?.getBoundingClientRect().x;
+                        if (stateObj.inputCoords.x !== curX) {
                           let x = ele?.getBoundingClientRect().x;
                           let y = ele?.getBoundingClientRect().y;
                           if (x && y) {
@@ -201,8 +258,6 @@ const Map = () => {
                       {" "}
                       {stateObj.nums[stateObj.curIdx]}
                     </span>
-                  ) : (
-                    "undefined"
                   )}
                 </h5>
                 <h5 className="output">
@@ -317,6 +372,9 @@ const Map = () => {
         height={window.innerHeight}
         className="overlay"
       >
+        {/* <Layer>
+          <Circle radius={200} x={200} y={200} fill={"green"}></Circle>
+        </Layer> */}
         {stateObj.curIdx < stateObj.nums.length ? (
           <Layer>
             {stateObj.currentTask === currentTaskE.input ? (
@@ -327,7 +385,6 @@ const Map = () => {
               //   fill="green"
               // />
               //@ts-ignore
-
               <React.Fragment>
                 <Line
                   stroke="blue"
@@ -383,6 +440,17 @@ const Map = () => {
           </Layer>
         ) : null}
       </Stage>
+      {/* const [keepFresh, setKeepFresh] = useState(false);
+          const [testingTrue, setTesting] = useState(false); */}
+
+      {/* working example */}
+      {testingTrue ? (
+        <p>testing is true</p>
+      ) : keepFresh ? (
+        <p> fresh is true</p>
+      ) : (
+        <p>not fresh</p>
+      )}
     </div>
   );
 };

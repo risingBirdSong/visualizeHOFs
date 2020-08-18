@@ -56679,7 +56679,23 @@ var Map = function Map() {
   var _react_1$useState23 = react_1.useState(currentTaskE.inactive),
       _react_1$useState24 = _slicedToArray(_react_1$useState23, 2),
       currentTask = _react_1$useState24[0],
-      setCurrentTask = _react_1$useState24[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      setCurrentTask = _react_1$useState24[1];
+
+  var _react_1$useState25 = react_1.useState(false),
+      _react_1$useState26 = _slicedToArray(_react_1$useState25, 2),
+      explainer = _react_1$useState26[0],
+      setExplainer = _react_1$useState26[1]; //
+
+
+  var _react_1$useState27 = react_1.useState(false),
+      _react_1$useState28 = _slicedToArray(_react_1$useState27, 2),
+      keepFresh = _react_1$useState28[0],
+      setKeepFresh = _react_1$useState28[1];
+
+  var _react_1$useState29 = react_1.useState(false),
+      _react_1$useState30 = _slicedToArray(_react_1$useState29, 2),
+      testingTrue = _react_1$useState30[0],
+      setTesting = _react_1$useState30[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -56711,6 +56727,11 @@ var Map = function Map() {
     setAlgoHasFinished: setAlgoHasFinished,
     setAlgoWillReset: setAlgoWillReset
   };
+  react_1.useEffect(function () {
+    setKeepFresh(function (past) {
+      return !past;
+    });
+  }, [explainer]);
   react_1.useEffect(function () {// console.log("curNumCoords", curNumCoords);
     // console.log("inputCoords", inputCoords);
   }, [curNumCoords, inputCoords]);
@@ -56766,7 +56787,6 @@ var Map = function Map() {
       }
   };
 
-  console.log("has finished", stateObj.algoHasFinished);
   return React.createElement("div", {
     className: "allApp"
   }, React.createElement("div", {
@@ -56791,10 +56811,24 @@ var Map = function Map() {
     // }}
     className: "waves-effect waves-light btn"
   }, !stateObj.algoHasStarted && !stateObj.algoHasFinished ? "start" : stateObj.algoWillReset ? "restart" : "step")), React.createElement("li", null, React.createElement("button", {
+    className: "waves-effect waves-light btn",
+    onClick: function onClick() {
+      setExplainer(function (past) {
+        return !past;
+      });
+    }
+  }, "explain", " ")), React.createElement("li", null, React.createElement("button", {
     className: "waves-effect waves-light btn"
-  }, "todo 1 ")), React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect waves-light btn"
-  }, "todo 2"))), React.createElement("div", {
+  }, "todo 2"))), explainer ? React.createElement("div", {
+    className: "explanation blue lighten-1",
+    style: {
+      display: "flow"
+    }
+  }, React.createElement("p", {
+    style: {
+      padding: "8px"
+    }
+  }, " ", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, sunt accusantium necessitatibus quaerat amet fugiat eos officia provident, veritatis qui impedit possimus consequuntur porro reiciendis velit dolore? Corrupti, cumque non!")) : "", React.createElement("div", {
     style: {
       display: "flex",
       justifyContent: "center"
@@ -56825,9 +56859,35 @@ var Map = function Map() {
     }
   }, React.createElement("h5", {
     className: "input"
-  }, "input :", " ", stateObj.nums[stateObj.curIdx] ? React.createElement("span", {
+  }, "input :", " ", stateObj.nums[stateObj.curIdx] && keepFresh ? React.createElement("span", {
     ref: function ref(ele) {
-      if (!stateObj.inputCoords.x) {
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+      console.log("init y", ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y);
+
+      if (stateObj.inputCoords.x !== curX) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          y += 25;
+          setStateObj.setInputCoords({
+            x: x,
+            y: y
+          });
+          var numCoords = stateObj.curNumCoords;
+          setStateObj.setCurNumCoords({
+            x: numCoords.x,
+            y: numCoords.y + 1000
+          });
+        }
+      }
+    }
+  }, " ", stateObj.nums[stateObj.curIdx]) : React.createElement("span", {
+    ref: function ref(ele) {
+      console.log("2nd y", ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y);
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+
+      if (stateObj.inputCoords.x !== curX) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
@@ -56840,7 +56900,7 @@ var Map = function Map() {
         }
       }
     }
-  }, " ", stateObj.nums[stateObj.curIdx]) : "undefined"), React.createElement("h5", {
+  }, " ", stateObj.nums[stateObj.curIdx])), React.createElement("h5", {
     className: "output"
   }, "output :", " ", stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.output ? React.createElement("span", {
     ref: function ref(ele) {
@@ -56948,7 +57008,7 @@ var Map = function Map() {
     rotation: -130,
     radius: 14,
     fill: "blue"
-  })) : null) : null));
+  })) : null) : null), testingTrue ? React.createElement("p", null, "testing is true") : keepFresh ? React.createElement("p", null, " fresh is true") : React.createElement("p", null, "not fresh"));
 };
 
 exports.default = Map;
@@ -57096,7 +57156,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62618" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55482" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
