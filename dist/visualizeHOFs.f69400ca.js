@@ -56560,6 +56560,95 @@ var MapMainControls = function MapMainControls(props) {
 };
 
 exports.MapMainControls = MapMainControls;
+},{"react":"node_modules/react/index.js"}],"components/helpers/callback.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var currentTaskE;
+
+(function (currentTaskE) {
+  currentTaskE[currentTaskE["inactive"] = 0] = "inactive";
+  currentTaskE[currentTaskE["input"] = 1] = "input";
+  currentTaskE[currentTaskE["output"] = 2] = "output";
+})(currentTaskE || (currentTaskE = {}));
+
+var Callback = function Callback(props) {
+  return react_1.default.createElement("div", {
+    style: {
+      padding: "5px",
+      marginTop: "2px",
+      display: "flex",
+      justifyContent: "space-around"
+    },
+    className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3"
+  }, react_1.default.createElement("h5", {
+    className: "purple lighten-2",
+    style: {
+      padding: "3px"
+    }
+  }, "callback function"), react_1.default.createElement("div", {
+    className: "functionCode",
+    style: {
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, props.algoHasStarted ? react_1.default.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-around"
+    }
+  }, react_1.default.createElement("h5", {
+    className: "input"
+  }, "input :", " ", props.nums[props.curIdx] ? react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+
+      if (props.inputCoords.x !== curX) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          y += 25;
+          props.setInputCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }
+  }, " ", props.nums[props.curIdx]) : ""), react_1.default.createElement("h5", {
+    className: "output"
+  }, "output :", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+      var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+      if (x && y && x + 8 !== props.outputCoords.x) {
+        y += 28;
+        x += 8;
+        props.setOutPutCoords({
+          x: x,
+          y: y
+        });
+      }
+    }
+  }, " ", props.doubleNumber(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "undefined")) : "", react_1.default.createElement("div", {
+    className: "funcBody"
+  }, react_1.default.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), react_1.default.createElement("h5", null, " num * 2 "))));
+};
+
+exports.default = Callback;
 },{"react":"node_modules/react/index.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -56617,6 +56706,12 @@ var __importStar = this && this.__importStar || function (mod) {
   return result;
 };
 
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -56627,7 +56722,9 @@ var react_1 = require("react");
 
 var react_konva_1 = require("react-konva");
 
-var mapMainControls_1 = require("./helpers/mapMainControls"); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var mapMainControls_1 = require("./helpers/mapMainControls");
+
+var callback_1 = __importDefault(require("./helpers/callback")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 
 var cls;
@@ -56831,73 +56928,19 @@ var Map = function Map() {
     algoWillReset: stateObj.algoWillReset,
     takeStep: takeStep,
     setExplainer: setExplainer
-  }), React.createElement("div", {
-    style: {
-      padding: "5px",
-      marginTop: "2px",
-      display: "flex",
-      justifyContent: "space-around"
-    },
-    className: "".concat(cls.callbackFunc, "  purple lighten-3 valign-wrapper center-align z-depth-3")
-  }, React.createElement("h5", {
-    className: "purple lighten-2",
-    style: {
-      padding: "3px"
-    }
-  }, "callback function"), React.createElement("div", {
-    className: "functionCode",
-    style: {
-      display: "flex",
-      flexDirection: "column"
-    }
-  }, algoHasStarted ? React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-around"
-    }
-  }, React.createElement("h5", {
-    className: "input"
-  }, "input :", " ", stateObj.nums[stateObj.curIdx] ? React.createElement("span", {
-    ref: function ref(ele) {
-      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-
-      if (stateObj.inputCoords.x !== curX) {
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y) {
-          y += 25;
-          setStateObj.setInputCoords({
-            x: x,
-            y: y
-          });
-          var numCoords = stateObj.curNumCoords;
-          setStateObj.setCurNumCoords({
-            x: numCoords.x,
-            y: numCoords.y + 1000
-          });
-        }
-      }
-    }
-  }, " ", stateObj.nums[stateObj.curIdx]) : ""), React.createElement("h5", {
-    className: "output"
-  }, "output :", " ", stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.output ? React.createElement("span", {
-    ref: function ref(ele) {
-      var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-      var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-      if (x && y && x + 8 !== stateObj.outputCoords.x) {
-        y += 28;
-        x += 8;
-        setStateObj.setOutPutCoords({
-          x: x,
-          y: y
-        });
-      }
-    }
-  }, " ", doubleNumber(stateObj.nums[stateObj.curIdx]), " ") : stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.input ? React.createElement("span", null, "?") : "undefined")) : "", React.createElement("div", {
-    className: "funcBody"
-  }, React.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), React.createElement("h5", null, " num * 2 ")))), React.createElement("ul", {
+  }), React.createElement(callback_1.default, {
+    algoHasStarted: stateObj.algoHasStarted,
+    curIdx: stateObj.curIdx,
+    curNumCoords: stateObj.curNumCoords,
+    currentTask: stateObj.currentTask,
+    doubleNumber: doubleNumber,
+    inputCoords: stateObj.inputCoords,
+    nums: stateObj.nums,
+    outputCoords: stateObj.outputCoords,
+    setCurNumCoords: setStateObj.setCurNumCoords,
+    setInputCoords: setStateObj.setInputCoords,
+    setOutPutCoords: setStateObj.setOutPutCoords
+  }), React.createElement("ul", {
     className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ").concat(animInput ? "inputArrayNumsAnimate" : "")
   }, React.createElement("h5", null, "inputArr : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
@@ -57014,7 +57057,7 @@ var Map = function Map() {
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx","./helpers/callback":"components/helpers/callback.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -57158,7 +57201,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59942" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51607" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

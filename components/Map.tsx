@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
 import { MapMainControls } from "./helpers/mapMainControls";
+import Callback from "./helpers/callback";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 enum cls {
@@ -138,88 +139,23 @@ const Map = () => {
           takeStep={takeStep}
           setExplainer={setExplainer}
         />
-        <div
-          style={{
-            padding: "5px",
-            marginTop: "2px",
-            display: "flex",
-            justifyContent: "space-around",
-          }}
-          className={`${cls.callbackFunc}  purple lighten-3 valign-wrapper center-align z-depth-3`}
-        >
-          <h5 className="purple lighten-2" style={{ padding: "3px" }}>
-            callback function
-          </h5>
 
-          <div
-            className="functionCode"
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            {algoHasStarted ? (
-              <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <h5 className="input">
-                  input :{" "}
-                  {stateObj.nums[stateObj.curIdx] ? (
-                    <span
-                      ref={(ele) => {
-                        let curX = ele?.getBoundingClientRect().x;
-                        if (stateObj.inputCoords.x !== curX) {
-                          let x = ele?.getBoundingClientRect().x;
-                          let y = ele?.getBoundingClientRect().y;
-                          if (x && y) {
-                            y += 25;
-                            setStateObj.setInputCoords({ x, y });
-                            let numCoords = stateObj.curNumCoords;
-                            setStateObj.setCurNumCoords({
-                              x: numCoords.x,
-                              y: numCoords.y + 1000,
-                            });
-                          }
-                        }
-                      }}
-                    >
-                      {" "}
-                      {stateObj.nums[stateObj.curIdx]}
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                </h5>
-                <h5 className="output">
-                  output :{" "}
-                  {stateObj.nums[stateObj.curIdx] &&
-                  stateObj.currentTask === currentTaskE.output ? (
-                    <span
-                      ref={(ele) => {
-                        let x = ele?.getBoundingClientRect().x;
-                        let y = ele?.getBoundingClientRect().y;
-                        if (x && y && x + 8 !== stateObj.outputCoords.x) {
-                          y += 28;
-                          x += 8;
-                          setStateObj.setOutPutCoords({ x, y });
-                        }
-                      }}
-                    >
-                      {" "}
-                      {doubleNumber(stateObj.nums[stateObj.curIdx])}{" "}
-                    </span>
-                  ) : stateObj.nums[stateObj.curIdx] &&
-                    stateObj.currentTask === currentTaskE.input ? (
-                    <span>?</span>
-                  ) : (
-                    "undefined"
-                  )}
-                </h5>
-              </div>
-            ) : (
-              ""
-            )}
-            <div className="funcBody">
-              <h5>const doubleNumber = (num: number) {"=>"}</h5>
-              <h5> num * 2 </h5>
-            </div>
-          </div>
-        </div>
+        <Callback
+          algoHasStarted={stateObj.algoHasStarted}
+          curIdx={stateObj.curIdx}
+          curNumCoords={stateObj.curNumCoords}
+          currentTask={stateObj.currentTask}
+          doubleNumber={doubleNumber}
+          inputCoords={stateObj.inputCoords}
+          nums={stateObj.nums}
+          outputCoords={stateObj.outputCoords}
+          setCurNumCoords={setStateObj.setCurNumCoords}
+          setInputCoords={setStateObj.setInputCoords}
+          setOutPutCoords={setStateObj.setOutPutCoords}
+        />
+        {/* refactor todo  here */}
+
+        {/* refactor todo  here */}
         <ul
           className={`${
             cls.numArr
