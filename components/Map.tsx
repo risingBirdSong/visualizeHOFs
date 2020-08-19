@@ -149,7 +149,6 @@ const Map = () => {
           inputCoords={stateObj.inputCoords}
           nums={stateObj.nums}
           outputCoords={stateObj.outputCoords}
-          setCurNumCoords={setStateObj.setCurNumCoords}
           setInputCoords={setStateObj.setInputCoords}
           setOutPutCoords={setStateObj.setOutPutCoords}
         />

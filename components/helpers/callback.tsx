@@ -19,7 +19,6 @@ interface CallbackI {
   inputCoords: coordsI;
   setInputCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   setOutPutCoords: React.Dispatch<React.SetStateAction<coordsI>>;
-  setCurNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   currentTask: currentTaskE;
   outputCoords: coordsI;
   doubleNumber: (num: number) => number;
@@ -58,6 +57,11 @@ const Callback = (props: CallbackI) => {
                       if (x && y) {
                         y += 25;
                         props.setInputCoords({ x, y });
+                        let numCoords = props.curNumCoords;
+                        // props.setCurNumCoords({
+                        //   x: numCoords.x,
+                        //   y: numCoords.y,
+                        // });
                       }
                     }
                   }}
