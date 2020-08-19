@@ -56681,7 +56681,7 @@ var Map = function Map() {
       currentTask = _react_1$useState24[0],
       setCurrentTask = _react_1$useState24[1];
 
-  var _react_1$useState25 = react_1.useState(false),
+  var _react_1$useState25 = react_1.useState(true),
       _react_1$useState26 = _slicedToArray(_react_1$useState25, 2),
       explainer = _react_1$useState26[0],
       setExplainer = _react_1$useState26[1];
@@ -56781,8 +56781,10 @@ var Map = function Map() {
   }, React.createElement("div", {
     className: "foundation"
   }, React.createElement("ul", {
-    className: "row "
-  }, React.createElement("li", null, React.createElement("button", {
+    className: "row"
+  }, React.createElement("li", {
+    className: "z-depth-3"
+  }, React.createElement("button", {
     onClick: function onClick() {
       takeStep(stateObj.algoHasFinished === true ? true : false);
     },
@@ -56799,28 +56801,27 @@ var Map = function Map() {
     //   }
     // }}
     className: "waves-effect waves-light btn"
-  }, !stateObj.algoHasStarted && !stateObj.algoHasFinished ? "start" : stateObj.algoWillReset ? "restart" : "step")), React.createElement("li", null, React.createElement("button", {
+  }, !stateObj.algoHasStarted && !stateObj.algoHasFinished ? "start" : stateObj.algoWillReset ? "restart" : "step")), React.createElement("li", {
+    className: "z-depth-3"
+  }, React.createElement("button", {
     className: "waves-effect waves-light btn",
     onClick: function onClick() {
       setExplainer(function (past) {
         return !past;
       });
     }
-  }, "explain", " ")), React.createElement("li", null, React.createElement("button", {
+  }, "explain", " ")), React.createElement("li", {
+    className: "z-depth-3"
+  }, React.createElement("button", {
     className: "waves-effect waves-light btn"
   }, "todo 2"))), React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "center"
-    }
-  }), React.createElement("div", {
     style: {
       padding: "5px",
       marginTop: "2px",
       display: "flex",
       justifyContent: "space-around"
     },
-    className: "".concat(cls.callbackFunc, "  purple lighten-3 valign-wrapper center-align")
+    className: "".concat(cls.callbackFunc, "  purple lighten-3 valign-wrapper center-align z-depth-3")
   }, React.createElement("h5", {
     className: "purple lighten-2",
     style: {
@@ -56880,7 +56881,7 @@ var Map = function Map() {
   }, " ", doubleNumber(stateObj.nums[stateObj.curIdx]), " ") : stateObj.nums[stateObj.curIdx] && stateObj.currentTask === currentTaskE.input ? React.createElement("span", null, "?") : "undefined")) : "", React.createElement("div", {
     className: "funcBody"
   }, React.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), React.createElement("h5", null, " num * 2 ")))), React.createElement("ul", {
-    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align inputArrayNums ").concat(animInput ? "inputArrayNumsAnimate" : "")
+    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ").concat(animInput ? "inputArrayNumsAnimate" : "")
   }, React.createElement("h5", null, "inputArr : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
   }, "["), stateObj.nums.map(function (num, idx) {
@@ -56902,14 +56903,14 @@ var Map = function Map() {
           }
         }
       },
-      className: "".concat(cls.num, " pink lighten-3")
+      className: "".concat(cls.num, " pink lighten-3 z-depth-5")
     }, num) : React.createElement("p", {
-      className: cls.num
+      className: "".concat(cls.num, " z-depth-3")
     }, num));
   }), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
   }, "]")), algoHasStarted && !algoHasFinished ? React.createElement("ul", {
-    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align array")
+    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-2 center-align array")
   }, React.createElement("h5", null, "output : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
   }, "["), stateObj.outputArray.map(function (num, idx) {
@@ -56917,7 +56918,7 @@ var Map = function Map() {
       className: "col s1",
       key: idx
     }, idx === stateObj.curIdx ? React.createElement("p", {
-      className: "".concat(cls.num, " pink lighten-3"),
+      className: "".concat(cls.num, " amber lighten-1 z-depth-5"),
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
@@ -56930,11 +56931,13 @@ var Map = function Map() {
         }
       }
     }, num) : React.createElement("p", {
-      className: cls.num
+      className: "".concat(cls.num, " amber lighten-4 z-depth-3")
     }, num));
   }), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "]")) : stateObj.algoWillReset ? React.createElement("h5", null, "algo complete! click restart to run again") : React.createElement("h5", null, "please click start to begin")), React.createElement(react_konva_1.Stage, {
+  }, "]")) : stateObj.algoWillReset ? React.createElement("h5", null, "algo complete! click restart to run again") : React.createElement("h5", {
+    className: "center-align blue-text"
+  }, "explanation")), React.createElement(react_konva_1.Stage, {
     width: window.innerWidth,
     height: window.innerHeight,
     className: "overlay"
@@ -56970,26 +56973,27 @@ var Map = function Map() {
     radius: 14,
     fill: "blue"
   })) : null) : null), explainer ? React.createElement("div", {
-    className: "explanation blue lighten-1",
+    className: "explanation blue lighten-1 z-depth-2 ",
     style: {
-      display: "flow",
       padding: "10px"
     }
-  }, React.createElement("p", null, "map boils down to 3 basic steps"), React.createElement("ul", {
-    className: "explainList"
+  }, React.createElement("h4", {
+    className: "amber-text center-align"
+  }, "the .map method boils down to 3 basic steps"), React.createElement("ul", {
+    className: "explainList row"
   }, React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect waves-light btn",
+    className: "waves-effect purple lighten-2  btn",
     onClick: function onClick() {
       setAnimInput(true);
       setTimeout(function () {
         setAnimInput(false);
       }, 1000);
     }
-  }, "iterating the input array")), React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect waves-light btn"
-  }, "invoking the callback function with each element")), React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect waves-light btn"
-  }, "placing the returned value from the callback into the output array")), React.createElement("li", null))) : "");
+  }, "iterate input array")), React.createElement("li", null, React.createElement("button", {
+    className: "waves-effect purple btn"
+  }, "call callback with each element")), React.createElement("li", null, React.createElement("button", {
+    className: "waves-effect purple darken-2 btn"
+  }, "put the returned element into output array.")), React.createElement("li", null))) : "");
 };
 
 exports.default = Map;
@@ -57048,7 +57052,7 @@ var App = function App() {
   return React.createElement("main", {
     className: "container"
   }, React.createElement("nav", null, React.createElement("ul", {
-    className: "row"
+    className: "row z-depth-2"
   }, React.createElement("li", null, React.createElement("a", null, "About")), React.createElement("li", null, React.createElement("a", null, "Further Reading")), React.createElement("li", {
     className: "active"
   }, React.createElement("a", null, "Map")), React.createElement("li", null, React.createElement("a", null, "Filter")), React.createElement("li", null, React.createElement("a", null, "Reduce")))), React.createElement(Map_1.default, null));

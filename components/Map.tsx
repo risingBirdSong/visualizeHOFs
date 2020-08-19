@@ -37,7 +37,7 @@ const Map = () => {
   const [currentTask, setCurrentTask] = useState<currentTaskE>(
     currentTaskE.inactive
   );
-  const [explainer, setExplainer] = useState(false);
+  const [explainer, setExplainer] = useState(true);
   const [animInput, setAnimInput] = useState(false);
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
@@ -130,8 +130,8 @@ const Map = () => {
   return (
     <div className="allApp">
       <div className="foundation">
-        <ul className="row ">
-          <li>
+        <ul className="row">
+          <li className="z-depth-3">
             <button
               onClick={() => {
                 takeStep(stateObj.algoHasFinished === true ? true : false);
@@ -157,7 +157,7 @@ const Map = () => {
                 : "step"}
             </button>
           </li>
-          <li>
+          <li className="z-depth-3">
             <button
               className="waves-effect waves-light btn"
               onClick={() => {
@@ -167,11 +167,10 @@ const Map = () => {
               explain{" "}
             </button>
           </li>
-          <li>
+          <li className="z-depth-3">
             <button className="waves-effect waves-light btn">todo 2</button>
           </li>
         </ul>
-        <div style={{ display: "flex", justifyContent: "center" }}></div>
         <div
           style={{
             padding: "5px",
@@ -179,7 +178,7 @@ const Map = () => {
             display: "flex",
             justifyContent: "space-around",
           }}
-          className={`${cls.callbackFunc}  purple lighten-3 valign-wrapper center-align`}
+          className={`${cls.callbackFunc}  purple lighten-3 valign-wrapper center-align z-depth-3`}
         >
           <h5 className="purple lighten-2" style={{ padding: "3px" }}>
             callback function
@@ -258,7 +257,7 @@ const Map = () => {
         <ul
           className={`${
             cls.numArr
-          } valign-wrapper row pink lighten-4 center-align inputArrayNums ${
+          } valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ${
             animInput ? "inputArrayNumsAnimate" : ""
           }`}
         >
@@ -280,12 +279,12 @@ const Map = () => {
                         }
                       }
                     }}
-                    className={`${cls.num} pink lighten-3`}
+                    className={`${cls.num} pink lighten-3 z-depth-5`}
                   >
                     {num}
                   </p>
                 ) : (
-                  <p className={cls.num}>{num}</p>
+                  <p className={`${cls.num} z-depth-3`}>{num}</p>
                 )}
               </li>
             );
@@ -295,7 +294,7 @@ const Map = () => {
 
         {algoHasStarted && !algoHasFinished ? (
           <ul
-            className={`${cls.numArr} valign-wrapper row pink lighten-4 center-align array`}
+            className={`${cls.numArr} valign-wrapper row pink lighten-2 center-align array`}
           >
             <h5>output : number[] </h5>
             <h5>=</h5>
@@ -305,7 +304,7 @@ const Map = () => {
                 <li className={"col s1"} key={idx}>
                   {idx === stateObj.curIdx ? (
                     <p
-                      className={`${cls.num} pink lighten-3`}
+                      className={`${cls.num} amber lighten-1 z-depth-5`}
                       ref={(ele) => {
                         let x = ele?.getBoundingClientRect().x;
                         let y = ele?.getBoundingClientRect().y;
@@ -317,7 +316,7 @@ const Map = () => {
                       {num}
                     </p>
                   ) : (
-                    <p className={cls.num}>{num}</p>
+                    <p className={`${cls.num} amber lighten-4 z-depth-3`}>{num}</p>
                   )}
                 </li>
               );
@@ -327,7 +326,7 @@ const Map = () => {
         ) : stateObj.algoWillReset ? (
           <h5>algo complete! click restart to run again</h5>
         ) : (
-          <h5>please click start to begin</h5>
+          <h5 className="center-align blue-text">explanation</h5>
         )}
       </div>
       <Stage
@@ -405,14 +404,16 @@ const Map = () => {
       </Stage>
       {explainer ? (
         <div
-          className="explanation blue lighten-1"
-          style={{ display: "flow", padding: "10px" }}
+          className="explanation blue lighten-1 z-depth-2 "
+          style={{ padding: "10px" }}
         >
-          <p>map boils down to 3 basic steps</p>
-          <ul className="explainList">
+          <h4 className="amber-text center-align">
+            the .map method boils down to 3 basic steps
+          </h4>
+          <ul className="explainList row">
             <li>
               <button
-                className="waves-effect waves-light btn"
+                className="waves-effect purple lighten-2  btn"
                 onClick={() => {
                   setAnimInput(true);
                   setTimeout(() => {
@@ -420,18 +421,17 @@ const Map = () => {
                   }, 1000);
                 }}
               >
-                iterating the input array
+                iterate input array
               </button>
             </li>
             <li>
-              <button className="waves-effect waves-light btn">
-                invoking the callback function with each element
+              <button className="waves-effect purple btn">
+                call callback with each element
               </button>
             </li>
             <li>
-              <button className="waves-effect waves-light btn">
-                placing the returned value from the callback into the output
-                array
+              <button className="waves-effect purple darken-2 btn">
+                put the returned element into output array.
               </button>
             </li>
             <li></li>

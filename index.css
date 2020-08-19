@@ -17,10 +17,6 @@
   justify-content: center;
 }
 
-.num {
-  color: red;
-}
-
 .overlay {
   position: absolute;
   left: 0px;

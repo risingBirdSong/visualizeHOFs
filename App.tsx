@@ -4,7 +4,7 @@ const App = () => {
   return (
     <main className="container">
       <nav>
-        <ul className="row">
+        <ul className="row z-depth-2">
           <li>
             <a>About</a>
           </li>
