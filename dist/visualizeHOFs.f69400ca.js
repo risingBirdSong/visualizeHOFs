@@ -56517,7 +56517,50 @@ var ReactKonvaCore = require('./ReactKonvaCore');
 var Konva = require('konva');
 
 module.exports = _extends({}, ReactKonvaCore);
-},{"./ReactKonvaCore":"node_modules/react-konva/lib/ReactKonvaCore.js","konva":"node_modules/konva/lib/index.js"}],"components/Map.tsx":[function(require,module,exports) {
+},{"./ReactKonvaCore":"node_modules/react-konva/lib/ReactKonvaCore.js","konva":"node_modules/konva/lib/index.js"}],"components/helpers/mapMainControls.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MapMainControls = void 0;
+
+var react_1 = __importDefault(require("react"));
+
+var MapMainControls = function MapMainControls(props) {
+  return react_1.default.createElement("ul", {
+    className: "row"
+  }, react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.takeStep(props.algoHasFinished === true ? true : false);
+    },
+    className: "waves-effect waves-light btn"
+  }, !props.algoHasStarted && !props.algoHasFinished ? "start" : props.algoWillReset ? "restart" : "step")), react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    className: "waves-effect waves-light btn",
+    onClick: function onClick() {
+      props.setExplainer(function (past) {
+        return !past;
+      });
+    }
+  }, "explain", " ")), react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    className: "waves-effect waves-light btn"
+  }, "todo 2")));
+};
+
+exports.MapMainControls = MapMainControls;
+},{"react":"node_modules/react/index.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -56582,7 +56625,9 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
-var react_konva_1 = require("react-konva"); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var react_konva_1 = require("react-konva");
+
+var mapMainControls_1 = require("./helpers/mapMainControls"); // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 
 var cls;
@@ -56780,41 +56825,13 @@ var Map = function Map() {
     className: "allApp"
   }, React.createElement("div", {
     className: "foundation"
-  }, React.createElement("ul", {
-    className: "row"
-  }, React.createElement("li", {
-    className: "z-depth-3"
-  }, React.createElement("button", {
-    onClick: function onClick() {
-      takeStep(stateObj.algoHasFinished === true ? true : false);
-    },
-    //TESTING CASE
-    // ref={(ele) => {
-    //   if (!ele) {
-    //     console.log("no ref!");
-    //     return;
-    //   }
-    //   const xCoord = ele.getBoundingClientRect().x;
-    //   const yCoord = ele.getBoundingClientRect().y;
-    //   if (!stateObj.curNumCoords.x) {
-    //     setStateObj.setCurNumCoords({ x: xCoord, y: yCoord });
-    //   }
-    // }}
-    className: "waves-effect waves-light btn"
-  }, !stateObj.algoHasStarted && !stateObj.algoHasFinished ? "start" : stateObj.algoWillReset ? "restart" : "step")), React.createElement("li", {
-    className: "z-depth-3"
-  }, React.createElement("button", {
-    className: "waves-effect waves-light btn",
-    onClick: function onClick() {
-      setExplainer(function (past) {
-        return !past;
-      });
-    }
-  }, "explain", " ")), React.createElement("li", {
-    className: "z-depth-3"
-  }, React.createElement("button", {
-    className: "waves-effect waves-light btn"
-  }, "todo 2"))), React.createElement("div", {
+  }, React.createElement(mapMainControls_1.MapMainControls, {
+    algoHasFinished: stateObj.algoHasFinished,
+    algoHasStarted: stateObj.algoHasStarted,
+    algoWillReset: stateObj.algoWillReset,
+    takeStep: takeStep,
+    setExplainer: setExplainer
+  }), React.createElement("div", {
     style: {
       padding: "5px",
       marginTop: "2px",
@@ -56997,7 +57014,7 @@ var Map = function Map() {
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -57141,7 +57158,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58145" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59942" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
+import { MapMainControls } from "./helpers/mapMainControls";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 enum cls {
@@ -130,47 +131,13 @@ const Map = () => {
   return (
     <div className="allApp">
       <div className="foundation">
-        <ul className="row">
-          <li className="z-depth-3">
-            <button
-              onClick={() => {
-                takeStep(stateObj.algoHasFinished === true ? true : false);
-              }}
-              //TESTING CASE
-              // ref={(ele) => {
-              //   if (!ele) {
-              //     console.log("no ref!");
-              //     return;
-              //   }
-              //   const xCoord = ele.getBoundingClientRect().x;
-              //   const yCoord = ele.getBoundingClientRect().y;
-              //   if (!stateObj.curNumCoords.x) {
-              //     setStateObj.setCurNumCoords({ x: xCoord, y: yCoord });
-              //   }
-              // }}
-              className="waves-effect waves-light btn"
-            >
-              {!stateObj.algoHasStarted && !stateObj.algoHasFinished
-                ? "start"
-                : stateObj.algoWillReset
-                ? "restart"
-                : "step"}
-            </button>
-          </li>
-          <li className="z-depth-3">
-            <button
-              className="waves-effect waves-light btn"
-              onClick={() => {
-                setExplainer((past) => !past);
-              }}
-            >
-              explain{" "}
-            </button>
-          </li>
-          <li className="z-depth-3">
-            <button className="waves-effect waves-light btn">todo 2</button>
-          </li>
-        </ul>
+        <MapMainControls
+          algoHasFinished={stateObj.algoHasFinished}
+          algoHasStarted={stateObj.algoHasStarted}
+          algoWillReset={stateObj.algoWillReset}
+          takeStep={takeStep}
+          setExplainer={setExplainer}
+        />
         <div
           style={{
             padding: "5px",
@@ -253,7 +220,6 @@ const Map = () => {
             </div>
           </div>
         </div>
-
         <ul
           className={`${
             cls.numArr
@@ -291,7 +257,6 @@ const Map = () => {
           })}
           <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
         </ul>
-
         {algoHasStarted && !algoHasFinished ? (
           <ul
             className={`${cls.numArr} valign-wrapper row pink lighten-2 center-align array`}
@@ -316,7 +281,9 @@ const Map = () => {
                       {num}
                     </p>
                   ) : (
-                    <p className={`${cls.num} amber lighten-4 z-depth-3`}>{num}</p>
+                    <p className={`${cls.num} amber lighten-4 z-depth-3`}>
+                      {num}
+                    </p>
                   )}
                 </li>
               );
