@@ -53,8 +53,12 @@
   animation-duration: 1s;
 }
 
-.inputArrayNums p {
+/* .inputArrayNums p {
   font-size: 1.2em;
+} */
+
+.tolowercase {
+  text-transform: lowercase;
 }
 
 .explainList li {

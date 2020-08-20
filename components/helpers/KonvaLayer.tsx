@@ -41,13 +41,13 @@ const KonvaLayer = (props: KonvaLayerI) => (
                 props.inputCoords.x - 10,
                 props.inputCoords.y + 50,
                 props.inputCoords.x + 5,
-                props.inputCoords.y + 6,
+                props.inputCoords.y + 22,
               ]}
               bezier
             />
             <Wedge
-              x={props.inputCoords.x + 3}
-              y={props.inputCoords.y}
+              x={props.inputCoords.x + 5}
+              y={props.inputCoords.y + 17}
               angle={60}
               rotation={60}
               radius={14}
@@ -59,13 +59,10 @@ const KonvaLayer = (props: KonvaLayerI) => (
             <Line
               stroke="purple"
               points={[
-                //TODO wait whats the difference between these props cur and output coords?
                 props.curOutputNumCoords.x + 5,
                 props.curOutputNumCoords.y - 10,
                 props.curOutputNumCoords.x - 20,
                 props.curOutputNumCoords.y - 20,
-                // iii
-                // vvv
                 props.outputCoords.x,
                 props.outputCoords.y,
                 props.outputCoords.x,

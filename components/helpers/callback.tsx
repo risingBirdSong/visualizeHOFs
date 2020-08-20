@@ -31,25 +31,36 @@ const Callback = (props: CallbackI) => {
         padding: "8px",
         margin: "2px",
         display: "flex",
-        justifyContent: "space-around",
+        borderRadius: "5px",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
       }}
       className={`callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3`}
     >
       <h5
         className="purple lighten-2 amber-text text-accent-4 z-depth-1"
-        style={{ padding: "3px" }}
+        style={{ padding: "3px", borderRadius: "5px" }}
       >
         callback function
       </h5>
 
       <div
         className="functionCode"
-        style={{ display: "flex", flexDirection: "column" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
       >
         {props.algoHasStarted ? (
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <h5 className="input">
-              input :{" "}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              margin: "10px",
+            }}
+          >
+            <h6 className="input valign-wrapper">
+              <span className="blue-text text-darken-3">input</span> &nbsp;{" "}
               {props.nums[props.curIdx] ? (
                 <span
                   ref={(ele) => {
@@ -70,18 +81,39 @@ const Callback = (props: CallbackI) => {
               ) : (
                 ""
               )}
-            </h5>
-            <h5 className="output">
-              output :{" "}
+            </h6>
+          </div>
+        ) : (
+          ""
+        )}
+        <div
+          className="funcBody purple lighten-2 z-depth-2"
+          style={{ padding: "12px", borderRadius: "5px" }}
+        >
+          <h6>
+            const <span className="amber-text">doubleNumber</span> = (
+            <span className="cyan-text text-accent-4">num</span> : {"&nbsp"}{" "}
+            <span className="pink-text text-accent-1">number</span> ) {"=>"}
+          </h6>
+          <h6>
+            {" "}
+            <span className="cyan-text text-accent-4">num</span> * 2{" "}
+          </h6>
+        </div>
+        <div style={{ display: "flex", margin: "15px" }}>
+          {props.algoHasStarted ? (
+            <h6 className="output valign-wrapper">
+              <span className="blue-text text-darken-3">output</span> &nbsp;{" "}
               {props.nums[props.curIdx] &&
               props.currentTask === currentTaskE.output ? (
                 <span
                   ref={(ele) => {
                     let x = ele?.getBoundingClientRect().x;
                     let y = ele?.getBoundingClientRect().y;
-                    if (x && y && x + 8 !== props.outputCoords.x) {
-                      y += 28;
-                      x += 8;
+                    //prevent infinite loop
+                    if (x && y && x + 6 !== props.outputCoords.x) {
+                      y += 20;
+                      x += 6;
                       props.setOutPutCoords({ x, y });
                     }
                   }}
@@ -93,26 +125,12 @@ const Callback = (props: CallbackI) => {
                 props.currentTask === currentTaskE.input ? (
                 <span>?</span>
               ) : (
-                "undefined"
+                ""
               )}
-            </h5>
-          </div>
-        ) : (
-          ""
-        )}
-        <div
-          className="funcBody purple lighten-2 z-depth-2"
-          style={{ padding: "8px" }}
-        >
-          <h6>
-            const <span className="amber-text">doubleNumber</span> = (
-            <span className="cyan-text text-accent-4">num</span> :{" "}
-            <span className="pink-text text-accent-1">number</span> ) {"=>"}
-          </h6>
-          <h6>
-            {" "}
-            <span className="cyan-text text-accent-4">num</span> * 2{" "}
-          </h6>
+            </h6>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

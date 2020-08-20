@@ -28357,28 +28357,34 @@ var Callback = function Callback(props) {
       padding: "8px",
       margin: "2px",
       display: "flex",
-      justifyContent: "space-around"
+      borderRadius: "5px",
+      flexDirection: "row",
+      justifyContent: "space-evenly"
     },
     className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3"
   }, react_1.default.createElement("h5", {
     className: "purple lighten-2 amber-text text-accent-4 z-depth-1",
     style: {
-      padding: "3px"
+      padding: "3px",
+      borderRadius: "5px"
     }
   }, "callback function"), react_1.default.createElement("div", {
     className: "functionCode",
     style: {
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "row"
     }
   }, props.algoHasStarted ? react_1.default.createElement("div", {
     style: {
       display: "flex",
-      justifyContent: "space-around"
+      justifyContent: "space-around",
+      margin: "10px"
     }
-  }, react_1.default.createElement("h5", {
-    className: "input"
-  }, "input :", " ", props.nums[props.curIdx] ? react_1.default.createElement("span", {
+  }, react_1.default.createElement("h6", {
+    className: "input valign-wrapper"
+  }, react_1.default.createElement("span", {
+    className: "blue-text text-darken-3"
+  }, "input"), " \xA0", " ", props.nums[props.curIdx] ? react_1.default.createElement("span", {
     ref: function ref(ele) {
       var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
 
@@ -28395,36 +28401,44 @@ var Callback = function Callback(props) {
         }
       }
     }
-  }, " ", props.nums[props.curIdx]) : ""), react_1.default.createElement("h5", {
-    className: "output"
-  }, "output :", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
+  }, " ", props.nums[props.curIdx]) : "")) : "", react_1.default.createElement("div", {
+    className: "funcBody purple lighten-2 z-depth-2",
+    style: {
+      padding: "12px",
+      borderRadius: "5px"
+    }
+  }, react_1.default.createElement("h6", null, "const ", react_1.default.createElement("span", {
+    className: "amber-text"
+  }, "doubleNumber"), " = (", react_1.default.createElement("span", {
+    className: "cyan-text text-accent-4"
+  }, "num"), " : ", "&nbsp", " ", react_1.default.createElement("span", {
+    className: "pink-text text-accent-1"
+  }, "number"), " ) ", "=>"), react_1.default.createElement("h6", null, " ", react_1.default.createElement("span", {
+    className: "cyan-text text-accent-4"
+  }, "num"), " * 2", " ")), react_1.default.createElement("div", {
+    style: {
+      display: "flex",
+      margin: "15px"
+    }
+  }, props.algoHasStarted ? react_1.default.createElement("h6", {
+    className: "output valign-wrapper"
+  }, react_1.default.createElement("span", {
+    className: "blue-text text-darken-3"
+  }, "output"), " \xA0", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
     ref: function ref(ele) {
       var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-      var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+      var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; //prevent infinite loop
 
-      if (x && y && x + 8 !== props.outputCoords.x) {
-        y += 28;
-        x += 8;
+      if (x && y && x + 6 !== props.outputCoords.x) {
+        y += 20;
+        x += 6;
         props.setOutPutCoords({
           x: x,
           y: y
         });
       }
     }
-  }, " ", props.doubleNumber(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "undefined")) : "", react_1.default.createElement("div", {
-    className: "funcBody purple lighten-2 z-depth-2",
-    style: {
-      padding: "8px"
-    }
-  }, react_1.default.createElement("h6", null, "const ", react_1.default.createElement("span", {
-    className: "amber-text"
-  }, "doubleNumber"), " = (", react_1.default.createElement("span", {
-    className: "cyan-text text-accent-4"
-  }, "num"), " :", " ", react_1.default.createElement("span", {
-    className: "pink-text text-accent-1"
-  }, "number"), " ) ", "=>"), react_1.default.createElement("h6", null, " ", react_1.default.createElement("span", {
-    className: "cyan-text text-accent-4"
-  }, "num"), " * 2", " "))));
+  }, " ", props.doubleNumber(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "") : "")));
 };
 
 exports.default = Callback;
@@ -28445,8 +28459,23 @@ var react_1 = __importDefault(require("react"));
 
 var InputArray = function InputArray(props) {
   return react_1.default.createElement("ul", {
-    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animInput ? "inputArrayNumsAnimate" : "")
-  }, react_1.default.createElement("h5", null, "inputArr : number[] "), react_1.default.createElement("h5", null, "="), react_1.default.createElement("li", {
+    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animInput ? "inputArrayNumsAnimate" : ""),
+    style: {
+      borderRadius: "5px"
+    }
+  }, react_1.default.createElement("div", {
+    className: "z-depth-1",
+    style: {
+      padding: "4px",
+      borderRadius: "4px",
+      alignSelf: "center",
+      marginLeft: "2em"
+    }
+  }, react_1.default.createElement("h5", null, react_1.default.createElement("span", {
+    className: "blue-text text-darken-4"
+  }, "input"), " :", " ", react_1.default.createElement("span", {
+    className: "pink-text text-accent-4"
+  }, " number [ ]"), " =", " ")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.nums.map(function (num, idx) {
     return react_1.default.createElement("li", {
@@ -28519,7 +28548,9 @@ var OutputArray = function OutputArray(props) {
     }, num));
   }), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "]")) : props.algoWillReset ? react_1.default.createElement("h5", null, "algo complete! click restart to run again") : react_1.default.createElement("h5", {
+  }, "]")) : props.algoWillReset ? react_1.default.createElement("h5", {
+    className: "center-align blue-text"
+  }, "algo complete! click restart to run again") : react_1.default.createElement("h5", {
     className: "center-align blue-text"
   }, "explanation");
 };
@@ -56792,21 +56823,18 @@ var KonvaLayer = function KonvaLayer(props) {
     className: "overlay"
   }, props.curIdx < props.nums.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "blue",
-    points: [props.curNumCoords.x, props.curNumCoords.y, props.curNumCoords.x - 10, props.curNumCoords.y - 50, props.inputCoords.x - 10, props.inputCoords.y + 50, props.inputCoords.x + 5, props.inputCoords.y + 6],
+    points: [props.curNumCoords.x, props.curNumCoords.y, props.curNumCoords.x - 10, props.curNumCoords.y - 50, props.inputCoords.x - 10, props.inputCoords.y + 50, props.inputCoords.x + 5, props.inputCoords.y + 22],
     bezier: true
   }), react_1.default.createElement(react_konva_1.Wedge, {
-    x: props.inputCoords.x + 3,
-    y: props.inputCoords.y,
+    x: props.inputCoords.x + 5,
+    y: props.inputCoords.y + 17,
     angle: 60,
     rotation: 60,
     radius: 14,
     fill: "blue"
   })) : props.currentTask === currentTaskE.output ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
-    points: [//TODO wait whats the difference between these props cur and output coords?
-    props.curOutputNumCoords.x + 5, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, // iii
-    // vvv
-    props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
+    points: [props.curOutputNumCoords.x + 5, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
     bezier: true
   }), react_1.default.createElement(react_konva_1.Wedge, {
     x: props.curOutputNumCoords.x + 3,
@@ -56845,7 +56873,7 @@ var Explainer = function Explainer(props) {
   }, "the .map method boils down to 3 basic steps"), react_1.default.createElement("ul", {
     className: "explainList row"
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    className: "waves-effect purple lighten-2  btn",
+    className: "waves-effect purple lighten-2  btn tolowercase",
     onClick: function onClick() {
       props.setAnimInput(true);
       setTimeout(function () {
@@ -56853,9 +56881,9 @@ var Explainer = function Explainer(props) {
       }, 1000);
     }
   }, "iterate input array")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    className: "waves-effect purple btn"
+    className: "waves-effect purple btn tolowercase"
   }, "call callback with each element")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    className: "waves-effect purple darken-2 btn"
+    className: "waves-effect purple darken-2 btn tolowercase"
   }, "put the returned element into output array.")), react_1.default.createElement("li", null))) : //to keep TS happy
   react_1.default.createElement("p", null, "\"\"");
 };
@@ -57085,11 +57113,14 @@ var Map = function Map() {
     setExplainer: setExplainer
   };
   react_1.useEffect(function () {
-    setStateObj.setAlgoWillReset(true);
-    setStateObj.setCurIdx(-1);
-    setStateObj.setCurrentTask(currentTaskE.inactive);
-    setStateObj.setStepNumber(0);
-    setStateObj.setOutputArray([]);
+    //ah this is if check is useful because we dont want this fire initially
+    if (algoHasFinished) {
+      setStateObj.setAlgoWillReset(true);
+      setStateObj.setCurIdx(-1);
+      setStateObj.setCurrentTask(currentTaskE.inactive);
+      setStateObj.setStepNumber(0);
+      setStateObj.setOutputArray([]);
+    }
   }, [algoHasFinished]);
 
   var takeStep = function takeStep(restart) {

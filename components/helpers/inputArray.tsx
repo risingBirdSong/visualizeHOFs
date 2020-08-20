@@ -18,9 +18,22 @@ const InputArray = (props: inputArrayI) => {
       className={`numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ${
         props.animInput ? "inputArrayNumsAnimate" : ""
       }`}
+      style={{ borderRadius: "5px" }}
     >
-      <h5>inputArr : number[] </h5>
-      <h5>=</h5>
+      <div
+        className="z-depth-1"
+        style={{
+          padding: "4px",
+          borderRadius: "4px",
+          alignSelf: "center",
+          marginLeft: "2em",
+        }}
+      >
+        <h5>
+          <span className="blue-text text-darken-4">input</span> :{" "}
+          <span className="pink-text text-accent-4"> number [ ]</span> ={" "}
+        </h5>
+      </div>
       <li className={"arrBrkt col s1 bracket"}>[</li>
       {props.nums.map((num, idx) => {
         return (

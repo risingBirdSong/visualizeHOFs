@@ -47,7 +47,9 @@ const OutputArray = (props: OutputArrI) =>
       <li className={`arrBrkt col s1 bracket`}>]</li>
     </ul>
   ) : props.algoWillReset ? (
-    <h5>algo complete! click restart to run again</h5>
+    <h5 className="center-align blue-text">
+      algo complete! click restart to run again
+    </h5>
   ) : (
     <h5 className="center-align blue-text">explanation</h5>
   );

@@ -81,11 +81,14 @@ const Map = () => {
   };
 
   useEffect(() => {
-    setStateObj.setAlgoWillReset(true);
-    setStateObj.setCurIdx(-1);
-    setStateObj.setCurrentTask(currentTaskE.inactive);
-    setStateObj.setStepNumber(0);
-    setStateObj.setOutputArray([]);
+    //ah this is if check is useful because we dont want this fire initially
+    if (algoHasFinished) {
+      setStateObj.setAlgoWillReset(true);
+      setStateObj.setCurIdx(-1);
+      setStateObj.setCurrentTask(currentTaskE.inactive);
+      setStateObj.setStepNumber(0);
+      setStateObj.setOutputArray([]);
+    }
   }, [algoHasFinished]);
 
   const takeStep = (restart: boolean) => {

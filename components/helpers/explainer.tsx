@@ -17,7 +17,7 @@ const Explainer = (props: ExplainerI) =>
       <ul className="explainList row">
         <li>
           <button
-            className="waves-effect purple lighten-2  btn"
+            className="waves-effect purple lighten-2  btn tolowercase"
             onClick={() => {
               props.setAnimInput(true);
               setTimeout(() => {
@@ -29,12 +29,12 @@ const Explainer = (props: ExplainerI) =>
           </button>
         </li>
         <li>
-          <button className="waves-effect purple btn">
+          <button className="waves-effect purple btn tolowercase">
             call callback with each element
           </button>
         </li>
         <li>
-          <button className="waves-effect purple darken-2 btn">
+          <button className="waves-effect purple darken-2 btn tolowercase">
             put the returned element into output array.
           </button>
         </li>
