@@ -55,7 +55,7 @@ const Callback = (props: CallbackI) => {
                       let x = ele?.getBoundingClientRect().x;
                       let y = ele?.getBoundingClientRect().y;
                       if (x && y) {
-                        y += 25;
+                        y += 0;
                         props.setInputCoords({ x, y });
                         let numCoords = props.curNumCoords;
                         // props.setCurNumCoords({

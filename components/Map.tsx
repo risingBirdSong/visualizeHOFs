@@ -4,6 +4,7 @@ import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
 import { MapMainControls } from "./helpers/mapMainControls";
 import Callback from "./helpers/callback";
+import InputArray from "./helpers/inputArray";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 enum cls {
@@ -55,6 +56,7 @@ const Map = () => {
     curOutputNumCoords: curOutputNumCoords,
     algoHasFinished: algoHasFinished,
     algoWillReset: algoWillReset,
+    animInput: animInput,
   };
 
   // same as state object but for set state.
@@ -71,6 +73,7 @@ const Map = () => {
     setCurOutputNumCoords: setCurOutputNumCoords,
     setAlgoHasFinished: setAlgoHasFinished,
     setAlgoWillReset: setAlgoWillReset,
+    setAnimInput: setAnimInput,
   };
 
   useEffect(() => {
@@ -133,54 +136,17 @@ const Map = () => {
     <div className="allApp">
       <div className="foundation">
         <MapMainControls
-          algoHasFinished={stateObj.algoHasFinished}
-          algoHasStarted={stateObj.algoHasStarted}
-          algoWillReset={stateObj.algoWillReset}
+          {...stateObj}
           takeStep={takeStep}
           setExplainer={setExplainer}
         />
 
         <Callback {...stateObj} {...setStateObj} doubleNumber={doubleNumber} />
+
+        <InputArray {...stateObj} {...setStateObj} />
         {/* refactor todo  here */}
 
         {/* refactor todo  here */}
-        <ul
-          className={`${
-            cls.numArr
-          } valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ${
-            animInput ? "inputArrayNumsAnimate" : ""
-          }`}
-        >
-          <h5>inputArr : number[] </h5>
-          <h5>=</h5>
-          <li className={`${cls.arrBrkt} col s1 bracket`}>[</li>
-          {stateObj.nums.map((num, idx) => {
-            return (
-              <li className={"col s1"} key={idx}>
-                {idx === stateObj.curIdx ? (
-                  <p
-                    ref={(ele) => {
-                      //perhaps TODO later remove bang
-                      let x = ele?.getBoundingClientRect().x;
-                      let y = ele?.getBoundingClientRect().y;
-                      if (x && y) {
-                        if (x !== stateObj.curNumCoords.x) {
-                          setStateObj.setCurNumCoords({ x: x, y: y });
-                        }
-                      }
-                    }}
-                    className={`${cls.num} pink lighten-3 z-depth-5`}
-                  >
-                    {num}
-                  </p>
-                ) : (
-                  <p className={`${cls.num} z-depth-3`}>{num}</p>
-                )}
-              </li>
-            );
-          })}
-          <li className={`${cls.arrBrkt} col s1 bracket`}>]</li>
-        </ul>
         {algoHasStarted && !algoHasFinished ? (
           <ul
             className={`${cls.numArr} valign-wrapper row pink lighten-2 center-align array`}

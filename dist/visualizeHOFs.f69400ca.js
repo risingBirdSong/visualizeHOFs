@@ -56619,7 +56619,7 @@ var Callback = function Callback(props) {
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
         if (x && y) {
-          y += 25;
+          y += 0;
           props.setInputCoords({
             x: x,
             y: y
@@ -56653,6 +56653,55 @@ var Callback = function Callback(props) {
 };
 
 exports.default = Callback;
+},{"react":"node_modules/react/index.js"}],"components/helpers/inputArray.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var InputArray = function InputArray(props) {
+  return react_1.default.createElement("ul", {
+    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animInput ? "inputArrayNumsAnimate" : "")
+  }, react_1.default.createElement("h5", null, "inputArr : number[] "), react_1.default.createElement("h5", null, "="), react_1.default.createElement("li", {
+    className: "arrBrkt col s1 bracket"
+  }, "["), props.nums.map(function (num, idx) {
+    return react_1.default.createElement("li", {
+      className: "col s1",
+      key: idx
+    }, idx === props.curIdx ? react_1.default.createElement("p", {
+      ref: function ref(ele) {
+        //perhaps TODO later remove bang
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          if (x !== props.curNumCoords.x) {
+            props.setCurNumCoords({
+              x: x,
+              y: y
+            });
+          }
+        }
+      },
+      className: "num pink lighten-3 z-depth-5"
+    }, num) : react_1.default.createElement("p", {
+      className: "num z-depth-3"
+    }, num));
+  }), react_1.default.createElement("li", {
+    className: "arrBrkt col s1 bracket"
+  }, "]"));
+};
+
+exports.default = InputArray;
 },{"react":"node_modules/react/index.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -56728,7 +56777,9 @@ var react_konva_1 = require("react-konva");
 
 var mapMainControls_1 = require("./helpers/mapMainControls");
 
-var callback_1 = __importDefault(require("./helpers/callback")); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var callback_1 = __importDefault(require("./helpers/callback"));
+
+var inputArray_1 = __importDefault(require("./helpers/inputArray")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 
 var cls;
@@ -56850,7 +56901,8 @@ var Map = function Map() {
     currentTask: currentTask,
     curOutputNumCoords: curOutputNumCoords,
     algoHasFinished: algoHasFinished,
-    algoWillReset: algoWillReset
+    algoWillReset: algoWillReset,
+    animInput: animInput
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -56865,7 +56917,8 @@ var Map = function Map() {
     setCurrentTask: setCurrentTask,
     setCurOutputNumCoords: setCurOutputNumCoords,
     setAlgoHasFinished: setAlgoHasFinished,
-    setAlgoWillReset: setAlgoWillReset
+    setAlgoWillReset: setAlgoWillReset,
+    setAnimInput: setAnimInput
   };
   react_1.useEffect(function () {// console.log("curNumCoords", curNumCoords);
     // console.log("inputCoords", inputCoords);
@@ -56926,44 +56979,12 @@ var Map = function Map() {
     className: "allApp"
   }, React.createElement("div", {
     className: "foundation"
-  }, React.createElement(mapMainControls_1.MapMainControls, {
-    algoHasFinished: stateObj.algoHasFinished,
-    algoHasStarted: stateObj.algoHasStarted,
-    algoWillReset: stateObj.algoWillReset,
+  }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, {
     takeStep: takeStep,
     setExplainer: setExplainer
-  }), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
+  })), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
     doubleNumber: doubleNumber
-  })), React.createElement("ul", {
-    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ").concat(animInput ? "inputArrayNumsAnimate" : "")
-  }, React.createElement("h5", null, "inputArr : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
-    className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "["), stateObj.nums.map(function (num, idx) {
-    return React.createElement("li", {
-      className: "col s1",
-      key: idx
-    }, idx === stateObj.curIdx ? React.createElement("p", {
-      ref: function ref(ele) {
-        //perhaps TODO later remove bang
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y) {
-          if (x !== stateObj.curNumCoords.x) {
-            setStateObj.setCurNumCoords({
-              x: x,
-              y: y
-            });
-          }
-        }
-      },
-      className: "".concat(cls.num, " pink lighten-3 z-depth-5")
-    }, num) : React.createElement("p", {
-      className: "".concat(cls.num, " z-depth-3")
-    }, num));
-  }), React.createElement("li", {
-    className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "]")), algoHasStarted && !algoHasFinished ? React.createElement("ul", {
+  })), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), algoHasStarted && !algoHasFinished ? React.createElement("ul", {
     className: "".concat(cls.numArr, " valign-wrapper row pink lighten-2 center-align array")
   }, React.createElement("h5", null, "output : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
@@ -57051,7 +57072,7 @@ var Map = function Map() {
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx","./helpers/callback":"components/helpers/callback.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx","./helpers/callback":"components/helpers/callback.tsx","./helpers/inputArray":"components/helpers/inputArray.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
