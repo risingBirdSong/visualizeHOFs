@@ -56624,6 +56624,10 @@ var Callback = function Callback(props) {
             x: x,
             y: y
           });
+          var numCoords = props.curNumCoords; // props.setCurNumCoords({
+          //   x: numCoords.x,
+          //   y: numCoords.y,
+          // });
         }
       }
     }
@@ -56928,19 +56932,9 @@ var Map = function Map() {
     algoWillReset: stateObj.algoWillReset,
     takeStep: takeStep,
     setExplainer: setExplainer
-  }), React.createElement(callback_1.default, {
-    algoHasStarted: stateObj.algoHasStarted,
-    curIdx: stateObj.curIdx,
-    curNumCoords: stateObj.curNumCoords,
-    currentTask: stateObj.currentTask,
-    doubleNumber: doubleNumber,
-    inputCoords: stateObj.inputCoords,
-    nums: stateObj.nums,
-    outputCoords: stateObj.outputCoords,
-    setCurNumCoords: setStateObj.setCurNumCoords,
-    setInputCoords: setStateObj.setInputCoords,
-    setOutPutCoords: setStateObj.setOutPutCoords
-  }), React.createElement("ul", {
+  }), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
+    doubleNumber: doubleNumber
+  })), React.createElement("ul", {
     className: "".concat(cls.numArr, " valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ").concat(animInput ? "inputArrayNumsAnimate" : "")
   }, React.createElement("h5", null, "inputArr : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
     className: "".concat(cls.arrBrkt, " col s1 bracket")
@@ -57201,7 +57195,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51607" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56794" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

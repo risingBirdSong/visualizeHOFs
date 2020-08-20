@@ -140,18 +140,7 @@ const Map = () => {
           setExplainer={setExplainer}
         />
 
-        <Callback
-          algoHasStarted={stateObj.algoHasStarted}
-          curIdx={stateObj.curIdx}
-          curNumCoords={stateObj.curNumCoords}
-          currentTask={stateObj.currentTask}
-          doubleNumber={doubleNumber}
-          inputCoords={stateObj.inputCoords}
-          nums={stateObj.nums}
-          outputCoords={stateObj.outputCoords}
-          setInputCoords={setStateObj.setInputCoords}
-          setOutPutCoords={setStateObj.setOutPutCoords}
-        />
+        <Callback {...stateObj} {...setStateObj} doubleNumber={doubleNumber} />
         {/* refactor todo  here */}
 
         {/* refactor todo  here */}
