@@ -28523,8 +28523,22 @@ var react_1 = __importDefault(require("react"));
 
 var OutputArray = function OutputArray(props) {
   return props.algoHasStarted && !props.algoHasFinished ? react_1.default.createElement("ul", {
-    className: "numArr valign-wrapper row pink lighten-2 center-align array"
-  }, react_1.default.createElement("h5", null, "output : number[] "), react_1.default.createElement("h5", null, "="), react_1.default.createElement("li", {
+    className: "numArr valign-wrapper row pink lighten-2 center-align array",
+    style: {
+      borderRadius: "5px"
+    }
+  }, react_1.default.createElement("div", {
+    className: "z-depth-1",
+    style: {
+      borderRadius: "5px",
+      marginLeft: "2em",
+      padding: "4px"
+    }
+  }, react_1.default.createElement("h5", null, react_1.default.createElement("span", {
+    className: "blue-text text-darken-3"
+  }, "output"), " ", react_1.default.createElement("span", {
+    className: "amber-text text-accent-3"
+  }, ": number[ ]"), " =")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.outputArray.map(function (num, idx) {
     return react_1.default.createElement("li", {

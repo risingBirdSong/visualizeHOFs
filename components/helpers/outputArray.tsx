@@ -18,9 +18,17 @@ const OutputArray = (props: OutputArrI) =>
   props.algoHasStarted && !props.algoHasFinished ? (
     <ul
       className={`numArr valign-wrapper row pink lighten-2 center-align array`}
+      style={{ borderRadius: "5px" }}
     >
-      <h5>output : number[] </h5>
-      <h5>=</h5>
+      <div
+        className="z-depth-1"
+        style={{ borderRadius: "5px", marginLeft: "2em", padding: "4px" }}
+      >
+        <h5>
+          <span className="blue-text text-darken-3">output</span>{" "}
+          <span className="amber-text text-accent-3">: number[ ]</span> =
+        </h5>
+      </div>
       <li className={`arrBrkt col s1 bracket`}>[</li>
       {props.outputArray.map((num, idx) => {
         return (
