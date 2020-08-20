@@ -28285,7 +28285,236 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"node_modules/konva/lib/Global.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/helpers/mapMainControls.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MapMainControls = void 0;
+
+var react_1 = __importDefault(require("react"));
+
+var MapMainControls = function MapMainControls(props) {
+  return react_1.default.createElement("ul", {
+    className: "row"
+  }, react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.takeStep(props.algoHasFinished === true ? true : false);
+    },
+    className: "waves-effect waves-light btn"
+  }, !props.algoHasStarted && !props.algoHasFinished ? "start" : props.algoWillReset ? "restart" : "step")), react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    className: "waves-effect waves-light btn",
+    onClick: function onClick() {
+      props.setExplainer(function (past) {
+        return !past;
+      });
+    }
+  }, "explain", " ")), react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    className: "waves-effect waves-light btn"
+  }, "todo 2")));
+};
+
+exports.MapMainControls = MapMainControls;
+},{"react":"node_modules/react/index.js"}],"components/helpers/callback.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var currentTaskE;
+
+(function (currentTaskE) {
+  currentTaskE[currentTaskE["inactive"] = 0] = "inactive";
+  currentTaskE[currentTaskE["input"] = 1] = "input";
+  currentTaskE[currentTaskE["output"] = 2] = "output";
+})(currentTaskE || (currentTaskE = {}));
+
+var Callback = function Callback(props) {
+  return react_1.default.createElement("div", {
+    style: {
+      padding: "5px",
+      marginTop: "2px",
+      display: "flex",
+      justifyContent: "space-around"
+    },
+    className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3"
+  }, react_1.default.createElement("h5", {
+    className: "purple lighten-2",
+    style: {
+      padding: "3px"
+    }
+  }, "callback function"), react_1.default.createElement("div", {
+    className: "functionCode",
+    style: {
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, props.algoHasStarted ? react_1.default.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-around"
+    }
+  }, react_1.default.createElement("h5", {
+    className: "input"
+  }, "input :", " ", props.nums[props.curIdx] ? react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+
+      if (props.inputCoords.x !== curX) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          y += 0;
+          props.setInputCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }
+  }, " ", props.nums[props.curIdx]) : ""), react_1.default.createElement("h5", {
+    className: "output"
+  }, "output :", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+      var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+      if (x && y && x + 8 !== props.outputCoords.x) {
+        y += 28;
+        x += 8;
+        props.setOutPutCoords({
+          x: x,
+          y: y
+        });
+      }
+    }
+  }, " ", props.doubleNumber(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "undefined")) : "", react_1.default.createElement("div", {
+    className: "funcBody"
+  }, react_1.default.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), react_1.default.createElement("h5", null, " num * 2 "))));
+};
+
+exports.default = Callback;
+},{"react":"node_modules/react/index.js"}],"components/helpers/inputArray.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var InputArray = function InputArray(props) {
+  return react_1.default.createElement("ul", {
+    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animInput ? "inputArrayNumsAnimate" : "")
+  }, react_1.default.createElement("h5", null, "inputArr : number[] "), react_1.default.createElement("h5", null, "="), react_1.default.createElement("li", {
+    className: "arrBrkt col s1 bracket"
+  }, "["), props.nums.map(function (num, idx) {
+    return react_1.default.createElement("li", {
+      className: "col s1",
+      key: idx
+    }, idx === props.curIdx ? react_1.default.createElement("p", {
+      ref: function ref(ele) {
+        //perhaps TODO later remove bang
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          if (x !== props.curNumCoords.x) {
+            props.setCurNumCoords({
+              x: x,
+              y: y
+            });
+          }
+        }
+      },
+      className: "num pink lighten-3 z-depth-5"
+    }, num) : react_1.default.createElement("p", {
+      className: "num z-depth-3"
+    }, num));
+  }), react_1.default.createElement("li", {
+    className: "arrBrkt col s1 bracket"
+  }, "]"));
+};
+
+exports.default = InputArray;
+},{"react":"node_modules/react/index.js"}],"components/helpers/outputArray.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var OutputArray = function OutputArray(props) {
+  return props.algoHasStarted && !props.algoHasFinished ? react_1.default.createElement("ul", {
+    className: "numArr valign-wrapper row pink lighten-2 center-align array"
+  }, react_1.default.createElement("h5", null, "output : number[] "), react_1.default.createElement("h5", null, "="), react_1.default.createElement("li", {
+    className: "arrBrkt col s1 bracket"
+  }, "["), props.outputArray.map(function (num, idx) {
+    return react_1.default.createElement("li", {
+      className: "col s1",
+      key: idx
+    }, idx === props.curIdx ? react_1.default.createElement("p", {
+      className: "num amber lighten-1 z-depth-5",
+      ref: function ref(ele) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y && x !== props.curOutputNumCoords.x) {
+          props.setCurOutputNumCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }, num) : react_1.default.createElement("p", {
+      className: "num amber lighten-4 z-depth-3"
+    }, num));
+  }), react_1.default.createElement("li", {
+    className: "arrBrkt col s1 bracket"
+  }, "]")) : props.algoWillReset ? react_1.default.createElement("h5", null, "algo complete! click restart to run again") : react_1.default.createElement("h5", {
+    className: "center-align blue-text"
+  }, "explanation");
+};
+
+exports.default = OutputArray;
+},{"react":"node_modules/react/index.js"}],"node_modules/konva/lib/Global.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -56517,50 +56746,7 @@ var ReactKonvaCore = require('./ReactKonvaCore');
 var Konva = require('konva');
 
 module.exports = _extends({}, ReactKonvaCore);
-},{"./ReactKonvaCore":"node_modules/react-konva/lib/ReactKonvaCore.js","konva":"node_modules/konva/lib/index.js"}],"components/helpers/mapMainControls.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.MapMainControls = void 0;
-
-var react_1 = __importDefault(require("react"));
-
-var MapMainControls = function MapMainControls(props) {
-  return react_1.default.createElement("ul", {
-    className: "row"
-  }, react_1.default.createElement("li", {
-    className: "z-depth-3"
-  }, react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.takeStep(props.algoHasFinished === true ? true : false);
-    },
-    className: "waves-effect waves-light btn"
-  }, !props.algoHasStarted && !props.algoHasFinished ? "start" : props.algoWillReset ? "restart" : "step")), react_1.default.createElement("li", {
-    className: "z-depth-3"
-  }, react_1.default.createElement("button", {
-    className: "waves-effect waves-light btn",
-    onClick: function onClick() {
-      props.setExplainer(function (past) {
-        return !past;
-      });
-    }
-  }, "explain", " ")), react_1.default.createElement("li", {
-    className: "z-depth-3"
-  }, react_1.default.createElement("button", {
-    className: "waves-effect waves-light btn"
-  }, "todo 2")));
-};
-
-exports.MapMainControls = MapMainControls;
-},{"react":"node_modules/react/index.js"}],"components/helpers/callback.tsx":[function(require,module,exports) {
+},{"./ReactKonvaCore":"node_modules/react-konva/lib/ReactKonvaCore.js","konva":"node_modules/konva/lib/index.js"}],"components/helpers/KonvaLayer.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -56573,7 +56759,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var react_1 = __importDefault(require("react"));
+var react_1 = __importDefault(require("react")); // import currentTaskE from "../Map";
+
+
+var react_konva_1 = require("react-konva"); //redefining same enum here because of bug
+//todo see why the import doesn behave the same as redefining same thing here
+
 
 var currentTaskE;
 
@@ -56583,77 +56774,41 @@ var currentTaskE;
   currentTaskE[currentTaskE["output"] = 2] = "output";
 })(currentTaskE || (currentTaskE = {}));
 
-var Callback = function Callback(props) {
-  return react_1.default.createElement("div", {
-    style: {
-      padding: "5px",
-      marginTop: "2px",
-      display: "flex",
-      justifyContent: "space-around"
-    },
-    className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3"
-  }, react_1.default.createElement("h5", {
-    className: "purple lighten-2",
-    style: {
-      padding: "3px"
-    }
-  }, "callback function"), react_1.default.createElement("div", {
-    className: "functionCode",
-    style: {
-      display: "flex",
-      flexDirection: "column"
-    }
-  }, props.algoHasStarted ? react_1.default.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-around"
-    }
-  }, react_1.default.createElement("h5", {
-    className: "input"
-  }, "input :", " ", props.nums[props.curIdx] ? react_1.default.createElement("span", {
-    ref: function ref(ele) {
-      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-
-      if (props.inputCoords.x !== curX) {
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y) {
-          y += 0;
-          props.setInputCoords({
-            x: x,
-            y: y
-          });
-          var numCoords = props.curNumCoords; // props.setCurNumCoords({
-          //   x: numCoords.x,
-          //   y: numCoords.y,
-          // });
-        }
-      }
-    }
-  }, " ", props.nums[props.curIdx]) : ""), react_1.default.createElement("h5", {
-    className: "output"
-  }, "output :", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
-    ref: function ref(ele) {
-      var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-      var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-      if (x && y && x + 8 !== props.outputCoords.x) {
-        y += 28;
-        x += 8;
-        props.setOutPutCoords({
-          x: x,
-          y: y
-        });
-      }
-    }
-  }, " ", props.doubleNumber(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "undefined")) : "", react_1.default.createElement("div", {
-    className: "funcBody"
-  }, react_1.default.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), react_1.default.createElement("h5", null, " num * 2 "))));
+var KonvaLayer = function KonvaLayer(props) {
+  return react_1.default.createElement(react_konva_1.Stage, {
+    width: window.innerWidth,
+    height: window.innerHeight,
+    className: "overlay"
+  }, props.curIdx < props.nums.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+    stroke: "blue",
+    points: [props.curNumCoords.x, props.curNumCoords.y, props.curNumCoords.x - 10, props.curNumCoords.y - 50, props.inputCoords.x - 10, props.inputCoords.y + 50, props.inputCoords.x + 5, props.inputCoords.y + 6],
+    bezier: true
+  }), react_1.default.createElement(react_konva_1.Wedge, {
+    x: props.inputCoords.x + 3,
+    y: props.inputCoords.y,
+    angle: 60,
+    rotation: 60,
+    radius: 14,
+    fill: "blue"
+  })) : props.currentTask === currentTaskE.output ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+    stroke: "purple",
+    points: [//TODO wait whats the difference between these props cur and output coords?
+    props.curOutputNumCoords.x + 5, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, // iii
+    // vvv
+    props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
+    bezier: true
+  }), react_1.default.createElement(react_konva_1.Wedge, {
+    x: props.curOutputNumCoords.x + 3,
+    y: props.curOutputNumCoords.y - 3,
+    angle: 60,
+    rotation: -130,
+    radius: 14,
+    fill: "blue"
+  })) : null) : null);
 };
 
-exports.default = Callback;
-},{"react":"node_modules/react/index.js"}],"components/helpers/inputArray.tsx":[function(require,module,exports) {
+exports.default = KonvaLayer;
+},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js"}],"components/helpers/explainer.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -56668,40 +56823,33 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
-var InputArray = function InputArray(props) {
-  return react_1.default.createElement("ul", {
-    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animInput ? "inputArrayNumsAnimate" : "")
-  }, react_1.default.createElement("h5", null, "inputArr : number[] "), react_1.default.createElement("h5", null, "="), react_1.default.createElement("li", {
-    className: "arrBrkt col s1 bracket"
-  }, "["), props.nums.map(function (num, idx) {
-    return react_1.default.createElement("li", {
-      className: "col s1",
-      key: idx
-    }, idx === props.curIdx ? react_1.default.createElement("p", {
-      ref: function ref(ele) {
-        //perhaps TODO later remove bang
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y) {
-          if (x !== props.curNumCoords.x) {
-            props.setCurNumCoords({
-              x: x,
-              y: y
-            });
-          }
-        }
-      },
-      className: "num pink lighten-3 z-depth-5"
-    }, num) : react_1.default.createElement("p", {
-      className: "num z-depth-3"
-    }, num));
-  }), react_1.default.createElement("li", {
-    className: "arrBrkt col s1 bracket"
-  }, "]"));
+var Explainer = function Explainer(props) {
+  return props.explainer ? react_1.default.createElement("div", {
+    className: "explanation blue lighten-1 z-depth-2 ",
+    style: {
+      padding: "10px"
+    }
+  }, react_1.default.createElement("h4", {
+    className: "amber-text center-align"
+  }, "the .map method boils down to 3 basic steps"), react_1.default.createElement("ul", {
+    className: "explainList row"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    className: "waves-effect purple lighten-2  btn",
+    onClick: function onClick() {
+      props.setAnimInput(true);
+      setTimeout(function () {
+        props.setAnimInput(false);
+      }, 1000);
+    }
+  }, "iterate input array")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    className: "waves-effect purple btn"
+  }, "call callback with each element")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    className: "waves-effect purple darken-2 btn"
+  }, "put the returned element into output array.")), react_1.default.createElement("li", null))) : //to keep TS happy
+  react_1.default.createElement("p", null, "\"\"");
 };
 
-exports.default = InputArray;
+exports.default = Explainer;
 },{"react":"node_modules/react/index.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -56773,13 +56921,17 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
-var react_konva_1 = require("react-konva");
-
 var mapMainControls_1 = require("./helpers/mapMainControls");
 
 var callback_1 = __importDefault(require("./helpers/callback"));
 
-var inputArray_1 = __importDefault(require("./helpers/inputArray")); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var inputArray_1 = __importDefault(require("./helpers/inputArray"));
+
+var outputArray_1 = __importDefault(require("./helpers/outputArray"));
+
+var KonvaLayer_1 = __importDefault(require("./helpers/KonvaLayer"));
+
+var explainer_1 = __importDefault(require("./helpers/explainer")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 
 var cls;
@@ -56918,21 +57070,15 @@ var Map = function Map() {
     setCurOutputNumCoords: setCurOutputNumCoords,
     setAlgoHasFinished: setAlgoHasFinished,
     setAlgoWillReset: setAlgoWillReset,
-    setAnimInput: setAnimInput
+    setAnimInput: setAnimInput,
+    setExplainer: setExplainer
   };
-  react_1.useEffect(function () {// console.log("curNumCoords", curNumCoords);
-    // console.log("inputCoords", inputCoords);
-  }, [curNumCoords, inputCoords]);
   react_1.useEffect(function () {
-    // console.log("curNumCoords", curNumCoords);
-    // console.log("inputCoords", inputCoords);
-    if (algoHasFinished) {
-      setStateObj.setAlgoWillReset(true);
-      setStateObj.setCurIdx(-1);
-      setStateObj.setCurrentTask(currentTaskE.inactive);
-      setStateObj.setStepNumber(0);
-      setStateObj.setOutputArray([]);
-    }
+    setStateObj.setAlgoWillReset(true);
+    setStateObj.setCurIdx(-1);
+    setStateObj.setCurrentTask(currentTaskE.inactive);
+    setStateObj.setStepNumber(0);
+    setStateObj.setOutputArray([]);
   }, [algoHasFinished]);
 
   var takeStep = function takeStep(restart) {
@@ -56946,7 +57092,8 @@ var Map = function Map() {
     if (algoWillReset) {
       setStateObj.setAlgoHasFinished(false);
       setAlgoWillReset(false);
-    }
+    } //if the algo is completing
+
 
     if (stateObj.curIdx === stateObj.nums.length - 1 && stateObj.currentTask === currentTaskE.output) {
       setStateObj.setAlgoHasFinished(true);
@@ -56979,100 +57126,18 @@ var Map = function Map() {
     className: "allApp"
   }, React.createElement("div", {
     className: "foundation"
-  }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, {
-    takeStep: takeStep,
-    setExplainer: setExplainer
+  }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
+    takeStep: takeStep
   })), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
     doubleNumber: doubleNumber
-  })), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), algoHasStarted && !algoHasFinished ? React.createElement("ul", {
-    className: "".concat(cls.numArr, " valign-wrapper row pink lighten-2 center-align array")
-  }, React.createElement("h5", null, "output : number[] "), React.createElement("h5", null, "="), React.createElement("li", {
-    className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "["), stateObj.outputArray.map(function (num, idx) {
-    return React.createElement("li", {
-      className: "col s1",
-      key: idx
-    }, idx === stateObj.curIdx ? React.createElement("p", {
-      className: "".concat(cls.num, " amber lighten-1 z-depth-5"),
-      ref: function ref(ele) {
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y && x !== curOutputNumCoords.x) {
-          setStateObj.setCurOutputNumCoords({
-            x: x,
-            y: y
-          });
-        }
-      }
-    }, num) : React.createElement("p", {
-      className: "".concat(cls.num, " amber lighten-4 z-depth-3")
-    }, num));
-  }), React.createElement("li", {
-    className: "".concat(cls.arrBrkt, " col s1 bracket")
-  }, "]")) : stateObj.algoWillReset ? React.createElement("h5", null, "algo complete! click restart to run again") : React.createElement("h5", {
-    className: "center-align blue-text"
-  }, "explanation")), React.createElement(react_konva_1.Stage, {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    className: "overlay"
-  }, stateObj.curIdx < stateObj.nums.length ? React.createElement(react_konva_1.Layer, null, stateObj.currentTask === currentTaskE.input ? // <Circle
-  //   radius={20}
-  //   x={stateObj.curNumCoords.x}
-  //   y={stateObj.curNumCoords.y}
-  //   fill="green"
-  // />
-  //@ts-ignore
-  React.createElement(React.Fragment, null, React.createElement(react_konva_1.Line, {
-    stroke: "blue",
-    points: [stateObj.curNumCoords.x, stateObj.curNumCoords.y, stateObj.curNumCoords.x - 10, stateObj.curNumCoords.y - 50, stateObj.inputCoords.x - 10, stateObj.inputCoords.y + 50, stateObj.inputCoords.x + 5, stateObj.inputCoords.y + 6],
-    // points={[50, 60, 110, 50, 220, 50, 330, 40]}
-    bezier: true
-  }), React.createElement(react_konva_1.Wedge, {
-    x: stateObj.inputCoords.x + 3,
-    y: stateObj.inputCoords.y,
-    angle: 60,
-    rotation: 60,
-    radius: 14,
-    fill: "blue"
-  })) : stateObj.currentTask === currentTaskE.output ? React.createElement(React.Fragment, null, React.createElement(react_konva_1.Line, {
-    stroke: "purple",
-    points: [stateObj.curOutputNumCoords.x + 5, stateObj.curOutputNumCoords.y - 10, stateObj.curOutputNumCoords.x - 20, stateObj.curOutputNumCoords.y - 20, stateObj.outputCoords.x, stateObj.outputCoords.y, stateObj.outputCoords.x, stateObj.outputCoords.y],
-    // points={[50, 60, 110, 50, 220, 50, 330, 40]}
-    bezier: true
-  }), React.createElement(react_konva_1.Wedge, {
-    x: stateObj.curOutputNumCoords.x + 3,
-    y: stateObj.curOutputNumCoords.y - 3,
-    angle: 60,
-    rotation: -130,
-    radius: 14,
-    fill: "blue"
-  })) : null) : null), explainer ? React.createElement("div", {
-    className: "explanation blue lighten-1 z-depth-2 ",
-    style: {
-      padding: "10px"
-    }
-  }, React.createElement("h4", {
-    className: "amber-text center-align"
-  }, "the .map method boils down to 3 basic steps"), React.createElement("ul", {
-    className: "explainList row"
-  }, React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect purple lighten-2  btn",
-    onClick: function onClick() {
-      setAnimInput(true);
-      setTimeout(function () {
-        setAnimInput(false);
-      }, 1000);
-    }
-  }, "iterate input array")), React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect purple btn"
-  }, "call callback with each element")), React.createElement("li", null, React.createElement("button", {
-    className: "waves-effect purple darken-2 btn"
-  }, "put the returned element into output array.")), React.createElement("li", null))) : "");
+  })), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(explainer_1.default, {
+    explainer: explainer,
+    setAnimInput: setAnimInput
+  }));
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx","./helpers/callback":"components/helpers/callback.tsx","./helpers/inputArray":"components/helpers/inputArray.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx","./helpers/callback":"components/helpers/callback.tsx","./helpers/inputArray":"components/helpers/inputArray.tsx","./helpers/outputArray":"components/helpers/outputArray.tsx","./helpers/KonvaLayer":"components/helpers/KonvaLayer.tsx","./helpers/explainer":"components/helpers/explainer.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {

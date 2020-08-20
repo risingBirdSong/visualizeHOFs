@@ -57,11 +57,6 @@ const Callback = (props: CallbackI) => {
                       if (x && y) {
                         y += 0;
                         props.setInputCoords({ x, y });
-                        let numCoords = props.curNumCoords;
-                        // props.setCurNumCoords({
-                        //   x: numCoords.x,
-                        //   y: numCoords.y,
-                        // });
                       }
                     }
                   }}
