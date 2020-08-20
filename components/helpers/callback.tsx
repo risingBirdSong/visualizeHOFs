@@ -28,14 +28,17 @@ const Callback = (props: CallbackI) => {
   return (
     <div
       style={{
-        padding: "5px",
-        marginTop: "2px",
+        padding: "8px",
+        margin: "2px",
         display: "flex",
         justifyContent: "space-around",
       }}
       className={`callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3`}
     >
-      <h5 className="purple lighten-2" style={{ padding: "3px" }}>
+      <h5
+        className="purple lighten-2 amber-text text-accent-4 z-depth-1"
+        style={{ padding: "3px" }}
+      >
         callback function
       </h5>
 
@@ -97,9 +100,19 @@ const Callback = (props: CallbackI) => {
         ) : (
           ""
         )}
-        <div className="funcBody">
-          <h5>const doubleNumber = (num: number) {"=>"}</h5>
-          <h5> num * 2 </h5>
+        <div
+          className="funcBody purple lighten-2 z-depth-2"
+          style={{ padding: "8px" }}
+        >
+          <h6>
+            const <span className="amber-text">doubleNumber</span> = (
+            <span className="cyan-text text-accent-4">num</span> :{" "}
+            <span className="pink-text text-accent-1">number</span> ) {"=>"}
+          </h6>
+          <h6>
+            {" "}
+            <span className="cyan-text text-accent-4">num</span> * 2{" "}
+          </h6>
         </div>
       </div>
     </div>

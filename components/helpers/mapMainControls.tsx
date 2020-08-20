@@ -24,6 +24,7 @@ const MapMainControls = (props: MapMainControlsI) => {
             : "step"}
         </button>
       </li>
+      {/* do we really want to be able to toggle explainer? */}
       <li className="z-depth-3">
         <button
           className="waves-effect waves-light btn"

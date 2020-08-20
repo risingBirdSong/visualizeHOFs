@@ -28354,14 +28354,14 @@ var currentTaskE;
 var Callback = function Callback(props) {
   return react_1.default.createElement("div", {
     style: {
-      padding: "5px",
-      marginTop: "2px",
+      padding: "8px",
+      margin: "2px",
       display: "flex",
       justifyContent: "space-around"
     },
     className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3"
   }, react_1.default.createElement("h5", {
-    className: "purple lighten-2",
+    className: "purple lighten-2 amber-text text-accent-4 z-depth-1",
     style: {
       padding: "3px"
     }
@@ -28412,8 +28412,19 @@ var Callback = function Callback(props) {
       }
     }
   }, " ", props.doubleNumber(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "undefined")) : "", react_1.default.createElement("div", {
-    className: "funcBody"
-  }, react_1.default.createElement("h5", null, "const doubleNumber = (num: number) ", "=>"), react_1.default.createElement("h5", null, " num * 2 "))));
+    className: "funcBody purple lighten-2 z-depth-2",
+    style: {
+      padding: "8px"
+    }
+  }, react_1.default.createElement("h6", null, "const ", react_1.default.createElement("span", {
+    className: "amber-text"
+  }, "doubleNumber"), " = (", react_1.default.createElement("span", {
+    className: "cyan-text text-accent-4"
+  }, "num"), " :", " ", react_1.default.createElement("span", {
+    className: "pink-text text-accent-1"
+  }, "number"), " ) ", "=>"), react_1.default.createElement("h6", null, " ", react_1.default.createElement("span", {
+    className: "cyan-text text-accent-4"
+  }, "num"), " * 2", " "))));
 };
 
 exports.default = Callback;
@@ -56829,7 +56840,7 @@ var Explainer = function Explainer(props) {
     style: {
       padding: "10px"
     }
-  }, react_1.default.createElement("h4", {
+  }, react_1.default.createElement("h5", {
     className: "amber-text center-align"
   }, "the .map method boils down to 3 basic steps"), react_1.default.createElement("ul", {
     className: "explainList row"

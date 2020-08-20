@@ -11,9 +11,9 @@ const Explainer = (props: ExplainerI) =>
       className="explanation blue lighten-1 z-depth-2 "
       style={{ padding: "10px" }}
     >
-      <h4 className="amber-text center-align">
+      <h5 className="amber-text center-align">
         the .map method boils down to 3 basic steps
-      </h4>
+      </h5>
       <ul className="explainList row">
         <li>
           <button

@@ -4,13 +4,15 @@
 
 - [x] create a basic function that we'll use to transform our input number array
 
-* [ ] animate the process of the transform function being applied to each number individually
+* [x] animate the process of the transform function being applied to each number individually
 
 # design / layout
 
 - [ ] consider using react router to make the links take the user to different components.
 
-* [ ] align numbers with array brackets vertically
+* [x] align numbers with array brackets vertically
+
+- [] make mobile friendly?
 
 - [ ] add a list of further reading to already high quality explanations of how HOF works and the advantages. no need to reinvent the wheel here.
 
