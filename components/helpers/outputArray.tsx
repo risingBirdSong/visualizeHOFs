@@ -13,11 +13,14 @@ interface OutputArrI {
   curOutputNumCoords: coordsI;
   setCurOutputNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   algoWillReset: boolean;
+  animTarget: string;
 }
 const OutputArray = (props: OutputArrI) =>
   props.algoHasStarted && !props.algoHasFinished ? (
     <ul
-      className={`numArr valign-wrapper row pink lighten-2 center-align array`}
+      className={`numArr valign-wrapper row pink lighten-2 center-align array ${
+        props.animTarget === "outputAnimate" ? "outputAnimate" : ""
+      }`}
       style={{ borderRadius: "5px" }}
     >
       <div

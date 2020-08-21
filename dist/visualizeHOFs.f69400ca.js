@@ -28305,7 +28305,6 @@ var MapMainControls = function MapMainControls(props) {
   return react_1.default.createElement("ul", {
     className: "row"
   }, react_1.default.createElement("div", {
-    className: "blue",
     style: {
       display: "flex",
       flex: "row"
@@ -28321,7 +28320,7 @@ var MapMainControls = function MapMainControls(props) {
     },
     className: "waves-effect waves-light btn"
   }, react_1.default.createElement("span", {
-    className: "".concat(props.showAllButtons ? "showButton" : "")
+    className: "showButton"
   }, "show all buttons"))), react_1.default.createElement("li", {
     className: "z-depth-3"
   }, react_1.default.createElement("button", {
@@ -28379,7 +28378,7 @@ var Callback = function Callback(props) {
       flexDirection: "row",
       justifyContent: "space-evenly"
     },
-    className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3"
+    className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3 ".concat(props.animTarget === "callBackAnimate" ? "callBackAnimate" : "")
   }, react_1.default.createElement("h5", {
     className: "purple lighten-2 amber-text text-accent-4 z-depth-1",
     style: {
@@ -28429,8 +28428,8 @@ var Callback = function Callback(props) {
     className: "amber-text"
   }, "doubleNumber"), " = (", react_1.default.createElement("span", {
     className: "cyan-text text-accent-4"
-  }, "num"), " : ", "&nbsp", " ", react_1.default.createElement("span", {
-    className: "pink-text text-accent-1"
+  }, "num"), " : \xA0", " ", react_1.default.createElement("span", {
+    className: "blue-text text-accent-4"
   }, "number"), " ) ", "=>"), react_1.default.createElement("h6", null, " ", react_1.default.createElement("span", {
     className: "cyan-text text-accent-4"
   }, "num"), " * 2", " ")), react_1.default.createElement("div", {
@@ -28442,7 +28441,7 @@ var Callback = function Callback(props) {
     className: "output valign-wrapper"
   }, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
-  }, "output"), " \xA0", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
+  }, "input"), " \xA0", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
     ref: function ref(ele) {
       var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
       var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; //prevent infinite loop
@@ -28477,7 +28476,7 @@ var react_1 = __importDefault(require("react"));
 
 var InputArray = function InputArray(props) {
   return react_1.default.createElement("ul", {
-    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animInput ? "inputArrayNumsAnimate" : ""),
+    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animTarget === "inputArrayAnim" ? "inputArrayAnim" : ""),
     style: {
       borderRadius: "5px"
     }
@@ -28541,7 +28540,7 @@ var react_1 = __importDefault(require("react"));
 
 var OutputArray = function OutputArray(props) {
   return props.algoHasStarted && !props.algoHasFinished ? react_1.default.createElement("ul", {
-    className: "numArr valign-wrapper row pink lighten-2 center-align array",
+    className: "numArr valign-wrapper row pink lighten-2 center-align array ".concat(props.animTarget === "outputAnimate" ? "outputAnimate" : ""),
     style: {
       borderRadius: "5px"
     }
@@ -56912,17 +56911,31 @@ var Explainer = function Explainer(props) {
     className: "waves-effect purple lighten-2  btn tolowercase",
     onClick: function onClick() {
       props.setAnimInput(true);
+      props.setAnimTarget("inputArrayAnim");
       setTimeout(function () {
         props.setAnimInput(false);
+        props.setAnimTarget("");
       }, 1000);
     }
   }, react_1.default.createElement("span", {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
   }, "iterate input array"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setAnimTarget("callBackAnimate");
+      setTimeout(function () {
+        props.setAnimTarget("");
+      }, 1000);
+    },
     className: "waves-effect purple lighten-2  btn tolowercase"
   }, react_1.default.createElement("span", {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
   }, "call callback with each element"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setAnimTarget("outputAnimate");
+      setTimeout(function () {
+        props.setAnimTarget("");
+      }, 1000);
+    },
     className: "waves-effect purple lighten-2 btn tolowercase"
   }, react_1.default.createElement("span", {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
@@ -57044,7 +57057,7 @@ var Map = function Map() {
       nums = _react_1$useState2[0],
       setNums = _react_1$useState2[1];
 
-  var _react_1$useState3 = react_1.useState(false),
+  var _react_1$useState3 = react_1.useState(true),
       _react_1$useState4 = _slicedToArray(_react_1$useState3, 2),
       algoHasStarted = _react_1$useState4[0],
       setAlgoHasStarted = _react_1$useState4[1];
@@ -57121,10 +57134,15 @@ var Map = function Map() {
       animInput = _react_1$useState28[0],
       setAnimInput = _react_1$useState28[1];
 
-  var _react_1$useState29 = react_1.useState(false),
+  var _react_1$useState29 = react_1.useState(""),
       _react_1$useState30 = _slicedToArray(_react_1$useState29, 2),
-      showAllButtons = _react_1$useState30[0],
-      setshowAllButtons = _react_1$useState30[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      animTarget = _react_1$useState30[0],
+      setAnimTarget = _react_1$useState30[1];
+
+  var _react_1$useState31 = react_1.useState(false),
+      _react_1$useState32 = _slicedToArray(_react_1$useState31, 2),
+      showAllButtons = _react_1$useState32[0],
+      setshowAllButtons = _react_1$useState32[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -57141,7 +57159,8 @@ var Map = function Map() {
     algoHasFinished: algoHasFinished,
     algoWillReset: algoWillReset,
     animInput: animInput,
-    showAllButtons: showAllButtons
+    showAllButtons: showAllButtons,
+    animTarget: animTarget
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -57159,7 +57178,8 @@ var Map = function Map() {
     setAlgoWillReset: setAlgoWillReset,
     setAnimInput: setAnimInput,
     setExplainer: setExplainer,
-    setshowAllButtons: setshowAllButtons
+    setshowAllButtons: setshowAllButtons,
+    setAnimTarget: setAnimTarget
   };
   react_1.useEffect(function () {
     //ah this is if check is useful because we dont want this fire initially
@@ -57223,9 +57243,7 @@ var Map = function Map() {
     doubleNumber: doubleNumber
   })), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
-  }, stateObj, {
-    setAnimInput: setAnimInput
-  })));
+  }, stateObj, setStateObj)));
 };
 
 exports.default = Map;

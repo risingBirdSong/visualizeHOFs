@@ -11,12 +11,13 @@ interface inputArrayI {
   nums: number[];
   curNumCoords: coordsI;
   setCurNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
+  animTarget: string;
 }
 const InputArray = (props: inputArrayI) => {
   return (
     <ul
       className={`numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ${
-        props.animInput ? "inputArrayNumsAnimate" : ""
+        props.animTarget === "inputArrayAnim" ? "inputArrayAnim" : ""
       }`}
       style={{ borderRadius: "5px" }}
     >

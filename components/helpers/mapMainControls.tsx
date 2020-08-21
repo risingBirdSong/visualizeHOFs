@@ -12,7 +12,7 @@ interface MapMainControlsI {
 const MapMainControls = (props: MapMainControlsI) => {
   return (
     <ul className="row">
-      <div className="blue" style={{ display: "flex", flex: "row" }}>
+      <div style={{ display: "flex", flex: "row" }}>
         <li className="z-depth-3">
           <button
             onClick={() => {
@@ -23,9 +23,7 @@ const MapMainControls = (props: MapMainControlsI) => {
             }}
             className="waves-effect waves-light btn"
           >
-            <span className={`${props.showAllButtons ? "showButton" : ""}`}>
-              show all buttons
-            </span>
+            <span className={`showButton`}>show all buttons</span>
           </button>
         </li>
         <li className="z-depth-3">

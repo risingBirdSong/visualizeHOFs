@@ -4,6 +4,7 @@ interface ExplainerI {
   explainer: boolean;
   setAnimInput: React.Dispatch<React.SetStateAction<boolean>>;
   showAllButtons: boolean;
+  setAnimTarget: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Explainer = (props: ExplainerI) =>
@@ -22,8 +23,10 @@ const Explainer = (props: ExplainerI) =>
               className={`waves-effect purple lighten-2  btn tolowercase`}
               onClick={() => {
                 props.setAnimInput(true);
+                props.setAnimTarget("inputArrayAnim");
                 setTimeout(() => {
                   props.setAnimInput(false);
+                  props.setAnimTarget("");
                 }, 1000);
               }}
             >
@@ -34,6 +37,12 @@ const Explainer = (props: ExplainerI) =>
           </li>
           <li>
             <button
+              onClick={() => {
+                props.setAnimTarget("callBackAnimate");
+                setTimeout(() => {
+                  props.setAnimTarget("");
+                }, 1000);
+              }}
               className={`waves-effect purple lighten-2  btn tolowercase`}
             >
               <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
@@ -42,7 +51,12 @@ const Explainer = (props: ExplainerI) =>
             </button>
           </li>
           <li>
-            <button className="waves-effect purple lighten-2 btn tolowercase">
+            <button onClick={() => {
+                props.setAnimTarget("outputAnimate");
+                setTimeout(() => {
+                  props.setAnimTarget("");
+                }, 1000);
+              }} className="waves-effect purple lighten-2 btn tolowercase">
               <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
                 put the returned element into output array.
               </span>

@@ -30,7 +30,7 @@ enum currentTaskE {
 const Map = () => {
   const inputEl = useRef(null);
   const [nums, setNums] = useState([1, 2, 3]);
-  const [algoHasStarted, setAlgoHasStarted] = useState(false);
+  const [algoHasStarted, setAlgoHasStarted] = useState(true);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
   const [algoWillReset, setAlgoWillReset] = useState(false);
   const [stepNumber, setStepNumber] = useState(0);
@@ -45,6 +45,7 @@ const Map = () => {
   );
   const [explainer, setExplainer] = useState(true);
   const [animInput, setAnimInput] = useState(false);
+  const [animTarget, setAnimTarget] = useState("");
   const [showAllButtons, setshowAllButtons] = useState(false);
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
@@ -62,6 +63,7 @@ const Map = () => {
     algoWillReset: algoWillReset,
     animInput: animInput,
     showAllButtons: showAllButtons,
+    animTarget: animTarget,
   };
 
   // same as state object but for set state.
@@ -81,6 +83,7 @@ const Map = () => {
     setAnimInput: setAnimInput,
     setExplainer: setExplainer,
     setshowAllButtons: setshowAllButtons,
+    setAnimTarget: setAnimTarget,
   };
 
   useEffect(() => {
@@ -143,11 +146,7 @@ const Map = () => {
         <OutputArray {...stateObj} {...setStateObj} />
       </div>
       <KonvaLayer {...stateObj} {...setStateObj} />
-      <Explainer
-        explainer={explainer}
-        {...stateObj}
-        setAnimInput={setAnimInput}
-      />
+      <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
     </div>
   );
 };

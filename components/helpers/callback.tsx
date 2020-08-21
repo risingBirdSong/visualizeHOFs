@@ -21,6 +21,8 @@ interface CallbackI {
   setOutPutCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   currentTask: currentTaskE;
   outputCoords: coordsI;
+  animInput: boolean;
+  animTarget: string;
   doubleNumber: (num: number) => number;
 }
 
@@ -35,7 +37,9 @@ const Callback = (props: CallbackI) => {
         flexDirection: "row",
         justifyContent: "space-evenly",
       }}
-      className={`callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3`}
+      className={`callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3 ${
+        props.animTarget === "callBackAnimate" ? "callBackAnimate" : ""
+      }`}
     >
       <h5
         className="purple lighten-2 amber-text text-accent-4 z-depth-1"
@@ -92,8 +96,8 @@ const Callback = (props: CallbackI) => {
         >
           <h6>
             const <span className="amber-text">doubleNumber</span> = (
-            <span className="cyan-text text-accent-4">num</span> : {"&nbsp"}{" "}
-            <span className="pink-text text-accent-1">number</span> ) {"=>"}
+            <span className="cyan-text text-accent-4">num</span> : &nbsp;{" "}
+            <span className="blue-text text-accent-4">number</span> ) {"=>"}
           </h6>
           <h6>
             {" "}
@@ -103,7 +107,7 @@ const Callback = (props: CallbackI) => {
         <div style={{ display: "flex", margin: "15px" }}>
           {props.algoHasStarted ? (
             <h6 className="output valign-wrapper">
-              <span className="blue-text text-darken-3">output</span> &nbsp;{" "}
+              <span className="blue-text text-darken-3">input</span> &nbsp;{" "}
               {props.nums[props.curIdx] &&
               props.currentTask === currentTaskE.output ? (
                 <span
