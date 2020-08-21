@@ -14,6 +14,7 @@ interface OutputArrI {
   setCurOutputNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   algoWillReset: boolean;
   animTarget: string;
+  fastRefToggler: boolean;
 }
 const OutputArray = (props: OutputArrI) =>
   props.algoHasStarted && !props.algoHasFinished ? (
@@ -36,7 +37,20 @@ const OutputArray = (props: OutputArrI) =>
       {props.outputArray.map((num, idx) => {
         return (
           <li className={"col s1"} key={idx}>
-            {idx === props.curIdx ? (
+            {idx === props.curIdx && props.fastRefToggler ? (
+              <p
+                className={`num amber lighten-1 z-depth-5`}
+                ref={(ele) => {
+                  let x = ele?.getBoundingClientRect().x;
+                  let y = ele?.getBoundingClientRect().y;
+                  if (x && y && x !== props.curOutputNumCoords.x) {
+                    props.setCurOutputNumCoords({ x, y });
+                  }
+                }}
+              >
+                {num}
+              </p>
+            ) : idx === props.curIdx && !props.fastRefToggler ? (
               <p
                 className={`num amber lighten-1 z-depth-5`}
                 ref={(ele) => {

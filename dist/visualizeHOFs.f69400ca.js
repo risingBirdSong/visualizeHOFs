@@ -28418,6 +28418,23 @@ var Callback = function Callback(props) {
         }
       }
     }
+  }, " ", props.nums[props.curIdx]) : props.nums[props.curIdx] && !props.fastRefToggler ? react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+
+      if (props.inputCoords.x !== curX) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          y += 0;
+          props.setInputCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }
   }, " ", props.nums[props.curIdx]) : "")) : "", react_1.default.createElement("div", {
     className: "funcBody purple lighten-2 z-depth-2",
     style: {
@@ -28514,7 +28531,7 @@ var InputArray = function InputArray(props) {
     return react_1.default.createElement("li", {
       className: "col s1",
       key: idx
-    }, idx === props.curIdx && props.fastRefToggler ? currentNumber : react_1.default.createElement("p", {
+    }, idx === props.curIdx && props.fastRefToggler ? currentNumber : idx === props.curIdx && !props.fastRefToggler ? currentNumber : react_1.default.createElement("p", {
       className: "num z-depth-3"
     }, num));
   }), react_1.default.createElement("li", {
@@ -28561,7 +28578,20 @@ var OutputArray = function OutputArray(props) {
     return react_1.default.createElement("li", {
       className: "col s1",
       key: idx
-    }, idx === props.curIdx ? react_1.default.createElement("p", {
+    }, idx === props.curIdx && props.fastRefToggler ? react_1.default.createElement("p", {
+      className: "num amber lighten-1 z-depth-5",
+      ref: function ref(ele) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y && x !== props.curOutputNumCoords.x) {
+          props.setCurOutputNumCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }, num) : idx === props.curIdx && !props.fastRefToggler ? react_1.default.createElement("p", {
       className: "num amber lighten-1 z-depth-5",
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;

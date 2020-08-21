@@ -58,6 +58,8 @@ const InputArray = (props: inputArrayI) => {
           <li className={"col s1"} key={idx}>
             {idx === props.curIdx && props.fastRefToggler ? (
               currentNumber
+            ) : idx === props.curIdx && !props.fastRefToggler ? (
+              currentNumber
             ) : (
               <p className={`num z-depth-3`}>{num}</p>
             )}
