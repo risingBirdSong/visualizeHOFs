@@ -12,7 +12,7 @@
 
 * [x] align numbers with array brackets vertically
 
-- [] make mobile friendly?
+- [ ] make mobile friendly?
 
 - [ ] add a list of further reading to already high quality explanations of how HOF works and the advantages. no need to reinvent the wheel here.
 
@@ -31,3 +31,7 @@
 # Clean up
 
 - [ ] remove anim boolean as its not necessary using anim string
+
+
+# Lessons
+  ## great to find a solution to the broken line animation problem with the fast toggler to ensure refs stay fresh. Works even better than i though, notice the difference between inputArray and outPut array. input array explicilty toggles the same content depending on fastToggler state whereas I didnt change anything about outputArray and it still worked. Not sure exactly why but it looks like react is noticing all the fast state changes and the refs are being automatically updated. 

@@ -83,23 +83,6 @@ const Callback = (props: CallbackI) => {
                   {" "}
                   {props.nums[props.curIdx]}
                 </span>
-              ) : props.nums[props.curIdx] && !props.fastRefToggler ? (
-                <span
-                  ref={(ele) => {
-                    let curX = ele?.getBoundingClientRect().x;
-                    if (props.inputCoords.x !== curX) {
-                      let x = ele?.getBoundingClientRect().x;
-                      let y = ele?.getBoundingClientRect().y;
-                      if (x && y) {
-                        y += 0;
-                        props.setInputCoords({ x, y });
-                      }
-                    }
-                  }}
-                >
-                  {" "}
-                  {props.nums[props.curIdx]}
-                </span>
               ) : (
                 ""
               )}
