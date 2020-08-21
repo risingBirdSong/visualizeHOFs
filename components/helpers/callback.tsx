@@ -24,6 +24,7 @@ interface CallbackI {
   animInput: boolean;
   animTarget: string;
   doubleNumber: (num: number) => number;
+  fastRefToggler: boolean;
 }
 
 const Callback = (props: CallbackI) => {
@@ -65,7 +66,24 @@ const Callback = (props: CallbackI) => {
           >
             <h6 className="input valign-wrapper">
               <span className="blue-text text-darken-3">input</span> &nbsp;{" "}
-              {props.nums[props.curIdx] ? (
+              {props.nums[props.curIdx] && props.fastRefToggler ? (
+                <span
+                  ref={(ele) => {
+                    let curX = ele?.getBoundingClientRect().x;
+                    if (props.inputCoords.x !== curX) {
+                      let x = ele?.getBoundingClientRect().x;
+                      let y = ele?.getBoundingClientRect().y;
+                      if (x && y) {
+                        y += 0;
+                        props.setInputCoords({ x, y });
+                      }
+                    }
+                  }}
+                >
+                  {" "}
+                  {props.nums[props.curIdx]}
+                </span>
+              ) : props.nums[props.curIdx] && !props.fastRefToggler ? (
                 <span
                   ref={(ele) => {
                     let curX = ele?.getBoundingClientRect().x;

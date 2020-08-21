@@ -19,17 +19,15 @@ interface KonvaLayerI {
   inputCoords: coordsI;
   curOutputNumCoords: coordsI;
   outputCoords: coordsI;
-  animInput: boolean;
 }
 
 const KonvaLayer = (props: KonvaLayerI) => {
-  console.log("props.animInput", props.animInput);
   return (
     <div>
       <Stage
         width={window.innerWidth - 100}
         height={window.innerHeight}
-        className={`overlay ${props.animInput ? "callBackAnimate" : ""}`}
+        className={`overlay`}
       >
         {props.curIdx < props.nums.length ? (
           <Layer>

@@ -47,6 +47,8 @@ const Map = () => {
   const [animInput, setAnimInput] = useState(false);
   const [animTarget, setAnimTarget] = useState("");
   const [showAllButtons, setshowAllButtons] = useState(false);
+  const [fastRefToggler, setfastRefToggler] = useState(false);
+
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -64,6 +66,7 @@ const Map = () => {
     animInput: animInput,
     showAllButtons: showAllButtons,
     animTarget: animTarget,
+    fastRefToggler: fastRefToggler,
   };
 
   // same as state object but for set state.
@@ -84,6 +87,7 @@ const Map = () => {
     setExplainer: setExplainer,
     setshowAllButtons: setshowAllButtons,
     setAnimTarget: setAnimTarget,
+    setfastRefToggler: setfastRefToggler,
   };
 
   useEffect(() => {

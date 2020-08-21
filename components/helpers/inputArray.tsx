@@ -12,6 +12,7 @@ interface inputArrayI {
   curNumCoords: coordsI;
   setCurNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   animTarget: string;
+  fastRefToggler: boolean;
 }
 const InputArray = (props: inputArrayI) => {
   return (
@@ -37,24 +38,28 @@ const InputArray = (props: inputArrayI) => {
       </div>
       <li className={"arrBrkt col s1 bracket"}>[</li>
       {props.nums.map((num, idx) => {
+        let currentNumber = (
+          <p
+            ref={(ele) => {
+              let x = ele?.getBoundingClientRect().x;
+              let y = ele?.getBoundingClientRect().y;
+              if (x && y) {
+                if (x !== props.curNumCoords.x) {
+                  props.setCurNumCoords({ x: x, y: y });
+                }
+              }
+            }}
+            className={`num pink lighten-3 z-depth-5`}
+          >
+            {num}
+          </p>
+        );
         return (
           <li className={"col s1"} key={idx}>
-            {idx === props.curIdx ? (
-              <p
-                ref={(ele) => {
-                  //perhaps TODO later remove bang
-                  let x = ele?.getBoundingClientRect().x;
-                  let y = ele?.getBoundingClientRect().y;
-                  if (x && y) {
-                    if (x !== props.curNumCoords.x) {
-                      props.setCurNumCoords({ x: x, y: y });
-                    }
-                  }
-                }}
-                className={`num pink lighten-3 z-depth-5`}
-              >
-                {num}
-              </p>
+            {idx === props.curIdx && props.fastRefToggler ? (
+              currentNumber
+            ) : idx === props.curIdx && !props.fastRefToggler ? (
+              currentNumber
             ) : (
               <p className={`num z-depth-3`}>{num}</p>
             )}

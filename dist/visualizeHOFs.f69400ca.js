@@ -28401,7 +28401,24 @@ var Callback = function Callback(props) {
     className: "input valign-wrapper"
   }, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
-  }, "input"), " \xA0", " ", props.nums[props.curIdx] ? react_1.default.createElement("span", {
+  }, "input"), " \xA0", " ", props.nums[props.curIdx] && props.fastRefToggler ? react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+
+      if (props.inputCoords.x !== curX) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          y += 0;
+          props.setInputCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }
+  }, " ", props.nums[props.curIdx]) : props.nums[props.curIdx] && !props.fastRefToggler ? react_1.default.createElement("span", {
     ref: function ref(ele) {
       var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
 
@@ -28495,12 +28512,8 @@ var InputArray = function InputArray(props) {
   }, " number [ ]"), " =", " ")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.nums.map(function (num, idx) {
-    return react_1.default.createElement("li", {
-      className: "col s1",
-      key: idx
-    }, idx === props.curIdx ? react_1.default.createElement("p", {
+    var currentNumber = react_1.default.createElement("p", {
       ref: function ref(ele) {
-        //perhaps TODO later remove bang
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
@@ -28514,7 +28527,11 @@ var InputArray = function InputArray(props) {
         }
       },
       className: "num pink lighten-3 z-depth-5"
-    }, num) : react_1.default.createElement("p", {
+    }, num);
+    return react_1.default.createElement("li", {
+      className: "col s1",
+      key: idx
+    }, idx === props.curIdx && props.fastRefToggler ? currentNumber : idx === props.curIdx && !props.fastRefToggler ? currentNumber : react_1.default.createElement("p", {
       className: "num z-depth-3"
     }, num));
   }), react_1.default.createElement("li", {
@@ -56848,11 +56865,10 @@ var currentTaskE;
 })(currentTaskE || (currentTaskE = {}));
 
 var KonvaLayer = function KonvaLayer(props) {
-  console.log("props.animInput", props.animInput);
   return react_1.default.createElement("div", null, react_1.default.createElement(react_konva_1.Stage, {
     width: window.innerWidth - 100,
     height: window.innerHeight,
-    className: "overlay ".concat(props.animInput ? "callBackAnimate" : "")
+    className: "overlay"
   }, props.curIdx < props.nums.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "blue",
     points: [props.curNumCoords.x, props.curNumCoords.y, props.curNumCoords.x - 10, props.curNumCoords.y - 50, props.inputCoords.x - 10, props.inputCoords.y + 50, props.inputCoords.x + 5, props.inputCoords.y + 22],
@@ -56895,6 +56911,24 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 
 var Explainer = function Explainer(props) {
+  var fastToggler = function fastToggler() {
+    var counter = 100;
+
+    var recurse = function recurse() {
+      if (counter > 0) {
+        counter--;
+        props.setfastRefToggler(function (prev) {
+          return !prev;
+        });
+        setTimeout(function () {
+          recurse();
+        }, 1);
+      }
+    };
+
+    recurse();
+  };
+
   return props.explainer ? react_1.default.createElement("div", {
     className: "explanation blue lighten-1 z-depth-2 ",
     style: {
@@ -56911,6 +56945,7 @@ var Explainer = function Explainer(props) {
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     className: "waves-effect purple lighten-2  btn tolowercase",
     onClick: function onClick() {
+      fastToggler();
       props.setAnimInput(true);
       props.setAnimTarget("inputArrayAnim");
       setTimeout(function () {
@@ -56922,6 +56957,7 @@ var Explainer = function Explainer(props) {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
   }, "iterate input array"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      fastToggler();
       props.setAnimInput(true);
       props.setAnimTarget("callBackAnimate");
       setTimeout(function () {
@@ -56934,6 +56970,7 @@ var Explainer = function Explainer(props) {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
   }, "call callback with each element"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      fastToggler();
       props.setAnimInput(true);
       props.setAnimTarget("outputAnimate");
       setTimeout(function () {
@@ -57147,7 +57184,12 @@ var Map = function Map() {
   var _react_1$useState31 = react_1.useState(false),
       _react_1$useState32 = _slicedToArray(_react_1$useState31, 2),
       showAllButtons = _react_1$useState32[0],
-      setshowAllButtons = _react_1$useState32[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      setshowAllButtons = _react_1$useState32[1];
+
+  var _react_1$useState33 = react_1.useState(false),
+      _react_1$useState34 = _slicedToArray(_react_1$useState33, 2),
+      fastRefToggler = _react_1$useState34[0],
+      setfastRefToggler = _react_1$useState34[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -57165,7 +57207,8 @@ var Map = function Map() {
     algoWillReset: algoWillReset,
     animInput: animInput,
     showAllButtons: showAllButtons,
-    animTarget: animTarget
+    animTarget: animTarget,
+    fastRefToggler: fastRefToggler
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -57184,7 +57227,8 @@ var Map = function Map() {
     setAnimInput: setAnimInput,
     setExplainer: setExplainer,
     setshowAllButtons: setshowAllButtons,
-    setAnimTarget: setAnimTarget
+    setAnimTarget: setAnimTarget,
+    setfastRefToggler: setfastRefToggler
   };
   react_1.useEffect(function () {
     //ah this is if check is useful because we dont want this fire initially

@@ -5,10 +5,24 @@ interface ExplainerI {
   setAnimInput: React.Dispatch<React.SetStateAction<boolean>>;
   showAllButtons: boolean;
   setAnimTarget: React.Dispatch<React.SetStateAction<string>>;
+  setfastRefToggler: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Explainer = (props: ExplainerI) =>
-  props.explainer ? (
+const Explainer = (props: ExplainerI) => {
+  const fastToggler = () => {
+    let counter = 100;
+    const recurse = () => {
+      if (counter > 0) {
+        counter--;
+        props.setfastRefToggler((prev) => !prev);
+        setTimeout(() => {
+          recurse();
+        }, 1);
+      }
+    };
+    recurse();
+  };
+  return props.explainer ? (
     <div
       className="explanation blue lighten-1 z-depth-2 "
       style={{ padding: "10px" }}
@@ -22,6 +36,7 @@ const Explainer = (props: ExplainerI) =>
             <button
               className={`waves-effect purple lighten-2  btn tolowercase`}
               onClick={() => {
+                fastToggler();
                 props.setAnimInput(true);
                 props.setAnimTarget("inputArrayAnim");
                 setTimeout(() => {
@@ -38,6 +53,8 @@ const Explainer = (props: ExplainerI) =>
           <li>
             <button
               onClick={() => {
+                fastToggler();
+
                 props.setAnimInput(true);
                 props.setAnimTarget("callBackAnimate");
                 setTimeout(() => {
@@ -56,6 +73,8 @@ const Explainer = (props: ExplainerI) =>
           <li>
             <button
               onClick={() => {
+                fastToggler();
+
                 props.setAnimInput(true);
 
                 props.setAnimTarget("outputAnimate");
@@ -79,5 +98,6 @@ const Explainer = (props: ExplainerI) =>
     //to keep TS happy
     <p>""</p>
   );
+};
 
 export default Explainer;
