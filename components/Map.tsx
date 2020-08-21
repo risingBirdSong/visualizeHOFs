@@ -29,7 +29,7 @@ enum currentTaskE {
 
 const Map = () => {
   const inputEl = useRef(null);
-  const [nums, setNums] = useState([1, 2, 3]);
+  const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [algoHasStarted, setAlgoHasStarted] = useState(true);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
   const [algoWillReset, setAlgoWillReset] = useState(false);

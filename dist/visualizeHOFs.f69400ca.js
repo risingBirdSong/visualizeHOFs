@@ -57052,7 +57052,7 @@ var currentTaskE;
 var Map = function Map() {
   var inputEl = react_1.useRef(null);
 
-  var _react_1$useState = react_1.useState([1, 2, 3]),
+  var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       nums = _react_1$useState2[0],
       setNums = _react_1$useState2[1];
