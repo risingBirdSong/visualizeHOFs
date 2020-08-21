@@ -38,8 +38,11 @@ const Explainer = (props: ExplainerI) =>
           <li>
             <button
               onClick={() => {
+                props.setAnimInput(true);
                 props.setAnimTarget("callBackAnimate");
                 setTimeout(() => {
+                  props.setAnimInput(false);
+
                   props.setAnimTarget("");
                 }, 1000);
               }}
@@ -51,12 +54,19 @@ const Explainer = (props: ExplainerI) =>
             </button>
           </li>
           <li>
-            <button onClick={() => {
+            <button
+              onClick={() => {
+                props.setAnimInput(true);
+
                 props.setAnimTarget("outputAnimate");
                 setTimeout(() => {
+                  props.setAnimInput(false);
+
                   props.setAnimTarget("");
                 }, 1000);
-              }} className="waves-effect purple lighten-2 btn tolowercase">
+              }}
+              className="waves-effect purple lighten-2 btn tolowercase"
+            >
               <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
                 put the returned element into output array.
               </span>

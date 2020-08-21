@@ -56848,10 +56848,11 @@ var currentTaskE;
 })(currentTaskE || (currentTaskE = {}));
 
 var KonvaLayer = function KonvaLayer(props) {
-  return react_1.default.createElement(react_konva_1.Stage, {
-    width: window.innerWidth,
+  console.log("props.animInput", props.animInput);
+  return react_1.default.createElement("div", null, react_1.default.createElement(react_konva_1.Stage, {
+    width: window.innerWidth - 100,
     height: window.innerHeight,
-    className: "overlay"
+    className: "overlay ".concat(props.animInput ? "callBackAnimate" : "")
   }, props.curIdx < props.nums.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "blue",
     points: [props.curNumCoords.x, props.curNumCoords.y, props.curNumCoords.x - 10, props.curNumCoords.y - 50, props.inputCoords.x - 10, props.inputCoords.y + 50, props.inputCoords.x + 5, props.inputCoords.y + 22],
@@ -56874,7 +56875,7 @@ var KonvaLayer = function KonvaLayer(props) {
     rotation: -130,
     radius: 14,
     fill: "blue"
-  })) : null) : null);
+  })) : null) : null));
 };
 
 exports.default = KonvaLayer;
@@ -56921,8 +56922,10 @@ var Explainer = function Explainer(props) {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
   }, "iterate input array"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.setAnimInput(true);
       props.setAnimTarget("callBackAnimate");
       setTimeout(function () {
+        props.setAnimInput(false);
         props.setAnimTarget("");
       }, 1000);
     },
@@ -56931,8 +56934,10 @@ var Explainer = function Explainer(props) {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
   }, "call callback with each element"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.setAnimInput(true);
       props.setAnimTarget("outputAnimate");
       setTimeout(function () {
+        props.setAnimInput(false);
         props.setAnimTarget("");
       }, 1000);
     },
