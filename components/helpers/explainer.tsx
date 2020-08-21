@@ -3,6 +3,7 @@ import React from "react";
 interface ExplainerI {
   explainer: boolean;
   setAnimInput: React.Dispatch<React.SetStateAction<boolean>>;
+  showAllButtons: boolean;
 }
 
 const Explainer = (props: ExplainerI) =>
@@ -14,31 +15,40 @@ const Explainer = (props: ExplainerI) =>
       <h5 className="amber-text center-align">
         the .map method boils down to 3 basic steps
       </h5>
-      <ul className="explainList row">
-        <li>
-          <button
-            className="waves-effect purple lighten-2  btn tolowercase"
-            onClick={() => {
-              props.setAnimInput(true);
-              setTimeout(() => {
-                props.setAnimInput(false);
-              }, 1000);
-            }}
-          >
-            iterate input array
-          </button>
-        </li>
-        <li>
-          <button className="waves-effect purple btn tolowercase">
-            call callback with each element
-          </button>
-        </li>
-        <li>
-          <button className="waves-effect purple darken-2 btn tolowercase">
-            put the returned element into output array.
-          </button>
-        </li>
-        <li></li>
+      <ul className={`explainList row`}>
+        <div style={{ display: "flex" }}>
+          <li>
+            <button
+              className={`waves-effect purple lighten-2  btn tolowercase`}
+              onClick={() => {
+                props.setAnimInput(true);
+                setTimeout(() => {
+                  props.setAnimInput(false);
+                }, 1000);
+              }}
+            >
+              <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
+                iterate input array
+              </span>
+            </button>
+          </li>
+          <li>
+            <button
+              className={`waves-effect purple lighten-2  btn tolowercase`}
+            >
+              <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
+                call callback with each element
+              </span>
+            </button>
+          </li>
+          <li>
+            <button className="waves-effect purple lighten-2 btn tolowercase">
+              <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
+                put the returned element into output array.
+              </span>
+            </button>
+          </li>
+        </div>
       </ul>
     </div>
   ) : (

@@ -45,6 +45,7 @@ const Map = () => {
   );
   const [explainer, setExplainer] = useState(true);
   const [animInput, setAnimInput] = useState(false);
+  const [showAllButtons, setshowAllButtons] = useState(false);
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -60,6 +61,7 @@ const Map = () => {
     algoHasFinished: algoHasFinished,
     algoWillReset: algoWillReset,
     animInput: animInput,
+    showAllButtons: showAllButtons,
   };
 
   // same as state object but for set state.
@@ -78,6 +80,7 @@ const Map = () => {
     setAlgoWillReset: setAlgoWillReset,
     setAnimInput: setAnimInput,
     setExplainer: setExplainer,
+    setshowAllButtons: setshowAllButtons,
   };
 
   useEffect(() => {
@@ -140,7 +143,11 @@ const Map = () => {
         <OutputArray {...stateObj} {...setStateObj} />
       </div>
       <KonvaLayer {...stateObj} {...setStateObj} />
-      <Explainer explainer={explainer} setAnimInput={setAnimInput} />
+      <Explainer
+        explainer={explainer}
+        {...stateObj}
+        setAnimInput={setAnimInput}
+      />
     </div>
   );
 };

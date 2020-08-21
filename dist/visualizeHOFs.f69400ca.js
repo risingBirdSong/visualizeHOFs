@@ -28304,14 +28304,34 @@ var react_1 = __importDefault(require("react"));
 var MapMainControls = function MapMainControls(props) {
   return react_1.default.createElement("ul", {
     className: "row"
+  }, react_1.default.createElement("div", {
+    className: "blue",
+    style: {
+      display: "flex",
+      flex: "row"
+    }
   }, react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setshowAllButtons(true);
+      setTimeout(function () {
+        props.setshowAllButtons(false);
+      }, 2000);
+    },
+    className: "waves-effect waves-light btn"
+  }, react_1.default.createElement("span", {
+    className: "".concat(props.showAllButtons ? "showButton" : "")
+  }, "show all buttons"))), react_1.default.createElement("li", {
     className: "z-depth-3"
   }, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.takeStep(props.algoHasFinished === true ? true : false);
     },
     className: "waves-effect waves-light btn"
-  }, !props.algoHasStarted && !props.algoHasFinished ? "start" : props.algoWillReset ? "restart" : "step")), react_1.default.createElement("li", {
+  }, react_1.default.createElement("span", {
+    className: "".concat(props.showAllButtons ? "showButton" : "")
+  }, !props.algoHasStarted && !props.algoHasFinished ? "start" : props.algoWillReset ? "restart" : "step"))), react_1.default.createElement("li", {
     className: "z-depth-3"
   }, react_1.default.createElement("button", {
     className: "waves-effect waves-light btn",
@@ -28320,11 +28340,9 @@ var MapMainControls = function MapMainControls(props) {
         return !past;
       });
     }
-  }, "explain", " ")), react_1.default.createElement("li", {
-    className: "z-depth-3"
-  }, react_1.default.createElement("button", {
-    className: "waves-effect waves-light btn"
-  }, "todo 2")));
+  }, react_1.default.createElement("span", {
+    className: "".concat(props.showAllButtons ? "showButton" : "")
+  }, "explain", " ")))));
 };
 
 exports.MapMainControls = MapMainControls;
@@ -56886,6 +56904,10 @@ var Explainer = function Explainer(props) {
     className: "amber-text center-align"
   }, "the .map method boils down to 3 basic steps"), react_1.default.createElement("ul", {
     className: "explainList row"
+  }, react_1.default.createElement("div", {
+    style: {
+      display: "flex"
+    }
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     className: "waves-effect purple lighten-2  btn tolowercase",
     onClick: function onClick() {
@@ -56894,11 +56916,17 @@ var Explainer = function Explainer(props) {
         props.setAnimInput(false);
       }, 1000);
     }
-  }, "iterate input array")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    className: "waves-effect purple btn tolowercase"
-  }, "call callback with each element")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    className: "waves-effect purple darken-2 btn tolowercase"
-  }, "put the returned element into output array.")), react_1.default.createElement("li", null))) : //to keep TS happy
+  }, react_1.default.createElement("span", {
+    className: " ".concat(props.showAllButtons ? "showButton" : "")
+  }, "iterate input array"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    className: "waves-effect purple lighten-2  btn tolowercase"
+  }, react_1.default.createElement("span", {
+    className: " ".concat(props.showAllButtons ? "showButton" : "")
+  }, "call callback with each element"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    className: "waves-effect purple lighten-2 btn tolowercase"
+  }, react_1.default.createElement("span", {
+    className: " ".concat(props.showAllButtons ? "showButton" : "")
+  }, "put the returned element into output array.")))))) : //to keep TS happy
   react_1.default.createElement("p", null, "\"\"");
 };
 
@@ -57091,7 +57119,12 @@ var Map = function Map() {
   var _react_1$useState27 = react_1.useState(false),
       _react_1$useState28 = _slicedToArray(_react_1$useState27, 2),
       animInput = _react_1$useState28[0],
-      setAnimInput = _react_1$useState28[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      setAnimInput = _react_1$useState28[1];
+
+  var _react_1$useState29 = react_1.useState(false),
+      _react_1$useState30 = _slicedToArray(_react_1$useState29, 2),
+      showAllButtons = _react_1$useState30[0],
+      setshowAllButtons = _react_1$useState30[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -57107,7 +57140,8 @@ var Map = function Map() {
     curOutputNumCoords: curOutputNumCoords,
     algoHasFinished: algoHasFinished,
     algoWillReset: algoWillReset,
-    animInput: animInput
+    animInput: animInput,
+    showAllButtons: showAllButtons
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -57124,7 +57158,8 @@ var Map = function Map() {
     setAlgoHasFinished: setAlgoHasFinished,
     setAlgoWillReset: setAlgoWillReset,
     setAnimInput: setAnimInput,
-    setExplainer: setExplainer
+    setExplainer: setExplainer,
+    setshowAllButtons: setshowAllButtons
   };
   react_1.useEffect(function () {
     //ah this is if check is useful because we dont want this fire initially
@@ -57186,10 +57221,11 @@ var Map = function Map() {
     takeStep: takeStep
   })), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
     doubleNumber: doubleNumber
-  })), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(explainer_1.default, {
-    explainer: explainer,
+  })), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(explainer_1.default, Object.assign({
+    explainer: explainer
+  }, stateObj, {
     setAnimInput: setAnimInput
-  }));
+  })));
 };
 
 exports.default = Map;

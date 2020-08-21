@@ -46,6 +46,33 @@
   }
 }
 
+@keyframes showAllButtons {
+  0% {
+    border: 2px solid blueviolet;
+    padding: 1px;
+    border-radius: 1px;
+  }
+  50% {
+    border: 5px solid purple;
+    border-radius: 8px;
+    padding: 5px;
+  }
+
+  100% {
+    border: 2px solid blueviolet;
+    padding: 3px;
+    border-radius: 1px;
+  }
+}
+
+.showButton {
+  width: 100%;
+  height: 100%;
+  animation-name: showAllButtons;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+}
+
 .inputArrayNumsAnimate {
   width: 100%;
   height: 100%;
@@ -53,9 +80,31 @@
   animation-duration: 1s;
 }
 
-/* .inputArrayNums p {
-  font-size: 1.2em;
-} */
+@keyframes onInit {
+  0% {
+    border: 2px solid blueviolet;
+    padding: 1px;
+    border-radius: 1px;
+  }
+  50% {
+    border: 5px solid purple;
+    border-radius: 8px;
+    padding: 5px;
+  }
+
+  100% {
+    border: 2px solid blueviolet;
+    padding: 3px;
+    border-radius: 1px;
+  }
+}
+
+.showAllButtons {
+  width: 100%;
+  height: 100%;
+  animation-name: onInit;
+  animation-duration: 2s;
+}
 
 .tolowercase {
   text-transform: lowercase;

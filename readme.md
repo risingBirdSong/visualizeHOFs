@@ -25,3 +25,5 @@
 - [ ] allow the user to write their make their own array with custom contents
 
 - [ ] allow the user to write their own custom function the run with a HOF
+
+- [ ] can the lines be animated?
