@@ -3,7 +3,7 @@ import React from "react";
 const Strings = () => {
   return (
     <div>
-      <p>strings</p>
+      <p>todo - strings</p>
     </div>
   );
 };

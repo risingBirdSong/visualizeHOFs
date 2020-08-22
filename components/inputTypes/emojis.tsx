@@ -3,7 +3,7 @@ import React from "react";
 const Emojis = () => {
   return (
     <div>
-      <p>emojis</p>
+      <p>todo - emojis</p>
     </div>
   );
 };

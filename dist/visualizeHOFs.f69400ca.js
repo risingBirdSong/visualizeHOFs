@@ -28341,7 +28341,7 @@ var MapMainControls = function MapMainControls(props) {
     }
   }, react_1.default.createElement("span", {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
-  }, "swap inputs + callbacks")))));
+  }, "swap inputs + callbacks (work in progress)")))));
 };
 
 exports.MapMainControls = MapMainControls;
@@ -57026,7 +57026,7 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
 };
 
 exports.default = ChooseInputsCallbacks;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/numberInputs.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57041,7 +57041,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
-var Numbers = function Numbers(props) {
+var NumberInputs = function NumberInputs(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
   }, react_1.default.createElement("li", null), react_1.default.createElement("li", null, react_1.default.createElement("button", {
@@ -57071,8 +57071,102 @@ var Numbers = function Numbers(props) {
   }, react_1.default.createElement("span", null, "random numbers ")), " ")));
 };
 
+exports.default = NumberInputs;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/numbersCallbacks.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var NumberCallbacks = function NumberCallbacks(props) {
+  return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
+    className: "numberArrayChoices row"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("span", null, "Callback todo")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    className: "btn waves-effect"
+  }, react_1.default.createElement("span", null, "todo 1 "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    className: "btn waves-effect"
+  }, react_1.default.createElement("span", null, "todo 2 ")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
+    className: "btn waves-effect"
+  }, react_1.default.createElement("span", null, "todo 3")), " ")));
+};
+
+exports.default = NumberCallbacks;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/numbers.tsx":[function(require,module,exports) {
+"use strict";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var numberInputs_1 = __importDefault(require("./numberInputs"));
+
+var numbersCallbacks_1 = __importDefault(require("./numbersCallbacks"));
+
+var react_2 = require("react");
+
+var Numbers = function Numbers(props) {
+  var _react_2$useState = react_2.useState(false),
+      _react_2$useState2 = _slicedToArray(_react_2$useState, 2),
+      showArrays = _react_2$useState2[0],
+      setShowArrays = _react_2$useState2[1];
+
+  var _react_2$useState3 = react_2.useState(false),
+      _react_2$useState4 = _slicedToArray(_react_2$useState3, 2),
+      showCallbacks = _react_2$useState4[0],
+      setShowCallbacks = _react_2$useState4[1];
+
+  return react_1.default.createElement("div", null, react_1.default.createElement("div", null, react_1.default.createElement("ul", {
+    className: "row"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      setShowArrays(function (prev) {
+        return !prev;
+      });
+      setShowCallbacks(false);
+    },
+    className: "btn waves-effect"
+  }, "Arrays")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      setShowCallbacks(function (prev) {
+        return !prev;
+      });
+      setShowArrays(false);
+    },
+    className: "btn waves-effect"
+  }, "Callbacks")))), showArrays ? react_1.default.createElement(numberInputs_1.default, Object.assign({}, props)) : "", showCallbacks ? react_1.default.createElement(numbersCallbacks_1.default, Object.assign({}, props)) : "");
+};
+
 exports.default = Numbers;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/strings.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./numberInputs":"components/inputTypes/numbers/numberInputs.tsx","./numbersCallbacks":"components/inputTypes/numbers/numbersCallbacks.tsx"}],"components/inputTypes/strings.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57088,7 +57182,7 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 
 var Strings = function Strings() {
-  return react_1.default.createElement("div", null, react_1.default.createElement("p", null, "strings"));
+  return react_1.default.createElement("div", null, react_1.default.createElement("p", null, "todo - strings"));
 };
 
 exports.default = Strings;
@@ -57108,7 +57202,7 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 
 var Emojis = function Emojis() {
-  return react_1.default.createElement("div", null, react_1.default.createElement("p", null, "emojis"));
+  return react_1.default.createElement("div", null, react_1.default.createElement("p", null, "todo - emojis"));
 };
 
 exports.default = Emojis;
@@ -57197,7 +57291,7 @@ var explainer_1 = __importDefault(require("./explainer"));
 
 var chooseInputsCallbacks_1 = __importDefault(require("./chooseInputsCallbacks"));
 
-var numbers_1 = __importDefault(require("./inputTypes/numbers"));
+var numbers_1 = __importDefault(require("./inputTypes/numbers/numbers"));
 
 var strings_1 = __importDefault(require("./inputTypes/strings"));
 
@@ -57466,7 +57560,7 @@ var Map = function Map() {
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./callback":"components/callback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers":"components/inputTypes/numbers.tsx","./inputTypes/strings":"components/inputTypes/strings.tsx","./inputTypes/emojis":"components/inputTypes/emojis.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./callback":"components/callback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers/numbers":"components/inputTypes/numbers/numbers.tsx","./inputTypes/strings":"components/inputTypes/strings.tsx","./inputTypes/emojis":"components/inputTypes/emojis.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {

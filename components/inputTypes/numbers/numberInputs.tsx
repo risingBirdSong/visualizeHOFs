@@ -1,9 +1,9 @@
 import React from "react";
-interface NumbersI {
+interface NumbersInputsI {
   setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
 }
-const Numbers = (props: NumbersI) => {
+const NumberInputs = (props: NumbersInputsI) => {
   return (
     <div>
       <ul className="numberArrayChoices row">
@@ -54,4 +54,4 @@ const Numbers = (props: NumbersI) => {
   );
 };
 
-export default Numbers;
+export default NumberInputs;

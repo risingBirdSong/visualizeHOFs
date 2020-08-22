@@ -64,7 +64,7 @@ const MapMainControls = (props: MapMainControlsI) => {
             }}
           >
             <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
-              swap inputs + callbacks
+              swap inputs + callbacks (work in progress)
             </span>
           </button>
         </li>
