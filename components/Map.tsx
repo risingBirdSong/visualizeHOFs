@@ -2,12 +2,16 @@ import * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
-import { MapMainControls } from "./helpers/mapMainControls";
-import Callback from "./helpers/callback";
-import InputArray from "./helpers/inputArray";
-import OutputArray from "./helpers/outputArray";
-import KonvaLayer from "./helpers/KonvaLayer";
-import Explainer from "./helpers/explainer";
+import { MapMainControls } from "./mapMainControls";
+import Callback from "./callback";
+import InputArray from "./inputArray";
+import OutputArray from "./outputArray";
+import KonvaLayer from "./KonvaLayer";
+import Explainer from "./explainer";
+import ChooseInputsCallbacks from "./chooseInputsCallbacks";
+import Numbers from "./inputTypes/numbers";
+import Strings from "./inputTypes/strings";
+import Emojis from "./inputTypes/emojis";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 enum cls {
@@ -25,6 +29,13 @@ enum currentTaskE {
   "inactive",
   "input",
   "output",
+}
+
+enum inputTypeChoiceE {
+  "numbers" = "numbers",
+  "strings" = "strings",
+  "emojis" = "emojis",
+  "defualt" = "defualt",
 }
 
 const Map = () => {
@@ -48,7 +59,18 @@ const Map = () => {
   const [animTarget, setAnimTarget] = useState("");
   const [showAllButtons, setshowAllButtons] = useState(false);
   const [fastRefToggler, setfastRefToggler] = useState(false);
+  const [showInputsOptions, setShowInputsOptions] = useState(false);
+  const [inputTypeChoice, setinputTypeChoice] = useState<inputTypeChoiceE>(
+    inputTypeChoiceE.defualt
+  );
 
+  const resetting = () => {
+    setAlgoWillReset(true);
+    setStepNumber(0);
+    setCurIdx(-1);
+    setOutputArray([]);
+    setCurrentTask(currentTaskE.inactive);
+  };
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -67,6 +89,8 @@ const Map = () => {
     showAllButtons: showAllButtons,
     animTarget: animTarget,
     fastRefToggler: fastRefToggler,
+    showInputsOptions: showInputsOptions,
+    inputTypeChoice: inputTypeChoice,
   };
 
   // same as state object but for set state.
@@ -88,6 +112,8 @@ const Map = () => {
     setshowAllButtons: setshowAllButtons,
     setAnimTarget: setAnimTarget,
     setfastRefToggler: setfastRefToggler,
+    setShowInputsOptions: setShowInputsOptions,
+    setinputTypeChoiceE: setinputTypeChoice,
   };
 
   useEffect(() => {
@@ -145,6 +171,20 @@ const Map = () => {
     <div className="allApp">
       <div className="foundation">
         <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
+        {showInputsOptions ? (
+          <ChooseInputsCallbacks setinputTypeChoice={setinputTypeChoice} />
+        ) : (
+          ""
+        )}
+        {stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? (
+          <Numbers setNums={setStateObj.setNums} resetting={resetting} />
+        ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? (
+          <Strings />
+        ) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? (
+          <Emojis />
+        ) : (
+          ""
+        )}
         <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
         <InputArray {...stateObj} {...setStateObj} />
         <Callback {...stateObj} {...setStateObj} doubleNumber={doubleNumber} />

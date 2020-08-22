@@ -7,6 +7,7 @@ interface MapMainControlsI {
   setExplainer: React.Dispatch<React.SetStateAction<boolean>>;
   setshowAllButtons: React.Dispatch<React.SetStateAction<boolean>>;
   showAllButtons: boolean;
+  setShowInputsOptions: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MapMainControls = (props: MapMainControlsI) => {
@@ -41,9 +42,9 @@ const MapMainControls = (props: MapMainControlsI) => {
                 : "step"}
             </span>
           </button>
+          {/* do we really want to be able to toggle explainer? */}
         </li>
-        {/* do we really want to be able to toggle explainer? */}
-        <li className="z-depth-3">
+        {/* <li className="z-depth-3">
           <button
             className={`waves-effect waves-light btn`}
             onClick={() => {
@@ -52,6 +53,18 @@ const MapMainControls = (props: MapMainControlsI) => {
           >
             <span className={`${props.showAllButtons ? "showButton" : ""}`}>
               explain{" "}
+            </span>
+          </button>
+        </li> */}
+        <li className="z-depth-3">
+          <button
+            className={`waves-effect waves-light btn`}
+            onClick={() => {
+              props.setShowInputsOptions((prev) => !prev);
+            }}
+          >
+            <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
+              swap inputs + callbacks
             </span>
           </button>
         </li>

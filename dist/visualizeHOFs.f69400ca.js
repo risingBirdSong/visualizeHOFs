@@ -28285,7 +28285,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/helpers/mapMainControls.tsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/mapMainControls.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -28335,17 +28335,17 @@ var MapMainControls = function MapMainControls(props) {
   }, react_1.default.createElement("button", {
     className: "waves-effect waves-light btn",
     onClick: function onClick() {
-      props.setExplainer(function (past) {
-        return !past;
+      props.setShowInputsOptions(function (prev) {
+        return !prev;
       });
     }
   }, react_1.default.createElement("span", {
-    className: "".concat(props.showAllButtons ? "showButton" : "")
-  }, "explain", " ")))));
+    className: " ".concat(props.showAllButtons ? "showButton" : "")
+  }, "swap inputs + callbacks")))));
 };
 
 exports.MapMainControls = MapMainControls;
-},{"react":"node_modules/react/index.js"}],"components/helpers/callback.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/callback.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -28461,7 +28461,7 @@ var Callback = function Callback(props) {
 };
 
 exports.default = Callback;
-},{"react":"node_modules/react/index.js"}],"components/helpers/inputArray.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/inputArray.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -28525,7 +28525,7 @@ var InputArray = function InputArray(props) {
 };
 
 exports.default = InputArray;
-},{"react":"node_modules/react/index.js"}],"components/helpers/outputArray.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/outputArray.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -56822,7 +56822,7 @@ var ReactKonvaCore = require('./ReactKonvaCore');
 var Konva = require('konva');
 
 module.exports = _extends({}, ReactKonvaCore);
-},{"./ReactKonvaCore":"node_modules/react-konva/lib/ReactKonvaCore.js","konva":"node_modules/konva/lib/index.js"}],"components/helpers/KonvaLayer.tsx":[function(require,module,exports) {
+},{"./ReactKonvaCore":"node_modules/react-konva/lib/ReactKonvaCore.js","konva":"node_modules/konva/lib/index.js"}],"components/KonvaLayer.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -56881,7 +56881,7 @@ var KonvaLayer = function KonvaLayer(props) {
 };
 
 exports.default = KonvaLayer;
-},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js"}],"components/helpers/explainer.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js"}],"components/explainer.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -56974,6 +56974,144 @@ var Explainer = function Explainer(props) {
 };
 
 exports.default = Explainer;
+},{"react":"node_modules/react/index.js"}],"components/chooseInputsCallbacks.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react")); // import inputTypeChoiceE from "./Map"; doesnt import enum correctly, so redefine it
+
+
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+  inputTypeChoiceE["emojis"] = "emojis";
+  inputTypeChoiceE["defualt"] = "defualt";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
+var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
+  return react_1.default.createElement("ul", {
+    className: "row"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setinputTypeChoice(inputTypeChoiceE.numbers);
+    },
+    className: "waves-effect purple-text amber lighten-1 waves-light btn"
+  }, react_1.default.createElement("span", null, "numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setinputTypeChoice(inputTypeChoiceE.strings);
+    },
+    className: "waves-effect purple-text amber waves-light btn"
+  }, "strings")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setinputTypeChoice(inputTypeChoiceE.emojis);
+    },
+    className: "waves-effect purple-text amber darken-1 waves-light btn"
+  }, "emojis")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setinputTypeChoice(inputTypeChoiceE.defualt);
+    },
+    className: "waves-effect purple-text amber darken-1 waves-light btn"
+  }, "default")));
+};
+
+exports.default = ChooseInputsCallbacks;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var Numbers = function Numbers(props) {
+  return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
+    className: "numberArrayChoices row"
+  }, react_1.default.createElement("li", null), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setNums([1, 4, 9, 16, 25, 36, 49, 64, 81, 100]);
+      props.resetting();
+    },
+    className: "btn waves-effect"
+  }, react_1.default.createElement("span", null, "square numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.resetting();
+      props.setNums([1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
+    },
+    className: "btn waves-effect"
+  }, react_1.default.createElement("span", null, "fibonacci numbers")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
+    onClick: function onClick() {
+      var numbers = [];
+
+      for (var i = 0; i <= 10; i++) {
+        numbers.push(Math.round(Math.random() * 100));
+      }
+
+      props.resetting();
+      props.setNums(numbers);
+    },
+    className: "btn waves-effect"
+  }, react_1.default.createElement("span", null, "random numbers ")), " ")));
+};
+
+exports.default = Numbers;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/strings.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var Strings = function Strings() {
+  return react_1.default.createElement("div", null, react_1.default.createElement("p", null, "strings"));
+};
+
+exports.default = Strings;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/emojis.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var Emojis = function Emojis() {
+  return react_1.default.createElement("div", null, react_1.default.createElement("p", null, "emojis"));
+};
+
+exports.default = Emojis;
 },{"react":"node_modules/react/index.js"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -57045,17 +57183,25 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
-var mapMainControls_1 = require("./helpers/mapMainControls");
+var mapMainControls_1 = require("./mapMainControls");
 
-var callback_1 = __importDefault(require("./helpers/callback"));
+var callback_1 = __importDefault(require("./callback"));
 
-var inputArray_1 = __importDefault(require("./helpers/inputArray"));
+var inputArray_1 = __importDefault(require("./inputArray"));
 
-var outputArray_1 = __importDefault(require("./helpers/outputArray"));
+var outputArray_1 = __importDefault(require("./outputArray"));
 
-var KonvaLayer_1 = __importDefault(require("./helpers/KonvaLayer"));
+var KonvaLayer_1 = __importDefault(require("./KonvaLayer"));
 
-var explainer_1 = __importDefault(require("./helpers/explainer")); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var explainer_1 = __importDefault(require("./explainer"));
+
+var chooseInputsCallbacks_1 = __importDefault(require("./chooseInputsCallbacks"));
+
+var numbers_1 = __importDefault(require("./inputTypes/numbers"));
+
+var strings_1 = __importDefault(require("./inputTypes/strings"));
+
+var emojis_1 = __importDefault(require("./inputTypes/emojis")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 
 var cls;
@@ -57078,6 +57224,15 @@ var currentTaskE;
   currentTaskE[currentTaskE["input"] = 1] = "input";
   currentTaskE[currentTaskE["output"] = 2] = "output";
 })(currentTaskE || (currentTaskE = {}));
+
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+  inputTypeChoiceE["emojis"] = "emojis";
+  inputTypeChoiceE["defualt"] = "defualt";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var Map = function Map() {
   var inputEl = react_1.useRef(null);
@@ -57177,7 +57332,25 @@ var Map = function Map() {
   var _react_1$useState33 = react_1.useState(false),
       _react_1$useState34 = _slicedToArray(_react_1$useState33, 2),
       fastRefToggler = _react_1$useState34[0],
-      setfastRefToggler = _react_1$useState34[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      setfastRefToggler = _react_1$useState34[1];
+
+  var _react_1$useState35 = react_1.useState(false),
+      _react_1$useState36 = _slicedToArray(_react_1$useState35, 2),
+      showInputsOptions = _react_1$useState36[0],
+      setShowInputsOptions = _react_1$useState36[1];
+
+  var _react_1$useState37 = react_1.useState(inputTypeChoiceE.defualt),
+      _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
+      inputTypeChoice = _react_1$useState38[0],
+      setinputTypeChoice = _react_1$useState38[1];
+
+  var resetting = function resetting() {
+    setAlgoWillReset(true);
+    setStepNumber(0);
+    setCurIdx(-1);
+    setOutputArray([]);
+    setCurrentTask(currentTaskE.inactive);
+  }; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -57196,7 +57369,9 @@ var Map = function Map() {
     animInput: animInput,
     showAllButtons: showAllButtons,
     animTarget: animTarget,
-    fastRefToggler: fastRefToggler
+    fastRefToggler: fastRefToggler,
+    showInputsOptions: showInputsOptions,
+    inputTypeChoice: inputTypeChoice
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -57216,7 +57391,9 @@ var Map = function Map() {
     setExplainer: setExplainer,
     setshowAllButtons: setshowAllButtons,
     setAnimTarget: setAnimTarget,
-    setfastRefToggler: setfastRefToggler
+    setfastRefToggler: setfastRefToggler,
+    setShowInputsOptions: setShowInputsOptions,
+    setinputTypeChoiceE: setinputTypeChoice
   };
   react_1.useEffect(function () {
     //ah this is if check is useful because we dont want this fire initially
@@ -57276,7 +57453,12 @@ var Map = function Map() {
     className: "foundation"
   }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
     takeStep: takeStep
-  })), React.createElement(explainer_1.default, Object.assign({
+  })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
+    setinputTypeChoice: setinputTypeChoice
+  }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? React.createElement(numbers_1.default, {
+    setNums: setStateObj.setNums,
+    resetting: resetting
+  }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, null) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
     doubleNumber: doubleNumber
@@ -57284,7 +57466,7 @@ var Map = function Map() {
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","./helpers/mapMainControls":"components/helpers/mapMainControls.tsx","./helpers/callback":"components/helpers/callback.tsx","./helpers/inputArray":"components/helpers/inputArray.tsx","./helpers/outputArray":"components/helpers/outputArray.tsx","./helpers/KonvaLayer":"components/helpers/KonvaLayer.tsx","./helpers/explainer":"components/helpers/explainer.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./callback":"components/callback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers":"components/inputTypes/numbers.tsx","./inputTypes/strings":"components/inputTypes/strings.tsx","./inputTypes/emojis":"components/inputTypes/emojis.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
