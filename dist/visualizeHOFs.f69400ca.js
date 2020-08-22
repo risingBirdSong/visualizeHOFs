@@ -57499,6 +57499,11 @@ var Map = function Map() {
       setStateObj.setOutputArray([]);
     }
   }, [algoHasFinished]);
+  react_1.useEffect(function () {
+    if (!showInputsOptions) {
+      setinputTypeChoice(inputTypeChoiceE.defualt);
+    }
+  }, [showInputsOptions]);
 
   var takeStep = function takeStep(restart) {
     setStateObj.setAlgoHasStarted(true);
@@ -57551,7 +57556,8 @@ var Map = function Map() {
     setinputTypeChoice: setinputTypeChoice
   }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? React.createElement(numbers_1.default, {
     setNums: setStateObj.setNums,
-    resetting: resetting
+    resetting: resetting,
+    boolSwitch: showInputsOptions
   }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, null) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {

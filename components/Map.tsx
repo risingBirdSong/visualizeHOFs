@@ -127,6 +127,12 @@ const Map = () => {
     }
   }, [algoHasFinished]);
 
+  useEffect(() => {
+    if (!showInputsOptions) {
+      setinputTypeChoice(inputTypeChoiceE.defualt);
+    }
+  }, [showInputsOptions]);
+
   const takeStep = (restart: boolean) => {
     setStateObj.setAlgoHasStarted(true);
     setStateObj.setStepNumber((val) => ++val);
@@ -177,7 +183,11 @@ const Map = () => {
           ""
         )}
         {stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? (
-          <Numbers setNums={setStateObj.setNums} resetting={resetting} />
+          <Numbers
+            setNums={setStateObj.setNums}
+            resetting={resetting}
+            boolSwitch={showInputsOptions}
+          />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? (
           <Strings />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? (

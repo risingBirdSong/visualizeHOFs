@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NumberInputs from "./numberInputs";
 import NumberCallbacks from "./numbersCallbacks";
 import { useState } from "react";
 interface NumbersI {
   setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
+  boolSwitch: boolean;
 }
 const Numbers = (props: NumbersI) => {
   const [showArrays, setShowArrays] = useState(false);
