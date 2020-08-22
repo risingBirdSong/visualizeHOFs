@@ -145,12 +145,12 @@ const Map = () => {
     <div className="allApp">
       <div className="foundation">
         <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
-        <Callback {...stateObj} {...setStateObj} doubleNumber={doubleNumber} />
+        <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
         <InputArray {...stateObj} {...setStateObj} />
+        <Callback {...stateObj} {...setStateObj} doubleNumber={doubleNumber} />
         <OutputArray {...stateObj} {...setStateObj} />
       </div>
       <KonvaLayer {...stateObj} {...setStateObj} />
-      <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
     </div>
   );
 };

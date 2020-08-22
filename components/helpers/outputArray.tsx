@@ -35,34 +35,26 @@ const OutputArray = (props: OutputArrI) =>
       </div>
       <li className={`arrBrkt col s1 bracket`}>[</li>
       {props.outputArray.map((num, idx) => {
+        let outputted = (
+          <p
+            className={`num amber lighten-1 z-depth-5`}
+            ref={(ele) => {
+              let x = ele?.getBoundingClientRect().x;
+              let y = ele?.getBoundingClientRect().y;
+              if (x && y && x !== props.curOutputNumCoords.x) {
+                props.setCurOutputNumCoords({ x, y });
+              }
+            }}
+          >
+            {num}
+          </p>
+        );
         return (
           <li className={"col s1"} key={idx}>
             {idx === props.curIdx && props.fastRefToggler ? (
-              <p
-                className={`num amber lighten-1 z-depth-5`}
-                ref={(ele) => {
-                  let x = ele?.getBoundingClientRect().x;
-                  let y = ele?.getBoundingClientRect().y;
-                  if (x && y && x !== props.curOutputNumCoords.x) {
-                    props.setCurOutputNumCoords({ x, y });
-                  }
-                }}
-              >
-                {num}
-              </p>
+              outputted
             ) : idx === props.curIdx && !props.fastRefToggler ? (
-              <p
-                className={`num amber lighten-1 z-depth-5`}
-                ref={(ele) => {
-                  let x = ele?.getBoundingClientRect().x;
-                  let y = ele?.getBoundingClientRect().y;
-                  if (x && y && x !== props.curOutputNumCoords.x) {
-                    props.setCurOutputNumCoords({ x, y });
-                  }
-                }}
-              >
-                {num}
-              </p>
+              outputted
             ) : (
               <p className={`num amber lighten-4 z-depth-3`}>{num}</p>
             )}

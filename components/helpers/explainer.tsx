@@ -25,7 +25,7 @@ const Explainer = (props: ExplainerI) => {
   return props.explainer ? (
     <div
       className="explanation blue lighten-1 z-depth-2 "
-      style={{ padding: "10px" }}
+      style={{ padding: "10px", marginBottom: "15px", borderRadius: "5px" }}
     >
       <h5 className="amber-text center-align">
         the .map method boils down to 3 basic steps
@@ -42,7 +42,7 @@ const Explainer = (props: ExplainerI) => {
                 setTimeout(() => {
                   props.setAnimInput(false);
                   props.setAnimTarget("");
-                }, 1000);
+                }, 2000);
               }}
             >
               <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
@@ -61,7 +61,7 @@ const Explainer = (props: ExplainerI) => {
                   props.setAnimInput(false);
 
                   props.setAnimTarget("");
-                }, 1000);
+                }, 2000);
               }}
               className={`waves-effect purple lighten-2  btn tolowercase`}
             >
@@ -82,7 +82,7 @@ const Explainer = (props: ExplainerI) => {
                   props.setAnimInput(false);
 
                   props.setAnimTarget("");
-                }, 1000);
+                }, 2000);
               }}
               className="waves-effect purple lighten-2 btn tolowercase"
             >

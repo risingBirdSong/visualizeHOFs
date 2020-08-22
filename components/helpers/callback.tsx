@@ -28,6 +28,25 @@ interface CallbackI {
 }
 
 const Callback = (props: CallbackI) => {
+  //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
+  let input = (
+    <span
+      ref={(ele) => {
+        let curX = ele?.getBoundingClientRect().x;
+        if (props.inputCoords.x !== curX) {
+          let x = ele?.getBoundingClientRect().x;
+          let y = ele?.getBoundingClientRect().y;
+          if (x && y) {
+            y += 0;
+            props.setInputCoords({ x, y });
+          }
+        }
+      }}
+    >
+      {" "}
+      {props.nums[props.curIdx]}
+    </span>
+  );
   return (
     <div
       style={{
@@ -66,43 +85,11 @@ const Callback = (props: CallbackI) => {
           >
             <h6 className="input valign-wrapper">
               <span className="blue-text text-darken-3">input</span> &nbsp;{" "}
-              {props.nums[props.curIdx] && props.fastRefToggler ? (
-                <span
-                  ref={(ele) => {
-                    let curX = ele?.getBoundingClientRect().x;
-                    if (props.inputCoords.x !== curX) {
-                      let x = ele?.getBoundingClientRect().x;
-                      let y = ele?.getBoundingClientRect().y;
-                      if (x && y) {
-                        y += 0;
-                        props.setInputCoords({ x, y });
-                      }
-                    }
-                  }}
-                >
-                  {" "}
-                  {props.nums[props.curIdx]}
-                </span>
-              ) : props.nums[props.curIdx] && !props.fastRefToggler ? (
-                <span
-                  ref={(ele) => {
-                    let curX = ele?.getBoundingClientRect().x;
-                    if (props.inputCoords.x !== curX) {
-                      let x = ele?.getBoundingClientRect().x;
-                      let y = ele?.getBoundingClientRect().y;
-                      if (x && y) {
-                        y += 0;
-                        props.setInputCoords({ x, y });
-                      }
-                    }
-                  }}
-                >
-                  {" "}
-                  {props.nums[props.curIdx]}
-                </span>
-              ) : (
-                ""
-              )}
+              {props.nums[props.curIdx] && props.fastRefToggler
+                ? input
+                : props.nums[props.curIdx] && !props.fastRefToggler
+                ? input
+                : ""}
             </h6>
           </div>
         ) : (

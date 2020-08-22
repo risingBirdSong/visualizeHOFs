@@ -28369,6 +28369,25 @@ var currentTaskE;
 })(currentTaskE || (currentTaskE = {}));
 
 var Callback = function Callback(props) {
+  //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
+  var input = react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+
+      if (props.inputCoords.x !== curX) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y) {
+          y += 0;
+          props.setInputCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }
+  }, " ", props.nums[props.curIdx]);
   return react_1.default.createElement("div", {
     style: {
       padding: "8px",
@@ -28401,41 +28420,7 @@ var Callback = function Callback(props) {
     className: "input valign-wrapper"
   }, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
-  }, "input"), " \xA0", " ", props.nums[props.curIdx] && props.fastRefToggler ? react_1.default.createElement("span", {
-    ref: function ref(ele) {
-      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-
-      if (props.inputCoords.x !== curX) {
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y) {
-          y += 0;
-          props.setInputCoords({
-            x: x,
-            y: y
-          });
-        }
-      }
-    }
-  }, " ", props.nums[props.curIdx]) : props.nums[props.curIdx] && !props.fastRefToggler ? react_1.default.createElement("span", {
-    ref: function ref(ele) {
-      var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-
-      if (props.inputCoords.x !== curX) {
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y) {
-          y += 0;
-          props.setInputCoords({
-            x: x,
-            y: y
-          });
-        }
-      }
-    }
-  }, " ", props.nums[props.curIdx]) : "")) : "", react_1.default.createElement("div", {
+  }, "input"), " \xA0", " ", props.nums[props.curIdx] && props.fastRefToggler ? input : props.nums[props.curIdx] && !props.fastRefToggler ? input : "")) : "", react_1.default.createElement("div", {
     className: "funcBody purple lighten-2 z-depth-2",
     style: {
       padding: "12px",
@@ -28575,36 +28560,24 @@ var OutputArray = function OutputArray(props) {
   }, ": number[ ]"), " =")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.outputArray.map(function (num, idx) {
+    var outputted = react_1.default.createElement("p", {
+      className: "num amber lighten-1 z-depth-5",
+      ref: function ref(ele) {
+        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+
+        if (x && y && x !== props.curOutputNumCoords.x) {
+          props.setCurOutputNumCoords({
+            x: x,
+            y: y
+          });
+        }
+      }
+    }, num);
     return react_1.default.createElement("li", {
       className: "col s1",
       key: idx
-    }, idx === props.curIdx && props.fastRefToggler ? react_1.default.createElement("p", {
-      className: "num amber lighten-1 z-depth-5",
-      ref: function ref(ele) {
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y && x !== props.curOutputNumCoords.x) {
-          props.setCurOutputNumCoords({
-            x: x,
-            y: y
-          });
-        }
-      }
-    }, num) : idx === props.curIdx && !props.fastRefToggler ? react_1.default.createElement("p", {
-      className: "num amber lighten-1 z-depth-5",
-      ref: function ref(ele) {
-        var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-
-        if (x && y && x !== props.curOutputNumCoords.x) {
-          props.setCurOutputNumCoords({
-            x: x,
-            y: y
-          });
-        }
-      }
-    }, num) : react_1.default.createElement("p", {
+    }, idx === props.curIdx && props.fastRefToggler ? outputted : idx === props.curIdx && !props.fastRefToggler ? outputted : react_1.default.createElement("p", {
       className: "num amber lighten-4 z-depth-3"
     }, num));
   }), react_1.default.createElement("li", {
@@ -56884,13 +56857,13 @@ var KonvaLayer = function KonvaLayer(props) {
     className: "overlay"
   }, props.curIdx < props.nums.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "blue",
-    points: [props.curNumCoords.x, props.curNumCoords.y, props.curNumCoords.x - 10, props.curNumCoords.y - 50, props.inputCoords.x - 10, props.inputCoords.y + 50, props.inputCoords.x + 5, props.inputCoords.y + 22],
+    points: [props.curNumCoords.x + 18, props.curNumCoords.y + 22, props.curNumCoords.x + 4, props.curNumCoords.y + 50, props.inputCoords.x - 10, props.inputCoords.y - 30, props.inputCoords.x, props.inputCoords.y - 3],
     bezier: true
   }), react_1.default.createElement(react_konva_1.Wedge, {
-    x: props.inputCoords.x + 5,
-    y: props.inputCoords.y + 17,
+    x: props.inputCoords.x + 2,
+    y: props.inputCoords.y + 2,
     angle: 60,
-    rotation: 60,
+    rotation: -140,
     radius: 14,
     fill: "blue"
   })) : props.currentTask === currentTaskE.output ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
@@ -56945,7 +56918,9 @@ var Explainer = function Explainer(props) {
   return props.explainer ? react_1.default.createElement("div", {
     className: "explanation blue lighten-1 z-depth-2 ",
     style: {
-      padding: "10px"
+      padding: "10px",
+      marginBottom: "15px",
+      borderRadius: "5px"
     }
   }, react_1.default.createElement("h5", {
     className: "amber-text center-align"
@@ -56964,7 +56939,7 @@ var Explainer = function Explainer(props) {
       setTimeout(function () {
         props.setAnimInput(false);
         props.setAnimTarget("");
-      }, 1000);
+      }, 2000);
     }
   }, react_1.default.createElement("span", {
     className: " ".concat(props.showAllButtons ? "showButton" : "")
@@ -56976,7 +56951,7 @@ var Explainer = function Explainer(props) {
       setTimeout(function () {
         props.setAnimInput(false);
         props.setAnimTarget("");
-      }, 1000);
+      }, 2000);
     },
     className: "waves-effect purple lighten-2  btn tolowercase"
   }, react_1.default.createElement("span", {
@@ -56989,7 +56964,7 @@ var Explainer = function Explainer(props) {
       setTimeout(function () {
         props.setAnimInput(false);
         props.setAnimTarget("");
-      }, 1000);
+      }, 2000);
     },
     className: "waves-effect purple lighten-2 btn tolowercase"
   }, react_1.default.createElement("span", {
@@ -57301,11 +57276,11 @@ var Map = function Map() {
     className: "foundation"
   }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
     takeStep: takeStep
-  })), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
-    doubleNumber: doubleNumber
-  })), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(explainer_1.default, Object.assign({
+  })), React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
-  }, stateObj, setStateObj)));
+  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
+    doubleNumber: doubleNumber
+  })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)));
 };
 
 exports.default = Map;
