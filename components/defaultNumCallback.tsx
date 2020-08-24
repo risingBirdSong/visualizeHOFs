@@ -10,7 +10,7 @@ enum currentTaskE {
   "input",
   "output",
 }
-interface CallbackI {
+interface DefualtCallbackI {
   algoHasStarted: boolean;
   //todo make generic instead of just number[]
   nums: number[];
@@ -27,7 +27,7 @@ interface CallbackI {
   fastRefToggler: boolean;
 }
 
-const Callback = (props: CallbackI) => {
+const DefualtCallback = (props: DefualtCallbackI) => {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   let input = (
     <span
@@ -146,4 +146,4 @@ const Callback = (props: CallbackI) => {
   );
 };
 
-export default Callback;
+export default DefualtCallback;

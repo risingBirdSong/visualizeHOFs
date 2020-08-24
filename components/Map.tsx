@@ -3,7 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
 import { MapMainControls } from "./mapMainControls";
-import Callback from "./callback";
+import DefualtCallback from "./defaultNumCallback";
+import NumCallback from "./inputTypes/numbers/numberCallback";
 import InputArray from "./inputArray";
 import OutputArray from "./outputArray";
 import KonvaLayer from "./KonvaLayer";
@@ -14,6 +15,12 @@ import Strings from "./inputTypes/strings";
 import Emojis from "./inputTypes/emojis";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
+enum inputVarTypeE {
+  "num" = "num",
+  "str" = "str",
+  "emoji" = "emoji",
+}
+
 enum cls {
   numArr = "numArr",
   num = "num",
@@ -23,6 +30,10 @@ enum cls {
 
 const doubleNumber = (num: number) => {
   return num * 2;
+};
+
+const halveNumber = (num: number): number => {
+  return num / 2;
 };
 
 enum currentTaskE {
@@ -36,6 +47,13 @@ enum inputTypeChoiceE {
   "strings" = "strings",
   "emojis" = "emojis",
   "defualt" = "defualt",
+}
+
+enum numberCalbacks {
+  "double" = "double",
+  "halve" = "halve",
+  "square" = "square",
+  "triple" = "triple",
 }
 
 const Map = () => {
@@ -197,7 +215,20 @@ const Map = () => {
         )}
         <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
         <InputArray {...stateObj} {...setStateObj} />
-        <Callback {...stateObj} {...setStateObj} doubleNumber={doubleNumber} />
+        {/* <DefualtCallback
+          {...stateObj}
+          {...setStateObj}
+          doubleNumber={doubleNumber}
+        /> */}
+        <NumCallback
+          {...stateObj}
+          {...setStateObj}
+          name={"halve"}
+          actualCallback={halveNumber}
+          callbackLogic={"/ 2"}
+          inputType={"number"}
+          inputVarName={inputVarTypeE.num}
+        />
         <OutputArray {...stateObj} {...setStateObj} />
       </div>
       <KonvaLayer {...stateObj} {...setStateObj} />

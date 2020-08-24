@@ -8,22 +8,22 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
     <div>
       <ul className="numberArrayChoices row">
         <li>
-          <span>Callback todo</span>
+          <span>Select a different callback</span>
         </li>
         <li>
           <button className={`btn waves-effect`}>
-            <span>todo 1 </span>
+            <span>halve number </span>
           </button>
         </li>
         <li>
           <button className={`btn waves-effect`}>
-            <span>todo 2 </span>
+            <span>triple number </span>
           </button>{" "}
         </li>
         <li>
           {" "}
           <button className={`btn waves-effect`}>
-            <span>todo 3</span>
+            <span>square number</span>
           </button>{" "}
         </li>
       </ul>

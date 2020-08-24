@@ -28345,7 +28345,7 @@ var MapMainControls = function MapMainControls(props) {
 };
 
 exports.MapMainControls = MapMainControls;
-},{"react":"node_modules/react/index.js"}],"components/callback.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/numberCallback.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -28368,7 +28368,15 @@ var currentTaskE;
   currentTaskE[currentTaskE["output"] = 2] = "output";
 })(currentTaskE || (currentTaskE = {}));
 
-var Callback = function Callback(props) {
+var inputVarTypeE;
+
+(function (inputVarTypeE) {
+  inputVarTypeE["num"] = "num";
+  inputVarTypeE["str"] = "str";
+  inputVarTypeE["emoji"] = "emoji";
+})(inputVarTypeE || (inputVarTypeE = {}));
+
+var NumCallback = function NumCallback(props) {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   var input = react_1.default.createElement("span", {
     ref: function ref(ele) {
@@ -28428,13 +28436,13 @@ var Callback = function Callback(props) {
     }
   }, react_1.default.createElement("h6", null, "const ", react_1.default.createElement("span", {
     className: "amber-text"
-  }, "doubleNumber"), " = (", react_1.default.createElement("span", {
+  }, props.name), " = (", react_1.default.createElement("span", {
     className: "cyan-text text-accent-4"
-  }, "num"), " : \xA0", " ", react_1.default.createElement("span", {
+  }, props.inputVarName), " ", ": \xA0", " ", react_1.default.createElement("span", {
     className: "blue-text text-accent-4"
-  }, "number"), " ) ", "=>"), react_1.default.createElement("h6", null, " ", react_1.default.createElement("span", {
+  }, props.inputType), " )", " ", "=>"), react_1.default.createElement("h6", null, " ", react_1.default.createElement("span", {
     className: "cyan-text text-accent-4"
-  }, "num"), " * 2", " ")), react_1.default.createElement("div", {
+  }, props.inputVarName), " ", props.callbackLogic, " ")), react_1.default.createElement("div", {
     style: {
       display: "flex",
       margin: "15px"
@@ -28457,10 +28465,10 @@ var Callback = function Callback(props) {
         });
       }
     }
-  }, " ", props.doubleNumber(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "") : "")));
+  }, " ", props.actualCallback(props.nums[props.curIdx]), " ") : props.nums[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "") : "")));
 };
 
-exports.default = Callback;
+exports.default = NumCallback;
 },{"react":"node_modules/react/index.js"}],"components/inputArray.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -57090,13 +57098,13 @@ var react_1 = __importDefault(require("react"));
 var NumberCallbacks = function NumberCallbacks(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
-  }, react_1.default.createElement("li", null, react_1.default.createElement("span", null, "Callback todo")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, react_1.default.createElement("li", null, react_1.default.createElement("span", null, "Select a different callback")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     className: "btn waves-effect"
-  }, react_1.default.createElement("span", null, "todo 1 "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, react_1.default.createElement("span", null, "halve number "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     className: "btn waves-effect"
-  }, react_1.default.createElement("span", null, "todo 2 ")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
+  }, react_1.default.createElement("span", null, "triple number ")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
     className: "btn waves-effect"
-  }, react_1.default.createElement("span", null, "todo 3")), " ")));
+  }, react_1.default.createElement("span", null, "square number")), " ")));
 };
 
 exports.default = NumberCallbacks;
@@ -57279,7 +57287,7 @@ var react_1 = require("react");
 
 var mapMainControls_1 = require("./mapMainControls");
 
-var callback_1 = __importDefault(require("./callback"));
+var numberCallback_1 = __importDefault(require("./inputTypes/numbers/numberCallback"));
 
 var inputArray_1 = __importDefault(require("./inputArray"));
 
@@ -57298,6 +57306,14 @@ var strings_1 = __importDefault(require("./inputTypes/strings"));
 var emojis_1 = __importDefault(require("./inputTypes/emojis")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 
+var inputVarTypeE;
+
+(function (inputVarTypeE) {
+  inputVarTypeE["num"] = "num";
+  inputVarTypeE["str"] = "str";
+  inputVarTypeE["emoji"] = "emoji";
+})(inputVarTypeE || (inputVarTypeE = {}));
+
 var cls;
 
 (function (cls) {
@@ -57309,6 +57325,10 @@ var cls;
 
 var doubleNumber = function doubleNumber(num) {
   return num * 2;
+};
+
+var halveNumber = function halveNumber(num) {
+  return num / 2;
 };
 
 var currentTaskE;
@@ -57327,6 +57347,15 @@ var inputTypeChoiceE;
   inputTypeChoiceE["emojis"] = "emojis";
   inputTypeChoiceE["defualt"] = "defualt";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
+var numberCalbacks;
+
+(function (numberCalbacks) {
+  numberCalbacks["double"] = "double";
+  numberCalbacks["halve"] = "halve";
+  numberCalbacks["square"] = "square";
+  numberCalbacks["triple"] = "triple";
+})(numberCalbacks || (numberCalbacks = {}));
 
 var Map = function Map() {
   var inputEl = react_1.useRef(null);
@@ -57560,13 +57589,17 @@ var Map = function Map() {
     boolSwitch: showInputsOptions
   }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, null) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
-  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(callback_1.default, Object.assign({}, stateObj, setStateObj, {
-    doubleNumber: doubleNumber
+  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(numberCallback_1.default, Object.assign({}, stateObj, setStateObj, {
+    name: "halve",
+    actualCallback: halveNumber,
+    callbackLogic: "/ 2",
+    inputType: "number",
+    inputVarName: inputVarTypeE.num
   })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)));
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./callback":"components/callback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers/numbers":"components/inputTypes/numbers/numbers.tsx","./inputTypes/strings":"components/inputTypes/strings.tsx","./inputTypes/emojis":"components/inputTypes/emojis.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./inputTypes/numbers/numberCallback":"components/inputTypes/numbers/numberCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers/numbers":"components/inputTypes/numbers/numbers.tsx","./inputTypes/strings":"components/inputTypes/strings.tsx","./inputTypes/emojis":"components/inputTypes/emojis.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -57710,7 +57743,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56794" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60423" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
