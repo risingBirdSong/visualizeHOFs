@@ -82,6 +82,8 @@ const Map = () => {
     inputTypeChoiceE.defualt
   );
 
+  let currentFunction = halveNumber;
+
   const resetting = () => {
     setAlgoWillReset(true);
     setStepNumber(0);
@@ -184,7 +186,8 @@ const Map = () => {
     else if (stepNumber % 2 !== 0) {
       if (stateObj.nums[stateObj.curIdx]) {
         let copy = [...stateObj.outputArray];
-        copy.push(doubleNumber(stateObj.nums[stateObj.curIdx]));
+        //changed from hard coded function to currentFunction
+        copy.push(currentFunction(stateObj.nums[stateObj.curIdx]));
         setStateObj.setOutputArray(copy);
         setStateObj.setCurrentTask(currentTaskE.output);
       }
@@ -223,7 +226,7 @@ const Map = () => {
         <NumCallback
           {...stateObj}
           {...setStateObj}
-          name={"halve"}
+          FunctionName={"halve"}
           actualCallback={halveNumber}
           callbackLogic={"/ 2"}
           inputType={"number"}

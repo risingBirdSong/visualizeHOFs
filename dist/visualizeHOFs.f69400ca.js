@@ -28436,7 +28436,7 @@ var NumCallback = function NumCallback(props) {
     }
   }, react_1.default.createElement("h6", null, "const ", react_1.default.createElement("span", {
     className: "amber-text"
-  }, props.name), " = (", react_1.default.createElement("span", {
+  }, props.FunctionName), " = (", react_1.default.createElement("span", {
     className: "cyan-text text-accent-4"
   }, props.inputVarName), " ", ": \xA0", " ", react_1.default.createElement("span", {
     className: "blue-text text-accent-4"
@@ -57467,6 +57467,8 @@ var Map = function Map() {
       inputTypeChoice = _react_1$useState38[0],
       setinputTypeChoice = _react_1$useState38[1];
 
+  var currentFunction = halveNumber;
+
   var resetting = function resetting() {
     setAlgoWillReset(true);
     setStepNumber(0);
@@ -57566,9 +57568,10 @@ var Map = function Map() {
     } //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
         if (stateObj.nums[stateObj.curIdx]) {
-          var copy = _toConsumableArray(stateObj.outputArray);
+          var copy = _toConsumableArray(stateObj.outputArray); //changed from hard coded function to currentFunction
 
-          copy.push(doubleNumber(stateObj.nums[stateObj.curIdx]));
+
+          copy.push(currentFunction(stateObj.nums[stateObj.curIdx]));
           setStateObj.setOutputArray(copy);
           setStateObj.setCurrentTask(currentTaskE.output);
         }
@@ -57590,7 +57593,7 @@ var Map = function Map() {
   }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, null) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(numberCallback_1.default, Object.assign({}, stateObj, setStateObj, {
-    name: "halve",
+    FunctionName: "halve",
     actualCallback: halveNumber,
     callbackLogic: "/ 2",
     inputType: "number",

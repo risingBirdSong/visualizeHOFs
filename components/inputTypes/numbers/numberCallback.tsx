@@ -19,7 +19,7 @@ enum inputVarTypeE {
 type inputType = number | string;
 
 interface NumCallbackI {
-  name: string;
+  FunctionName: string;
   inputVarName: inputVarTypeE;
   algoHasStarted: boolean;
   inputType: inputType;
@@ -112,7 +112,7 @@ const NumCallback = (props: NumCallbackI) => {
           style={{ padding: "12px", borderRadius: "5px" }}
         >
           <h6>
-            const <span className="amber-text">{props.name}</span> = (
+            const <span className="amber-text">{props.FunctionName}</span> = (
             <span className="cyan-text text-accent-4">
               {props.inputVarName}
             </span>{" "}
