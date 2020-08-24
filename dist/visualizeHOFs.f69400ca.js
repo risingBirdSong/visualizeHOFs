@@ -28376,6 +28376,15 @@ var inputVarTypeE;
   inputVarTypeE["emoji"] = "emoji";
 })(inputVarTypeE || (inputVarTypeE = {}));
 
+var numberCalbacks;
+
+(function (numberCalbacks) {
+  numberCalbacks["double"] = "double";
+  numberCalbacks["halve"] = "halve";
+  numberCalbacks["square"] = "square";
+  numberCalbacks["triple"] = "triple";
+})(numberCalbacks || (numberCalbacks = {}));
+
 var NumCallback = function NumCallback(props) {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   var input = react_1.default.createElement("span", {
@@ -28451,7 +28460,7 @@ var NumCallback = function NumCallback(props) {
     className: "output valign-wrapper"
   }, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
-  }, "input"), " \xA0", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
+  }, "output"), " \xA0", " ", props.nums[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
     ref: function ref(ele) {
       var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
       var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; //prevent infinite loop
@@ -57095,14 +57104,37 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
+var numberCallbacksE;
+
+(function (numberCallbacksE) {
+  numberCallbacksE["double"] = "double";
+  numberCallbacksE["halve"] = "halve";
+  numberCallbacksE["square"] = "square";
+  numberCallbacksE["triple"] = "triple";
+})(numberCallbacksE || (numberCallbacksE = {}));
+
 var NumberCallbacks = function NumberCallbacks(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
-  }, react_1.default.createElement("li", null, react_1.default.createElement("span", null, "Select a different callback")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.updateNumberCallBacks(numberCallbacksE.halve);
+    },
     className: "btn waves-effect"
   }, react_1.default.createElement("span", null, "halve number "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.updateNumberCallBacks(numberCallbacksE.double);
+    },
+    className: "btn waves-effect"
+  }, react_1.default.createElement("span", null, "double number ")), " "), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.updateNumberCallBacks(numberCallbacksE.triple);
+    },
     className: "btn waves-effect"
   }, react_1.default.createElement("span", null, "triple number ")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.updateNumberCallBacks(numberCallbacksE.square);
+    },
     className: "btn waves-effect"
   }, react_1.default.createElement("span", null, "square number")), " ")));
 };
@@ -57140,6 +57172,15 @@ var numberInputs_1 = __importDefault(require("./numberInputs"));
 var numbersCallbacks_1 = __importDefault(require("./numbersCallbacks"));
 
 var react_2 = require("react");
+
+var numberCallbacksE;
+
+(function (numberCallbacksE) {
+  numberCallbacksE["double"] = "double";
+  numberCallbacksE["halve"] = "halve";
+  numberCallbacksE["square"] = "square";
+  numberCallbacksE["triple"] = "triple";
+})(numberCallbacksE || (numberCallbacksE = {}));
 
 var Numbers = function Numbers(props) {
   var _react_2$useState = react_2.useState(false),
@@ -57306,29 +57347,20 @@ var strings_1 = __importDefault(require("./inputTypes/strings"));
 var emojis_1 = __importDefault(require("./inputTypes/emojis")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 
-var inputVarTypeE;
-
-(function (inputVarTypeE) {
-  inputVarTypeE["num"] = "num";
-  inputVarTypeE["str"] = "str";
-  inputVarTypeE["emoji"] = "emoji";
-})(inputVarTypeE || (inputVarTypeE = {}));
-
-var cls;
-
-(function (cls) {
-  cls["numArr"] = "numArr";
-  cls["num"] = "num";
-  cls["arrBrkt"] = "arrBrkt";
-  cls["callbackFunc"] = "callbackFunc";
-})(cls || (cls = {}));
+var halveNumber = function halveNumber(num) {
+  return num / 2;
+};
 
 var doubleNumber = function doubleNumber(num) {
   return num * 2;
 };
 
-var halveNumber = function halveNumber(num) {
-  return num / 2;
+var tripleNumber = function tripleNumber(num) {
+  return num * 3;
+};
+
+var squareNumber = function squareNumber(num) {
+  return num * num;
 };
 
 var currentTaskE;
@@ -57348,16 +57380,34 @@ var inputTypeChoiceE;
   inputTypeChoiceE["defualt"] = "defualt";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
-var numberCalbacks;
+var numberCallbacksE;
 
-(function (numberCalbacks) {
-  numberCalbacks["double"] = "double";
-  numberCalbacks["halve"] = "halve";
-  numberCalbacks["square"] = "square";
-  numberCalbacks["triple"] = "triple";
-})(numberCalbacks || (numberCalbacks = {}));
+(function (numberCallbacksE) {
+  numberCallbacksE["double"] = "double";
+  numberCallbacksE["halve"] = "halve";
+  numberCallbacksE["square"] = "square";
+  numberCallbacksE["triple"] = "triple";
+})(numberCallbacksE || (numberCallbacksE = {}));
+
+var inputVarTypeE;
+
+(function (inputVarTypeE) {
+  inputVarTypeE["num"] = "num";
+  inputVarTypeE["str"] = "str";
+  inputVarTypeE["emoji"] = "emoji";
+})(inputVarTypeE || (inputVarTypeE = {}));
+
+var cls;
+
+(function (cls) {
+  cls["numArr"] = "numArr";
+  cls["num"] = "num";
+  cls["arrBrkt"] = "arrBrkt";
+  cls["callbackFunc"] = "callbackFunc";
+})(cls || (cls = {}));
 
 var Map = function Map() {
+  //state hooks
   var inputEl = react_1.useRef(null);
 
   var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
@@ -57465,9 +57515,37 @@ var Map = function Map() {
   var _react_1$useState37 = react_1.useState(inputTypeChoiceE.defualt),
       _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
       inputTypeChoice = _react_1$useState38[0],
-      setinputTypeChoice = _react_1$useState38[1];
+      setinputTypeChoice = _react_1$useState38[1]; //callback hooks
 
-  var currentFunction = halveNumber;
+
+  var _react_1$useState39 = react_1.useState(function () {
+    return function (x) {
+      return doubleNumber(x);
+    };
+  }),
+      _react_1$useState40 = _slicedToArray(_react_1$useState39, 2),
+      currentFunctionHook = _react_1$useState40[0],
+      setCurrentFunctionHook = _react_1$useState40[1];
+
+  var _react_1$useState41 = react_1.useState(numberCallbacksE.double),
+      _react_1$useState42 = _slicedToArray(_react_1$useState41, 2),
+      currentFunctionName = _react_1$useState42[0],
+      setCurrentFunctionName = _react_1$useState42[1];
+
+  var _react_1$useState43 = react_1.useState("* 2"),
+      _react_1$useState44 = _slicedToArray(_react_1$useState43, 2),
+      curLogicAsString = _react_1$useState44[0],
+      setCurLogicAsString = _react_1$useState44[1];
+
+  var _react_1$useState45 = react_1.useState("number"),
+      _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
+      curInputType = _react_1$useState46[0],
+      setCurInputType = _react_1$useState46[1];
+
+  var _react_1$useState47 = react_1.useState(inputVarTypeE.num),
+      _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
+      curInputVarName = _react_1$useState48[0],
+      setCurInputVarName = _react_1$useState48[1];
 
   var resetting = function resetting() {
     setAlgoWillReset(true);
@@ -57519,7 +57597,54 @@ var Map = function Map() {
     setfastRefToggler: setfastRefToggler,
     setShowInputsOptions: setShowInputsOptions,
     setinputTypeChoiceE: setinputTypeChoice
-  };
+  }; // setCurrentFunctionHook
+  // setCurFunctionName
+  // setCurLogicAsString
+  // setCurInputType
+  // setCurInputVarName
+
+  react_1.useEffect(function () {
+    //update the current callback function here
+    console.log("cur function", currentFunctionName);
+
+    if (currentFunctionName === numberCallbacksE.double) {
+      setCurrentFunctionHook(function () {
+        return function (x) {
+          return doubleNumber(x);
+        };
+      });
+      setCurLogicAsString("* 2");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    } else if (currentFunctionName === numberCallbacksE.halve) {
+      setCurrentFunctionHook(function () {
+        return function (x) {
+          return halveNumber(x);
+        };
+      });
+      setCurLogicAsString("/ 2");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    } else if (currentFunctionName === numberCallbacksE.square) {
+      setCurrentFunctionHook(function () {
+        return function (x) {
+          return squareNumber(x);
+        };
+      });
+      setCurLogicAsString("* num");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    } else if (currentFunctionName === numberCallbacksE.triple) {
+      setCurrentFunctionHook(function () {
+        return function (x) {
+          return tripleNumber(x);
+        };
+      });
+      setCurLogicAsString("* 3");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    }
+  }, [currentFunctionName]);
   react_1.useEffect(function () {
     //ah this is if check is useful because we dont want this fire initially
     if (algoHasFinished) {
@@ -57571,7 +57696,8 @@ var Map = function Map() {
           var copy = _toConsumableArray(stateObj.outputArray); //changed from hard coded function to currentFunction
 
 
-          copy.push(currentFunction(stateObj.nums[stateObj.curIdx]));
+          var transformed = currentFunctionHook(stateObj.nums[stateObj.curIdx]);
+          copy.push(transformed);
           setStateObj.setOutputArray(copy);
           setStateObj.setCurrentTask(currentTaskE.output);
         }
@@ -57589,15 +57715,16 @@ var Map = function Map() {
   }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? React.createElement(numbers_1.default, {
     setNums: setStateObj.setNums,
     resetting: resetting,
-    boolSwitch: showInputsOptions
+    boolSwitch: showInputsOptions,
+    updateNumberCallBacks: setCurrentFunctionName
   }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, null) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(numberCallback_1.default, Object.assign({}, stateObj, setStateObj, {
-    FunctionName: "halve",
-    actualCallback: halveNumber,
-    callbackLogic: "/ 2",
-    inputType: "number",
-    inputVarName: inputVarTypeE.num
+    FunctionName: currentFunctionName,
+    actualCallback: currentFunctionHook,
+    callbackLogic: curLogicAsString,
+    inputType: curInputType,
+    inputVarName: curInputVarName
   })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)));
 };
 

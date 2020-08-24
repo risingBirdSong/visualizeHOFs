@@ -34,4 +34,8 @@
 
 # Lessons
 
-## great to find a solution to the broken line animation problem with the fast toggler to ensure refs stay fresh. Works even better than i though, notice the difference between inputArray and outPut array. input array explicilty toggles the same content depending on fastToggler state whereas I didnt change anything about outputArray and it still worked. Not sure exactly why but it looks like react is noticing all the fast state changes and the refs are being automatically updated.
+great to find a solution to the broken line animation problem with the fast toggler to ensure refs stay fresh. Works even better than i though, notice the difference between inputArray and outPut array. input array explicilty toggles the same content depending on fastToggler state whereas I didnt change anything about outputArray and it still worked. Not sure exactly why but it looks like react is noticing all the fast state changes and the refs are being automatically updated.
+
+# next task
+
+there are several props the number callback componenet is receiving, rather than sending their setState updater functions all down as props to the where the callback buttons to be updated down there, what about sending a single setState updater and have a useEffect up top that notices changes to it and when changed it'll handle all the updates on the toplevel?

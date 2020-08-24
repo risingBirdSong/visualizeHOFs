@@ -15,25 +15,18 @@ import Strings from "./inputTypes/strings";
 import Emojis from "./inputTypes/emojis";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
-enum inputVarTypeE {
-  "num" = "num",
-  "str" = "str",
-  "emoji" = "emoji",
-}
-
-enum cls {
-  numArr = "numArr",
-  num = "num",
-  arrBrkt = "arrBrkt",
-  callbackFunc = "callbackFunc",
-}
-
+const halveNumber = (num: number): number => {
+  return num / 2;
+};
 const doubleNumber = (num: number) => {
   return num * 2;
 };
+const tripleNumber = (num: number) => {
+  return num * 3;
+};
 
-const halveNumber = (num: number): number => {
-  return num / 2;
+const squareNumber = (num: number): number => {
+  return num * num;
 };
 
 enum currentTaskE {
@@ -49,14 +42,26 @@ enum inputTypeChoiceE {
   "defualt" = "defualt",
 }
 
-enum numberCalbacks {
+enum numberCallbacksE {
   "double" = "double",
   "halve" = "halve",
   "square" = "square",
   "triple" = "triple",
 }
+enum inputVarTypeE {
+  "num" = "num",
+  "str" = "str",
+  "emoji" = "emoji",
+}
 
+enum cls {
+  numArr = "numArr",
+  num = "num",
+  arrBrkt = "arrBrkt",
+  callbackFunc = "callbackFunc",
+}
 const Map = () => {
+  //state hooks
   const inputEl = useRef(null);
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [algoHasStarted, setAlgoHasStarted] = useState(true);
@@ -81,9 +86,19 @@ const Map = () => {
   const [inputTypeChoice, setinputTypeChoice] = useState<inputTypeChoiceE>(
     inputTypeChoiceE.defualt
   );
-
-  let currentFunction = halveNumber;
-
+  //callback hooks
+  const [
+    currentFunctionHook,
+    setCurrentFunctionHook,
+  ] = useState(() => (x: number) => doubleNumber(x));
+  const [currentFunctionName, setCurrentFunctionName] = useState<
+    numberCallbacksE
+  >(numberCallbacksE.double);
+  const [curLogicAsString, setCurLogicAsString] = useState("* 2");
+  const [curInputType, setCurInputType] = useState("number");
+  const [curInputVarName, setCurInputVarName] = useState<inputVarTypeE>(
+    inputVarTypeE.num
+  );
   const resetting = () => {
     setAlgoWillReset(true);
     setStepNumber(0);
@@ -136,6 +151,39 @@ const Map = () => {
     setinputTypeChoiceE: setinputTypeChoice,
   };
 
+  // setCurrentFunctionHook
+  // setCurFunctionName
+  // setCurLogicAsString
+  // setCurInputType
+  // setCurInputVarName
+
+  useEffect(() => {
+    //update the current callback function here
+    console.log("cur function", currentFunctionName);
+
+    if (currentFunctionName === numberCallbacksE.double) {
+      setCurrentFunctionHook(() => (x: number) => doubleNumber(x));
+      setCurLogicAsString("* 2");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    } else if (currentFunctionName === numberCallbacksE.halve) {
+      setCurrentFunctionHook(() => (x: number) => halveNumber(x));
+      setCurLogicAsString("/ 2");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    } else if (currentFunctionName === numberCallbacksE.square) {
+      setCurrentFunctionHook(() => (x: number) => squareNumber(x));
+      setCurLogicAsString("* num");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    } else if (currentFunctionName === numberCallbacksE.triple) {
+      setCurrentFunctionHook(() => (x: number) => tripleNumber(x));
+      setCurLogicAsString("* 3");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
+    }
+  }, [currentFunctionName]);
+
   useEffect(() => {
     //ah this is if check is useful because we dont want this fire initially
     if (algoHasFinished) {
@@ -156,7 +204,6 @@ const Map = () => {
   const takeStep = (restart: boolean) => {
     setStateObj.setAlgoHasStarted(true);
     setStateObj.setStepNumber((val) => ++val);
-
     // only 2 mod steps so far but could imagin adding more fine grain control later.
     // for example, 1 step iterate input, 2 step animate passing num to callback, 3 step processing callback
     // 4 step adding to output...
@@ -187,7 +234,8 @@ const Map = () => {
       if (stateObj.nums[stateObj.curIdx]) {
         let copy = [...stateObj.outputArray];
         //changed from hard coded function to currentFunction
-        copy.push(currentFunction(stateObj.nums[stateObj.curIdx]));
+        let transformed = currentFunctionHook(stateObj.nums[stateObj.curIdx]);
+        copy.push(transformed);
         setStateObj.setOutputArray(copy);
         setStateObj.setCurrentTask(currentTaskE.output);
       }
@@ -208,6 +256,7 @@ const Map = () => {
             setNums={setStateObj.setNums}
             resetting={resetting}
             boolSwitch={showInputsOptions}
+            updateNumberCallBacks={setCurrentFunctionName}
           />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? (
           <Strings />
@@ -226,11 +275,11 @@ const Map = () => {
         <NumCallback
           {...stateObj}
           {...setStateObj}
-          FunctionName={"halve"}
-          actualCallback={halveNumber}
-          callbackLogic={"/ 2"}
-          inputType={"number"}
-          inputVarName={inputVarTypeE.num}
+          FunctionName={currentFunctionName}
+          actualCallback={currentFunctionHook}
+          callbackLogic={curLogicAsString}
+          inputType={curInputType}
+          inputVarName={curInputVarName}
         />
         <OutputArray {...stateObj} {...setStateObj} />
       </div>

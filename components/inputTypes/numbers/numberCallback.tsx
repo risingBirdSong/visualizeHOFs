@@ -16,6 +16,13 @@ enum inputVarTypeE {
   "emoji" = "emoji",
 }
 
+enum numberCalbacks {
+  "double" = "double",
+  "halve" = "halve",
+  "square" = "square",
+  "triple" = "triple",
+}
+
 type inputType = number | string;
 
 interface NumCallbackI {
@@ -131,7 +138,7 @@ const NumCallback = (props: NumCallbackI) => {
         <div style={{ display: "flex", margin: "15px" }}>
           {props.algoHasStarted ? (
             <h6 className="output valign-wrapper">
-              <span className="blue-text text-darken-3">input</span> &nbsp;{" "}
+              <span className="blue-text text-darken-3">output</span> &nbsp;{" "}
               {props.nums[props.curIdx] &&
               props.currentTask === currentTaskE.output ? (
                 <span
