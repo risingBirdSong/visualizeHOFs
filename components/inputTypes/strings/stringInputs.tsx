@@ -1,6 +1,12 @@
 import React from "react";
+enum inputTypeChoiceE {
+  "numbers" = "numbers",
+  "strings" = "strings",
+  "emojis" = "emojis",
+}
 interface StringArraysI {
   setStrings: React.Dispatch<React.SetStateAction<string[]>>;
+  setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
   resetting: () => void;
 }
 const StringInputs = (props: StringArraysI) => {
@@ -14,10 +20,18 @@ const StringInputs = (props: StringArraysI) => {
         <li>
           <button
             onClick={() => {
-              props.setStrings([
-                "stream, lake, river, creek, canal, beach, ocean, waterfall",
-              ]);
+              props.setType(inputTypeChoiceE.strings);
               props.resetting();
+              props.setStrings([
+                "stream",
+                "lake",
+                "river",
+                "creek",
+                "canal",
+                "beach",
+                "ocean",
+                "waterfall",
+              ]);
             }}
             className={`btn amber waves-effect`}
           >
@@ -29,7 +43,14 @@ const StringInputs = (props: StringArraysI) => {
             onClick={() => {
               props.resetting();
               props.setStrings([
-                "bunnies, puppies, kittens, sloths, otters, pandas, penguins, owls",
+                "bunnies",
+                "puppies",
+                "kittens",
+                "sloths",
+                "otters",
+                "pandas",
+                "penguins",
+                "owls",
               ]);
             }}
             className={`btn amber waves-effect`}

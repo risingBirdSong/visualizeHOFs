@@ -9,11 +9,17 @@ enum numberCallbacksE {
   "square" = "square",
   "triple" = "triple",
 }
+enum inputTypeChoiceE {
+  "numbers" = "numbers",
+  "strings" = "strings",
+  "emojis" = "emojis",
+}
 interface NumbersI {
   setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
   boolSwitch: boolean;
   updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
+  setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
 }
 const Numbers = (props: NumbersI) => {
   const [showArrays, setShowArrays] = useState(false);

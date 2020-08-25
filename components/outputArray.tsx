@@ -9,7 +9,7 @@ interface OutputArrI {
   algoHasFinished: boolean;
   //todo make generic
   curIdx: number;
-  outputArray: number[];
+  outputArray: (number | string)[];
   curOutputNumCoords: coordsI;
   setCurOutputNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   algoWillReset: boolean;

@@ -75,7 +75,7 @@ const Map = () => {
   const [algoWillReset, setAlgoWillReset] = useState(false);
   const [stepNumber, setStepNumber] = useState(0);
   const [curIdx, setCurIdx] = useState(-1);
-  const [outputArray, setOutputArray] = useState<number[]>([]);
+  const [outputArray, setOutputArray] = useState<(number | string)[]>([]);
   const [curNumCoords, setCurNumCoords] = useState({ x: 0, y: 0 });
   const [curOutputNumCoords, setCurOutputNumCoords] = useState({ x: 0, y: 0 });
   const [inputCoords, setInputCoords] = useState({ x: 0, y: 0 });
@@ -99,6 +99,7 @@ const Map = () => {
     currentNumFunctionHook,
     setCurrentNumFunctionHook,
   ] = useState(() => (x: number) => doubleNumber(x));
+
   const [
     currentStrFunctionHook,
     setCurrentStrFunctionHook,
@@ -172,6 +173,11 @@ const Map = () => {
   // setCurInputVarName
 
   useEffect(() => {
+    console.log("input type choice", inputTypeChoice);
+    // unexpected toggling
+  }, [inputTypeChoice]);
+
+  useEffect(() => {
     //update the current callback function here
     console.log("cur function", currentFunctionName);
 
@@ -211,9 +217,15 @@ const Map = () => {
 
   useEffect(() => {
     if (!showInputsOptions) {
-      setinputTypeChoice(inputTypeChoiceE.numbers);
+      console.log("hitting?");
+      // what will committing this out break?
+      // setinputTypeChoice(inputTypeChoiceE.numbers);
     }
   }, [showInputsOptions]);
+
+  useEffect(() => {
+    console.log("strs", strs);
+  }, [strs]);
 
   const takeStep = (restart: boolean) => {
     setStateObj.setAlgoHasStarted(true);
@@ -245,15 +257,28 @@ const Map = () => {
     }
     //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
-      if (stateObj.nums[stateObj.curIdx]) {
-        let copy = [...stateObj.outputArray];
-        //changed from hard coded function to currentFunction
-        let transformed = currentNumFunctionHook(
-          stateObj.nums[stateObj.curIdx]
-        );
-        copy.push(transformed);
-        setStateObj.setOutputArray(copy);
-        setStateObj.setCurrentTask(currentTaskE.output);
+      if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers) {
+        if (stateObj.nums[stateObj.curIdx]) {
+          let copy = [...stateObj.outputArray];
+          //changed from hard coded function to currentFunction
+          let transformed = currentNumFunctionHook(
+            stateObj.nums[stateObj.curIdx]
+          );
+          copy.push(transformed);
+          setStateObj.setOutputArray(copy);
+          setStateObj.setCurrentTask(currentTaskE.output);
+        }
+      } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
+        if (stateObj.strs[stateObj.curIdx]) {
+          let copy = [...stateObj.outputArray];
+          //changed from hard coded function to currentFunction
+          let transformed = currentStrFunctionHook(
+            stateObj.strs[stateObj.curIdx]
+          );
+          copy.push(transformed);
+          setStateObj.setOutputArray(copy);
+          setStateObj.setCurrentTask(currentTaskE.output);
+        }
       }
     }
   };
@@ -269,13 +294,18 @@ const Map = () => {
         )}
         {stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? (
           <Numbers
+            setType={setinputTypeChoice}
             setNums={setStateObj.setNums}
             resetting={resetting}
             boolSwitch={showInputsOptions}
             updateNumberCallBacks={setCurrentFunctionName}
           />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? (
-          <Strings />
+          <Strings
+            resetting={resetting}
+            setStrings={setStateObj.setStrs}
+            setType={setinputTypeChoice}
+          />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? (
           <Emojis />
         ) : (

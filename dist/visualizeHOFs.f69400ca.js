@@ -57231,12 +57231,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+  inputTypeChoiceE["emojis"] = "emojis";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
 var NumberInputs = function NumberInputs(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
   }, react_1.default.createElement("li", null), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.setNums([1, 4, 9, 16, 25, 36, 49, 64, 81, 100]);
+      props.setType(inputTypeChoiceE.numbers);
       props.resetting();
     },
     className: "btn amber waves-effect"
@@ -57244,6 +57253,7 @@ var NumberInputs = function NumberInputs(props) {
     onClick: function onClick() {
       props.resetting();
       props.setNums([1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
+      props.setType(inputTypeChoiceE.numbers);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "fibonacci numbers")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
@@ -57255,6 +57265,7 @@ var NumberInputs = function NumberInputs(props) {
       }
 
       props.resetting();
+      props.setType(inputTypeChoiceE.numbers);
       props.setNums(numbers);
     },
     className: "btn amber waves-effect"
@@ -57355,6 +57366,14 @@ var numberCallbacksE;
   numberCallbacksE["triple"] = "triple";
 })(numberCallbacksE || (numberCallbacksE = {}));
 
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+  inputTypeChoiceE["emojis"] = "emojis";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
 var Numbers = function Numbers(props) {
   var _react_2$useState = react_2.useState(false),
       _react_2$useState2 = _slicedToArray(_react_2$useState, 2),
@@ -57388,7 +57407,7 @@ var Numbers = function Numbers(props) {
 };
 
 exports.default = Numbers;
-},{"react":"node_modules/react/index.js","./numberInputs":"components/inputTypes/numbers/numberInputs.tsx","./numberCallbacks":"components/inputTypes/numbers/numberCallbacks.tsx"}],"components/inputTypes/strings/stringArrays.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./numberInputs":"components/inputTypes/numbers/numberInputs.tsx","./numberCallbacks":"components/inputTypes/numbers/numberCallbacks.tsx"}],"components/inputTypes/strings/stringInputs.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57403,19 +57422,28 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+  inputTypeChoiceE["emojis"] = "emojis";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
 var StringInputs = function StringInputs(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "stringArrayChoices row"
   }, react_1.default.createElement("li", null), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
-      props.setStrings(["stream, lake, river, creek, canal, beach, ocean, waterfall"]);
+      props.setType(inputTypeChoiceE.strings);
       props.resetting();
+      props.setStrings(["stream", "lake", "river", "creek", "canal", "beach", "ocean", "waterfall"]);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "bodies of water"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setStrings(["bunnies, puppies, kittens, sloths, otters, pandas, penguins, owls"]);
+      props.setStrings(["bunnies", "puppies", "kittens", "sloths", "otters", "pandas", "penguins", "owls"]);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "cute baby animals")), " ")));
@@ -57451,7 +57479,21 @@ var react_1 = __importDefault(require("react"));
 
 var react_2 = require("react");
 
-var stringArrays_1 = __importDefault(require("./stringArrays"));
+var stringInputs_1 = __importDefault(require("./stringInputs")); // enum numberCallbacksE {
+//   "double" = "double",
+//   "halve" = "halve",
+//   "square" = "square",
+//   "triple" = "triple",
+// }
+
+
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+  inputTypeChoiceE["emojis"] = "emojis";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var Strings = function Strings(props) {
   var _react_2$useState = react_2.useState(false),
@@ -57482,11 +57524,11 @@ var Strings = function Strings(props) {
       setShowArrays(false);
     },
     className: "btn waves-effect"
-  }, "Callbacks")))), showArrays ? react_1.default.createElement(stringArrays_1.default, Object.assign({}, props)) : "");
+  }, "Callbacks")))), showArrays ? react_1.default.createElement(stringInputs_1.default, Object.assign({}, props)) : "");
 };
 
 exports.default = Strings;
-},{"react":"node_modules/react/index.js","./stringArrays":"components/inputTypes/strings/stringArrays.tsx"}],"components/inputTypes/emojis.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./stringInputs":"components/inputTypes/strings/stringInputs.tsx"}],"components/inputTypes/emojis.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57880,6 +57922,9 @@ var Map = function Map() {
   // setCurInputVarName
 
   react_1.useEffect(function () {
+    console.log("input type choice", inputTypeChoice); // unexpected toggling
+  }, [inputTypeChoice]);
+  react_1.useEffect(function () {
     //update the current callback function here
     console.log("cur function", currentFunctionName);
 
@@ -57933,9 +57978,13 @@ var Map = function Map() {
   }, [algoHasFinished]);
   react_1.useEffect(function () {
     if (!showInputsOptions) {
-      setinputTypeChoice(inputTypeChoiceE.numbers);
+      console.log("hitting?"); // what will committing this out break?
+      // setinputTypeChoice(inputTypeChoiceE.numbers);
     }
   }, [showInputsOptions]);
+  react_1.useEffect(function () {
+    console.log("strs", strs);
+  }, [strs]);
 
   var takeStep = function takeStep(restart) {
     setStateObj.setAlgoHasStarted(true);
@@ -57968,14 +58017,28 @@ var Map = function Map() {
       setStateObj.setCurrentTask(currentTaskE.input);
     } //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
-        if (stateObj.nums[stateObj.curIdx]) {
-          var copy = _toConsumableArray(stateObj.outputArray); //changed from hard coded function to currentFunction
+        if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers) {
+          if (stateObj.nums[stateObj.curIdx]) {
+            var copy = _toConsumableArray(stateObj.outputArray); //changed from hard coded function to currentFunction
 
 
-          var transformed = currentNumFunctionHook(stateObj.nums[stateObj.curIdx]);
-          copy.push(transformed);
-          setStateObj.setOutputArray(copy);
-          setStateObj.setCurrentTask(currentTaskE.output);
+            var transformed = currentNumFunctionHook(stateObj.nums[stateObj.curIdx]);
+            copy.push(transformed);
+            setStateObj.setOutputArray(copy);
+            setStateObj.setCurrentTask(currentTaskE.output);
+          }
+        } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
+          if (stateObj.strs[stateObj.curIdx]) {
+            var _copy = _toConsumableArray(stateObj.outputArray); //changed from hard coded function to currentFunction
+
+
+            var _transformed = currentStrFunctionHook(stateObj.strs[stateObj.curIdx]);
+
+            _copy.push(_transformed);
+
+            setStateObj.setOutputArray(_copy);
+            setStateObj.setCurrentTask(currentTaskE.output);
+          }
         }
       }
   };
@@ -57989,11 +58052,16 @@ var Map = function Map() {
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
     setinputTypeChoice: setinputTypeChoice
   }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? React.createElement(numbers_1.default, {
+    setType: setinputTypeChoice,
     setNums: setStateObj.setNums,
     resetting: resetting,
     boolSwitch: showInputsOptions,
     updateNumberCallBacks: setCurrentFunctionName
-  }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, null) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
+  }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, {
+    resetting: resetting,
+    setStrings: setStateObj.setStrs,
+    setType: setinputTypeChoice
+  }) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(stringCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentFunctionName,
