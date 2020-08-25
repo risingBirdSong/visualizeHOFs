@@ -21,7 +21,7 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
             onClick={() => {
               props.updateNumberCallBacks(numberCallbacksE.halve);
             }}
-            className={`btn waves-effect`}
+            className={`btn amber waves-effect`}
           >
             <span>halve number </span>
           </button>
@@ -31,7 +31,7 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
             onClick={() => {
               props.updateNumberCallBacks(numberCallbacksE.double);
             }}
-            className={`btn waves-effect`}
+            className={`btn amber waves-effect`}
           >
             <span>double number </span>
           </button>{" "}
@@ -41,7 +41,7 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
             onClick={() => {
               props.updateNumberCallBacks(numberCallbacksE.triple);
             }}
-            className={`btn waves-effect`}
+            className={`btn amber waves-effect`}
           >
             <span>triple number </span>
           </button>{" "}
@@ -52,7 +52,7 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
             onClick={() => {
               props.updateNumberCallBacks(numberCallbacksE.square);
             }}
-            className={`btn waves-effect`}
+            className={`btn amber waves-effect`}
           >
             <span>square number</span>
           </button>{" "}

@@ -17,7 +17,7 @@ const NumberInputs = (props: NumbersInputsI) => {
               props.setNums([1, 4, 9, 16, 25, 36, 49, 64, 81, 100]);
               props.resetting();
             }}
-            className={`btn waves-effect`}
+            className={`btn amber waves-effect`}
           >
             <span>square numbers</span>
           </button>
@@ -28,7 +28,7 @@ const NumberInputs = (props: NumbersInputsI) => {
               props.resetting();
               props.setNums([1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
             }}
-            className={`btn waves-effect`}
+            className={`btn amber waves-effect`}
           >
             <span>fibonacci numbers</span>
           </button>{" "}
@@ -44,7 +44,7 @@ const NumberInputs = (props: NumbersInputsI) => {
               props.resetting();
               props.setNums(numbers);
             }}
-            className={`btn waves-effect`}
+            className={`btn amber waves-effect`}
           >
             <span>random numbers </span>
           </button>{" "}

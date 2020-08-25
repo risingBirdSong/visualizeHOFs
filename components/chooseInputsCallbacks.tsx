@@ -4,7 +4,6 @@ enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
   "emojis" = "emojis",
-  "defualt" = "defualt",
 }
 
 interface ChooseInputsCallbacksI {
@@ -42,16 +41,6 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
           className={`waves-effect purple-text amber darken-1 waves-light btn`}
         >
           emojis
-        </button>
-      </li>
-      <li>
-        <button
-          onClick={() => {
-            props.setinputTypeChoice(inputTypeChoiceE.defualt);
-          }}
-          className={`waves-effect purple-text amber darken-1 waves-light btn`}
-        >
-          default
         </button>
       </li>
     </ul>

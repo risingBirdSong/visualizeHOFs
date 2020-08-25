@@ -1,21 +1,20 @@
 import React, { useEffect } from "react";
-import NumberInputs from "./numberInputs";
-import NumberCallbacks from "./numberCallbacks";
 import { useState } from "react";
+import StringInputs from "./stringArrays";
 
-enum numberCallbacksE {
-  "double" = "double",
-  "halve" = "halve",
-  "square" = "square",
-  "triple" = "triple",
-}
-interface NumbersI {
-  setNums: React.Dispatch<React.SetStateAction<number[]>>;
+// enum numberCallbacksE {
+//   "double" = "double",
+//   "halve" = "halve",
+//   "square" = "square",
+//   "triple" = "triple",
+// }
+interface StringsI {
+  setStrings: React.Dispatch<React.SetStateAction<string[]>>;
   resetting: () => void;
   boolSwitch: boolean;
-  updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
+  // updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
 }
-const Numbers = (props: NumbersI) => {
+const Strings = (props: StringsI) => {
   const [showArrays, setShowArrays] = useState(false);
   const [showCallbacks, setShowCallbacks] = useState(false);
   return (
@@ -47,10 +46,10 @@ const Numbers = (props: NumbersI) => {
           </li>
         </ul>
       </div>
-      {showArrays ? <NumberInputs {...props} /> : ""}
-      {showCallbacks ? <NumberCallbacks {...props} /> : ""}
+      {showArrays ? <StringInputs {...props} /> : ""}
+      {/* {showCallbacks ? <StringCallbacks {...props} /> : ""} */}
     </div>
   );
 };
 
-export default Numbers;
+export default Strings;

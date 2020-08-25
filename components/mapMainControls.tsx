@@ -24,12 +24,13 @@ const MapMainControls = (props: MapMainControlsI) => {
             }}
             className="waves-effect waves-light btn"
           >
-            <span className={`showButton`}>show all buttons</span>
+            <span className={`showButton`}>show main buttons</span>
           </button>
         </li>
         <li className="z-depth-3">
           <button
             onClick={() => {
+              props.setShowInputsOptions(false);
               props.takeStep(props.algoHasFinished === true ? true : false);
             }}
             className={`waves-effect waves-light btn`}

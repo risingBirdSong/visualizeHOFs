@@ -4,15 +4,24 @@ interface coordsI {
   x: number;
   y: number;
 }
+
+enum inputTypeChoiceE {
+  "numbers" = "numbers",
+  "strings" = "strings",
+  "emojis" = "emojis",
+}
+
 interface inputArrayI {
   animInput: boolean;
   curIdx: number;
   //TODO make generic
   nums: number[];
+  strs: string[];
   curNumCoords: coordsI;
   setCurNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   animTarget: string;
   fastRefToggler: boolean;
+  inputTypeChoice: inputTypeChoiceE;
 }
 const InputArray = (props: inputArrayI) => {
   return (
@@ -33,39 +42,75 @@ const InputArray = (props: inputArrayI) => {
       >
         <h5>
           <span className="blue-text text-darken-4">input</span> :{" "}
-          <span className="pink-text text-accent-4"> number [ ]</span> ={" "}
+          <span className="pink-text text-accent-4">
+            {props.inputTypeChoice === inputTypeChoiceE.numbers
+              ? "number [ ]"
+              : "string [ ]"}{" "}
+          </span>{" "}
+          ={" "}
         </h5>
       </div>
       <li className={"arrBrkt col s1 bracket"}>[</li>
-      {props.nums.map((num, idx) => {
-        let currentNumber = (
-          <p
-            ref={(ele) => {
-              let x = ele?.getBoundingClientRect().x;
-              let y = ele?.getBoundingClientRect().y;
-              if (x && y) {
-                if (x !== props.curNumCoords.x) {
-                  props.setCurNumCoords({ x: x, y: y });
-                }
-              }
-            }}
-            className={`num pink lighten-3 z-depth-5`}
-          >
-            {num}
-          </p>
-        );
-        return (
-          <li className={"col s1"} key={idx}>
-            {idx === props.curIdx && props.fastRefToggler ? (
-              currentNumber
-            ) : idx === props.curIdx && !props.fastRefToggler ? (
-              currentNumber
-            ) : (
-              <p className={`num z-depth-3`}>{num}</p>
-            )}
-          </li>
-        );
-      })}
+      {props.inputTypeChoice === inputTypeChoiceE.numbers
+        ? props.nums.map((num, idx) => {
+            let currentNumber = (
+              <p
+                ref={(ele) => {
+                  let x = ele?.getBoundingClientRect().x;
+                  let y = ele?.getBoundingClientRect().y;
+                  if (x && y) {
+                    if (x !== props.curNumCoords.x) {
+                      props.setCurNumCoords({ x: x, y: y });
+                    }
+                  }
+                }}
+                className={`num pink lighten-3 z-depth-5`}
+              >
+                {num}
+              </p>
+            );
+            return (
+              <li className={"col s1"} key={idx}>
+                {idx === props.curIdx && props.fastRefToggler ? (
+                  currentNumber
+                ) : idx === props.curIdx && !props.fastRefToggler ? (
+                  currentNumber
+                ) : (
+                  <p className={`num z-depth-3`}>{num}</p>
+                )}
+              </li>
+            );
+          })
+        : props.strs.map((str, idx) => {
+            let currentNumber = (
+              <p
+                ref={(ele) => {
+                  let x = ele?.getBoundingClientRect().x;
+                  let y = ele?.getBoundingClientRect().y;
+                  if (x && y) {
+                    if (x !== props.curNumCoords.x) {
+                      props.setCurNumCoords({ x: x, y: y });
+                    }
+                  }
+                }}
+                className={`num pink lighten-3 z-depth-5`}
+              >
+                {str}
+              </p>
+            );
+            return (
+              <li className={"col s1"} key={idx}>
+                {idx === props.curIdx && props.fastRefToggler ? (
+                  currentNumber
+                ) : idx === props.curIdx && !props.fastRefToggler ? (
+                  currentNumber
+                ) : (
+                  <p className={`num z-depth-3`}>{str}</p>
+                )}
+              </li>
+            );
+          })}
+
       <li className={`arrBrkt col s1 bracket`}>]</li>
     </ul>
   );
