@@ -7,7 +7,9 @@ enum numberCallbacksE {
   "triple" = "triple",
 }
 interface NumbersCallbacksI {
-  updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
+  updateNumberCallBacks: React.Dispatch<
+    React.SetStateAction<numberCallbacksE | undefined>
+  >;
 
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   // resetting: () => void;

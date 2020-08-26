@@ -18,7 +18,9 @@ interface NumbersI {
   setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
   boolSwitch: boolean;
-  updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
+  updateNumberCallBacks: React.Dispatch<
+    React.SetStateAction<numberCallbacksE | undefined>
+  >;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
 }
 const Numbers = (props: NumbersI) => {

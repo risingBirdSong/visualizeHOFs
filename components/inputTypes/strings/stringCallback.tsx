@@ -32,7 +32,7 @@ type strFunc = (str: string) => string;
 type inputType = number | string;
 
 interface strCallbackI {
-  FunctionName: string;
+  FunctionName: string | undefined;
   inputVarName: inputVarTypeE;
   algoHasStarted: boolean;
   inputType: inputType;

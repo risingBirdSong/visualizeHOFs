@@ -113,7 +113,7 @@ const Map = () => {
   ] = useState(() => (x: string) => toUpper(x));
   const [currentNumFunctionName, setCurrentNumFunctionName] = useState<
     numberCallbacksE
-  >(numberCallbacksE.double);
+  >();
   const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
     stringCallbacksE
   >();
@@ -186,21 +186,18 @@ const Map = () => {
     console.log("input type choice", inputTypeChoice);
     // unexpected toggling
     if (inputTypeChoice === inputTypeChoiceE.numbers) {
-      setCurrentNumFunctionName(numberCallbacksE.double);
+      setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));
+      setCurLogicAsString("* 2");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
     } else if (inputTypeChoice === inputTypeChoiceE.strings) {
       setCurrentStrFunctionName(stringCallbacksE.toUpper);
-      // setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
-      // setCurLogicAsString(".ToUpperCase()");
-      // setCurInputType("string");
-      // setCurInputVarName(inputVarTypeE.str);
+      setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
+      setCurLogicAsString(".ToUpperCase()");
+      setCurInputType("string");
+      setCurInputVarName(inputVarTypeE.str);
     }
   }, [inputTypeChoice]);
-  //currentStrFunctionName, setCurrentStrFunctionName
-  // currentNumFunctionName, setCurrentNumFunctionName
-  // actualCallback={currentNumFunctionHook}
-  //     callbackLogic={curLogicAsString}
-  //     inputType={curInputType}
-  //     inputVarName={curInputVarName}
 
   useEffect(() => {
     console.log("currentStrFunctionName has changed");
@@ -219,7 +216,7 @@ const Map = () => {
 
   useEffect(() => {
     //update the current callback function here
-    console.log("cur function", currentNumFunctionName);
+    console.log("cur num function", currentNumFunctionName);
 
     if (currentNumFunctionName === numberCallbacksE.double) {
       setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));

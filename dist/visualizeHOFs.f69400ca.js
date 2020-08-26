@@ -57910,7 +57910,7 @@ var Map = function Map() {
       currentStrFunctionHook = _react_1$useState44[0],
       setCurrentStrFunctionHook = _react_1$useState44[1];
 
-  var _react_1$useState45 = react_1.useState(numberCallbacksE.double),
+  var _react_1$useState45 = react_1.useState(),
       _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
       currentNumFunctionName = _react_1$useState46[0],
       setCurrentNumFunctionName = _react_1$useState46[1];
@@ -57997,20 +57997,26 @@ var Map = function Map() {
     console.log("input type choice", inputTypeChoice); // unexpected toggling
 
     if (inputTypeChoice === inputTypeChoiceE.numbers) {
-      setCurrentNumFunctionName(numberCallbacksE.double);
+      setCurrentNumFunctionHook(function () {
+        return function (x) {
+          return doubleNumber(x);
+        };
+      });
+      setCurLogicAsString("* 2");
+      setCurInputType("number");
+      setCurInputVarName(inputVarTypeE.num);
     } else if (inputTypeChoice === inputTypeChoiceE.strings) {
-      setCurrentStrFunctionName(stringCallbacksE.toUpper); // setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
-      // setCurLogicAsString(".ToUpperCase()");
-      // setCurInputType("string");
-      // setCurInputVarName(inputVarTypeE.str);
+      setCurrentStrFunctionName(stringCallbacksE.toUpper);
+      setCurrentStrFunctionHook(function () {
+        return function (x) {
+          return toUpper(x);
+        };
+      });
+      setCurLogicAsString(".ToUpperCase()");
+      setCurInputType("string");
+      setCurInputVarName(inputVarTypeE.str);
     }
-  }, [inputTypeChoice]); //currentStrFunctionName, setCurrentStrFunctionName
-  // currentNumFunctionName, setCurrentNumFunctionName
-  // actualCallback={currentNumFunctionHook}
-  //     callbackLogic={curLogicAsString}
-  //     inputType={curInputType}
-  //     inputVarName={curInputVarName}
-
+  }, [inputTypeChoice]);
   react_1.useEffect(function () {
     console.log("currentStrFunctionName has changed");
 
@@ -58036,7 +58042,7 @@ var Map = function Map() {
   }, [currentStrFunctionName]);
   react_1.useEffect(function () {
     //update the current callback function here
-    console.log("cur function", currentNumFunctionName);
+    console.log("cur num function", currentNumFunctionName);
 
     if (currentNumFunctionName === numberCallbacksE.double) {
       setCurrentNumFunctionHook(function () {
