@@ -8,6 +8,7 @@ enum inputTypeChoiceE {
 
 interface ChooseInputsCallbacksI {
   setinputTypeChoice: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
+  resetting: () => void;
 }
 
 const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
@@ -16,6 +17,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
       <li>
         <button
           onClick={() => {
+            props.resetting();
             props.setinputTypeChoice(inputTypeChoiceE.numbers);
           }}
           className={`waves-effect purple-text amber lighten-1 waves-light btn`}
@@ -26,6 +28,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
       <li>
         <button
           onClick={() => {
+            props.resetting();
             props.setinputTypeChoice(inputTypeChoiceE.strings);
           }}
           className={`waves-effect purple-text amber waves-light btn`}
@@ -36,6 +39,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
       <li>
         <button
           onClick={() => {
+            props.resetting();
             props.setinputTypeChoice(inputTypeChoiceE.emojis);
           }}
           className={`waves-effect purple-text amber darken-1 waves-light btn`}

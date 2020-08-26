@@ -38,7 +38,7 @@ const Numbers = (props: NumbersI) => {
               }}
               className={`btn waves-effect`}
             >
-              Arrays
+              number arrays
             </button>
           </li>
           <li>
@@ -49,7 +49,7 @@ const Numbers = (props: NumbersI) => {
               }}
               className={`btn waves-effect`}
             >
-              Callbacks
+              number callbacks
             </button>
             {/* <NumberCallbacks /> */}
           </li>

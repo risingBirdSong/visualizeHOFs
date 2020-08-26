@@ -76,7 +76,13 @@ const Map = () => {
   //state hooks
   const inputEl = useRef(null);
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  const [strs, setStrs] = useState(["a", "b", "c", "d", "e"]);
+  const [strs, setStrs] = useState([
+    "guitar",
+    "drum",
+    "synth",
+    "tuba",
+    "flute",
+  ]);
   const [algoHasStarted, setAlgoHasStarted] = useState(true);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
   const [algoWillReset, setAlgoWillReset] = useState(false);
@@ -352,11 +358,15 @@ const Map = () => {
       <div className="foundation">
         <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
         {showInputsOptions ? (
-          <ChooseInputsCallbacks setinputTypeChoice={setinputTypeChoice} />
+          <ChooseInputsCallbacks
+            resetting={resetting}
+            setinputTypeChoice={setinputTypeChoice}
+          />
         ) : (
           ""
         )}
-        {stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? (
+        {stateObj.inputTypeChoice === inputTypeChoiceE.numbers &&
+        showInputsOptions ? (
           <Numbers
             setType={setinputTypeChoice}
             setNums={setStateObj.setNums}
@@ -364,14 +374,16 @@ const Map = () => {
             boolSwitch={showInputsOptions}
             updateNumberCallBacks={setCurrentNumFunctionName}
           />
-        ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? (
+        ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
+          showInputsOptions ? (
           <Strings
             updateStringCallBacks={setCurrentStrFunctionName}
             resetting={resetting}
             setStrings={setStateObj.setStrs}
             setType={setinputTypeChoice}
           />
-        ) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? (
+        ) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis &&
+          showInputsOptions ? (
           <Emojis />
         ) : (
           ""

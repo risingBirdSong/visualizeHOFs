@@ -10,7 +10,7 @@ interface StringCallbacksI {
   >;
 
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
-  // resetting: () => void;
+  resetting: () => void;
 }
 const StringCallbacks = (props: StringCallbacksI) => {
   return (
@@ -19,6 +19,7 @@ const StringCallbacks = (props: StringCallbacksI) => {
         <li>
           <button
             onClick={() => {
+              props.resetting();
               props.updateStringCallBacks(stringCallbacksE.toUpper);
             }}
             className={`btn amber waves-effect`}
@@ -29,6 +30,7 @@ const StringCallbacks = (props: StringCallbacksI) => {
         <li>
           <button
             onClick={() => {
+              props.resetting();
               props.updateStringCallBacks(stringCallbacksE.reverse);
             }}
             className={`btn amber waves-effect`}

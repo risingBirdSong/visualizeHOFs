@@ -12,7 +12,7 @@ interface NumbersCallbacksI {
   >;
 
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
-  // resetting: () => void;
+  resetting: () => void;
 }
 const NumberCallbacks = (props: NumbersCallbacksI) => {
   return (
@@ -21,6 +21,7 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
         <li>
           <button
             onClick={() => {
+              props.resetting();
               props.updateNumberCallBacks(numberCallbacksE.halve);
             }}
             className={`btn amber waves-effect`}
@@ -31,6 +32,7 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
         <li>
           <button
             onClick={() => {
+              props.resetting();
               props.updateNumberCallBacks(numberCallbacksE.double);
             }}
             className={`btn amber waves-effect`}
@@ -41,6 +43,7 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
         <li>
           <button
             onClick={() => {
+              props.resetting();
               props.updateNumberCallBacks(numberCallbacksE.triple);
             }}
             className={`btn amber waves-effect`}

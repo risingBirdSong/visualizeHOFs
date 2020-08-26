@@ -57207,16 +57207,19 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
     className: "row"
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.setinputTypeChoice(inputTypeChoiceE.numbers);
     },
     className: "waves-effect purple-text amber lighten-1 waves-light btn"
   }, react_1.default.createElement("span", null, "numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.setinputTypeChoice(inputTypeChoiceE.strings);
     },
     className: "waves-effect purple-text amber waves-light btn"
   }, "strings")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.setinputTypeChoice(inputTypeChoiceE.emojis);
     },
     className: "waves-effect purple-text amber darken-1 waves-light btn"
@@ -57310,16 +57313,19 @@ var NumberCallbacks = function NumberCallbacks(props) {
     className: "numberArrayChoices row"
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.updateNumberCallBacks(numberCallbacksE.halve);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "halve number "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.updateNumberCallBacks(numberCallbacksE.double);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "double number ")), " "), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.updateNumberCallBacks(numberCallbacksE.triple);
     },
     className: "btn amber waves-effect"
@@ -57403,7 +57409,7 @@ var Numbers = function Numbers(props) {
       setShowCallbacks(false);
     },
     className: "btn waves-effect"
-  }, "Arrays")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, "number arrays")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       setShowCallbacks(function (prev) {
         return !prev;
@@ -57411,7 +57417,7 @@ var Numbers = function Numbers(props) {
       setShowArrays(false);
     },
     className: "btn waves-effect"
-  }, "Callbacks")))), showArrays ? react_1.default.createElement(numberInputs_1.default, Object.assign({}, props)) : "", showCallbacks ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({}, props)) : "");
+  }, "number callbacks")))), showArrays ? react_1.default.createElement(numberInputs_1.default, Object.assign({}, props)) : "", showCallbacks ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({}, props)) : "");
 };
 
 exports.default = Numbers;
@@ -57485,11 +57491,13 @@ var StringCallbacks = function StringCallbacks(props) {
     className: "numberArrayChoices row"
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.updateStringCallBacks(stringCallbacksE.toUpper);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "toUpper "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
+      props.resetting();
       props.updateStringCallBacks(stringCallbacksE.reverse);
     },
     className: "btn amber waves-effect"
@@ -57572,7 +57580,7 @@ var Strings = function Strings(props) {
       setShowCallbacks(false);
     },
     className: "btn waves-effect"
-  }, "Arrays")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, "string arrays")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       setShowCallbacks(function (prev) {
         return !prev;
@@ -57580,7 +57588,7 @@ var Strings = function Strings(props) {
       setShowArrays(false);
     },
     className: "btn waves-effect"
-  }, "Callbacks")))), showArrays ? react_1.default.createElement(stringInputs_1.default, Object.assign({}, props)) : "", showCallbacks ? react_1.default.createElement(stringCallbacks_1.default, Object.assign({}, props)) : "");
+  }, "string callbacks")))), showArrays ? react_1.default.createElement(stringInputs_1.default, Object.assign({}, props)) : "", showCallbacks ? react_1.default.createElement(stringCallbacks_1.default, Object.assign({}, props)) : "");
 };
 
 exports.default = Strings;
@@ -57782,7 +57790,7 @@ var Map = function Map() {
       nums = _react_1$useState2[0],
       setNums = _react_1$useState2[1];
 
-  var _react_1$useState3 = react_1.useState(["a", "b", "c", "d", "e"]),
+  var _react_1$useState3 = react_1.useState(["guitar", "drum", "synth", "tuba", "flute"]),
       _react_1$useState4 = _slicedToArray(_react_1$useState3, 2),
       strs = _react_1$useState4[0],
       setStrs = _react_1$useState4[1];
@@ -58187,19 +58195,20 @@ var Map = function Map() {
   }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
     takeStep: takeStep
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
+    resetting: resetting,
     setinputTypeChoice: setinputTypeChoice
-  }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers ? React.createElement(numbers_1.default, {
+  }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? React.createElement(numbers_1.default, {
     setType: setinputTypeChoice,
     setNums: setStateObj.setNums,
     resetting: resetting,
     boolSwitch: showInputsOptions,
     updateNumberCallBacks: setCurrentNumFunctionName
-  }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, {
+  }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings && showInputsOptions ? React.createElement(strings_1.default, {
     updateStringCallBacks: setCurrentStrFunctionName,
     resetting: resetting,
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
-  }) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
+  }) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis && showInputsOptions ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(stringCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentStrFunctionName,

@@ -43,7 +43,7 @@ const Strings = (props: StringsI) => {
               }}
               className={`btn waves-effect`}
             >
-              Arrays
+              string arrays
             </button>
           </li>
           <li>
@@ -54,7 +54,7 @@ const Strings = (props: StringsI) => {
               }}
               className={`btn waves-effect`}
             >
-              Callbacks
+              string callbacks
             </button>
             {/* <NumberCallbacks /> */}
           </li>
