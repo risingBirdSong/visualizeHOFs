@@ -182,6 +182,48 @@ const Map = () => {
   // setCurInputType
   // setCurInputVarName
 
+  const changeToUpper = () => {
+    setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
+    setCurLogicAsString(".ToUpperCase()");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
+  const changeToReverse = () => {
+    setCurrentStrFunctionHook(() => (x: string) => reverse(x));
+    setCurLogicAsString(`.split("").reverse().join("");`);
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
+  const changeToDoubleNumber = () => {
+    setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));
+    setCurLogicAsString("* 2");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
+  const changeToHalve = () => {
+    setCurrentNumFunctionHook(() => (x: number) => halveNumber(x));
+    setCurLogicAsString("/ 2");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
+  const changeToSquare = () => {
+    setCurrentNumFunctionHook(() => (x: number) => squareNumber(x));
+    setCurLogicAsString("* num");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
+  const changeToTriple = () => {
+    setCurrentNumFunctionHook(() => (x: number) => tripleNumber(x));
+    setCurLogicAsString("* 3");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
   useEffect(() => {
     console.log("input type choice", inputTypeChoice);
     // unexpected toggling
@@ -200,44 +242,23 @@ const Map = () => {
   }, [inputTypeChoice]);
 
   useEffect(() => {
-    console.log("currentStrFunctionName has changed");
     if (currentStrFunctionName === stringCallbacksE.toUpper) {
-      setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
-      setCurLogicAsString(".ToUpperCase()");
-      setCurInputType("string");
-      setCurInputVarName(inputVarTypeE.str);
+      changeToUpper();
     } else if (currentStrFunctionName === stringCallbacksE.reverse) {
-      setCurrentStrFunctionHook(() => (x: string) => reverse(x));
-      setCurLogicAsString(`.split("").reverse().join("");`);
-      setCurInputType("string");
-      setCurInputVarName(inputVarTypeE.str);
+      changeToReverse();
     }
   }, [currentStrFunctionName]);
 
   useEffect(() => {
     //update the current callback function here
-    console.log("cur num function", currentNumFunctionName);
-
     if (currentNumFunctionName === numberCallbacksE.double) {
-      setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));
-      setCurLogicAsString("* 2");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToDoubleNumber();
     } else if (currentNumFunctionName === numberCallbacksE.halve) {
-      setCurrentNumFunctionHook(() => (x: number) => halveNumber(x));
-      setCurLogicAsString("/ 2");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToHalve();
     } else if (currentNumFunctionName === numberCallbacksE.square) {
-      setCurrentNumFunctionHook(() => (x: number) => squareNumber(x));
-      setCurLogicAsString("* num");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToSquare();
     } else if (currentNumFunctionName === numberCallbacksE.triple) {
-      setCurrentNumFunctionHook(() => (x: number) => tripleNumber(x));
-      setCurLogicAsString("* 3");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToTriple();
     }
   }, [currentNumFunctionName]);
 
@@ -277,7 +298,14 @@ const Map = () => {
 
     //if the algo is completing
     if (
+      stateObj.inputTypeChoice === inputTypeChoiceE.numbers &&
       stateObj.curIdx === stateObj.nums.length - 1 &&
+      stateObj.currentTask === currentTaskE.output
+    ) {
+      setStateObj.setAlgoHasFinished(true);
+    } else if (
+      stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
+      stateObj.curIdx === stateObj.strs.length - 1 &&
       stateObj.currentTask === currentTaskE.output
     ) {
       setStateObj.setAlgoHasFinished(true);

@@ -57993,6 +57993,72 @@ var Map = function Map() {
   // setCurInputType
   // setCurInputVarName
 
+  var changeToUpper = function changeToUpper() {
+    setCurrentStrFunctionHook(function () {
+      return function (x) {
+        return toUpper(x);
+      };
+    });
+    setCurLogicAsString(".ToUpperCase()");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
+  var changeToReverse = function changeToReverse() {
+    setCurrentStrFunctionHook(function () {
+      return function (x) {
+        return reverse(x);
+      };
+    });
+    setCurLogicAsString(".split(\"\").reverse().join(\"\");");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
+  var changeToDoubleNumber = function changeToDoubleNumber() {
+    setCurrentNumFunctionHook(function () {
+      return function (x) {
+        return doubleNumber(x);
+      };
+    });
+    setCurLogicAsString("* 2");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
+  var changeToHalve = function changeToHalve() {
+    setCurrentNumFunctionHook(function () {
+      return function (x) {
+        return halveNumber(x);
+      };
+    });
+    setCurLogicAsString("/ 2");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
+  var changeToSquare = function changeToSquare() {
+    setCurrentNumFunctionHook(function () {
+      return function (x) {
+        return squareNumber(x);
+      };
+    });
+    setCurLogicAsString("* num");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
+  var changeToTriple = function changeToTriple() {
+    setCurrentNumFunctionHook(function () {
+      return function (x) {
+        return tripleNumber(x);
+      };
+    });
+    setCurLogicAsString("* 3");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
   react_1.useEffect(function () {
     console.log("input type choice", inputTypeChoice); // unexpected toggling
 
@@ -58018,68 +58084,22 @@ var Map = function Map() {
     }
   }, [inputTypeChoice]);
   react_1.useEffect(function () {
-    console.log("currentStrFunctionName has changed");
-
     if (currentStrFunctionName === stringCallbacksE.toUpper) {
-      setCurrentStrFunctionHook(function () {
-        return function (x) {
-          return toUpper(x);
-        };
-      });
-      setCurLogicAsString(".ToUpperCase()");
-      setCurInputType("string");
-      setCurInputVarName(inputVarTypeE.str);
+      changeToUpper();
     } else if (currentStrFunctionName === stringCallbacksE.reverse) {
-      setCurrentStrFunctionHook(function () {
-        return function (x) {
-          return reverse(x);
-        };
-      });
-      setCurLogicAsString(".split(\"\").reverse().join(\"\");");
-      setCurInputType("string");
-      setCurInputVarName(inputVarTypeE.str);
+      changeToReverse();
     }
   }, [currentStrFunctionName]);
   react_1.useEffect(function () {
     //update the current callback function here
-    console.log("cur num function", currentNumFunctionName);
-
     if (currentNumFunctionName === numberCallbacksE.double) {
-      setCurrentNumFunctionHook(function () {
-        return function (x) {
-          return doubleNumber(x);
-        };
-      });
-      setCurLogicAsString("* 2");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToDoubleNumber();
     } else if (currentNumFunctionName === numberCallbacksE.halve) {
-      setCurrentNumFunctionHook(function () {
-        return function (x) {
-          return halveNumber(x);
-        };
-      });
-      setCurLogicAsString("/ 2");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToHalve();
     } else if (currentNumFunctionName === numberCallbacksE.square) {
-      setCurrentNumFunctionHook(function () {
-        return function (x) {
-          return squareNumber(x);
-        };
-      });
-      setCurLogicAsString("* num");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToSquare();
     } else if (currentNumFunctionName === numberCallbacksE.triple) {
-      setCurrentNumFunctionHook(function () {
-        return function (x) {
-          return tripleNumber(x);
-        };
-      });
-      setCurLogicAsString("* 3");
-      setCurInputType("number");
-      setCurInputVarName(inputVarTypeE.num);
+      changeToTriple();
     }
   }, [currentNumFunctionName]);
   react_1.useEffect(function () {
@@ -58115,7 +58135,9 @@ var Map = function Map() {
     } //if the algo is completing
 
 
-    if (stateObj.curIdx === stateObj.nums.length - 1 && stateObj.currentTask === currentTaskE.output) {
+    if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers && stateObj.curIdx === stateObj.nums.length - 1 && stateObj.currentTask === currentTaskE.output) {
+      setStateObj.setAlgoHasFinished(true);
+    } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings && stateObj.curIdx === stateObj.strs.length - 1 && stateObj.currentTask === currentTaskE.output) {
       setStateObj.setAlgoHasFinished(true);
     } //even steps will pass control to callback funtion to process input ele
 
