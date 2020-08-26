@@ -5,7 +5,9 @@ enum stringCallbacksE {
   "reverse" = "reverse",
 }
 interface StringCallbacksI {
-  updateStringCallBacks: React.Dispatch<React.SetStateAction<stringCallbacksE>>;
+  updateStringCallBacks: React.Dispatch<
+    React.SetStateAction<stringCallbacksE | undefined>
+  >;
 
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   // resetting: () => void;

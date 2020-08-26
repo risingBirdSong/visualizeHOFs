@@ -37,7 +37,7 @@ const OutputArray = (props: OutputArrI) =>
         style={{ borderRadius: "5px", marginLeft: "2em", padding: "4px" }}
       >
         <h5>
-          <span className="blue-text text-darken-3">output</span>{" "}
+          <span className="blue-text text-darken-3">output :</span>{" "}
           <span className="amber-text text-accent-3">
             {props.inputTypeChoice === inputTypeChoiceE.numbers
               ? "number[ ]"

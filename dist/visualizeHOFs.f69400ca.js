@@ -28759,7 +28759,7 @@ var OutputArray = function OutputArray(props) {
     }
   }, react_1.default.createElement("h5", null, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
-  }, "output"), " ", react_1.default.createElement("span", {
+  }, "output :"), " ", react_1.default.createElement("span", {
     className: "amber-text text-accent-3"
   }, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number[ ]" : "string [ ]"), " ", "=")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
@@ -57915,7 +57915,7 @@ var Map = function Map() {
       currentNumFunctionName = _react_1$useState46[0],
       setCurrentNumFunctionName = _react_1$useState46[1];
 
-  var _react_1$useState47 = react_1.useState(stringCallbacksE.toUpper),
+  var _react_1$useState47 = react_1.useState(),
       _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
       currentStrFunctionName = _react_1$useState48[0],
       setCurrentStrFunctionName = _react_1$useState48[1];
@@ -57995,8 +57995,25 @@ var Map = function Map() {
 
   react_1.useEffect(function () {
     console.log("input type choice", inputTypeChoice); // unexpected toggling
-  }, [inputTypeChoice]);
+
+    if (inputTypeChoice === inputTypeChoiceE.numbers) {
+      setCurrentNumFunctionName(numberCallbacksE.double);
+    } else if (inputTypeChoice === inputTypeChoiceE.strings) {
+      setCurrentStrFunctionName(stringCallbacksE.toUpper); // setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
+      // setCurLogicAsString(".ToUpperCase()");
+      // setCurInputType("string");
+      // setCurInputVarName(inputVarTypeE.str);
+    }
+  }, [inputTypeChoice]); //currentStrFunctionName, setCurrentStrFunctionName
+  // currentNumFunctionName, setCurrentNumFunctionName
+  // actualCallback={currentNumFunctionHook}
+  //     callbackLogic={curLogicAsString}
+  //     inputType={curInputType}
+  //     inputVarName={curInputVarName}
+
   react_1.useEffect(function () {
+    console.log("currentStrFunctionName has changed");
+
     if (currentStrFunctionName === stringCallbacksE.toUpper) {
       setCurrentStrFunctionHook(function () {
         return function (x) {
@@ -58070,8 +58087,7 @@ var Map = function Map() {
     }
   }, [algoHasFinished]);
   react_1.useEffect(function () {
-    if (!showInputsOptions) {
-      console.log("hitting?"); // what will committing this out break?
+    if (!showInputsOptions) {// what will committing this out break?
       // setinputTypeChoice(inputTypeChoiceE.numbers);
     }
   }, [showInputsOptions]);

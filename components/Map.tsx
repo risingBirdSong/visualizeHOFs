@@ -116,7 +116,7 @@ const Map = () => {
   >(numberCallbacksE.double);
   const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
     stringCallbacksE
-  >(stringCallbacksE.toUpper);
+  >();
   const [curLogicAsString, setCurLogicAsString] = useState("* 2");
   const [curInputType, setCurInputType] = useState("number");
   const [curInputVarName, setCurInputVarName] = useState<inputVarTypeE>(
@@ -185,9 +185,25 @@ const Map = () => {
   useEffect(() => {
     console.log("input type choice", inputTypeChoice);
     // unexpected toggling
+    if (inputTypeChoice === inputTypeChoiceE.numbers) {
+      setCurrentNumFunctionName(numberCallbacksE.double);
+    } else if (inputTypeChoice === inputTypeChoiceE.strings) {
+      setCurrentStrFunctionName(stringCallbacksE.toUpper);
+      // setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
+      // setCurLogicAsString(".ToUpperCase()");
+      // setCurInputType("string");
+      // setCurInputVarName(inputVarTypeE.str);
+    }
   }, [inputTypeChoice]);
+  //currentStrFunctionName, setCurrentStrFunctionName
+  // currentNumFunctionName, setCurrentNumFunctionName
+  // actualCallback={currentNumFunctionHook}
+  //     callbackLogic={curLogicAsString}
+  //     inputType={curInputType}
+  //     inputVarName={curInputVarName}
 
   useEffect(() => {
+    console.log("currentStrFunctionName has changed");
     if (currentStrFunctionName === stringCallbacksE.toUpper) {
       setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
       setCurLogicAsString(".ToUpperCase()");
@@ -241,7 +257,6 @@ const Map = () => {
 
   useEffect(() => {
     if (!showInputsOptions) {
-      console.log("hitting?");
       // what will committing this out break?
       // setinputTypeChoice(inputTypeChoiceE.numbers);
     }

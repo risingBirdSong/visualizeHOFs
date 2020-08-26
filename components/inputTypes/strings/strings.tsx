@@ -21,7 +21,9 @@ enum inputTypeChoiceE {
 interface StringsI {
   setStrings: React.Dispatch<React.SetStateAction<string[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
-  updateStringCallBacks: React.Dispatch<React.SetStateAction<stringCallbacksE>>;
+  updateStringCallBacks: React.Dispatch<
+    React.SetStateAction<stringCallbacksE | undefined>
+  >;
   resetting: () => void;
   // boolSwitch: boolean;
   // updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
