@@ -2,7 +2,6 @@ import React from "react";
 enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
-  "emojis" = "emojis",
 }
 interface StringArraysI {
   setStrings: React.Dispatch<React.SetStateAction<string[]>>;
@@ -58,6 +57,17 @@ const StringInputs = (props: StringArraysI) => {
             <span>cute baby animals</span>
           </button>{" "}
         </li>
+        {/* <li>
+          <button
+            onClick={() => {
+              props.resetting();
+              props.setStrings(["😟", "😀", "😁", "😆", "😅"]);
+            }}
+            className={`btn amber waves-effect`}
+          >
+            <span>emoji</span>
+          </button>{" "}
+        </li> */}
       </ul>
     </div>
   );

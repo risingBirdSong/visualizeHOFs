@@ -37,6 +37,10 @@ const toUpper = (str: string): string => {
 const reverse = (str: string): string => {
   return str.split("").reverse().join("");
 };
+const cheerUp = (str: string): string => {
+  //@ts-ignore
+  return emojiObj[str];
+};
 
 enum currentTaskE {
   "inactive",
@@ -47,7 +51,6 @@ enum currentTaskE {
 enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
-  "emojis" = "emojis",
 }
 
 enum numberCallbacksE {
@@ -59,11 +62,11 @@ enum numberCallbacksE {
 enum stringCallbacksE {
   "toUpper" = "toUpper",
   "reverse" = "reverse",
+  "emojiBeHappy" = "emojiBeHappy",
 }
 enum inputVarTypeE {
   "num" = "num",
   "str" = "str",
-  "emoji" = "emoji",
 }
 
 enum cls {
@@ -72,17 +75,29 @@ enum cls {
   arrBrkt = "arrBrkt",
   callbackFunc = "callbackFunc",
 }
+
+let emojiObj = {
+  "😔": "😌",
+  "🙁": "🙂",
+  "😣": "😆",
+  "😫": "😆",
+  "😭": "😂",
+  "😡": "😊",
+  "👿": "😇",
+};
+
 const Map = () => {
   //state hooks
   const inputEl = useRef(null);
   const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  const [strs, setStrs] = useState([
+  const [strs, setStrs] = useState<string[]>([
     "guitar",
     "drum",
     "synth",
     "tuba",
     "flute",
   ]);
+  // const [emojis, setEmojis] = useState<any[]>([&#129409;, &#129409;])
   const [algoHasStarted, setAlgoHasStarted] = useState(true);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
   const [algoWillReset, setAlgoWillReset] = useState(false);
@@ -201,6 +216,12 @@ const Map = () => {
     setCurInputType("string");
     setCurInputVarName(inputVarTypeE.str);
   };
+  const changeToEmoji = () => {
+    setCurrentStrFunctionHook(() => (x: string) => cheerUp(x));
+    setCurLogicAsString(`.cheerUp()`);
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
 
   const changeToDoubleNumber = () => {
     setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));
@@ -238,7 +259,10 @@ const Map = () => {
       setCurLogicAsString("* 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
-    } else if (inputTypeChoice === inputTypeChoiceE.strings) {
+    } else if (
+      inputTypeChoice === inputTypeChoiceE.strings &&
+      currentStrFunctionName !== stringCallbacksE.emojiBeHappy
+    ) {
       setCurrentStrFunctionName(stringCallbacksE.toUpper);
       setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
       setCurLogicAsString(".ToUpperCase()");
@@ -250,6 +274,8 @@ const Map = () => {
   useEffect(() => {
     if (currentStrFunctionName === stringCallbacksE.toUpper) {
       changeToUpper();
+    } else if (currentStrFunctionName === stringCallbacksE.emojiBeHappy) {
+      changeToEmoji();
     } else if (currentStrFunctionName === stringCallbacksE.reverse) {
       changeToReverse();
     }
@@ -359,8 +385,10 @@ const Map = () => {
         <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
         {showInputsOptions ? (
           <ChooseInputsCallbacks
+            setStrings={setStrs}
             resetting={resetting}
             setinputTypeChoice={setinputTypeChoice}
+            setCurrentStrFunctionName={setCurrentStrFunctionName}
           />
         ) : (
           ""
@@ -375,16 +403,14 @@ const Map = () => {
             updateNumberCallBacks={setCurrentNumFunctionName}
           />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
-          showInputsOptions ? (
+          showInputsOptions &&
+          currentStrFunctionName !== stringCallbacksE.emojiBeHappy ? (
           <Strings
             updateStringCallBacks={setCurrentStrFunctionName}
             resetting={resetting}
             setStrings={setStateObj.setStrs}
             setType={setinputTypeChoice}
           />
-        ) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis &&
-          showInputsOptions ? (
-          <Emojis />
         ) : (
           ""
         )}
@@ -416,7 +442,6 @@ const Map = () => {
             inputVarName={curInputVarName}
           />
         )}
-
         <OutputArray {...stateObj} {...setStateObj} />
       </div>
       <KonvaLayer {...stateObj} {...setStateObj} />

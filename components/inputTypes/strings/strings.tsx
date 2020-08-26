@@ -12,11 +12,11 @@ import StringCallbacks from "./stringCallbacks";
 enum stringCallbacksE {
   "toUpper" = "toUpper",
   "reverse" = "reverse",
+  "emojiBeHappy" = "emojiBeHappy",
 }
 enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
-  "emojis" = "emojis",
 }
 interface StringsI {
   setStrings: React.Dispatch<React.SetStateAction<string[]>>;
@@ -25,6 +25,7 @@ interface StringsI {
     React.SetStateAction<stringCallbacksE | undefined>
   >;
   resetting: () => void;
+
   // boolSwitch: boolean;
   // updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
 }

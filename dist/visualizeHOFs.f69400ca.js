@@ -28374,7 +28374,6 @@ var inputVarTypeE;
 (function (inputVarTypeE) {
   inputVarTypeE["num"] = "num";
   inputVarTypeE["str"] = "str";
-  inputVarTypeE["emoji"] = "emoji";
 })(inputVarTypeE || (inputVarTypeE = {}));
 
 var numberCalbacks;
@@ -28514,7 +28513,6 @@ var inputVarTypeE;
 (function (inputVarTypeE) {
   inputVarTypeE["num"] = "num";
   inputVarTypeE["str"] = "str";
-  inputVarTypeE["emoji"] = "emoji";
 })(inputVarTypeE || (inputVarTypeE = {}));
 
 var numberCalbacks;
@@ -57199,8 +57197,15 @@ var inputTypeChoiceE;
 (function (inputTypeChoiceE) {
   inputTypeChoiceE["numbers"] = "numbers";
   inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
+var stringCallbacksE;
+
+(function (stringCallbacksE) {
+  stringCallbacksE["toUpper"] = "toUpper";
+  stringCallbacksE["reverse"] = "reverse";
+  stringCallbacksE["emojiBeHappy"] = "emojiBeHappy";
+})(stringCallbacksE || (stringCallbacksE = {}));
 
 var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   return react_1.default.createElement("ul", {
@@ -57214,13 +57219,17 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   }, react_1.default.createElement("span", null, "numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
+      props.setCurrentStrFunctionName(stringCallbacksE.toUpper);
+      props.setStrings(["guitar", "drum", "synth", "tuba", "flute"]);
       props.setinputTypeChoice(inputTypeChoiceE.strings);
     },
     className: "waves-effect purple-text amber waves-light btn"
   }, "strings")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setinputTypeChoice(inputTypeChoiceE.emojis);
+      props.setinputTypeChoice(inputTypeChoiceE.strings);
+      props.setCurrentStrFunctionName(stringCallbacksE.emojiBeHappy);
+      props.setStrings(["😔", "🙁", "😣", "😫", "😭", "😡", "👿"]);
     },
     className: "waves-effect purple-text amber darken-1 waves-light btn"
   }, "emojis")));
@@ -57247,7 +57256,6 @@ var inputTypeChoiceE;
 (function (inputTypeChoiceE) {
   inputTypeChoiceE["numbers"] = "numbers";
   inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var NumberInputs = function NumberInputs(props) {
@@ -57385,7 +57393,6 @@ var inputTypeChoiceE;
 (function (inputTypeChoiceE) {
   inputTypeChoiceE["numbers"] = "numbers";
   inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var Numbers = function Numbers(props) {
@@ -57441,7 +57448,6 @@ var inputTypeChoiceE;
 (function (inputTypeChoiceE) {
   inputTypeChoiceE["numbers"] = "numbers";
   inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var StringInputs = function StringInputs(props) {
@@ -57484,6 +57490,7 @@ var stringCallbacksE;
 (function (stringCallbacksE) {
   stringCallbacksE["toUpper"] = "toUpper";
   stringCallbacksE["reverse"] = "reverse";
+  stringCallbacksE["emojiBeHappy"] = "emojiBeHappy";
 })(stringCallbacksE || (stringCallbacksE = {}));
 
 var StringCallbacks = function StringCallbacks(props) {
@@ -57549,6 +57556,7 @@ var stringCallbacksE;
 (function (stringCallbacksE) {
   stringCallbacksE["toUpper"] = "toUpper";
   stringCallbacksE["reverse"] = "reverse";
+  stringCallbacksE["emojiBeHappy"] = "emojiBeHappy";
 })(stringCallbacksE || (stringCallbacksE = {}));
 
 var inputTypeChoiceE;
@@ -57556,7 +57564,6 @@ var inputTypeChoiceE;
 (function (inputTypeChoiceE) {
   inputTypeChoiceE["numbers"] = "numbers";
   inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var Strings = function Strings(props) {
@@ -57592,27 +57599,7 @@ var Strings = function Strings(props) {
 };
 
 exports.default = Strings;
-},{"react":"node_modules/react/index.js","./stringInputs":"components/inputTypes/strings/stringInputs.tsx","./stringCallbacks":"components/inputTypes/strings/stringCallbacks.tsx"}],"components/inputTypes/emojis.tsx":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var react_1 = __importDefault(require("react"));
-
-var Emojis = function Emojis() {
-  return react_1.default.createElement("div", null, react_1.default.createElement("p", null, "todo - emojis"));
-};
-
-exports.default = Emojis;
-},{"react":"node_modules/react/index.js"}],"components/Map.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./stringInputs":"components/inputTypes/strings/stringInputs.tsx","./stringCallbacks":"components/inputTypes/strings/stringCallbacks.tsx"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -57701,9 +57688,7 @@ var chooseInputsCallbacks_1 = __importDefault(require("./chooseInputsCallbacks")
 
 var numbers_1 = __importDefault(require("./inputTypes/numbers/numbers"));
 
-var strings_1 = __importDefault(require("./inputTypes/strings/strings"));
-
-var emojis_1 = __importDefault(require("./inputTypes/emojis")); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var strings_1 = __importDefault(require("./inputTypes/strings/strings")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 //number functions
 
 
@@ -57732,6 +57717,11 @@ var reverse = function reverse(str) {
   return str.split("").reverse().join("");
 };
 
+var cheerUp = function cheerUp(str) {
+  //@ts-ignore
+  return emojiObj[str];
+};
+
 var currentTaskE;
 
 (function (currentTaskE) {
@@ -57745,7 +57735,6 @@ var inputTypeChoiceE;
 (function (inputTypeChoiceE) {
   inputTypeChoiceE["numbers"] = "numbers";
   inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var numberCallbacksE;
@@ -57762,6 +57751,7 @@ var stringCallbacksE;
 (function (stringCallbacksE) {
   stringCallbacksE["toUpper"] = "toUpper";
   stringCallbacksE["reverse"] = "reverse";
+  stringCallbacksE["emojiBeHappy"] = "emojiBeHappy";
 })(stringCallbacksE || (stringCallbacksE = {}));
 
 var inputVarTypeE;
@@ -57769,7 +57759,6 @@ var inputVarTypeE;
 (function (inputVarTypeE) {
   inputVarTypeE["num"] = "num";
   inputVarTypeE["str"] = "str";
-  inputVarTypeE["emoji"] = "emoji";
 })(inputVarTypeE || (inputVarTypeE = {}));
 
 var cls;
@@ -57780,6 +57769,16 @@ var cls;
   cls["arrBrkt"] = "arrBrkt";
   cls["callbackFunc"] = "callbackFunc";
 })(cls || (cls = {}));
+
+var emojiObj = {
+  "😔": "😌",
+  "🙁": "🙂",
+  "😣": "😆",
+  "😫": "😆",
+  "😭": "😂",
+  "😡": "😊",
+  "👿": "😇"
+};
 
 var Map = function Map() {
   //state hooks
@@ -57793,7 +57792,8 @@ var Map = function Map() {
   var _react_1$useState3 = react_1.useState(["guitar", "drum", "synth", "tuba", "flute"]),
       _react_1$useState4 = _slicedToArray(_react_1$useState3, 2),
       strs = _react_1$useState4[0],
-      setStrs = _react_1$useState4[1];
+      setStrs = _react_1$useState4[1]; // const [emojis, setEmojis] = useState<any[]>([&#129409;, &#129409;])
+
 
   var _react_1$useState5 = react_1.useState(true),
       _react_1$useState6 = _slicedToArray(_react_1$useState5, 2),
@@ -58023,6 +58023,17 @@ var Map = function Map() {
     setCurInputVarName(inputVarTypeE.str);
   };
 
+  var changeToEmoji = function changeToEmoji() {
+    setCurrentStrFunctionHook(function () {
+      return function (x) {
+        return cheerUp(x);
+      };
+    });
+    setCurLogicAsString(".cheerUp()");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
   var changeToDoubleNumber = function changeToDoubleNumber() {
     setCurrentNumFunctionHook(function () {
       return function (x) {
@@ -58079,7 +58090,7 @@ var Map = function Map() {
       setCurLogicAsString("* 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
-    } else if (inputTypeChoice === inputTypeChoiceE.strings) {
+    } else if (inputTypeChoice === inputTypeChoiceE.strings && currentStrFunctionName !== stringCallbacksE.emojiBeHappy) {
       setCurrentStrFunctionName(stringCallbacksE.toUpper);
       setCurrentStrFunctionHook(function () {
         return function (x) {
@@ -58094,6 +58105,8 @@ var Map = function Map() {
   react_1.useEffect(function () {
     if (currentStrFunctionName === stringCallbacksE.toUpper) {
       changeToUpper();
+    } else if (currentStrFunctionName === stringCallbacksE.emojiBeHappy) {
+      changeToEmoji();
     } else if (currentStrFunctionName === stringCallbacksE.reverse) {
       changeToReverse();
     }
@@ -58195,20 +58208,22 @@ var Map = function Map() {
   }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
     takeStep: takeStep
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
+    setStrings: setStrs,
     resetting: resetting,
-    setinputTypeChoice: setinputTypeChoice
+    setinputTypeChoice: setinputTypeChoice,
+    setCurrentStrFunctionName: setCurrentStrFunctionName
   }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? React.createElement(numbers_1.default, {
     setType: setinputTypeChoice,
     setNums: setStateObj.setNums,
     resetting: resetting,
     boolSwitch: showInputsOptions,
     updateNumberCallBacks: setCurrentNumFunctionName
-  }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings && showInputsOptions ? React.createElement(strings_1.default, {
+  }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings && showInputsOptions && currentStrFunctionName !== stringCallbacksE.emojiBeHappy ? React.createElement(strings_1.default, {
     updateStringCallBacks: setCurrentStrFunctionName,
     resetting: resetting,
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
-  }) : stateObj.inputTypeChoice === inputTypeChoiceE.emojis && showInputsOptions ? React.createElement(emojis_1.default, null) : "", React.createElement(explainer_1.default, Object.assign({
+  }) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(stringCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentStrFunctionName,
@@ -58226,7 +58241,7 @@ var Map = function Map() {
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./inputTypes/numbers/numberCallback":"components/inputTypes/numbers/numberCallback.tsx","./inputTypes/strings/stringCallback":"components/inputTypes/strings/stringCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers/numbers":"components/inputTypes/numbers/numbers.tsx","./inputTypes/strings/strings":"components/inputTypes/strings/strings.tsx","./inputTypes/emojis":"components/inputTypes/emojis.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./inputTypes/numbers/numberCallback":"components/inputTypes/numbers/numberCallback.tsx","./inputTypes/strings/stringCallback":"components/inputTypes/strings/stringCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers/numbers":"components/inputTypes/numbers/numbers.tsx","./inputTypes/strings/strings":"components/inputTypes/strings/strings.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -58370,7 +58385,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53519" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49366" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

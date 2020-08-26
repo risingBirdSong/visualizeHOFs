@@ -13,7 +13,6 @@ enum currentTaskE {
 enum inputVarTypeE {
   "num" = "num",
   "str" = "str",
-  "emoji" = "emoji",
 }
 
 enum numberCalbacks {

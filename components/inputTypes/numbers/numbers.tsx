@@ -12,7 +12,6 @@ enum numberCallbacksE {
 enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
-  "emojis" = "emojis",
 }
 interface NumbersI {
   setNums: React.Dispatch<React.SetStateAction<number[]>>;

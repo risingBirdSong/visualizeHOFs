@@ -3,6 +3,7 @@ import React from "react";
 enum stringCallbacksE {
   "toUpper" = "toUpper",
   "reverse" = "reverse",
+  "emojiBeHappy" = "emojiBeHappy",
 }
 interface StringCallbacksI {
   updateStringCallBacks: React.Dispatch<

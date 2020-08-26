@@ -2,7 +2,6 @@ import React from "react";
 enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
-  "emojis" = "emojis",
 }
 interface NumbersInputsI {
   setNums: React.Dispatch<React.SetStateAction<number[]>>;
@@ -42,6 +41,7 @@ const NumberInputs = (props: NumbersInputsI) => {
             <span>fibonacci numbers</span>
           </button>{" "}
         </li>
+
         <li>
           {" "}
           <button
