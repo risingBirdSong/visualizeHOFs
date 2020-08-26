@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import StringInputs from "./stringInputs";
+import StringCallbacks from "./stringCallbacks";
 
 // enum numberCallbacksE {
 //   "double" = "double",
@@ -8,6 +9,10 @@ import StringInputs from "./stringInputs";
 //   "square" = "square",
 //   "triple" = "triple",
 // }
+enum stringCallbacksE {
+  "toUpper" = "toUpper",
+  "reverse" = "reverse",
+}
 enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
@@ -16,6 +21,7 @@ enum inputTypeChoiceE {
 interface StringsI {
   setStrings: React.Dispatch<React.SetStateAction<string[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
+  updateStringCallBacks: React.Dispatch<React.SetStateAction<stringCallbacksE>>;
   resetting: () => void;
   // boolSwitch: boolean;
   // updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
@@ -53,7 +59,7 @@ const Strings = (props: StringsI) => {
         </ul>
       </div>
       {showArrays ? <StringInputs {...props} /> : ""}
-      {/* {showCallbacks ? <StringCallbacks {...props} /> : ""} */}
+      {showCallbacks ? <StringCallbacks {...props} /> : ""}
     </div>
   );
 };

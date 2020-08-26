@@ -34,6 +34,9 @@ const squareNumber = (num: number): number => {
 const toUpper = (str: string): string => {
   return str.toLocaleUpperCase();
 };
+const reverse = (str: string): string => {
+  return str.split("").reverse().join("");
+};
 
 enum currentTaskE {
   "inactive",
@@ -52,6 +55,10 @@ enum numberCallbacksE {
   "halve" = "halve",
   "square" = "square",
   "triple" = "triple",
+}
+enum stringCallbacksE {
+  "toUpper" = "toUpper",
+  "reverse" = "reverse",
 }
 enum inputVarTypeE {
   "num" = "num",
@@ -104,9 +111,12 @@ const Map = () => {
     currentStrFunctionHook,
     setCurrentStrFunctionHook,
   ] = useState(() => (x: string) => toUpper(x));
-  const [currentFunctionName, setCurrentFunctionName] = useState<
+  const [currentNumFunctionName, setCurrentNumFunctionName] = useState<
     numberCallbacksE
   >(numberCallbacksE.double);
+  const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
+    stringCallbacksE
+  >(stringCallbacksE.toUpper);
   const [curLogicAsString, setCurLogicAsString] = useState("* 2");
   const [curInputType, setCurInputType] = useState("number");
   const [curInputVarName, setCurInputVarName] = useState<inputVarTypeE>(
@@ -178,31 +188,45 @@ const Map = () => {
   }, [inputTypeChoice]);
 
   useEffect(() => {
-    //update the current callback function here
-    console.log("cur function", currentFunctionName);
+    if (currentStrFunctionName === stringCallbacksE.toUpper) {
+      setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
+      setCurLogicAsString(".ToUpperCase()");
+      setCurInputType("string");
+      setCurInputVarName(inputVarTypeE.str);
+    } else if (currentStrFunctionName === stringCallbacksE.reverse) {
+      setCurrentStrFunctionHook(() => (x: string) => reverse(x));
+      setCurLogicAsString(`.split("").reverse().join("");`);
+      setCurInputType("string");
+      setCurInputVarName(inputVarTypeE.str);
+    }
+  }, [currentStrFunctionName]);
 
-    if (currentFunctionName === numberCallbacksE.double) {
+  useEffect(() => {
+    //update the current callback function here
+    console.log("cur function", currentNumFunctionName);
+
+    if (currentNumFunctionName === numberCallbacksE.double) {
       setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));
       setCurLogicAsString("* 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
-    } else if (currentFunctionName === numberCallbacksE.halve) {
+    } else if (currentNumFunctionName === numberCallbacksE.halve) {
       setCurrentNumFunctionHook(() => (x: number) => halveNumber(x));
       setCurLogicAsString("/ 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
-    } else if (currentFunctionName === numberCallbacksE.square) {
+    } else if (currentNumFunctionName === numberCallbacksE.square) {
       setCurrentNumFunctionHook(() => (x: number) => squareNumber(x));
       setCurLogicAsString("* num");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
-    } else if (currentFunctionName === numberCallbacksE.triple) {
+    } else if (currentNumFunctionName === numberCallbacksE.triple) {
       setCurrentNumFunctionHook(() => (x: number) => tripleNumber(x));
       setCurLogicAsString("* 3");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
     }
-  }, [currentFunctionName]);
+  }, [currentNumFunctionName]);
 
   useEffect(() => {
     //ah this is if check is useful because we dont want this fire initially
@@ -298,10 +322,11 @@ const Map = () => {
             setNums={setStateObj.setNums}
             resetting={resetting}
             boolSwitch={showInputsOptions}
-            updateNumberCallBacks={setCurrentFunctionName}
+            updateNumberCallBacks={setCurrentNumFunctionName}
           />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings ? (
           <Strings
+            updateStringCallBacks={setCurrentStrFunctionName}
             resetting={resetting}
             setStrings={setStateObj.setStrs}
             setType={setinputTypeChoice}
@@ -322,7 +347,7 @@ const Map = () => {
           <StringCallback
             {...stateObj}
             {...setStateObj}
-            FunctionName={currentFunctionName}
+            FunctionName={currentStrFunctionName}
             actualCallback={currentStrFunctionHook}
             callbackLogic={curLogicAsString}
             inputType={curInputType}
@@ -332,7 +357,7 @@ const Map = () => {
           <NumCallback
             {...stateObj}
             {...setStateObj}
-            FunctionName={currentFunctionName}
+            FunctionName={currentNumFunctionName}
             actualCallback={currentNumFunctionHook}
             callbackLogic={curLogicAsString}
             inputType={curInputType}

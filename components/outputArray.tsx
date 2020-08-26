@@ -4,6 +4,13 @@ export interface coordsI {
   x: number;
   y: number;
 }
+
+enum inputTypeChoiceE {
+  "numbers" = "numbers",
+  "strings" = "strings",
+  "emojis" = "emojis",
+}
+
 interface OutputArrI {
   algoHasStarted: boolean;
   algoHasFinished: boolean;
@@ -12,6 +19,7 @@ interface OutputArrI {
   outputArray: (number | string)[];
   curOutputNumCoords: coordsI;
   setCurOutputNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
+  inputTypeChoice: inputTypeChoiceE;
   algoWillReset: boolean;
   animTarget: string;
   fastRefToggler: boolean;
@@ -30,7 +38,12 @@ const OutputArray = (props: OutputArrI) =>
       >
         <h5>
           <span className="blue-text text-darken-3">output</span>{" "}
-          <span className="amber-text text-accent-3">: number[ ]</span> =
+          <span className="amber-text text-accent-3">
+            {props.inputTypeChoice === inputTypeChoiceE.numbers
+              ? "number[ ]"
+              : "string [ ]"}
+          </span>{" "}
+          =
         </h5>
       </div>
       <li className={`arrBrkt col s1 bracket`}>[</li>

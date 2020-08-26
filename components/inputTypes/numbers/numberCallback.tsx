@@ -53,27 +53,6 @@ interface NumCallbackI {
   fastRefToggler: boolean;
 }
 
-interface strCallbackI {
-  FunctionName: string;
-  inputVarName: inputVarTypeE;
-  algoHasStarted: boolean;
-  inputType: inputType;
-  callbackLogic: string;
-  //todo make generic instead of just number[]
-  strs: string[];
-  curIdx: number;
-  curNumCoords: coordsI;
-  inputCoords: coordsI;
-  setInputCoords: React.Dispatch<React.SetStateAction<coordsI>>;
-  setOutPutCoords: React.Dispatch<React.SetStateAction<coordsI>>;
-  currentTask: currentTaskE;
-  outputCoords: coordsI;
-  animInput: boolean;
-  animTarget: string;
-  actualCallback: strFunc;
-  fastRefToggler: boolean;
-}
-
 const NumCallback = (props: NumCallbackI) => {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   let input = (
