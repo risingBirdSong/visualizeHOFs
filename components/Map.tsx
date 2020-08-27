@@ -88,7 +88,7 @@ let emojiObj = {
 const Map = () => {
   //state hooks
   const inputEl = useRef(null);
-  const [nums, setNums] = useState([1, 2, 3]);
+  const [nums, setNums] = useState([2, 4, 6, 8]);
   const [strs, setStrs] = useState<string[]>([
     "guitar",
     "drum",
@@ -133,7 +133,7 @@ const Map = () => {
   ] = useState(() => (x: string) => toUpper(x));
   const [currentNumFunctionName, setCurrentNumFunctionName] = useState<
     numberCallbacksE
-  >();
+  >(numberCallbacksE.double);
   const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
     stringCallbacksE
   >();
@@ -146,12 +146,14 @@ const Map = () => {
   //custom logic
   //needed?
   const [showTextArea, setShowTextArea] = useState(false);
-  const [customArray, setCustomArray] = useState<any[]>([]);
-  const [customFunctionName, setcustomFunctionName] = useState<any>();
-  const [customFunction, setCustomFunction] = useState<any>();
-  const [customFunctionBody, setcustomFunctionBody] = useState<any>();
-  const [customFuncInputType, setcustomFuncInputType] = useState<any>();
-  const [customFuncInputVarName, setcustomFuncInputVarName] = useState<any>();
+  const [customArray, setCustomArray] = useState<number[]>([11, 22, 33]);
+  const [customFunctionName, setcustomFunctionName] = useState<any>("addOne");
+  const [customFunction, setCustomFunction] = useState<any>("return x + 1;");
+  const [customFunctionBody, setcustomFunctionBody] = useState<any>("+ 1");
+  const [customFuncInputType, setcustomFuncInputType] = useState<any>("number");
+  const [customFuncInputVarName, setcustomFuncInputVarName] = useState<any>(
+    "x"
+  );
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -424,6 +426,7 @@ const Map = () => {
             setNums={setStateObj.setNums}
             resetting={resetting}
             boolSwitch={showInputsOptions}
+            //@ts-ignore
             updateNumberCallBacks={setCurrentNumFunctionName}
           />
         ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
@@ -438,109 +441,101 @@ const Map = () => {
         ) : (
           ""
         )}
-        {showTextArea ? (
+        {showTextArea && showInputsOptions ? (
           // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
           <div>
             <div>
-              <p>array (write like you would a normal number array)</p>
+              <label>
+                {" "}
+                all the prefilled values are examples, and will work if you
+                click submit
+              </label>
+              <hr />
+              <label>
+                array {"->"} write as comma separated numbers, like 11,22,33
+                (currently number array only)
+              </label>
               <form
                 onSubmit={(e) => {
-                  console.log("custom array", customArray);
                   e.preventDefault();
                   setNums(customArray);
                 }}
               >
-                <label>array:</label>
                 <input
                   onChange={(e) => {
                     console.log("e", e.target.value);
                     let strArray = e.target.value.split(",");
-                    console.log("strArray", strArray);
-                    setCustomArray(strArray);
+                    let toNums = strArray.map((num) => Number(num));
+                    setCustomArray(toNums);
                   }}
+                  //@ts-ignore TODO
+                  value={customArray}
                 ></input>
                 <input type="submit" value="Submit" />
               </form>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  // console.log(customFunctionName);
                   setCurrentNumFunctionName(customFunctionName);
-                  // console.log(customFunction);
-                  //@ts-ignore
-                  //() => (x: number) => doubleNumber(x)
+
                   try {
-                    // let a = Function(customFuncInputVarName, customFunction);
-                    //@ts-ignore
-                    let b = () => (x) =>
+                    let b = () => (x: any) =>
                       Function(customFuncInputVarName, customFunction)(x);
-                    // console.log("a", a);
-                    // console.log("funcTest with 5", a(5));
-
-                    console.log("b", b);
-                    console.log("b exec 5", b()(5));
-
                     setCurrentNumFunctionHook(b);
                   } catch {
                     alert("didnt work");
-                    console.log("didnt work");
                   }
-                  //@ts-ignore
-
-                  // console.log(customFunctionBody);
                   setCurLogicAsString(customFunctionBody);
-                  // console.log(customFuncInputType);
-                  setCurInputType(customFuncInputType);
-                  console.log(customFuncInputVarName);
+                  setCurInputType("number");
                   setCurInputVarName(customFuncInputVarName);
                 }}
               >
                 {/* here here */}
-                <label>function name :</label>
+                <label>function name : (please use camel case)</label>
                 <input
                   onChange={(e) => {
                     setcustomFunctionName(e.target.value);
                   }}
+                  value={customFunctionName}
                 ></input>
-                <label>function input var name</label>
+                <label>
+                  function input variable name (limited to one at the moment)
+                </label>
                 <input
                   onChange={(e) => {
                     setcustomFuncInputVarName(e.target.value);
                   }}
+                  value={customFuncInputVarName}
                 ></input>
-                <label>function:</label>
-                <input
-                  onChange={(e) => {
-                    setCustomFunction(e.target.value);
-                  }}
-                ></input>
-                <label>function logic body as string</label>
-                <input
-                  onChange={(e) => {
-                    setcustomFunctionBody(e.target.value);
-                  }}
-                ></input>
-                <label>function input type</label>
+                {/* <label>function variable input type</label>
                 <input
                   onChange={(e) => {
                     setcustomFuncInputType(e.target.value);
                   }}
+                  value={customFuncInputType}
+                ></input> */}
+                <label>function body </label>
+                <input
+                  onChange={(e) => {
+                    setCustomFunction(e.target.value);
+                  }}
+                  value={customFunction}
+                ></input>
+                <label>
+                  function logic body as string (the function body except for
+                  return and variable name... non functional but its what shows
+                  up in the visualization... a little confusing, play around
+                  with it)
+                </label>
+                <input
+                  onChange={(e) => {
+                    setcustomFunctionBody(e.target.value);
+                  }}
+                  value={customFunctionBody}
                 ></input>
                 <input type="submit" value="Submit" />
               </form>
             </div>
-            {/* <div>
-              <p>function name</p>
-              <textarea
-                onChange={(e) => {
-                  console.log("e", e.target.value);
-                }}
-                className="userinput"
-                style={{ zIndex: 1, position: "relative" }}
-              >
-                write your number array here
-              </textarea>
-            </div> */}
           </div>
         ) : (
           ""

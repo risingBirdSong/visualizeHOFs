@@ -57791,7 +57791,7 @@ var Map = function Map() {
   //state hooks
   var inputEl = react_1.useRef(null);
 
-  var _react_1$useState = react_1.useState([1, 2, 3]),
+  var _react_1$useState = react_1.useState([2, 4, 6, 8]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       nums = _react_1$useState2[0],
       setNums = _react_1$useState2[1];
@@ -57925,7 +57925,7 @@ var Map = function Map() {
       currentStrFunctionHook = _react_1$useState44[0],
       setCurrentStrFunctionHook = _react_1$useState44[1];
 
-  var _react_1$useState45 = react_1.useState(),
+  var _react_1$useState45 = react_1.useState(numberCallbacksE.double),
       _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
       currentNumFunctionName = _react_1$useState46[0],
       setCurrentNumFunctionName = _react_1$useState46[1];
@@ -57957,32 +57957,32 @@ var Map = function Map() {
       showTextArea = _react_1$useState56[0],
       setShowTextArea = _react_1$useState56[1];
 
-  var _react_1$useState57 = react_1.useState([]),
+  var _react_1$useState57 = react_1.useState([11, 22, 33]),
       _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
       customArray = _react_1$useState58[0],
       setCustomArray = _react_1$useState58[1];
 
-  var _react_1$useState59 = react_1.useState(),
+  var _react_1$useState59 = react_1.useState("addOne"),
       _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
       customFunctionName = _react_1$useState60[0],
       setcustomFunctionName = _react_1$useState60[1];
 
-  var _react_1$useState61 = react_1.useState(),
+  var _react_1$useState61 = react_1.useState("return x + 1;"),
       _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
       customFunction = _react_1$useState62[0],
       setCustomFunction = _react_1$useState62[1];
 
-  var _react_1$useState63 = react_1.useState(),
+  var _react_1$useState63 = react_1.useState("+ 1"),
       _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
       customFunctionBody = _react_1$useState64[0],
       setcustomFunctionBody = _react_1$useState64[1];
 
-  var _react_1$useState65 = react_1.useState(),
+  var _react_1$useState65 = react_1.useState("number"),
       _react_1$useState66 = _slicedToArray(_react_1$useState65, 2),
       customFuncInputType = _react_1$useState66[0],
       setcustomFuncInputType = _react_1$useState66[1];
 
-  var _react_1$useState67 = react_1.useState(),
+  var _react_1$useState67 = react_1.useState("x"),
       _react_1$useState68 = _slicedToArray(_react_1$useState67, 2),
       customFuncInputVarName = _react_1$useState68[0],
       setcustomFuncInputVarName = _react_1$useState68[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
@@ -58270,84 +58270,74 @@ var Map = function Map() {
     setNums: setStateObj.setNums,
     resetting: resetting,
     boolSwitch: showInputsOptions,
+    //@ts-ignore
     updateNumberCallBacks: setCurrentNumFunctionName
   }) : stateObj.inputTypeChoice === inputTypeChoiceE.strings && showInputsOptions && currentStrFunctionName !== stringCallbacksE.emojiBeHappy ? React.createElement(strings_1.default, {
     updateStringCallBacks: setCurrentStrFunctionName,
     resetting: resetting,
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
-  }) : "", showTextArea ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
-  React.createElement("div", null, React.createElement("div", null, React.createElement("p", null, "array (write like you would a normal number array)"), React.createElement("form", {
+  }) : "", showTextArea && showInputsOptions ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
+  React.createElement("div", null, React.createElement("div", null, React.createElement("label", null, " ", "all the prefilled values are examples, and will work if you click submit"), React.createElement("hr", null), React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 11,22,33 (currently number array only)"), React.createElement("form", {
     onSubmit: function onSubmit(e) {
-      console.log("custom array", customArray);
       e.preventDefault();
       setNums(customArray);
     }
-  }, React.createElement("label", null, "array:"), React.createElement("input", {
+  }, React.createElement("input", {
     onChange: function onChange(e) {
       console.log("e", e.target.value);
       var strArray = e.target.value.split(",");
-      console.log("strArray", strArray);
-      setCustomArray(strArray);
-    }
+      var toNums = strArray.map(function (num) {
+        return Number(num);
+      });
+      setCustomArray(toNums);
+    },
+    //@ts-ignore TODO
+    value: customArray
   }), React.createElement("input", {
     type: "submit",
     value: "Submit"
   })), React.createElement("form", {
     onSubmit: function onSubmit(e) {
-      e.preventDefault(); // console.log(customFunctionName);
-
-      setCurrentNumFunctionName(customFunctionName); // console.log(customFunction);
-      //@ts-ignore
-      //() => (x: number) => doubleNumber(x)
+      e.preventDefault();
+      setCurrentNumFunctionName(customFunctionName);
 
       try {
-        // let a = Function(customFuncInputVarName, customFunction);
-        //@ts-ignore
         var b = function b() {
           return function (x) {
             return Function(customFuncInputVarName, customFunction)(x);
           };
-        }; // console.log("a", a);
-        // console.log("funcTest with 5", a(5));
+        };
 
-
-        console.log("b", b);
-        console.log("b exec 5", b()(5));
         setCurrentNumFunctionHook(b);
       } catch (_a) {
         alert("didnt work");
-        console.log("didnt work");
-      } //@ts-ignore
-      // console.log(customFunctionBody);
+      }
 
-
-      setCurLogicAsString(customFunctionBody); // console.log(customFuncInputType);
-
-      setCurInputType(customFuncInputType);
-      console.log(customFuncInputVarName);
+      setCurLogicAsString(customFunctionBody);
+      setCurInputType("number");
       setCurInputVarName(customFuncInputVarName);
     }
-  }, React.createElement("label", null, "function name :"), React.createElement("input", {
+  }, React.createElement("label", null, "function name : (please use camel case)"), React.createElement("input", {
     onChange: function onChange(e) {
       setcustomFunctionName(e.target.value);
-    }
-  }), React.createElement("label", null, "function input var name"), React.createElement("input", {
+    },
+    value: customFunctionName
+  }), React.createElement("label", null, "function input variable name (limited to one at the moment)"), React.createElement("input", {
     onChange: function onChange(e) {
       setcustomFuncInputVarName(e.target.value);
-    }
-  }), React.createElement("label", null, "function:"), React.createElement("input", {
+    },
+    value: customFuncInputVarName
+  }), React.createElement("label", null, "function body "), React.createElement("input", {
     onChange: function onChange(e) {
       setCustomFunction(e.target.value);
-    }
-  }), React.createElement("label", null, "function logic body as string"), React.createElement("input", {
+    },
+    value: customFunction
+  }), React.createElement("label", null, "function logic body as string (the function body except for return and variable name... non functional but its what shows up in the visualization... a little confusing, play around with it)"), React.createElement("input", {
     onChange: function onChange(e) {
       setcustomFunctionBody(e.target.value);
-    }
-  }), React.createElement("label", null, "function input type"), React.createElement("input", {
-    onChange: function onChange(e) {
-      setcustomFuncInputType(e.target.value);
-    }
+    },
+    value: customFunctionBody
   }), React.createElement("input", {
     type: "submit",
     value: "Submit"
