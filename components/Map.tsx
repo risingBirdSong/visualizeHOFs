@@ -144,14 +144,14 @@ const Map = () => {
   );
 
   //custom logic
+  //needed?
   const [showTextArea, setShowTextArea] = useState(false);
-  const resetting = () => {
-    setAlgoWillReset(true);
-    setStepNumber(0);
-    setCurIdx(-1);
-    setOutputArray([]);
-    setCurrentTask(currentTaskE.inactive);
-  };
+  const [customArray, setCustomArray] = useState<any[]>([]);
+  const [customFunctionName, setcustomFunctionName] = useState<any>();
+  const [customFunction, setCustomFunction] = useState<any>();
+  const [customFunctionBody, setcustomFunctionBody] = useState<any>();
+  const [customFuncInputType, setcustomFuncInputType] = useState<any>();
+  const [customFuncInputVarName, setcustomFuncInputVarName] = useState<any>();
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
     nums: nums,
@@ -173,6 +173,7 @@ const Map = () => {
     showInputsOptions: showInputsOptions,
     inputTypeChoice: inputTypeChoice,
     strs: strs,
+    customArray: customArray,
   };
 
   // same as state object but for set state.
@@ -197,6 +198,7 @@ const Map = () => {
     setShowInputsOptions: setShowInputsOptions,
     setinputTypeChoiceE: setinputTypeChoice,
     setStrs: setStrs,
+    setCustomArray: setCustomArray,
   };
 
   // setCurrentFunctionHook
@@ -251,6 +253,14 @@ const Map = () => {
     setCurLogicAsString("* 3");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
+  };
+
+  const resetting = () => {
+    setAlgoWillReset(true);
+    setStepNumber(0);
+    setCurIdx(-1);
+    setOutputArray([]);
+    setCurrentTask(currentTaskE.inactive);
   };
 
   useEffect(() => {
@@ -359,9 +369,18 @@ const Map = () => {
         if (stateObj.nums[stateObj.curIdx]) {
           let copy = [...stateObj.outputArray];
           //changed from hard coded function to currentFunction
+
+          //here here
+          // console.log("funct", Function(customFunction));
+          // console.log("4", Function(customFunction)(4));
+          // console.log("7", Function(customFunction)(7));
+          console.log("currentNumFunctionHook", currentNumFunctionHook);
+
           let transformed = currentNumFunctionHook(
             stateObj.nums[stateObj.curIdx]
           );
+          console.log("transformed", transformed);
+
           copy.push(transformed);
           setStateObj.setOutputArray(copy);
           setStateObj.setCurrentTask(currentTaskE.output);
@@ -424,20 +443,91 @@ const Map = () => {
           <div>
             <div>
               <p>array (write like you would a normal number array)</p>
-              <textarea
-                onChange={(e) => {
-                  console.log("e", e.target.value);
-                  let strArray = e.target.value.split(",");
-                  let newNumArr = strArray.map((candidate) =>
-                    Number(candidate)
-                  );
-                  setNums(newNumArr);
+              <form
+                onSubmit={(e) => {
+                  console.log("custom array", customArray);
+                  e.preventDefault();
+                  setNums(customArray);
                 }}
-                className="userinput"
-                style={{ zIndex: 1, position: "relative" }}
               >
-                write your number array here
-              </textarea>
+                <label>array:</label>
+                <input
+                  onChange={(e) => {
+                    console.log("e", e.target.value);
+                    let strArray = e.target.value.split(",");
+                    console.log("strArray", strArray);
+                    setCustomArray(strArray);
+                  }}
+                ></input>
+                <input type="submit" value="Submit" />
+              </form>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  // console.log(customFunctionName);
+                  setCurrentNumFunctionName(customFunctionName);
+                  // console.log(customFunction);
+                  //@ts-ignore
+                  //() => (x: number) => doubleNumber(x)
+                  try {
+                    // let a = Function(customFuncInputVarName, customFunction);
+                    //@ts-ignore
+                    let b = () => (x) =>
+                      Function(customFuncInputVarName, customFunction)(x);
+                    // console.log("a", a);
+                    // console.log("funcTest with 5", a(5));
+
+                    console.log("b", b);
+                    console.log("b exec 5", b()(5));
+
+                    setCurrentNumFunctionHook(b);
+                  } catch {
+                    alert("didnt work");
+                    console.log("didnt work");
+                  }
+                  //@ts-ignore
+
+                  // console.log(customFunctionBody);
+                  setCurLogicAsString(customFunctionBody);
+                  // console.log(customFuncInputType);
+                  setCurInputType(customFuncInputType);
+                  console.log(customFuncInputVarName);
+                  setCurInputVarName(customFuncInputVarName);
+                }}
+              >
+                {/* here here */}
+                <label>function name :</label>
+                <input
+                  onChange={(e) => {
+                    setcustomFunctionName(e.target.value);
+                  }}
+                ></input>
+                <label>function input var name</label>
+                <input
+                  onChange={(e) => {
+                    setcustomFuncInputVarName(e.target.value);
+                  }}
+                ></input>
+                <label>function:</label>
+                <input
+                  onChange={(e) => {
+                    setCustomFunction(e.target.value);
+                  }}
+                ></input>
+                <label>function logic body as string</label>
+                <input
+                  onChange={(e) => {
+                    setcustomFunctionBody(e.target.value);
+                  }}
+                ></input>
+                <label>function input type</label>
+                <input
+                  onChange={(e) => {
+                    setcustomFuncInputType(e.target.value);
+                  }}
+                ></input>
+                <input type="submit" value="Submit" />
+              </form>
             </div>
             {/* <div>
               <p>function name</p>

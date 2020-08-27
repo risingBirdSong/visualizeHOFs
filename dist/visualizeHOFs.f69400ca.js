@@ -57949,6 +57949,7 @@ var Map = function Map() {
       _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
       curInputVarName = _react_1$useState54[0],
       setCurInputVarName = _react_1$useState54[1]; //custom logic
+  //needed?
 
 
   var _react_1$useState55 = react_1.useState(false),
@@ -57956,13 +57957,35 @@ var Map = function Map() {
       showTextArea = _react_1$useState56[0],
       setShowTextArea = _react_1$useState56[1];
 
-  var resetting = function resetting() {
-    setAlgoWillReset(true);
-    setStepNumber(0);
-    setCurIdx(-1);
-    setOutputArray([]);
-    setCurrentTask(currentTaskE.inactive);
-  }; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+  var _react_1$useState57 = react_1.useState([]),
+      _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
+      customArray = _react_1$useState58[0],
+      setCustomArray = _react_1$useState58[1];
+
+  var _react_1$useState59 = react_1.useState(),
+      _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
+      customFunctionName = _react_1$useState60[0],
+      setcustomFunctionName = _react_1$useState60[1];
+
+  var _react_1$useState61 = react_1.useState(),
+      _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
+      customFunction = _react_1$useState62[0],
+      setCustomFunction = _react_1$useState62[1];
+
+  var _react_1$useState63 = react_1.useState(),
+      _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
+      customFunctionBody = _react_1$useState64[0],
+      setcustomFunctionBody = _react_1$useState64[1];
+
+  var _react_1$useState65 = react_1.useState(),
+      _react_1$useState66 = _slicedToArray(_react_1$useState65, 2),
+      customFuncInputType = _react_1$useState66[0],
+      setcustomFuncInputType = _react_1$useState66[1];
+
+  var _react_1$useState67 = react_1.useState(),
+      _react_1$useState68 = _slicedToArray(_react_1$useState67, 2),
+      customFuncInputVarName = _react_1$useState68[0],
+      setcustomFuncInputVarName = _react_1$useState68[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -57984,7 +58007,8 @@ var Map = function Map() {
     fastRefToggler: fastRefToggler,
     showInputsOptions: showInputsOptions,
     inputTypeChoice: inputTypeChoice,
-    strs: strs
+    strs: strs,
+    customArray: customArray
   }; // same as state object but for set state.
 
   var setStateObj = {
@@ -58007,7 +58031,8 @@ var Map = function Map() {
     setfastRefToggler: setfastRefToggler,
     setShowInputsOptions: setShowInputsOptions,
     setinputTypeChoiceE: setinputTypeChoice,
-    setStrs: setStrs
+    setStrs: setStrs,
+    setCustomArray: setCustomArray
   }; // setCurrentFunctionHook
   // setCurFunctionName
   // setCurLogicAsString
@@ -58089,6 +58114,14 @@ var Map = function Map() {
     setCurLogicAsString("* 3");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
+  };
+
+  var resetting = function resetting() {
+    setAlgoWillReset(true);
+    setStepNumber(0);
+    setCurIdx(-1);
+    setOutputArray([]);
+    setCurrentTask(currentTaskE.inactive);
   };
 
   react_1.useEffect(function () {
@@ -58191,9 +58224,15 @@ var Map = function Map() {
         if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers) {
           if (stateObj.nums[stateObj.curIdx]) {
             var copy = _toConsumableArray(stateObj.outputArray); //changed from hard coded function to currentFunction
+            //here here
+            // console.log("funct", Function(customFunction));
+            // console.log("4", Function(customFunction)(4));
+            // console.log("7", Function(customFunction)(7));
 
 
+            console.log("currentNumFunctionHook", currentNumFunctionHook);
             var transformed = currentNumFunctionHook(stateObj.nums[stateObj.curIdx]);
+            console.log("transformed", transformed);
             copy.push(transformed);
             setStateObj.setOutputArray(copy);
             setStateObj.setCurrentTask(currentTaskE.output);
@@ -58238,21 +58277,81 @@ var Map = function Map() {
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
   }) : "", showTextArea ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
-  React.createElement("div", null, React.createElement("div", null, React.createElement("p", null, "array (write like you would a normal number array)"), React.createElement("textarea", {
+  React.createElement("div", null, React.createElement("div", null, React.createElement("p", null, "array (write like you would a normal number array)"), React.createElement("form", {
+    onSubmit: function onSubmit(e) {
+      console.log("custom array", customArray);
+      e.preventDefault();
+      setNums(customArray);
+    }
+  }, React.createElement("label", null, "array:"), React.createElement("input", {
     onChange: function onChange(e) {
       console.log("e", e.target.value);
       var strArray = e.target.value.split(",");
-      var newNumArr = strArray.map(function (candidate) {
-        return Number(candidate);
-      });
-      setNums(newNumArr);
-    },
-    className: "userinput",
-    style: {
-      zIndex: 1,
-      position: "relative"
+      console.log("strArray", strArray);
+      setCustomArray(strArray);
     }
-  }, "write your number array here"))) : "", React.createElement(explainer_1.default, Object.assign({
+  }), React.createElement("input", {
+    type: "submit",
+    value: "Submit"
+  })), React.createElement("form", {
+    onSubmit: function onSubmit(e) {
+      e.preventDefault(); // console.log(customFunctionName);
+
+      setCurrentNumFunctionName(customFunctionName); // console.log(customFunction);
+      //@ts-ignore
+      //() => (x: number) => doubleNumber(x)
+
+      try {
+        // let a = Function(customFuncInputVarName, customFunction);
+        //@ts-ignore
+        var b = function b() {
+          return function (x) {
+            return Function(customFuncInputVarName, customFunction)(x);
+          };
+        }; // console.log("a", a);
+        // console.log("funcTest with 5", a(5));
+
+
+        console.log("b", b);
+        console.log("b exec 5", b()(5));
+        setCurrentNumFunctionHook(b);
+      } catch (_a) {
+        alert("didnt work");
+        console.log("didnt work");
+      } //@ts-ignore
+      // console.log(customFunctionBody);
+
+
+      setCurLogicAsString(customFunctionBody); // console.log(customFuncInputType);
+
+      setCurInputType(customFuncInputType);
+      console.log(customFuncInputVarName);
+      setCurInputVarName(customFuncInputVarName);
+    }
+  }, React.createElement("label", null, "function name :"), React.createElement("input", {
+    onChange: function onChange(e) {
+      setcustomFunctionName(e.target.value);
+    }
+  }), React.createElement("label", null, "function input var name"), React.createElement("input", {
+    onChange: function onChange(e) {
+      setcustomFuncInputVarName(e.target.value);
+    }
+  }), React.createElement("label", null, "function:"), React.createElement("input", {
+    onChange: function onChange(e) {
+      setCustomFunction(e.target.value);
+    }
+  }), React.createElement("label", null, "function logic body as string"), React.createElement("input", {
+    onChange: function onChange(e) {
+      setcustomFunctionBody(e.target.value);
+    }
+  }), React.createElement("label", null, "function input type"), React.createElement("input", {
+    onChange: function onChange(e) {
+      setcustomFuncInputType(e.target.value);
+    }
+  }), React.createElement("input", {
+    type: "submit",
+    value: "Submit"
+  })))) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(stringCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentStrFunctionName,
@@ -58414,7 +58513,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60875" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53960" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
