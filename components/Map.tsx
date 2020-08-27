@@ -13,7 +13,6 @@ import Explainer from "./explainer";
 import ChooseInputsCallbacks from "./chooseInputsCallbacks";
 import Numbers from "./inputTypes/numbers/numbers";
 import Strings from "./inputTypes/strings/strings";
-import Emojis from "./inputTypes/emojis";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 //number functions
