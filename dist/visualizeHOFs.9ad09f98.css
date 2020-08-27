@@ -129,7 +129,8 @@
 }
 
 .userinput {
-  z-index: 10;
+  position: relative;
+  /* z-index: 10; */
 }
 
 

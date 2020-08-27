@@ -58237,10 +58237,12 @@ var Map = function Map() {
     resetting: resetting,
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
-  }) : "", showTextArea ? React.createElement("textarea", {
+  }) : "", showTextArea ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
+  React.createElement("textarea", {
     className: "userinput",
     style: {
-      zIndex: 1
+      zIndex: 1,
+      position: "relative"
     }
   }, "testing") : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer

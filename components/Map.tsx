@@ -419,7 +419,17 @@ const Map = () => {
         ) : (
           ""
         )}
-        {showTextArea ? <textarea className="userinput" style={{ zIndex: 1 }}>testing</textarea> : ""}
+        {showTextArea ? (
+          // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
+          <textarea
+            className="userinput"
+            style={{ zIndex: 1, position: "relative" }}
+          >
+            testing
+          </textarea>
+        ) : (
+          ""
+        )}
         <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
         <InputArray {...stateObj} {...setStateObj} />
         {/* <DefualtCallback
