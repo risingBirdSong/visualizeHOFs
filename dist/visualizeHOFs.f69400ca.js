@@ -57791,7 +57791,7 @@ var Map = function Map() {
   //state hooks
   var inputEl = react_1.useRef(null);
 
-  var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+  var _react_1$useState = react_1.useState([1, 2, 3]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       nums = _react_1$useState2[0],
       setNums = _react_1$useState2[1];
@@ -58238,13 +58238,21 @@ var Map = function Map() {
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
   }) : "", showTextArea ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
-  React.createElement("textarea", {
+  React.createElement("div", null, React.createElement("div", null, React.createElement("p", null, "array (write like you would a normal number array)"), React.createElement("textarea", {
+    onChange: function onChange(e) {
+      console.log("e", e.target.value);
+      var strArray = e.target.value.split(",");
+      var newNumArr = strArray.map(function (candidate) {
+        return Number(candidate);
+      });
+      setNums(newNumArr);
+    },
     className: "userinput",
     style: {
       zIndex: 1,
       position: "relative"
     }
-  }, "testing") : "", React.createElement(explainer_1.default, Object.assign({
+  }, "write your number array here"))) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(stringCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentStrFunctionName,
@@ -58406,7 +58414,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51531" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60875" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

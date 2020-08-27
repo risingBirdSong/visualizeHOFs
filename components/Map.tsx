@@ -88,7 +88,7 @@ let emojiObj = {
 const Map = () => {
   //state hooks
   const inputEl = useRef(null);
-  const [nums, setNums] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [nums, setNums] = useState([1, 2, 3]);
   const [strs, setStrs] = useState<string[]>([
     "guitar",
     "drum",
@@ -421,12 +421,37 @@ const Map = () => {
         )}
         {showTextArea ? (
           // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
-          <textarea
-            className="userinput"
-            style={{ zIndex: 1, position: "relative" }}
-          >
-            testing
-          </textarea>
+          <div>
+            <div>
+              <p>array (write like you would a normal number array)</p>
+              <textarea
+                onChange={(e) => {
+                  console.log("e", e.target.value);
+                  let strArray = e.target.value.split(",");
+                  let newNumArr = strArray.map((candidate) =>
+                    Number(candidate)
+                  );
+                  setNums(newNumArr);
+                }}
+                className="userinput"
+                style={{ zIndex: 1, position: "relative" }}
+              >
+                write your number array here
+              </textarea>
+            </div>
+            {/* <div>
+              <p>function name</p>
+              <textarea
+                onChange={(e) => {
+                  console.log("e", e.target.value);
+                }}
+                className="userinput"
+                style={{ zIndex: 1, position: "relative" }}
+              >
+                write your number array here
+              </textarea>
+            </div> */}
+          </div>
         ) : (
           ""
         )}
