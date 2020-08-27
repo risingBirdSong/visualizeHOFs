@@ -127,3 +127,7 @@
 .explainList li {
   margin: 4px;
 }
+
+.userinput {
+  z-index: 10;
+}

@@ -128,5 +128,9 @@
   margin: 4px;
 }
 
+.userinput {
+  z-index: 10;
+}
+
 
 /*# sourceMappingURL=/visualizeHOFs.9ad09f98.css.map */

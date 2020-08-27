@@ -57209,7 +57209,7 @@ var stringCallbacksE;
 
 var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   return react_1.default.createElement("ul", {
-    className: "row"
+    className: "chooseinputs row"
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
@@ -57232,7 +57232,14 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
       props.setStrings(["😔", "🙁", "😣", "😫", "😭", "😡", "👿"]);
     },
     className: "waves-effect purple-text amber darken-1 waves-light btn"
-  }, "emojis")));
+  }, "emoji")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setShowTextArea(function (prev) {
+        return !prev;
+      });
+    },
+    className: "waves-effect purple-text amber darken-1 waves-light btn"
+  }, "write your own")));
 };
 
 exports.default = ChooseInputsCallbacks;
@@ -57941,7 +57948,13 @@ var Map = function Map() {
   var _react_1$useState53 = react_1.useState(inputVarTypeE.num),
       _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
       curInputVarName = _react_1$useState54[0],
-      setCurInputVarName = _react_1$useState54[1];
+      setCurInputVarName = _react_1$useState54[1]; //custom logic
+
+
+  var _react_1$useState55 = react_1.useState(false),
+      _react_1$useState56 = _slicedToArray(_react_1$useState55, 2),
+      showTextArea = _react_1$useState56[0],
+      setShowTextArea = _react_1$useState56[1];
 
   var resetting = function resetting() {
     setAlgoWillReset(true);
@@ -58205,9 +58218,10 @@ var Map = function Map() {
     className: "allApp"
   }, React.createElement("div", {
     className: "foundation"
-  }, React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
+  }, React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
     takeStep: takeStep
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
+    setShowTextArea: setShowTextArea,
     setStrings: setStrs,
     resetting: resetting,
     setinputTypeChoice: setinputTypeChoice,
@@ -58223,7 +58237,12 @@ var Map = function Map() {
     resetting: resetting,
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
-  }) : "", React.createElement(explainer_1.default, Object.assign({
+  }) : "", showTextArea ? React.createElement("textarea", {
+    className: "userinput",
+    style: {
+      zIndex: 1
+    }
+  }, "testing") : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(stringCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentStrFunctionName,
@@ -58237,7 +58256,7 @@ var Map = function Map() {
     callbackLogic: curLogicAsString,
     inputType: curInputType,
     inputVarName: curInputVarName
-  })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))), React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)));
+  })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))));
 };
 
 exports.default = Map;

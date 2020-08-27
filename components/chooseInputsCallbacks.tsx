@@ -17,11 +17,12 @@ interface ChooseInputsCallbacksI {
     React.SetStateAction<stringCallbacksE | undefined>
   >;
   resetting: () => void;
+  setShowTextArea: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
   return (
-    <ul className="row">
+    <ul className="chooseinputs row">
       <li>
         <button
           onClick={() => {
@@ -56,7 +57,17 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
           }}
           className={`waves-effect purple-text amber darken-1 waves-light btn`}
         >
-          emojis
+          emoji
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={() => {
+            props.setShowTextArea((prev) => !prev);
+          }}
+          className={`waves-effect purple-text amber darken-1 waves-light btn`}
+        >
+          write your own
         </button>
       </li>
     </ul>

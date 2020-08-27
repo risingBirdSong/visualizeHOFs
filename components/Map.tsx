@@ -142,6 +142,9 @@ const Map = () => {
   const [curInputVarName, setCurInputVarName] = useState<inputVarTypeE>(
     inputVarTypeE.num
   );
+
+  //custom logic
+  const [showTextArea, setShowTextArea] = useState(false);
   const resetting = () => {
     setAlgoWillReset(true);
     setStepNumber(0);
@@ -381,9 +384,12 @@ const Map = () => {
   return (
     <div className="allApp">
       <div className="foundation">
+        <KonvaLayer {...stateObj} {...setStateObj} />
+
         <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
         {showInputsOptions ? (
           <ChooseInputsCallbacks
+            setShowTextArea={setShowTextArea}
             setStrings={setStrs}
             resetting={resetting}
             setinputTypeChoice={setinputTypeChoice}
@@ -413,6 +419,7 @@ const Map = () => {
         ) : (
           ""
         )}
+        {showTextArea ? <textarea className="userinput" style={{ zIndex: 1 }}>testing</textarea> : ""}
         <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
         <InputArray {...stateObj} {...setStateObj} />
         {/* <DefualtCallback
@@ -443,7 +450,6 @@ const Map = () => {
         )}
         <OutputArray {...stateObj} {...setStateObj} />
       </div>
-      <KonvaLayer {...stateObj} {...setStateObj} />
     </div>
   );
 };
