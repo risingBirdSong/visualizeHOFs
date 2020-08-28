@@ -57967,7 +57967,7 @@ var Map = function Map() {
       customFunctionName = _react_1$useState60[0],
       setcustomFunctionName = _react_1$useState60[1];
 
-  var _react_1$useState61 = react_1.useState("return x + 1;"),
+  var _react_1$useState61 = react_1.useState("return num + 1;"),
       _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
       customFunction = _react_1$useState62[0],
       setCustomFunction = _react_1$useState62[1];
@@ -57982,7 +57982,7 @@ var Map = function Map() {
       customFuncInputType = _react_1$useState66[0],
       setcustomFuncInputType = _react_1$useState66[1];
 
-  var _react_1$useState67 = react_1.useState("x"),
+  var _react_1$useState67 = react_1.useState("num"),
       _react_1$useState68 = _slicedToArray(_react_1$useState67, 2),
       customFuncInputVarName = _react_1$useState68[0],
       setcustomFuncInputVarName = _react_1$useState68[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
@@ -58278,47 +58278,45 @@ var Map = function Map() {
     setStrings: setStateObj.setStrs,
     setType: setinputTypeChoice
   }) : "", showTextArea && showInputsOptions ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
-  React.createElement("div", null, React.createElement("div", null, React.createElement("label", null, " ", "all the prefilled values are examples, and will work if you click submit"), React.createElement("hr", null), React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 11,22,33 (currently number array only)"), React.createElement("form", {
-    onSubmit: function onSubmit(e) {
-      e.preventDefault();
-      setNums(customArray);
+  React.createElement("div", null, React.createElement("div", null, React.createElement("label", null, " ", "all the prefilled values are examples, and will work if you click submit"), React.createElement("div", {
+    style: {
+      border: "1px solid black",
+      borderRadius: "8px",
+      padding: "8px",
+      margin: "8px"
     }
-  }, React.createElement("input", {
+  }, React.createElement("form", null, React.createElement("div", null, React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 11,22,33 (currently number array only)"), React.createElement("input", {
     onChange: function onChange(e) {
       console.log("e", e.target.value);
       var strArray = e.target.value.split(",");
       var toNums = strArray.map(function (num) {
-        return Number(num);
-      });
+        var tryNum = Number(num);
+
+        if (isNaN(tryNum)) {
+          return -1;
+        }
+
+        return tryNum;
+      }); //@ts-ignore TODO
+
       setCustomArray(toNums);
     },
     //@ts-ignore TODO
     value: customArray
-  }), React.createElement("input", {
-    type: "submit",
-    value: "Submit"
-  })), React.createElement("form", {
-    onSubmit: function onSubmit(e) {
+  })), React.createElement("button", {
+    onClick: function onClick(e) {
       e.preventDefault();
-      setCurrentNumFunctionName(customFunctionName);
-
-      try {
-        var b = function b() {
-          return function (x) {
-            return Function(customFuncInputVarName, customFunction)(x);
-          };
-        };
-
-        setCurrentNumFunctionHook(b);
-      } catch (_a) {
-        alert("didnt work");
-      }
-
-      setCurLogicAsString(customFunctionBody);
-      setCurInputType("number");
-      setCurInputVarName(customFuncInputVarName);
+      setNums(customArray);
+    },
+    className: "waves-effect waves-light amber btn"
+  }, "submit array"))), React.createElement("div", {
+    style: {
+      border: "1px solid black",
+      borderRadius: "8px",
+      padding: "8px",
+      margin: "8px"
     }
-  }, React.createElement("label", null, "function name : (please use camel case)"), React.createElement("input", {
+  }, React.createElement("form", null, React.createElement("label", null, "function name : (please use camel case)"), React.createElement("input", {
     onChange: function onChange(e) {
       setcustomFunctionName(e.target.value);
     },
@@ -58338,10 +58336,29 @@ var Map = function Map() {
       setcustomFunctionBody(e.target.value);
     },
     value: customFunctionBody
-  }), React.createElement("input", {
-    type: "submit",
-    value: "Submit"
-  })))) : "", React.createElement(explainer_1.default, Object.assign({
+  }), React.createElement("button", {
+    onClick: function onClick(e) {
+      e.preventDefault();
+      setCurrentNumFunctionName(customFunctionName);
+
+      try {
+        var b = function b() {
+          return function (x) {
+            return Function(customFuncInputVarName, customFunction)(x);
+          };
+        };
+
+        setCurrentNumFunctionHook(b);
+      } catch (_a) {
+        alert("didnt work");
+      }
+
+      setCurLogicAsString(customFunctionBody);
+      setCurInputType("number");
+      setCurInputVarName(customFuncInputVarName);
+    },
+    className: "waves-effect waves-light amber btn"
+  }, "submit function"))))) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(stringCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentStrFunctionName,

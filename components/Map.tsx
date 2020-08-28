@@ -148,11 +148,11 @@ const Map = () => {
   const [showTextArea, setShowTextArea] = useState(false);
   const [customArray, setCustomArray] = useState<number[]>([11, 22, 33]);
   const [customFunctionName, setcustomFunctionName] = useState<any>("addOne");
-  const [customFunction, setCustomFunction] = useState<any>("return x + 1;");
+  const [customFunction, setCustomFunction] = useState<any>("return num + 1;");
   const [customFunctionBody, setcustomFunctionBody] = useState<any>("+ 1");
   const [customFuncInputType, setcustomFuncInputType] = useState<any>("number");
   const [customFuncInputVarName, setcustomFuncInputVarName] = useState<any>(
-    "x"
+    "num"
   );
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
@@ -450,91 +450,123 @@ const Map = () => {
                 all the prefilled values are examples, and will work if you
                 click submit
               </label>
-              <hr />
-              <label>
-                array {"->"} write as comma separated numbers, like 11,22,33
-                (currently number array only)
-              </label>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setNums(customArray);
+              <div
+                style={{
+                  border: "1px solid black",
+                  borderRadius: "8px",
+                  padding: "8px",
+                  margin: "8px",
                 }}
               >
-                <input
-                  onChange={(e) => {
-                    console.log("e", e.target.value);
-                    let strArray = e.target.value.split(",");
-                    let toNums = strArray.map((num) => Number(num));
-                    setCustomArray(toNums);
-                  }}
-                  //@ts-ignore TODO
-                  value={customArray}
-                ></input>
-                <input type="submit" value="Submit" />
-              </form>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setCurrentNumFunctionName(customFunctionName);
-
-                  try {
-                    let b = () => (x: any) =>
-                      Function(customFuncInputVarName, customFunction)(x);
-                    setCurrentNumFunctionHook(b);
-                  } catch {
-                    alert("didnt work");
-                  }
-                  setCurLogicAsString(customFunctionBody);
-                  setCurInputType("number");
-                  setCurInputVarName(customFuncInputVarName);
+                <form>
+                  <div>
+                    <label>
+                      array {"->"} write as comma separated numbers, like
+                      11,22,33 (currently number array only)
+                    </label>
+                    <input
+                      onChange={(e) => {
+                        console.log("e", e.target.value);
+                        let strArray = e.target.value.split(",");
+                        let toNums = strArray.map((num) => {
+                          let tryNum = Number(num);
+                          if (isNaN(tryNum)) {
+                            return -1;
+                          }
+                          return tryNum;
+                        });
+                        //@ts-ignore TODO
+                        setCustomArray(toNums);
+                      }}
+                      //@ts-ignore TODO
+                      value={customArray}
+                    ></input>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setNums(customArray);
+                    }}
+                    className="waves-effect waves-light amber btn"
+                  >
+                    submit array
+                  </button>
+                </form>
+              </div>
+              <div
+                style={{
+                  border: "1px solid black",
+                  borderRadius: "8px",
+                  padding: "8px",
+                  margin: "8px",
                 }}
               >
-                {/* here here */}
-                <label>function name : (please use camel case)</label>
-                <input
-                  onChange={(e) => {
-                    setcustomFunctionName(e.target.value);
-                  }}
-                  value={customFunctionName}
-                ></input>
-                <label>
-                  function input variable name (limited to one at the moment)
-                </label>
-                <input
-                  onChange={(e) => {
-                    setcustomFuncInputVarName(e.target.value);
-                  }}
-                  value={customFuncInputVarName}
-                ></input>
-                {/* <label>function variable input type</label>
+                <form>
+                  {/* here here */}
+                  <label>function name : (please use camel case)</label>
+                  <input
+                    onChange={(e) => {
+                      setcustomFunctionName(e.target.value);
+                    }}
+                    value={customFunctionName}
+                  ></input>
+                  <label>
+                    function input variable name (limited to one at the moment)
+                  </label>
+                  <input
+                    onChange={(e) => {
+                      setcustomFuncInputVarName(e.target.value);
+                    }}
+                    value={customFuncInputVarName}
+                  ></input>
+                  {/* <label>function variable input type</label>
                 <input
                   onChange={(e) => {
                     setcustomFuncInputType(e.target.value);
                   }}
                   value={customFuncInputType}
                 ></input> */}
-                <label>function body </label>
-                <input
-                  onChange={(e) => {
-                    setCustomFunction(e.target.value);
-                  }}
-                  value={customFunction}
-                ></input>
-                <label>
-                  function logic body as string (the function body except for
-                  return and variable name... non functional but its what shows
-                  up in the visualization... a little confusing, play around
-                  with it)
-                </label>
-                <input
-                  onChange={(e) => {
-                    setcustomFunctionBody(e.target.value);
-                  }}
-                  value={customFunctionBody}
-                ></input>
-                <input type="submit" value="Submit" />
-              </form>
+                  <label>function body </label>
+                  <input
+                    onChange={(e) => {
+                      setCustomFunction(e.target.value);
+                    }}
+                    value={customFunction}
+                  ></input>
+                  <label>
+                    function logic body as string (the function body except for
+                    return and variable name... non functional but its what
+                    shows up in the visualization... a little confusing, play
+                    around with it)
+                  </label>
+                  <input
+                    onChange={(e) => {
+                      setcustomFunctionBody(e.target.value);
+                    }}
+                    value={customFunctionBody}
+                  ></input>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentNumFunctionName(customFunctionName);
+
+                      try {
+                        let b = () => (x: any) =>
+                          Function(customFuncInputVarName, customFunction)(x);
+                        setCurrentNumFunctionHook(b);
+                      } catch {
+                        alert("didnt work");
+                      }
+                      setCurLogicAsString(customFunctionBody);
+                      setCurInputType("number");
+                      setCurInputVarName(customFuncInputVarName);
+                    }}
+                    className="waves-effect waves-light amber btn"
+                  >
+                    submit function
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         ) : (
