@@ -57957,7 +57957,7 @@ var Map = function Map() {
       showTextArea = _react_1$useState56[0],
       setShowTextArea = _react_1$useState56[1];
 
-  var _react_1$useState57 = react_1.useState([11, 22, 33]),
+  var _react_1$useState57 = react_1.useState(["1", "2", "3"]),
       _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
       customArray = _react_1$useState58[0],
       setCustomArray = _react_1$useState58[1];
@@ -58285,28 +58285,28 @@ var Map = function Map() {
       padding: "8px",
       margin: "8px"
     }
-  }, React.createElement("form", null, React.createElement("div", null, React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 11,22,33 (currently number array only)"), React.createElement("input", {
+  }, React.createElement("form", null, React.createElement("div", null, React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 1,2,3 (currently number array only)"), React.createElement("input", {
     onChange: function onChange(e) {
       console.log("e", e.target.value);
       var strArray = e.target.value.split(",");
-      var toNums = strArray.map(function (num) {
-        var tryNum = Number(num);
-
-        if (isNaN(tryNum)) {
-          return -1;
-        }
-
-        return tryNum;
-      }); //@ts-ignore TODO
-
-      setCustomArray(toNums);
+      setCustomArray(strArray);
     },
     //@ts-ignore TODO
     value: customArray
   })), React.createElement("button", {
     onClick: function onClick(e) {
       e.preventDefault();
-      setNums(customArray);
+      var toNums = customArray.filter(function (str) {
+        var tryNum = Number(str);
+
+        if (isNaN(tryNum)) {
+          return false;
+        } else return true;
+      }).map(function (x) {
+        return Number(x);
+      });
+      setNums(toNums);
+      setCustomArray(["1", "2", "3"]);
     },
     className: "waves-effect waves-light amber btn"
   }, "submit array"))), React.createElement("div", {
@@ -58520,7 +58520,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53960" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61186" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

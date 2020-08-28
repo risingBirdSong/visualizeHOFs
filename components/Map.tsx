@@ -146,7 +146,7 @@ const Map = () => {
   //custom logic
   //needed?
   const [showTextArea, setShowTextArea] = useState(false);
-  const [customArray, setCustomArray] = useState<number[]>([11, 22, 33]);
+  const [customArray, setCustomArray] = useState<string[]>(["1", "2", "3"]);
   const [customFunctionName, setcustomFunctionName] = useState<any>("addOne");
   const [customFunction, setCustomFunction] = useState<any>("return num + 1;");
   const [customFunctionBody, setcustomFunctionBody] = useState<any>("+ 1");
@@ -461,22 +461,14 @@ const Map = () => {
                 <form>
                   <div>
                     <label>
-                      array {"->"} write as comma separated numbers, like
-                      11,22,33 (currently number array only)
+                      array {"->"} write as comma separated numbers, like 1,2,3
+                      (currently number array only)
                     </label>
                     <input
                       onChange={(e) => {
                         console.log("e", e.target.value);
                         let strArray = e.target.value.split(",");
-                        let toNums = strArray.map((num) => {
-                          let tryNum = Number(num);
-                          if (isNaN(tryNum)) {
-                            return -1;
-                          }
-                          return tryNum;
-                        });
-                        //@ts-ignore TODO
-                        setCustomArray(toNums);
+                        setCustomArray(strArray);
                       }}
                       //@ts-ignore TODO
                       value={customArray}
@@ -485,7 +477,16 @@ const Map = () => {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      setNums(customArray);
+                      let toNums = customArray
+                        .filter((str) => {
+                          let tryNum = Number(str);
+                          if (isNaN(tryNum)) {
+                            return false;
+                          } else return true;
+                        })
+                        .map((x) => Number(x));
+                      setNums(toNums);
+                      setCustomArray(["1", "2", "3"]);
                     }}
                     className="waves-effect waves-light amber btn"
                   >
