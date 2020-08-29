@@ -4,39 +4,39 @@ import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
 import { MapMainControls } from "./mapMainControls";
 import DefualtCallback from "./defaultNumCallback";
-import NumCallback from "./inputTypes/numbers/numberCallback";
+import GenericCallback from "./inputTypes/numbers/genericCallback";
 import StringCallback from "./inputTypes/strings/stringCallback";
 import InputArray from "./inputArray";
 import OutputArray from "./outputArray";
 import KonvaLayer from "./KonvaLayer";
 import Explainer from "./explainer";
 import ChooseInputsCallbacks from "./chooseInputsCallbacks";
-import Numbers from "./inputTypes/numbers/numbers";
+import Generics from "./inputTypes/numbers/generics";
 import Strings from "./inputTypes/strings/strings";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 //number functions
-const halveNumber = (num: number): number => {
-  return num / 2;
+const halveNumber = (num: number | string): number => {
+  return Number(num) / 2;
 };
-const doubleNumber = (num: number) => {
-  return num * 2;
+const doubleNumber = (num: number | string) => {
+  return Number(num) * 2;
 };
-const tripleNumber = (num: number) => {
-  return num * 3;
+const tripleNumber = (num: number | string) => {
+  return Number(num) * 3;
 };
 
-const squareNumber = (num: number): number => {
-  return num * num;
+const squareNumber = (num: number | string): number => {
+  return Number(num) * Number(num);
 };
 //string functions
-const toUpper = (str: string): string => {
-  return str.toLocaleUpperCase();
+const toUpper = (str: number | string): string => {
+  return String(str).toLocaleUpperCase();
 };
-const reverse = (str: string): string => {
-  return str.split("").reverse().join("");
+const reverse = (str: number | string): string => {
+  return String(str).split("").reverse().join("");
 };
-const cheerUp = (str: string): string => {
+const cheerUp = (str: number | string): string => {
   //@ts-ignore
   return emojiObj[str];
 };
@@ -88,14 +88,14 @@ let emojiObj = {
 const Map = () => {
   //state hooks
   const inputEl = useRef(null);
-  const [nums, setNums] = useState([2, 4, 6, 8]);
-  const [strs, setStrs] = useState<string[]>([
-    "guitar",
-    "drum",
-    "synth",
-    "tuba",
-    "flute",
-  ]);
+  const [mainArray, setMainArray] = useState<(number | string)[]>([2, 4, 6, 8]);
+  // const [strs, setStrs] = useState<string[]>([
+  //   "guitar",
+  //   "drum",
+  //   "synth",
+  //   "tuba",
+  //   "flute",
+  // ]);
   // const [emojis, setEmojis] = useState<any[]>([&#129409;, &#129409;])
   const [algoHasStarted, setAlgoHasStarted] = useState(true);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
@@ -123,15 +123,15 @@ const Map = () => {
   //https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
   //learned to store function as hook
   const [
-    currentNumFunctionHook,
-    setCurrentNumFunctionHook,
-  ] = useState(() => (x: number) => doubleNumber(x));
+    currentFunctionHook,
+    setCurrentFunctionHook,
+  ] = useState(() => (x: number | string) => doubleNumber(x));
 
   const [
     currentStrFunctionHook,
     setCurrentStrFunctionHook,
   ] = useState(() => (x: string) => toUpper(x));
-  const [currentNumFunctionName, setCurrentNumFunctionName] = useState<
+  const [currentFunctionName, setCurrentFunctionName] = useState<
     numberCallbacksE
   >(numberCallbacksE.double);
   const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
@@ -156,7 +156,6 @@ const Map = () => {
   );
   // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
   const stateObj = {
-    nums: nums,
     algoHasStarted: algoHasStarted,
     outputArray: outputArray,
     stepNumber: stepNumber,
@@ -174,13 +173,13 @@ const Map = () => {
     fastRefToggler: fastRefToggler,
     showInputsOptions: showInputsOptions,
     inputTypeChoice: inputTypeChoice,
-    strs: strs,
+    // strs: strs,
+    mainArray: mainArray,
     customArray: customArray,
   };
 
   // same as state object but for set state.
   const setStateObj = {
-    setNums: setNums,
     setAlgoHasStarted: setAlgoHasStarted,
     setOutputArray: setOutputArray,
     setStepNumber: setStepNumber,
@@ -199,7 +198,8 @@ const Map = () => {
     setfastRefToggler: setfastRefToggler,
     setShowInputsOptions: setShowInputsOptions,
     setinputTypeChoiceE: setinputTypeChoice,
-    setStrs: setStrs,
+    // setStrs: setStrs,
+    setMainArray: setMainArray,
     setCustomArray: setCustomArray,
   };
 
@@ -230,28 +230,29 @@ const Map = () => {
   };
 
   const changeToDoubleNumber = () => {
-    setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));
+    setCurrentFunctionHook(() => (x: number | string) => doubleNumber(x));
     setCurLogicAsString("* 2");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
   };
 
   const changeToHalve = () => {
-    setCurrentNumFunctionHook(() => (x: number) => halveNumber(x));
+    // better way to type this?
+    setCurrentFunctionHook(() => (x: number | string) => halveNumber(x));
     setCurLogicAsString("/ 2");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
   };
 
   const changeToSquare = () => {
-    setCurrentNumFunctionHook(() => (x: number) => squareNumber(x));
+    setCurrentFunctionHook(() => (x: number | string) => squareNumber(x));
     setCurLogicAsString("* num");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
   };
 
   const changeToTriple = () => {
-    setCurrentNumFunctionHook(() => (x: number) => tripleNumber(x));
+    setCurrentFunctionHook(() => (x: number | string) => tripleNumber(x));
     setCurLogicAsString("* 3");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
@@ -269,7 +270,7 @@ const Map = () => {
     console.log("input type choice", inputTypeChoice);
     // unexpected toggling
     if (inputTypeChoice === inputTypeChoiceE.numbers) {
-      setCurrentNumFunctionHook(() => (x: number) => doubleNumber(x));
+      setCurrentFunctionHook(() => (x: number | string) => doubleNumber(x));
       setCurLogicAsString("* 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
@@ -297,16 +298,16 @@ const Map = () => {
 
   useEffect(() => {
     //update the current callback function here
-    if (currentNumFunctionName === numberCallbacksE.double) {
+    if (currentFunctionName === numberCallbacksE.double) {
       changeToDoubleNumber();
-    } else if (currentNumFunctionName === numberCallbacksE.halve) {
+    } else if (currentFunctionName === numberCallbacksE.halve) {
       changeToHalve();
-    } else if (currentNumFunctionName === numberCallbacksE.square) {
+    } else if (currentFunctionName === numberCallbacksE.square) {
       changeToSquare();
-    } else if (currentNumFunctionName === numberCallbacksE.triple) {
+    } else if (currentFunctionName === numberCallbacksE.triple) {
       changeToTriple();
     }
-  }, [currentNumFunctionName]);
+  }, [currentFunctionName]);
 
   useEffect(() => {
     //ah this is if check is useful because we dont want this fire initially
@@ -326,9 +327,9 @@ const Map = () => {
     }
   }, [showInputsOptions]);
 
-  useEffect(() => {
-    console.log("strs", strs);
-  }, [strs]);
+  // useEffect(() => {
+  //   console.log("strs", strs);
+  // }, [strs]);
 
   const takeStep = (restart: boolean) => {
     setStateObj.setAlgoHasStarted(true);
@@ -345,19 +346,20 @@ const Map = () => {
     //if the algo is completing
     if (
       stateObj.inputTypeChoice === inputTypeChoiceE.numbers &&
-      stateObj.curIdx === stateObj.nums.length - 1 &&
+      stateObj.curIdx === stateObj.mainArray.length - 1 &&
       stateObj.currentTask === currentTaskE.output
     ) {
       setStateObj.setAlgoHasFinished(true);
     } else if (
       stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
-      stateObj.curIdx === stateObj.strs.length - 1 &&
+      // stateObj.curIdx === stateObj.strs.length - 1 &&
+      stateObj.curIdx === stateObj.mainArray.length - 1 &&
       stateObj.currentTask === currentTaskE.output
     ) {
       setStateObj.setAlgoHasFinished(true);
     }
     //even steps will pass control to callback funtion to process input ele
-    if (stateObj.curIdx >= stateObj.nums.length) {
+    if (stateObj.curIdx >= stateObj.mainArray.length) {
       setStateObj.setAlgoHasFinished(true);
       return;
     }
@@ -367,8 +369,12 @@ const Map = () => {
     }
     //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
-      if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers) {
-        if (stateObj.nums[stateObj.curIdx]) {
+      // a little silly, but still figuring this out TODO change later
+      if (
+        stateObj.inputTypeChoice === inputTypeChoiceE.numbers ||
+        stateObj.inputTypeChoice === inputTypeChoiceE.strings
+      ) {
+        if (stateObj.mainArray[stateObj.curIdx]) {
           let copy = [...stateObj.outputArray];
           //changed from hard coded function to currentFunction
 
@@ -376,10 +382,10 @@ const Map = () => {
           // console.log("funct", Function(customFunction));
           // console.log("4", Function(customFunction)(4));
           // console.log("7", Function(customFunction)(7));
-          console.log("currentNumFunctionHook", currentNumFunctionHook);
+          console.log("currentNumFunctionHook", currentFunctionHook);
 
-          let transformed = currentNumFunctionHook(
-            stateObj.nums[stateObj.curIdx]
+          let transformed = currentFunctionHook(
+            stateObj.mainArray[stateObj.curIdx]
           );
           console.log("transformed", transformed);
 
@@ -387,17 +393,18 @@ const Map = () => {
           setStateObj.setOutputArray(copy);
           setStateObj.setCurrentTask(currentTaskE.output);
         }
-      } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
-        if (stateObj.strs[stateObj.curIdx]) {
-          let copy = [...stateObj.outputArray];
-          //changed from hard coded function to currentFunction
-          let transformed = currentStrFunctionHook(
-            stateObj.strs[stateObj.curIdx]
-          );
-          copy.push(transformed);
-          setStateObj.setOutputArray(copy);
-          setStateObj.setCurrentTask(currentTaskE.output);
-        }
+        // } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
+        //   if (stateObj.mainArray[stateObj.curIdx]) {
+        //     let copy = [...stateObj.outputArray];
+        //     //changed from hard coded function to currentFunction
+        //     let transformed = currentStrFunctionHook(
+        //       stateObj.mainArray[stateObj.curIdx]
+        //     );
+        //     copy.push(transformed);
+        //     setStateObj.setOutputArray(copy);
+        //     setStateObj.setCurrentTask(currentTaskE.output);
+        //   }
+        // }
       }
     }
   };
@@ -410,8 +417,8 @@ const Map = () => {
         <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
         {showInputsOptions ? (
           <ChooseInputsCallbacks
+            setMainArray={setMainArray}
             setShowTextArea={setShowTextArea}
-            setStrings={setStrs}
             resetting={resetting}
             setinputTypeChoice={setinputTypeChoice}
             setCurrentStrFunctionName={setCurrentStrFunctionName}
@@ -421,24 +428,25 @@ const Map = () => {
         )}
         {stateObj.inputTypeChoice === inputTypeChoiceE.numbers &&
         showInputsOptions ? (
-          <Numbers
+          <Generics
             setType={setinputTypeChoice}
-            setNums={setStateObj.setNums}
+            setMainArray={setStateObj.setMainArray}
             resetting={resetting}
             boolSwitch={showInputsOptions}
             //@ts-ignore
-            updateNumberCallBacks={setCurrentNumFunctionName}
-          />
-        ) : stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
-          showInputsOptions &&
-          currentStrFunctionName !== stringCallbacksE.emojiBeHappy ? (
-          <Strings
-            updateStringCallBacks={setCurrentStrFunctionName}
-            resetting={resetting}
-            setStrings={setStateObj.setStrs}
-            setType={setinputTypeChoice}
+            updateNumberCallBacks={setCurrentFunctionName}
           />
         ) : (
+          //   : stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
+          //   showInputsOptions &&
+          //   currentStrFunctionName !== stringCallbacksE.emojiBeHappy ? (
+          //   <Strings
+          //     updateStringCallBacks={setCurrentStrFunctionName}
+          //     resetting={resetting}
+          //     setStrings={setStateObj.setMainArray}
+          //     setType={setinputTypeChoice}
+          //   />
+          // )
           ""
         )}
         {showTextArea && showInputsOptions ? (
@@ -485,7 +493,7 @@ const Map = () => {
                           } else return true;
                         })
                         .map((x) => Number(x));
-                      setNums(toNums);
+                      setMainArray(toNums);
                       setCustomArray(["1", "2", "3"]);
                     }}
                     className="waves-effect waves-light amber btn"
@@ -549,12 +557,12 @@ const Map = () => {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      setCurrentNumFunctionName(customFunctionName);
+                      setCurrentFunctionName(customFunctionName);
 
                       try {
                         let b = () => (x: any) =>
                           Function(customFuncInputVarName, customFunction)(x);
-                        setCurrentNumFunctionHook(b);
+                        setCurrentFunctionHook(b);
                       } catch {
                         alert("didnt work");
                       }
@@ -581,21 +589,22 @@ const Map = () => {
           doubleNumber={doubleNumber}
         /> */}
         {inputTypeChoice === inputTypeChoiceE.strings ? (
-          <StringCallback
-            {...stateObj}
-            {...setStateObj}
-            FunctionName={currentStrFunctionName}
-            actualCallback={currentStrFunctionHook}
-            callbackLogic={curLogicAsString}
-            inputType={curInputType}
-            inputVarName={curInputVarName}
-          />
+          // <StringCallback
+          //   {...stateObj}
+          //   {...setStateObj}
+          //   FunctionName={currentStrFunctionName}
+          //   actualCallback={currentStrFunctionHook}
+          //   callbackLogic={curLogicAsString}
+          //   inputType={curInputType}
+          //   inputVarName={curInputVarName}
+          // />
+          ""
         ) : (
-          <NumCallback
+          <GenericCallback
             {...stateObj}
             {...setStateObj}
-            FunctionName={currentNumFunctionName}
-            actualCallback={currentNumFunctionHook}
+            FunctionName={currentFunctionName}
+            actualCallback={currentFunctionHook}
             callbackLogic={curLogicAsString}
             inputType={curInputType}
             inputVarName={curInputVarName}

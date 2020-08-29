@@ -4,7 +4,7 @@ enum inputTypeChoiceE {
   "strings" = "strings",
 }
 interface StringArraysI {
-  setStrings: React.Dispatch<React.SetStateAction<string[]>>;
+  setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
   resetting: () => void;
 }
@@ -21,7 +21,7 @@ const StringInputs = (props: StringArraysI) => {
             onClick={() => {
               props.setType(inputTypeChoiceE.strings);
               props.resetting();
-              props.setStrings([
+              props.setMainArray([
                 "stream",
                 "lake",
                 "river",
@@ -41,7 +41,7 @@ const StringInputs = (props: StringArraysI) => {
           <button
             onClick={() => {
               props.resetting();
-              props.setStrings([
+              props.setMainArray([
                 "bunnies",
                 "puppies",
                 "kittens",

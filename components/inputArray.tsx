@@ -15,8 +15,7 @@ interface inputArrayI {
   animInput: boolean;
   curIdx: number;
   //TODO make generic
-  nums: number[];
-  strs: string[];
+  mainArray: (number | string)[];
   curNumCoords: coordsI;
   setCurNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   animTarget: string;
@@ -52,7 +51,7 @@ const InputArray = (props: inputArrayI) => {
       </div>
       <li className={"arrBrkt col s1 bracket"}>[</li>
       {props.inputTypeChoice === inputTypeChoiceE.numbers
-        ? props.nums.map((num, idx) => {
+        ? props.mainArray.map((num, idx) => {
             let currentNumber = (
               <p
                 ref={(ele) => {
@@ -81,35 +80,7 @@ const InputArray = (props: inputArrayI) => {
               </li>
             );
           })
-        : props.strs.map((str, idx) => {
-            let currentNumber = (
-              <p
-                ref={(ele) => {
-                  let x = ele?.getBoundingClientRect().x;
-                  let y = ele?.getBoundingClientRect().y;
-                  if (x && y) {
-                    if (x !== props.curNumCoords.x) {
-                      props.setCurNumCoords({ x: x, y: y });
-                    }
-                  }
-                }}
-                className={`num pink lighten-3 z-depth-5`}
-              >
-                {str}
-              </p>
-            );
-            return (
-              <li className={"col s1"} key={idx}>
-                {idx === props.curIdx && props.fastRefToggler ? (
-                  currentNumber
-                ) : idx === props.curIdx && !props.fastRefToggler ? (
-                  currentNumber
-                ) : (
-                  <p className={`num z-depth-3`}>{str}</p>
-                )}
-              </li>
-            );
-          })}
+        : ""}
 
       <li className={`arrBrkt col s1 bracket`}>]</li>
     </ul>

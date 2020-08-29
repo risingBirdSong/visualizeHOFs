@@ -38,4 +38,5 @@ great to find a solution to the broken line animation problem with the fast togg
 
 # next task
 
-there are several props the number callback componenet is receiving, rather than sending their setState updater functions all down as props to the where the callback buttons to be updated down there, what about sending a single setState updater and have a useEffect up top that notices changes to it and when changed it'll handle all the updates on the toplevel?
+combine the different types numbers and strings into a single JSX logic that is generic...
+comment out the string logic and fix the errors one by one.

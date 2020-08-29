@@ -3,13 +3,13 @@ enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
 }
-interface NumbersInputsI {
-  setNums: React.Dispatch<React.SetStateAction<number[]>>;
+interface GenericsInputsI {
+  setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
 
   resetting: () => void;
 }
-const NumberInputs = (props: NumbersInputsI) => {
+const GenericsInputs = (props: GenericsInputsI) => {
   return (
     <div>
       <ul className="numberArrayChoices row">
@@ -20,7 +20,7 @@ const NumberInputs = (props: NumbersInputsI) => {
         <li>
           <button
             onClick={() => {
-              props.setNums([1, 4, 9, 16, 25, 36, 49, 64, 81, 100]);
+              props.setMainArray([1, 4, 9, 16, 25, 36, 49, 64, 81, 100]);
               props.setType(inputTypeChoiceE.numbers);
               props.resetting();
             }}
@@ -33,7 +33,21 @@ const NumberInputs = (props: NumbersInputsI) => {
           <button
             onClick={() => {
               props.resetting();
-              props.setNums([1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
+              props.setMainArray([
+                1,
+                1,
+                2,
+                3,
+                5,
+                8,
+                13,
+                21,
+                34,
+                55,
+                89,
+                144,
+                233,
+              ]);
               props.setType(inputTypeChoiceE.numbers);
             }}
             className={`btn amber waves-effect`}
@@ -53,7 +67,7 @@ const NumberInputs = (props: NumbersInputsI) => {
               props.resetting();
               props.setType(inputTypeChoiceE.numbers);
 
-              props.setNums(numbers);
+              props.setMainArray(numbers);
             }}
             className={`btn amber waves-effect`}
           >
@@ -65,4 +79,4 @@ const NumberInputs = (props: NumbersInputsI) => {
   );
 };
 
-export default NumberInputs;
+export default GenericsInputs;

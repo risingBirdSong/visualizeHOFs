@@ -28,17 +28,16 @@ enum stringCallbacks {
 
 type numFunc = (num: number) => number;
 type strFunc = (str: string) => string;
-type inputType = number | string;
 
-interface NumCallbackI {
+interface genericCallbackI {
   FunctionName: string | undefined;
   inputVarName: inputVarTypeE;
   algoHasStarted: boolean;
   //todo fix inputType
-  inputType: inputType;
+  inputType: number | string;
   callbackLogic: string;
   //todo make generic instead of just number[]
-  nums: number[];
+  mainArray: (number | string)[];
   curIdx: number;
   curNumCoords: coordsI;
   inputCoords: coordsI;
@@ -48,11 +47,11 @@ interface NumCallbackI {
   outputCoords: coordsI;
   animInput: boolean;
   animTarget: string;
-  actualCallback: numFunc;
+  actualCallback: numFunc | strFunc;
   fastRefToggler: boolean;
 }
 
-const NumCallback = (props: NumCallbackI) => {
+const GenericCallback = (props: genericCallbackI) => {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   let input = (
     <span
@@ -69,7 +68,7 @@ const NumCallback = (props: NumCallbackI) => {
       }}
     >
       {" "}
-      {props.nums[props.curIdx]}
+      {props.mainArray[props.curIdx]}
     </span>
   );
   return (
@@ -110,9 +109,9 @@ const NumCallback = (props: NumCallbackI) => {
           >
             <h6 className="input valign-wrapper">
               <span className="blue-text text-darken-3">input</span> &nbsp;{" "}
-              {props.nums[props.curIdx] && props.fastRefToggler
+              {props.mainArray[props.curIdx] && props.fastRefToggler
                 ? input
-                : props.nums[props.curIdx] && !props.fastRefToggler
+                : props.mainArray[props.curIdx] && !props.fastRefToggler
                 ? input
                 : ""}
             </h6>
@@ -145,7 +144,7 @@ const NumCallback = (props: NumCallbackI) => {
           {props.algoHasStarted ? (
             <h6 className="output valign-wrapper">
               <span className="blue-text text-darken-3">output</span> &nbsp;{" "}
-              {props.nums[props.curIdx] &&
+              {props.mainArray[props.curIdx] &&
               props.currentTask === currentTaskE.output ? (
                 <span
                   ref={(ele) => {
@@ -160,9 +159,12 @@ const NumCallback = (props: NumCallbackI) => {
                   }}
                 >
                   {" "}
-                  {props.actualCallback(props.nums[props.curIdx])}{" "}
+                  {/* TODO how to fix this never argument? */}
+                  {/* 
+                  // @ts-ignore */}
+                  {props.actualCallback(props.mainArray[props.curIdx])}{" "}
                 </span>
-              ) : props.nums[props.curIdx] &&
+              ) : props.mainArray[props.curIdx] &&
                 props.currentTask === currentTaskE.input ? (
                 <span>?</span>
               ) : (
@@ -178,4 +180,4 @@ const NumCallback = (props: NumCallbackI) => {
   );
 };
 
-export default NumCallback;
+export default GenericCallback;

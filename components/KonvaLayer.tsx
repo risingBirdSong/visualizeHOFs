@@ -13,7 +13,7 @@ enum currentTaskE {
 
 interface KonvaLayerI {
   curIdx: number;
-  nums: number[];
+  mainArray: (number | string)[];
   currentTask: currentTaskE;
   curNumCoords: coordsI;
   inputCoords: coordsI;
@@ -29,7 +29,7 @@ const KonvaLayer = (props: KonvaLayerI) => {
         height={window.innerHeight}
         className={`overlay`}
       >
-        {props.curIdx < props.nums.length ? (
+        {props.curIdx < props.mainArray.length ? (
           <Layer>
             {props.currentTask === currentTaskE.input ? (
               <React.Fragment>

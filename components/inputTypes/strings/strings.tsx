@@ -19,7 +19,7 @@ enum inputTypeChoiceE {
   "strings" = "strings",
 }
 interface StringsI {
-  setStrings: React.Dispatch<React.SetStateAction<string[]>>;
+  setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
   updateStringCallBacks: React.Dispatch<
     React.SetStateAction<stringCallbacksE | undefined>

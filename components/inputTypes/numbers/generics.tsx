@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import NumberInputs from "./numberInputs";
-import NumberCallbacks from "./numberCallbacks";
+import GenericsInputs from "./genericInputs";
+import GenericCallbacks from "./genericCallbacks";
 import { useState } from "react";
 
 enum numberCallbacksE {
@@ -14,7 +14,7 @@ enum inputTypeChoiceE {
   "strings" = "strings",
 }
 interface NumbersI {
-  setNums: React.Dispatch<React.SetStateAction<number[]>>;
+  setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
   resetting: () => void;
   boolSwitch: boolean;
   updateNumberCallBacks: React.Dispatch<
@@ -22,7 +22,7 @@ interface NumbersI {
   >;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
 }
-const Numbers = (props: NumbersI) => {
+const Generics = (props: NumbersI) => {
   const [showArrays, setShowArrays] = useState(false);
   const [showCallbacks, setShowCallbacks] = useState(false);
   return (
@@ -54,10 +54,10 @@ const Numbers = (props: NumbersI) => {
           </li>
         </ul>
       </div>
-      {showArrays ? <NumberInputs {...props} /> : ""}
-      {showCallbacks ? <NumberCallbacks {...props} /> : ""}
+      {showArrays ? <GenericsInputs {...props} /> : ""}
+      {showCallbacks ? <GenericCallbacks {...props} /> : ""}
     </div>
   );
 };
 
-export default Numbers;
+export default Generics;

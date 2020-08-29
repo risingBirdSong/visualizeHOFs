@@ -6,7 +6,7 @@ enum numberCallbacksE {
   "square" = "square",
   "triple" = "triple",
 }
-interface NumbersCallbacksI {
+interface GenericsCallbacksI {
   updateNumberCallBacks: React.Dispatch<
     React.SetStateAction<numberCallbacksE | undefined>
   >;
@@ -14,7 +14,7 @@ interface NumbersCallbacksI {
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
 }
-const NumberCallbacks = (props: NumbersCallbacksI) => {
+const GenericCallbacks = (props: GenericsCallbacksI) => {
   return (
     <div>
       <ul className="numberArrayChoices row">
@@ -67,4 +67,4 @@ const NumberCallbacks = (props: NumbersCallbacksI) => {
   );
 };
 
-export default NumberCallbacks;
+export default GenericCallbacks;
