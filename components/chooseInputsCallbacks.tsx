@@ -30,6 +30,8 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
         <button
           onClick={() => {
             props.resetting();
+            props.setCurrentFunctionName(CallbacksE.double);
+            props.setMainArray([2, 4, 6, 8]);
             props.setinputTypeChoice(inputTypeChoiceE.numbers);
           }}
           className={`waves-effect purple-text amber lighten-1 waves-light btn`}

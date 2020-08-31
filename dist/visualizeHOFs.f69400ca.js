@@ -57056,6 +57056,8 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
+      props.setCurrentFunctionName(CallbacksE.double);
+      props.setMainArray([2, 4, 6, 8]);
       props.setinputTypeChoice(inputTypeChoiceE.numbers);
     },
     className: "waves-effect purple-text amber lighten-1 waves-light btn"
@@ -58123,19 +58125,17 @@ var Map = function Map() {
     resetting: resetting,
     setinputTypeChoice: setinputTypeChoice,
     setCurrentFunctionName: setCurrentFunctionName
-  }) : "", inputTypeChoice === inputTypeChoiceE.numbers ? React.createElement(numbers_1.default, {
+  }) : "", inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? React.createElement(numbers_1.default, {
     inputType: inputTypeChoice,
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,
     resetting: resetting,
     boolSwitch: showInputsOptions,
-    //@ts-ignore
     updateCallBacks: setCurrentFunctionName
-  }) : inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, {
+  }) : inputTypeChoice === inputTypeChoiceE.strings && showInputsOptions ? React.createElement(strings_1.default, {
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,
     resetting: resetting,
-    //@ts-ignore
     updateCallBacks: setCurrentFunctionName
   }) : "", showTextArea && showInputsOptions ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
   React.createElement("div", null, React.createElement("div", null, React.createElement("label", null, " ", "all the prefilled values are examples, and will work if you click submit"), React.createElement("div", {

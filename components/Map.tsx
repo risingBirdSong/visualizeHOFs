@@ -436,22 +436,21 @@ const Map = () => {
         ) : (
           ""
         )}
-        {inputTypeChoice === inputTypeChoiceE.numbers ? (
+        {inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? (
           <Numbers
             inputType={inputTypeChoice}
             setType={setinputTypeChoice}
             setMainArray={setStateObj.setMainArray}
             resetting={resetting}
             boolSwitch={showInputsOptions}
-            //@ts-ignore
             updateCallBacks={setCurrentFunctionName}
           />
-        ) : inputTypeChoice === inputTypeChoiceE.strings ? (
+        ) : inputTypeChoice === inputTypeChoiceE.strings &&
+          showInputsOptions ? (
           <Strings
             setType={setinputTypeChoice}
             setMainArray={setStateObj.setMainArray}
             resetting={resetting}
-            //@ts-ignore
             updateCallBacks={setCurrentFunctionName}
           />
         ) : (
