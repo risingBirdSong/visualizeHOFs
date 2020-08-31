@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
-import GenericsInputs from "./genericInputs";
-import GenericCallbacks from "./genericCallbacks";
 import { useState } from "react";
+import StringInputs from "../strings/stringInputs";
+import StringCallbacks from "./stringCallbacks";
+
+// enum numberCallbacksE {
+//   "double" = "double",
+//   "halve" = "halve",
+//   "square" = "square",
+//   "triple" = "triple",
+// }
 
 enum CallbacksE {
   "double" = "double",
@@ -16,16 +23,16 @@ enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
 }
-interface NumbersI {
-  setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
-  resetting: () => void;
-  boolSwitch: boolean;
-  updateCallBacks: React.Dispatch<
-    React.SetStateAction<CallbacksE | undefined>
-  >;
+interface StringsI {
+  setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
+  updateCallBacks: React.Dispatch<React.SetStateAction<CallbacksE | undefined>>;
+  resetting: () => void;
+
+  // boolSwitch: boolean;
+  // updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
 }
-const Generics = (props: NumbersI) => {
+const Strings = (props: StringsI) => {
   const [showArrays, setShowArrays] = useState(false);
   const [showCallbacks, setShowCallbacks] = useState(false);
   return (
@@ -40,7 +47,7 @@ const Generics = (props: NumbersI) => {
               }}
               className={`btn waves-effect`}
             >
-              number arrays
+              string arrays
             </button>
           </li>
           <li>
@@ -51,16 +58,16 @@ const Generics = (props: NumbersI) => {
               }}
               className={`btn waves-effect`}
             >
-              number callbacks
+              string callbacks
             </button>
             {/* <NumberCallbacks /> */}
           </li>
         </ul>
       </div>
-      {showArrays ? <GenericsInputs {...props} /> : ""}
-      {showCallbacks ? <GenericCallbacks {...props} /> : ""}
+      {showArrays ? <StringInputs {...props} /> : ""}
+      {showCallbacks ? <StringCallbacks {...props} /> : ""}
     </div>
   );
 };
 
-export default Generics;
+export default Strings;

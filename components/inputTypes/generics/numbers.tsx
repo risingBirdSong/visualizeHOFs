@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
-import StringInputs from "./stringInputs";
+import GenericsInputs from "./genericInputs";
+import NumberCallbacks from "./numberCallbacks";
 import StringCallbacks from "./stringCallbacks";
+import { useState } from "react";
 
-// enum numberCallbacksE {
-//   "double" = "double",
-//   "halve" = "halve",
-//   "square" = "square",
-//   "triple" = "triple",
-// }
-enum stringCallbacksE {
+enum CallbacksE {
+  "double" = "double",
+  "halve" = "halve",
+  "square" = "square",
+  "triple" = "triple",
   "toUpper" = "toUpper",
   "reverse" = "reverse",
   "emojiBeHappy" = "emojiBeHappy",
@@ -18,18 +17,15 @@ enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
 }
-interface StringsI {
-  setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
-  setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
-  updateStringCallBacks: React.Dispatch<
-    React.SetStateAction<stringCallbacksE | undefined>
-  >;
+interface NumbersI {
+  setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
   resetting: () => void;
-
-  // boolSwitch: boolean;
-  // updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
+  boolSwitch: boolean;
+  updateCallBacks: React.Dispatch<React.SetStateAction<CallbacksE | undefined>>;
+  inputType: inputTypeChoiceE;
+  setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
 }
-const Strings = (props: StringsI) => {
+const Numbers = (props: NumbersI) => {
   const [showArrays, setShowArrays] = useState(false);
   const [showCallbacks, setShowCallbacks] = useState(false);
   return (
@@ -44,7 +40,7 @@ const Strings = (props: StringsI) => {
               }}
               className={`btn waves-effect`}
             >
-              string arrays
+              number arrays
             </button>
           </li>
           <li>
@@ -55,16 +51,20 @@ const Strings = (props: StringsI) => {
               }}
               className={`btn waves-effect`}
             >
-              string callbacks
+              number callbacks
             </button>
             {/* <NumberCallbacks /> */}
           </li>
         </ul>
       </div>
-      {showArrays ? <StringInputs {...props} /> : ""}
-      {showCallbacks ? <StringCallbacks {...props} /> : ""}
+      {showArrays ? <GenericsInputs {...props} /> : ""}
+      {showCallbacks && props.inputType === inputTypeChoiceE.numbers ? (
+        <NumberCallbacks {...props} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
 
-export default Strings;
+export default Numbers;

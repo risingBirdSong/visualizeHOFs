@@ -4,15 +4,15 @@ import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
 import { MapMainControls } from "./mapMainControls";
 import DefualtCallback from "./defaultNumCallback";
-import GenericCallback from "./inputTypes/numbers/genericCallback";
+import GenericCallback from "./inputTypes/generics/genericCallback";
 import StringCallback from "./inputTypes/strings/stringCallback";
 import InputArray from "./inputArray";
 import OutputArray from "./outputArray";
 import KonvaLayer from "./KonvaLayer";
 import Explainer from "./explainer";
 import ChooseInputsCallbacks from "./chooseInputsCallbacks";
-import Generics from "./inputTypes/numbers/generics";
-import Strings from "./inputTypes/strings/strings";
+import Numbers from "./inputTypes/generics/numbers";
+import Strings from "./inputTypes/generics/strings";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 //number functions
@@ -436,14 +436,28 @@ const Map = () => {
         ) : (
           ""
         )}
-        <Generics
-          setType={setinputTypeChoice}
-          setMainArray={setStateObj.setMainArray}
-          resetting={resetting}
-          boolSwitch={showInputsOptions}
-          //@ts-ignore
-          updateCallBacks={setCurrentFunctionName}
-        />
+        {inputTypeChoice === inputTypeChoiceE.numbers ? (
+          <Numbers
+            inputType={inputTypeChoice}
+            setType={setinputTypeChoice}
+            setMainArray={setStateObj.setMainArray}
+            resetting={resetting}
+            boolSwitch={showInputsOptions}
+            //@ts-ignore
+            updateCallBacks={setCurrentFunctionName}
+          />
+        ) : inputTypeChoice === inputTypeChoiceE.strings ? (
+          <Strings
+            setType={setinputTypeChoice}
+            setMainArray={setStateObj.setMainArray}
+            resetting={resetting}
+            //@ts-ignore
+            updateCallBacks={setCurrentFunctionName}
+          />
+        ) : (
+          ""
+        )}
+
         {showTextArea && showInputsOptions ? (
           // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
           <div>

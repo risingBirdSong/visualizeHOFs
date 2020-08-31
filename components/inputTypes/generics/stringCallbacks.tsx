@@ -1,14 +1,16 @@
 import React from "react";
 
-enum stringCallbacksE {
+enum CallbacksE {
+  "double" = "double",
+  "halve" = "halve",
+  "square" = "square",
+  "triple" = "triple",
   "toUpper" = "toUpper",
   "reverse" = "reverse",
   "emojiBeHappy" = "emojiBeHappy",
 }
 interface StringCallbacksI {
-  updateStringCallBacks: React.Dispatch<
-    React.SetStateAction<stringCallbacksE | undefined>
-  >;
+  updateCallBacks: React.Dispatch<React.SetStateAction<CallbacksE | undefined>>;
 
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
@@ -21,7 +23,7 @@ const StringCallbacks = (props: StringCallbacksI) => {
           <button
             onClick={() => {
               props.resetting();
-              props.updateStringCallBacks(stringCallbacksE.toUpper);
+              props.updateCallBacks(CallbacksE.toUpper);
             }}
             className={`btn amber waves-effect`}
           >
@@ -32,7 +34,7 @@ const StringCallbacks = (props: StringCallbacksI) => {
           <button
             onClick={() => {
               props.resetting();
-              props.updateStringCallBacks(stringCallbacksE.reverse);
+              props.updateCallBacks(CallbacksE.reverse);
             }}
             className={`btn amber waves-effect`}
           >

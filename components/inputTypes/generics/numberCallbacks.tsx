@@ -15,7 +15,7 @@ interface GenericsCallbacksI {
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
 }
-const GenericCallbacks = (props: GenericsCallbacksI) => {
+const NumberCallbacks = (props: GenericsCallbacksI) => {
   return (
     <div>
       <ul className="numberArrayChoices row">
@@ -68,4 +68,4 @@ const GenericCallbacks = (props: GenericsCallbacksI) => {
   );
 };
 
-export default GenericCallbacks;
+export default NumberCallbacks;

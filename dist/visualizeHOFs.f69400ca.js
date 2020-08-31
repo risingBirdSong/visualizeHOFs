@@ -28346,7 +28346,7 @@ var MapMainControls = function MapMainControls(props) {
 };
 
 exports.MapMainControls = MapMainControls;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/genericCallback.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/genericCallback.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57086,7 +57086,7 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
 };
 
 exports.default = ChooseInputsCallbacks;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/genericInputs.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/genericInputs.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57142,7 +57142,7 @@ var GenericsInputs = function GenericsInputs(props) {
 };
 
 exports.default = GenericsInputs;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/genericCallbacks.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/numberCallbacks.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57169,7 +57169,7 @@ var CallbacksE;
   CallbacksE["emojiBeHappy"] = "emojiBeHappy";
 })(CallbacksE || (CallbacksE = {}));
 
-var GenericCallbacks = function GenericCallbacks(props) {
+var NumberCallbacks = function NumberCallbacks(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
@@ -57198,8 +57198,8 @@ var GenericCallbacks = function GenericCallbacks(props) {
   }, react_1.default.createElement("span", null, "square number")), " ")));
 };
 
-exports.default = GenericCallbacks;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/numbers/generics.tsx":[function(require,module,exports) {
+exports.default = NumberCallbacks;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/numbers.tsx":[function(require,module,exports) {
 "use strict";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -57228,7 +57228,7 @@ var react_1 = __importDefault(require("react"));
 
 var genericInputs_1 = __importDefault(require("./genericInputs"));
 
-var genericCallbacks_1 = __importDefault(require("./genericCallbacks"));
+var numberCallbacks_1 = __importDefault(require("./numberCallbacks"));
 
 var react_2 = require("react");
 
@@ -57251,7 +57251,7 @@ var inputTypeChoiceE;
   inputTypeChoiceE["strings"] = "strings";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
-var Generics = function Generics(props) {
+var Numbers = function Numbers(props) {
   var _react_2$useState = react_2.useState(false),
       _react_2$useState2 = _slicedToArray(_react_2$useState, 2),
       showArrays = _react_2$useState2[0],
@@ -57280,11 +57280,190 @@ var Generics = function Generics(props) {
       setShowArrays(false);
     },
     className: "btn waves-effect"
-  }, "number callbacks")))), showArrays ? react_1.default.createElement(genericInputs_1.default, Object.assign({}, props)) : "", showCallbacks ? react_1.default.createElement(genericCallbacks_1.default, Object.assign({}, props)) : "");
+  }, "number callbacks")))), showArrays ? react_1.default.createElement(genericInputs_1.default, Object.assign({}, props)) : "", showCallbacks && props.inputType === inputTypeChoiceE.numbers ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({}, props)) : "");
 };
 
-exports.default = Generics;
-},{"react":"node_modules/react/index.js","./genericInputs":"components/inputTypes/numbers/genericInputs.tsx","./genericCallbacks":"components/inputTypes/numbers/genericCallbacks.tsx"}],"components/Map.tsx":[function(require,module,exports) {
+exports.default = Numbers;
+},{"react":"node_modules/react/index.js","./genericInputs":"components/inputTypes/generics/genericInputs.tsx","./numberCallbacks":"components/inputTypes/generics/numberCallbacks.tsx"}],"components/inputTypes/strings/stringInputs.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
+var StringInputs = function StringInputs(props) {
+  return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
+    className: "stringArrayChoices row"
+  }, react_1.default.createElement("li", null), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setType(inputTypeChoiceE.strings);
+      props.resetting();
+      props.setMainArray(["stream", "lake", "river", "creek", "canal", "beach", "ocean", "waterfall"]);
+    },
+    className: "btn amber waves-effect"
+  }, react_1.default.createElement("span", null, "bodies of water"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.resetting();
+      props.setMainArray(["bunnies", "puppies", "kittens", "sloths", "otters", "pandas", "penguins", "owls"]);
+    },
+    className: "btn amber waves-effect"
+  }, react_1.default.createElement("span", null, "cute baby animals")), " ")));
+};
+
+exports.default = StringInputs;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/stringCallbacks.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var CallbacksE;
+
+(function (CallbacksE) {
+  CallbacksE["double"] = "double";
+  CallbacksE["halve"] = "halve";
+  CallbacksE["square"] = "square";
+  CallbacksE["triple"] = "triple";
+  CallbacksE["toUpper"] = "toUpper";
+  CallbacksE["reverse"] = "reverse";
+  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+})(CallbacksE || (CallbacksE = {}));
+
+var StringCallbacks = function StringCallbacks(props) {
+  return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
+    className: "numberArrayChoices row"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.resetting();
+      props.updateCallBacks(CallbacksE.toUpper);
+    },
+    className: "btn amber waves-effect"
+  }, react_1.default.createElement("span", null, "toUpper "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.resetting();
+      props.updateCallBacks(CallbacksE.reverse);
+    },
+    className: "btn amber waves-effect"
+  }, react_1.default.createElement("span", null, "reverse ")), " ")));
+};
+
+exports.default = StringCallbacks;
+},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/strings.tsx":[function(require,module,exports) {
+"use strict";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var react_2 = require("react");
+
+var stringInputs_1 = __importDefault(require("../strings/stringInputs"));
+
+var stringCallbacks_1 = __importDefault(require("./stringCallbacks")); // enum numberCallbacksE {
+//   "double" = "double",
+//   "halve" = "halve",
+//   "square" = "square",
+//   "triple" = "triple",
+// }
+
+
+var CallbacksE;
+
+(function (CallbacksE) {
+  CallbacksE["double"] = "double";
+  CallbacksE["halve"] = "halve";
+  CallbacksE["square"] = "square";
+  CallbacksE["triple"] = "triple";
+  CallbacksE["toUpper"] = "toUpper";
+  CallbacksE["reverse"] = "reverse";
+  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+})(CallbacksE || (CallbacksE = {}));
+
+var inputTypeChoiceE;
+
+(function (inputTypeChoiceE) {
+  inputTypeChoiceE["numbers"] = "numbers";
+  inputTypeChoiceE["strings"] = "strings";
+})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+
+var Strings = function Strings(props) {
+  var _react_2$useState = react_2.useState(false),
+      _react_2$useState2 = _slicedToArray(_react_2$useState, 2),
+      showArrays = _react_2$useState2[0],
+      setShowArrays = _react_2$useState2[1];
+
+  var _react_2$useState3 = react_2.useState(false),
+      _react_2$useState4 = _slicedToArray(_react_2$useState3, 2),
+      showCallbacks = _react_2$useState4[0],
+      setShowCallbacks = _react_2$useState4[1];
+
+  return react_1.default.createElement("div", null, react_1.default.createElement("div", null, react_1.default.createElement("ul", {
+    className: "row"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      setShowArrays(function (prev) {
+        return !prev;
+      });
+      setShowCallbacks(false);
+    },
+    className: "btn waves-effect"
+  }, "string arrays")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      setShowCallbacks(function (prev) {
+        return !prev;
+      });
+      setShowArrays(false);
+    },
+    className: "btn waves-effect"
+  }, "string callbacks")))), showArrays ? react_1.default.createElement(stringInputs_1.default, Object.assign({}, props)) : "", showCallbacks ? react_1.default.createElement(stringCallbacks_1.default, Object.assign({}, props)) : "");
+};
+
+exports.default = Strings;
+},{"react":"node_modules/react/index.js","../strings/stringInputs":"components/inputTypes/strings/stringInputs.tsx","./stringCallbacks":"components/inputTypes/generics/stringCallbacks.tsx"}],"components/Map.tsx":[function(require,module,exports) {
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -57357,7 +57536,7 @@ var react_1 = require("react");
 
 var mapMainControls_1 = require("./mapMainControls");
 
-var genericCallback_1 = __importDefault(require("./inputTypes/numbers/genericCallback"));
+var genericCallback_1 = __importDefault(require("./inputTypes/generics/genericCallback"));
 
 var inputArray_1 = __importDefault(require("./inputArray"));
 
@@ -57369,7 +57548,9 @@ var explainer_1 = __importDefault(require("./explainer"));
 
 var chooseInputsCallbacks_1 = __importDefault(require("./chooseInputsCallbacks"));
 
-var generics_1 = __importDefault(require("./inputTypes/numbers/generics")); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var numbers_1 = __importDefault(require("./inputTypes/generics/numbers"));
+
+var strings_1 = __importDefault(require("./inputTypes/generics/strings")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 //number functions
 
 
@@ -57942,14 +58123,21 @@ var Map = function Map() {
     resetting: resetting,
     setinputTypeChoice: setinputTypeChoice,
     setCurrentFunctionName: setCurrentFunctionName
-  }) : "", React.createElement(generics_1.default, {
+  }) : "", inputTypeChoice === inputTypeChoiceE.numbers ? React.createElement(numbers_1.default, {
+    inputType: inputTypeChoice,
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,
     resetting: resetting,
     boolSwitch: showInputsOptions,
     //@ts-ignore
     updateCallBacks: setCurrentFunctionName
-  }), showTextArea && showInputsOptions ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
+  }) : inputTypeChoice === inputTypeChoiceE.strings ? React.createElement(strings_1.default, {
+    setType: setinputTypeChoice,
+    setMainArray: setStateObj.setMainArray,
+    resetting: resetting,
+    //@ts-ignore
+    updateCallBacks: setCurrentFunctionName
+  }) : "", showTextArea && showInputsOptions ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
   React.createElement("div", null, React.createElement("div", null, React.createElement("label", null, " ", "all the prefilled values are examples, and will work if you click submit"), React.createElement("div", {
     style: {
       border: "1px solid black",
@@ -58042,7 +58230,7 @@ var Map = function Map() {
 };
 
 exports.default = Map;
-},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./inputTypes/numbers/genericCallback":"components/inputTypes/numbers/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/numbers/generics":"components/inputTypes/numbers/generics.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -58186,7 +58374,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54143" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55750" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
