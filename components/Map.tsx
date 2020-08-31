@@ -16,19 +16,27 @@ import Strings from "./inputTypes/generics/strings";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 //number functions
-const halveNumber = (num: number | string): number => {
+const halveNum = (num: number | string): number => {
   return Number(num) / 2;
 };
-const doubleNumber = (num: number | string) => {
+const doubleNum = (num: number | string) => {
   return Number(num) * 2;
 };
-const tripleNumber = (num: number | string) => {
+const tripleNum = (num: number | string) => {
   return Number(num) * 3;
 };
 
-const squareNumber = (num: number | string): number => {
+const squareNum = (num: number | string): number => {
   return Number(num) * Number(num);
 };
+
+const numCallBackContainer: ((num: number | string) => number)[] = [
+  halveNum,
+  doubleNum,
+  tripleNum,
+  squareNum,
+];
+
 //string functions
 const toUpper = (str: number | string): string => {
   return String(str).toLocaleUpperCase();
@@ -129,15 +137,15 @@ const Map = () => {
 
   const [currentFunctionHook, setCurrentFunctionHook] = useState<
     numCallBack | strCallBack
-  >(() => (x: number | string) => doubleNumber(x));
+  >(() => (x: number | string) => doubleNum(x));
 
   const [
     currentStrFunctionHook,
     setCurrentStrFunctionHook,
   ] = useState(() => (x: string) => toUpper(x));
-  const [currentFunctionName, setCurrentFunctionName] = useState<
-    CallbacksE | undefined
-  >(CallbacksE.double);
+  const [currentFunctionName, setCurrentFunctionName] = useState<string>(
+    doubleNum.name
+  );
   // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
   //   stringCallbacksE
   // >();
@@ -232,7 +240,7 @@ const Map = () => {
   };
 
   const changeToDoubleNumber = () => {
-    setCurrentFunctionHook(() => (x: number | string) => doubleNumber(x));
+    setCurrentFunctionHook(() => (x: number | string) => doubleNum(x));
     setCurLogicAsString("* 2");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
@@ -240,21 +248,21 @@ const Map = () => {
 
   const changeToHalve = () => {
     // better way to type this?
-    setCurrentFunctionHook(() => (x: number | string) => halveNumber(x));
+    setCurrentFunctionHook(() => (x: number | string) => halveNum(x));
     setCurLogicAsString("/ 2");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
   };
 
   const changeToSquare = () => {
-    setCurrentFunctionHook(() => (x: number | string) => squareNumber(x));
+    setCurrentFunctionHook(() => (x: number | string) => squareNum(x));
     setCurLogicAsString("* num");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
   };
 
   const changeToTriple = () => {
-    setCurrentFunctionHook(() => (x: number | string) => tripleNumber(x));
+    setCurrentFunctionHook(() => (x: number | string) => tripleNum(x));
     setCurLogicAsString("* 3");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
@@ -272,7 +280,7 @@ const Map = () => {
     console.log("input type choice", inputTypeChoice);
     // unexpected toggling
     if (inputTypeChoice === inputTypeChoiceE.numbers) {
-      setCurrentFunctionHook(() => (x: number | string) => doubleNumber(x));
+      setCurrentFunctionHook(() => (x: number | string) => doubleNum(x));
       setCurLogicAsString("* 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
@@ -304,13 +312,13 @@ const Map = () => {
 
   useEffect(() => {
     //update the current callback function here
-    if (currentFunctionName === CallbacksE.double) {
+    if (currentFunctionName === doubleNum.name) {
       changeToDoubleNumber();
-    } else if (currentFunctionName === CallbacksE.halve) {
+    } else if (currentFunctionName === halveNum.name) {
       changeToHalve();
-    } else if (currentFunctionName === CallbacksE.square) {
+    } else if (currentFunctionName === squareNum.name) {
       changeToSquare();
-    } else if (currentFunctionName === CallbacksE.triple) {
+    } else if (currentFunctionName === tripleNum.name) {
       changeToTriple();
     }
   }, [currentFunctionName]);
@@ -435,6 +443,7 @@ const Map = () => {
         )}
         {inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? (
           <Numbers
+            numCallBackContainer={numCallBackContainer}
             inputType={inputTypeChoice}
             setType={setinputTypeChoice}
             setMainArray={setStateObj.setMainArray}

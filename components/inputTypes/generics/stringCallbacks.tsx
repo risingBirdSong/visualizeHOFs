@@ -10,7 +10,7 @@ enum CallbacksE {
   "emojiBeHappy" = "emojiBeHappy",
 }
 interface StringCallbacksI {
-  updateCallBacks: React.Dispatch<React.SetStateAction<CallbacksE | undefined>>;
+  updateCallBacks: React.Dispatch<React.SetStateAction<string>>;
 
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;

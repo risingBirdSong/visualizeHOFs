@@ -57148,30 +57148,15 @@ var CallbacksE;
 var NumberCallbacks = function NumberCallbacks(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
-  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.resetting();
-      props.updateCallBacks(CallbacksE.halve);
-    },
-    className: "btn amber waves-effect"
-  }, react_1.default.createElement("span", null, "halve number "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.resetting();
-      props.updateCallBacks(CallbacksE.double);
-    },
-    className: "btn amber waves-effect"
-  }, react_1.default.createElement("span", null, "double number ")), " "), react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.resetting();
-      props.updateCallBacks(CallbacksE.triple);
-    },
-    className: "btn amber waves-effect"
-  }, react_1.default.createElement("span", null, "triple number ")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.updateCallBacks(CallbacksE.square);
-    },
-    className: "btn amber waves-effect"
-  }, react_1.default.createElement("span", null, "square number")), " ")));
+  }, props.numCallBackContainer.map(function (func, idx) {
+    return react_1.default.createElement("li", null, react_1.default.createElement("button", {
+      onClick: function onClick() {
+        props.resetting();
+        props.updateCallBacks(func.name);
+      },
+      className: "btn amber waves-effect"
+    }, react_1.default.createElement("span", null, func.name, " ")));
+  })));
 };
 
 exports.default = NumberCallbacks;
@@ -57530,22 +57515,23 @@ var strings_1 = __importDefault(require("./inputTypes/generics/strings")); // im
 //number functions
 
 
-var halveNumber = function halveNumber(num) {
+var halveNum = function halveNum(num) {
   return Number(num) / 2;
 };
 
-var doubleNumber = function doubleNumber(num) {
+var doubleNum = function doubleNum(num) {
   return Number(num) * 2;
 };
 
-var tripleNumber = function tripleNumber(num) {
+var tripleNum = function tripleNum(num) {
   return Number(num) * 3;
 };
 
-var squareNumber = function squareNumber(num) {
+var squareNum = function squareNum(num) {
   return Number(num) * Number(num);
-}; //string functions
+};
 
+var numCallBackContainer = [halveNum, doubleNum, tripleNum, squareNum]; //string functions
 
 var toUpper = function toUpper(str) {
   return String(str).toLocaleUpperCase();
@@ -57734,7 +57720,7 @@ var Map = function Map() {
 
   var _react_1$useState37 = react_1.useState(function () {
     return function (x) {
-      return doubleNumber(x);
+      return doubleNum(x);
     };
   }),
       _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
@@ -57750,7 +57736,7 @@ var Map = function Map() {
       currentStrFunctionHook = _react_1$useState40[0],
       setCurrentStrFunctionHook = _react_1$useState40[1];
 
-  var _react_1$useState41 = react_1.useState(CallbacksE.double),
+  var _react_1$useState41 = react_1.useState(doubleNum.name),
       _react_1$useState42 = _slicedToArray(_react_1$useState41, 2),
       currentFunctionName = _react_1$useState42[0],
       setCurrentFunctionName = _react_1$useState42[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
@@ -57896,7 +57882,7 @@ var Map = function Map() {
   var changeToDoubleNumber = function changeToDoubleNumber() {
     setCurrentFunctionHook(function () {
       return function (x) {
-        return doubleNumber(x);
+        return doubleNum(x);
       };
     });
     setCurLogicAsString("* 2");
@@ -57908,7 +57894,7 @@ var Map = function Map() {
     // better way to type this?
     setCurrentFunctionHook(function () {
       return function (x) {
-        return halveNumber(x);
+        return halveNum(x);
       };
     });
     setCurLogicAsString("/ 2");
@@ -57919,7 +57905,7 @@ var Map = function Map() {
   var changeToSquare = function changeToSquare() {
     setCurrentFunctionHook(function () {
       return function (x) {
-        return squareNumber(x);
+        return squareNum(x);
       };
     });
     setCurLogicAsString("* num");
@@ -57930,7 +57916,7 @@ var Map = function Map() {
   var changeToTriple = function changeToTriple() {
     setCurrentFunctionHook(function () {
       return function (x) {
-        return tripleNumber(x);
+        return tripleNum(x);
       };
     });
     setCurLogicAsString("* 3");
@@ -57952,7 +57938,7 @@ var Map = function Map() {
     if (inputTypeChoice === inputTypeChoiceE.numbers) {
       setCurrentFunctionHook(function () {
         return function (x) {
-          return doubleNumber(x);
+          return doubleNum(x);
         };
       });
       setCurLogicAsString("* 2");
@@ -57984,13 +57970,13 @@ var Map = function Map() {
   }, [currentFunctionName]);
   react_1.useEffect(function () {
     //update the current callback function here
-    if (currentFunctionName === CallbacksE.double) {
+    if (currentFunctionName === doubleNum.name) {
       changeToDoubleNumber();
-    } else if (currentFunctionName === CallbacksE.halve) {
+    } else if (currentFunctionName === halveNum.name) {
       changeToHalve();
-    } else if (currentFunctionName === CallbacksE.square) {
+    } else if (currentFunctionName === squareNum.name) {
       changeToSquare();
-    } else if (currentFunctionName === CallbacksE.triple) {
+    } else if (currentFunctionName === tripleNum.name) {
       changeToTriple();
     }
   }, [currentFunctionName]);
@@ -58093,6 +58079,7 @@ var Map = function Map() {
     setinputTypeChoice: setinputTypeChoice,
     setCurrentFunctionName: setCurrentFunctionName
   }) : "", inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? React.createElement(numbers_1.default, {
+    numCallBackContainer: numCallBackContainer,
     inputType: inputTypeChoice,
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,

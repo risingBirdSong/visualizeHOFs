@@ -16,9 +16,7 @@ enum CallbacksE {
 interface ChooseInputsCallbacksI {
   setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setinputTypeChoice: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
-  setCurrentFunctionName: React.Dispatch<
-    React.SetStateAction<CallbacksE | undefined>
-  >;
+  setCurrentFunctionName: React.Dispatch<React.SetStateAction<string>>;
   resetting: () => void;
   setShowTextArea: React.Dispatch<React.SetStateAction<boolean>>;
 }

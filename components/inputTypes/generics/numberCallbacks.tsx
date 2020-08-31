@@ -10,8 +10,8 @@ enum CallbacksE {
   "emojiBeHappy" = "emojiBeHappy",
 }
 interface GenericsCallbacksI {
-  updateCallBacks: React.Dispatch<React.SetStateAction<CallbacksE | undefined>>;
-
+  updateCallBacks: React.Dispatch<React.SetStateAction<string>>;
+  numCallBackContainer: ((num: number | string) => number)[];
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
 }
@@ -19,7 +19,22 @@ const NumberCallbacks = (props: GenericsCallbacksI) => {
   return (
     <div>
       <ul className="numberArrayChoices row">
-        <li>
+        {props.numCallBackContainer.map((func, idx) => {
+          return (
+            <li>
+              <button
+                onClick={() => {
+                  props.resetting();
+                  props.updateCallBacks(func.name);
+                }}
+                className={`btn amber waves-effect`}
+              >
+                <span>{func.name} </span>
+              </button>
+            </li>
+          );
+        })}
+        {/* <li>
           <button
             onClick={() => {
               props.resetting();
@@ -62,7 +77,7 @@ const NumberCallbacks = (props: GenericsCallbacksI) => {
           >
             <span>square number</span>
           </button>{" "}
-        </li>
+        </li> */}
       </ul>
     </div>
   );

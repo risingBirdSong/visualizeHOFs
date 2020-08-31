@@ -21,9 +21,10 @@ interface NumbersI {
   setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
   resetting: () => void;
   boolSwitch: boolean;
-  updateCallBacks: React.Dispatch<React.SetStateAction<CallbacksE | undefined>>;
+  updateCallBacks: React.Dispatch<React.SetStateAction<string>>;
   inputType: inputTypeChoiceE;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
+  numCallBackContainer: ((num: number | string) => number)[];
 }
 const Numbers = (props: NumbersI) => {
   const [showArrays, setShowArrays] = useState(false);
