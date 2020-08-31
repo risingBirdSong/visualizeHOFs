@@ -3,7 +3,6 @@ import React from "react";
 interface ExplainerI {
   explainer: boolean;
   setAnimInput: React.Dispatch<React.SetStateAction<boolean>>;
-  showAllButtons: boolean;
   setAnimTarget: React.Dispatch<React.SetStateAction<string>>;
   setfastRefToggler: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -45,9 +44,7 @@ const Explainer = (props: ExplainerI) => {
                 }, 2000);
               }}
             >
-              <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
-                iterate input array
-              </span>
+              <span>iterate input array</span>
             </button>
           </li>
           <li>
@@ -65,9 +62,7 @@ const Explainer = (props: ExplainerI) => {
               }}
               className={`waves-effect purple lighten-2  btn tolowercase`}
             >
-              <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
-                call callback with each element
-              </span>
+              <span>call callback with each element</span>
             </button>
           </li>
           <li>
@@ -86,9 +81,7 @@ const Explainer = (props: ExplainerI) => {
               }}
               className="waves-effect purple lighten-2 btn tolowercase"
             >
-              <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
-                put the returned element into output array.
-              </span>
+              <span>put the returned element into output array.</span>
             </button>
           </li>
         </div>

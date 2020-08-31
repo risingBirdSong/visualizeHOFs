@@ -5,8 +5,6 @@ interface MapMainControlsI {
   algoHasFinished: boolean;
   algoWillReset: boolean;
   setExplainer: React.Dispatch<React.SetStateAction<boolean>>;
-  setshowAllButtons: React.Dispatch<React.SetStateAction<boolean>>;
-  showAllButtons: boolean;
   setShowInputsOptions: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -17,25 +15,12 @@ const MapMainControls = (props: MapMainControlsI) => {
         <li className="z-depth-3">
           <button
             onClick={() => {
-              props.setshowAllButtons(true);
-              setTimeout(() => {
-                props.setshowAllButtons(false);
-              }, 2000);
-            }}
-            className="waves-effect waves-light btn"
-          >
-            <span className={`showButton`}>show main buttons</span>
-          </button>
-        </li>
-        <li className="z-depth-3">
-          <button
-            onClick={() => {
               props.setShowInputsOptions(false);
               props.takeStep(props.algoHasFinished === true ? true : false);
             }}
             className={`waves-effect waves-light btn`}
           >
-            <span className={`${props.showAllButtons ? "showButton" : ""}`}>
+            <span>
               {!props.algoHasStarted && !props.algoHasFinished
                 ? "start"
                 : props.algoWillReset
@@ -64,9 +49,7 @@ const MapMainControls = (props: MapMainControlsI) => {
               props.setShowInputsOptions((prev) => !prev);
             }}
           >
-            <span className={` ${props.showAllButtons ? "showButton" : ""}`}>
-              swap inputs + callbacks (work in progress)
-            </span>
+            <span>swap inputs + callbacks (work in progress)</span>
           </button>
         </li>
       </div>

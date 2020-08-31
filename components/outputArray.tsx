@@ -38,7 +38,7 @@ const OutputArray = (props: OutputArrI) =>
       >
         <h5>
           <span className="blue-text text-darken-3">output :</span>{" "}
-          <span className="amber-text text-accent-3">
+          <span>
             {props.inputTypeChoice === inputTypeChoiceE.numbers
               ? "number[ ]"
               : "string [ ]"}

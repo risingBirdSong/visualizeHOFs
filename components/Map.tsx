@@ -116,7 +116,6 @@ const Map = () => {
   const [explainer, setExplainer] = useState(true);
   const [animInput, setAnimInput] = useState(false);
   const [animTarget, setAnimTarget] = useState("");
-  const [showAllButtons, setshowAllButtons] = useState(false);
   const [fastRefToggler, setfastRefToggler] = useState(false);
   const [showInputsOptions, setShowInputsOptions] = useState(false);
   const [inputTypeChoice, setinputTypeChoice] = useState<inputTypeChoiceE>(
@@ -173,7 +172,6 @@ const Map = () => {
     algoHasFinished: algoHasFinished,
     algoWillReset: algoWillReset,
     animInput: animInput,
-    showAllButtons: showAllButtons,
     animTarget: animTarget,
     fastRefToggler: fastRefToggler,
     showInputsOptions: showInputsOptions,
@@ -198,7 +196,6 @@ const Map = () => {
     setAlgoWillReset: setAlgoWillReset,
     setAnimInput: setAnimInput,
     setExplainer: setExplainer,
-    setshowAllButtons: setshowAllButtons,
     setAnimTarget: setAnimTarget,
     setfastRefToggler: setfastRefToggler,
     setShowInputsOptions: setShowInputsOptions,

@@ -41,7 +41,7 @@ const InputArray = (props: inputArrayI) => {
       >
         <h5>
           <span className="blue-text text-darken-4">input</span> :{" "}
-          <span className="pink-text text-accent-4">
+          <span>
             {props.inputTypeChoice === inputTypeChoiceE.numbers
               ? "number [ ]"
               : "string [ ]"}{" "}
