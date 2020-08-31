@@ -1,15 +1,16 @@
 import React from "react";
 
-enum numberCallbacksE {
+enum CallbacksE {
   "double" = "double",
   "halve" = "halve",
   "square" = "square",
   "triple" = "triple",
+  "toUpper" = "toUpper",
+  "reverse" = "reverse",
+  "emojiBeHappy" = "emojiBeHappy",
 }
 interface GenericsCallbacksI {
-  updateNumberCallBacks: React.Dispatch<
-    React.SetStateAction<numberCallbacksE | undefined>
-  >;
+  updateCallBacks: React.Dispatch<React.SetStateAction<CallbacksE | undefined>>;
 
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
@@ -22,7 +23,7 @@ const GenericCallbacks = (props: GenericsCallbacksI) => {
           <button
             onClick={() => {
               props.resetting();
-              props.updateNumberCallBacks(numberCallbacksE.halve);
+              props.updateCallBacks(CallbacksE.halve);
             }}
             className={`btn amber waves-effect`}
           >
@@ -33,7 +34,7 @@ const GenericCallbacks = (props: GenericsCallbacksI) => {
           <button
             onClick={() => {
               props.resetting();
-              props.updateNumberCallBacks(numberCallbacksE.double);
+              props.updateCallBacks(CallbacksE.double);
             }}
             className={`btn amber waves-effect`}
           >
@@ -44,7 +45,7 @@ const GenericCallbacks = (props: GenericsCallbacksI) => {
           <button
             onClick={() => {
               props.resetting();
-              props.updateNumberCallBacks(numberCallbacksE.triple);
+              props.updateCallBacks(CallbacksE.triple);
             }}
             className={`btn amber waves-effect`}
           >
@@ -55,7 +56,7 @@ const GenericCallbacks = (props: GenericsCallbacksI) => {
           {" "}
           <button
             onClick={() => {
-              props.updateNumberCallBacks(numberCallbacksE.square);
+              props.updateCallBacks(CallbacksE.square);
             }}
             className={`btn amber waves-effect`}
           >

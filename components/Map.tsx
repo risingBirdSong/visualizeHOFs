@@ -52,17 +52,20 @@ enum inputTypeChoiceE {
   "strings" = "strings",
 }
 
-enum numberCallbacksE {
+enum CallbacksE {
   "double" = "double",
   "halve" = "halve",
   "square" = "square",
   "triple" = "triple",
-}
-enum stringCallbacksE {
   "toUpper" = "toUpper",
   "reverse" = "reverse",
   "emojiBeHappy" = "emojiBeHappy",
 }
+// enum stringCallbacksE {
+//   "toUpper" = "toUpper",
+//   "reverse" = "reverse",
+//   "emojiBeHappy" = "emojiBeHappy",
+// }
 enum inputVarTypeE {
   "num" = "num",
   "str" = "str",
@@ -122,21 +125,23 @@ const Map = () => {
   //callback hooks
   //https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
   //learned to store function as hook
-  const [
-    currentFunctionHook,
-    setCurrentFunctionHook,
-  ] = useState(() => (x: number | string) => doubleNumber(x));
+  type numCallBack = (x: number) => number;
+  type strCallBack = (x: string) => string;
+
+  const [currentFunctionHook, setCurrentFunctionHook] = useState<
+    numCallBack | strCallBack
+  >(() => (x: number | string) => doubleNumber(x));
 
   const [
     currentStrFunctionHook,
     setCurrentStrFunctionHook,
   ] = useState(() => (x: string) => toUpper(x));
   const [currentFunctionName, setCurrentFunctionName] = useState<
-    numberCallbacksE
-  >(numberCallbacksE.double);
-  const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
-    stringCallbacksE
-  >();
+    CallbacksE | undefined
+  >(CallbacksE.double);
+  // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
+  //   stringCallbacksE
+  // >();
   const [curLogicAsString, setCurLogicAsString] = useState("* 2");
   const [curInputType, setCurInputType] = useState("number");
   const [curInputVarName, setCurInputVarName] = useState<inputVarTypeE>(
@@ -210,20 +215,20 @@ const Map = () => {
   // setCurInputVarName
 
   const changeToUpper = () => {
-    setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
+    setCurrentFunctionHook(() => (x: string) => toUpper(x));
     setCurLogicAsString(".ToUpperCase()");
     setCurInputType("string");
     setCurInputVarName(inputVarTypeE.str);
   };
 
   const changeToReverse = () => {
-    setCurrentStrFunctionHook(() => (x: string) => reverse(x));
+    setCurrentFunctionHook(() => (x: string) => reverse(x));
     setCurLogicAsString(`.split("").reverse().join("");`);
     setCurInputType("string");
     setCurInputVarName(inputVarTypeE.str);
   };
   const changeToEmoji = () => {
-    setCurrentStrFunctionHook(() => (x: string) => cheerUp(x));
+    setCurrentFunctionHook(() => (x: string) => cheerUp(x));
     setCurLogicAsString(`.cheerUp()`);
     setCurInputType("string");
     setCurInputVarName(inputVarTypeE.str);
@@ -276,9 +281,9 @@ const Map = () => {
       setCurInputVarName(inputVarTypeE.num);
     } else if (
       inputTypeChoice === inputTypeChoiceE.strings &&
-      currentStrFunctionName !== stringCallbacksE.emojiBeHappy
+      currentFunctionName !== CallbacksE.emojiBeHappy
     ) {
-      setCurrentStrFunctionName(stringCallbacksE.toUpper);
+      setCurrentFunctionName(CallbacksE.toUpper);
       setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
       setCurLogicAsString(".ToUpperCase()");
       setCurInputType("string");
@@ -287,24 +292,28 @@ const Map = () => {
   }, [inputTypeChoice]);
 
   useEffect(() => {
-    if (currentStrFunctionName === stringCallbacksE.toUpper) {
+    console.log("mainArray", mainArray);
+  }, [mainArray]);
+
+  useEffect(() => {
+    if (currentFunctionName === CallbacksE.toUpper) {
       changeToUpper();
-    } else if (currentStrFunctionName === stringCallbacksE.emojiBeHappy) {
+    } else if (currentFunctionName === CallbacksE.emojiBeHappy) {
       changeToEmoji();
-    } else if (currentStrFunctionName === stringCallbacksE.reverse) {
+    } else if (currentFunctionName === CallbacksE.reverse) {
       changeToReverse();
     }
-  }, [currentStrFunctionName]);
+  }, [currentFunctionName]);
 
   useEffect(() => {
     //update the current callback function here
-    if (currentFunctionName === numberCallbacksE.double) {
+    if (currentFunctionName === CallbacksE.double) {
       changeToDoubleNumber();
-    } else if (currentFunctionName === numberCallbacksE.halve) {
+    } else if (currentFunctionName === CallbacksE.halve) {
       changeToHalve();
-    } else if (currentFunctionName === numberCallbacksE.square) {
+    } else if (currentFunctionName === CallbacksE.square) {
       changeToSquare();
-    } else if (currentFunctionName === numberCallbacksE.triple) {
+    } else if (currentFunctionName === CallbacksE.triple) {
       changeToTriple();
     }
   }, [currentFunctionName]);
@@ -385,6 +394,7 @@ const Map = () => {
           console.log("currentNumFunctionHook", currentFunctionHook);
 
           let transformed = currentFunctionHook(
+            //@ts-ignore
             stateObj.mainArray[stateObj.curIdx]
           );
           console.log("transformed", transformed);
@@ -421,34 +431,19 @@ const Map = () => {
             setShowTextArea={setShowTextArea}
             resetting={resetting}
             setinputTypeChoice={setinputTypeChoice}
-            setCurrentStrFunctionName={setCurrentStrFunctionName}
+            setCurrentFunctionName={setCurrentFunctionName}
           />
         ) : (
           ""
         )}
-        {stateObj.inputTypeChoice === inputTypeChoiceE.numbers &&
-        showInputsOptions ? (
-          <Generics
-            setType={setinputTypeChoice}
-            setMainArray={setStateObj.setMainArray}
-            resetting={resetting}
-            boolSwitch={showInputsOptions}
-            //@ts-ignore
-            updateNumberCallBacks={setCurrentFunctionName}
-          />
-        ) : (
-          //   : stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
-          //   showInputsOptions &&
-          //   currentStrFunctionName !== stringCallbacksE.emojiBeHappy ? (
-          //   <Strings
-          //     updateStringCallBacks={setCurrentStrFunctionName}
-          //     resetting={resetting}
-          //     setStrings={setStateObj.setMainArray}
-          //     setType={setinputTypeChoice}
-          //   />
-          // )
-          ""
-        )}
+        <Generics
+          setType={setinputTypeChoice}
+          setMainArray={setStateObj.setMainArray}
+          resetting={resetting}
+          boolSwitch={showInputsOptions}
+          //@ts-ignore
+          updateCallBacks={setCurrentFunctionName}
+        />
         {showTextArea && showInputsOptions ? (
           // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
           <div>
@@ -588,28 +583,17 @@ const Map = () => {
           {...setStateObj}
           doubleNumber={doubleNumber}
         /> */}
-        {inputTypeChoice === inputTypeChoiceE.strings ? (
-          // <StringCallback
-          //   {...stateObj}
-          //   {...setStateObj}
-          //   FunctionName={currentStrFunctionName}
-          //   actualCallback={currentStrFunctionHook}
-          //   callbackLogic={curLogicAsString}
-          //   inputType={curInputType}
-          //   inputVarName={curInputVarName}
-          // />
-          ""
-        ) : (
-          <GenericCallback
-            {...stateObj}
-            {...setStateObj}
-            FunctionName={currentFunctionName}
-            actualCallback={currentFunctionHook}
-            callbackLogic={curLogicAsString}
-            inputType={curInputType}
-            inputVarName={curInputVarName}
-          />
-        )}
+
+        <GenericCallback
+          {...stateObj}
+          {...setStateObj}
+          FunctionName={currentFunctionName}
+          actualCallback={currentFunctionHook}
+          callbackLogic={curLogicAsString}
+          inputType={curInputType}
+          inputVarName={curInputVarName}
+        />
+
         <OutputArray {...stateObj} {...setStateObj} />
       </div>
     </div>

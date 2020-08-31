@@ -50,8 +50,10 @@ const InputArray = (props: inputArrayI) => {
         </h5>
       </div>
       <li className={"arrBrkt col s1 bracket"}>[</li>
-      {props.inputTypeChoice === inputTypeChoiceE.numbers
-        ? props.mainArray.map((num, idx) => {
+      {props.inputTypeChoice === inputTypeChoiceE.numbers ||
+      props.inputTypeChoice === inputTypeChoiceE.strings
+        ? props.mainArray.map((val, idx) => {
+            console.log("val", val);
             let currentNumber = (
               <p
                 ref={(ele) => {
@@ -65,7 +67,7 @@ const InputArray = (props: inputArrayI) => {
                 }}
                 className={`num pink lighten-3 z-depth-5`}
               >
-                {num}
+                {val}
               </p>
             );
             return (
@@ -75,7 +77,7 @@ const InputArray = (props: inputArrayI) => {
                 ) : idx === props.curIdx && !props.fastRefToggler ? (
                   currentNumber
                 ) : (
-                  <p className={`num z-depth-3`}>{num}</p>
+                  <p className={`num z-depth-3`}>{val}</p>
                 )}
               </li>
             );

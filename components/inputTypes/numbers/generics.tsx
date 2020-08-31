@@ -3,11 +3,14 @@ import GenericsInputs from "./genericInputs";
 import GenericCallbacks from "./genericCallbacks";
 import { useState } from "react";
 
-enum numberCallbacksE {
+enum CallbacksE {
   "double" = "double",
   "halve" = "halve",
   "square" = "square",
   "triple" = "triple",
+  "toUpper" = "toUpper",
+  "reverse" = "reverse",
+  "emojiBeHappy" = "emojiBeHappy",
 }
 enum inputTypeChoiceE {
   "numbers" = "numbers",
@@ -17,8 +20,8 @@ interface NumbersI {
   setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
   resetting: () => void;
   boolSwitch: boolean;
-  updateNumberCallBacks: React.Dispatch<
-    React.SetStateAction<numberCallbacksE | undefined>
+  updateCallBacks: React.Dispatch<
+    React.SetStateAction<CallbacksE | undefined>
   >;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
 }

@@ -28528,7 +28528,8 @@ var InputArray = function InputArray(props) {
     className: "pink-text text-accent-4"
   }, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number [ ]" : "string [ ]", " "), " ", "=", " ")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "["), props.inputTypeChoice === inputTypeChoiceE.numbers ? props.mainArray.map(function (num, idx) {
+  }, "["), props.inputTypeChoice === inputTypeChoiceE.numbers || props.inputTypeChoice === inputTypeChoiceE.strings ? props.mainArray.map(function (val, idx) {
+    console.log("val", val);
     var currentNumber = react_1.default.createElement("p", {
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
@@ -28544,13 +28545,13 @@ var InputArray = function InputArray(props) {
         }
       },
       className: "num pink lighten-3 z-depth-5"
-    }, num);
+    }, val);
     return react_1.default.createElement("li", {
       className: "col s1",
       key: idx
     }, idx === props.curIdx && props.fastRefToggler ? currentNumber : idx === props.curIdx && !props.fastRefToggler ? currentNumber : react_1.default.createElement("p", {
       className: "num z-depth-3"
-    }, num));
+    }, val));
   }) : "", react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "]"));
@@ -57037,13 +57038,17 @@ var inputTypeChoiceE;
   inputTypeChoiceE["strings"] = "strings";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
-var stringCallbacksE;
+var CallbacksE;
 
-(function (stringCallbacksE) {
-  stringCallbacksE["toUpper"] = "toUpper";
-  stringCallbacksE["reverse"] = "reverse";
-  stringCallbacksE["emojiBeHappy"] = "emojiBeHappy";
-})(stringCallbacksE || (stringCallbacksE = {}));
+(function (CallbacksE) {
+  CallbacksE["double"] = "double";
+  CallbacksE["halve"] = "halve";
+  CallbacksE["square"] = "square";
+  CallbacksE["triple"] = "triple";
+  CallbacksE["toUpper"] = "toUpper";
+  CallbacksE["reverse"] = "reverse";
+  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+})(CallbacksE || (CallbacksE = {}));
 
 var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   return react_1.default.createElement("ul", {
@@ -57057,7 +57062,7 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   }, react_1.default.createElement("span", null, "numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setCurrentStrFunctionName(stringCallbacksE.toUpper);
+      props.setCurrentFunctionName(CallbacksE.toUpper);
       props.setMainArray(["guitar", "drum", "synth", "tuba", "flute"]);
       props.setinputTypeChoice(inputTypeChoiceE.strings);
     },
@@ -57066,7 +57071,7 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
     onClick: function onClick() {
       props.resetting();
       props.setinputTypeChoice(inputTypeChoiceE.strings);
-      props.setCurrentStrFunctionName(stringCallbacksE.emojiBeHappy);
+      props.setCurrentFunctionName(CallbacksE.emojiBeHappy);
       props.setMainArray(["😔", "🙁", "😣", "😫", "😭", "😡", "👿"]);
     },
     className: "waves-effect purple-text amber darken-1 waves-light btn"
@@ -57152,14 +57157,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
-var numberCallbacksE;
+var CallbacksE;
 
-(function (numberCallbacksE) {
-  numberCallbacksE["double"] = "double";
-  numberCallbacksE["halve"] = "halve";
-  numberCallbacksE["square"] = "square";
-  numberCallbacksE["triple"] = "triple";
-})(numberCallbacksE || (numberCallbacksE = {}));
+(function (CallbacksE) {
+  CallbacksE["double"] = "double";
+  CallbacksE["halve"] = "halve";
+  CallbacksE["square"] = "square";
+  CallbacksE["triple"] = "triple";
+  CallbacksE["toUpper"] = "toUpper";
+  CallbacksE["reverse"] = "reverse";
+  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+})(CallbacksE || (CallbacksE = {}));
 
 var GenericCallbacks = function GenericCallbacks(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
@@ -57167,24 +57175,24 @@ var GenericCallbacks = function GenericCallbacks(props) {
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.updateNumberCallBacks(numberCallbacksE.halve);
+      props.updateCallBacks(CallbacksE.halve);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "halve number "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.updateNumberCallBacks(numberCallbacksE.double);
+      props.updateCallBacks(CallbacksE.double);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "double number ")), " "), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.updateNumberCallBacks(numberCallbacksE.triple);
+      props.updateCallBacks(CallbacksE.triple);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "triple number ")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
     onClick: function onClick() {
-      props.updateNumberCallBacks(numberCallbacksE.square);
+      props.updateCallBacks(CallbacksE.square);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "square number")), " ")));
@@ -57224,14 +57232,17 @@ var genericCallbacks_1 = __importDefault(require("./genericCallbacks"));
 
 var react_2 = require("react");
 
-var numberCallbacksE;
+var CallbacksE;
 
-(function (numberCallbacksE) {
-  numberCallbacksE["double"] = "double";
-  numberCallbacksE["halve"] = "halve";
-  numberCallbacksE["square"] = "square";
-  numberCallbacksE["triple"] = "triple";
-})(numberCallbacksE || (numberCallbacksE = {}));
+(function (CallbacksE) {
+  CallbacksE["double"] = "double";
+  CallbacksE["halve"] = "halve";
+  CallbacksE["square"] = "square";
+  CallbacksE["triple"] = "triple";
+  CallbacksE["toUpper"] = "toUpper";
+  CallbacksE["reverse"] = "reverse";
+  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+})(CallbacksE || (CallbacksE = {}));
 
 var inputTypeChoiceE;
 
@@ -57407,22 +57418,22 @@ var inputTypeChoiceE;
   inputTypeChoiceE["strings"] = "strings";
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
-var numberCallbacksE;
+var CallbacksE;
 
-(function (numberCallbacksE) {
-  numberCallbacksE["double"] = "double";
-  numberCallbacksE["halve"] = "halve";
-  numberCallbacksE["square"] = "square";
-  numberCallbacksE["triple"] = "triple";
-})(numberCallbacksE || (numberCallbacksE = {}));
+(function (CallbacksE) {
+  CallbacksE["double"] = "double";
+  CallbacksE["halve"] = "halve";
+  CallbacksE["square"] = "square";
+  CallbacksE["triple"] = "triple";
+  CallbacksE["toUpper"] = "toUpper";
+  CallbacksE["reverse"] = "reverse";
+  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+})(CallbacksE || (CallbacksE = {})); // enum stringCallbacksE {
+//   "toUpper" = "toUpper",
+//   "reverse" = "reverse",
+//   "emojiBeHappy" = "emojiBeHappy",
+// }
 
-var stringCallbacksE;
-
-(function (stringCallbacksE) {
-  stringCallbacksE["toUpper"] = "toUpper";
-  stringCallbacksE["reverse"] = "reverse";
-  stringCallbacksE["emojiBeHappy"] = "emojiBeHappy";
-})(stringCallbacksE || (stringCallbacksE = {}));
 
 var inputVarTypeE;
 
@@ -57567,10 +57578,7 @@ var Map = function Map() {
   var _react_1$useState37 = react_1.useState(inputTypeChoiceE.numbers),
       _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
       inputTypeChoice = _react_1$useState38[0],
-      setinputTypeChoice = _react_1$useState38[1]; //callback hooks
-  //https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
-  //learned to store function as hook
-
+      setinputTypeChoice = _react_1$useState38[1];
 
   var _react_1$useState39 = react_1.useState(function () {
     return function (x) {
@@ -57590,67 +57598,65 @@ var Map = function Map() {
       currentStrFunctionHook = _react_1$useState42[0],
       setCurrentStrFunctionHook = _react_1$useState42[1];
 
-  var _react_1$useState43 = react_1.useState(numberCallbacksE.double),
+  var _react_1$useState43 = react_1.useState(CallbacksE.double),
       _react_1$useState44 = _slicedToArray(_react_1$useState43, 2),
       currentFunctionName = _react_1$useState44[0],
-      setCurrentFunctionName = _react_1$useState44[1];
+      setCurrentFunctionName = _react_1$useState44[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
+  //   stringCallbacksE
+  // >();
 
-  var _react_1$useState45 = react_1.useState(),
+
+  var _react_1$useState45 = react_1.useState("* 2"),
       _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
-      currentStrFunctionName = _react_1$useState46[0],
-      setCurrentStrFunctionName = _react_1$useState46[1];
+      curLogicAsString = _react_1$useState46[0],
+      setCurLogicAsString = _react_1$useState46[1];
 
-  var _react_1$useState47 = react_1.useState("* 2"),
+  var _react_1$useState47 = react_1.useState("number"),
       _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
-      curLogicAsString = _react_1$useState48[0],
-      setCurLogicAsString = _react_1$useState48[1];
+      curInputType = _react_1$useState48[0],
+      setCurInputType = _react_1$useState48[1];
 
-  var _react_1$useState49 = react_1.useState("number"),
+  var _react_1$useState49 = react_1.useState(inputVarTypeE.num),
       _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
-      curInputType = _react_1$useState50[0],
-      setCurInputType = _react_1$useState50[1];
-
-  var _react_1$useState51 = react_1.useState(inputVarTypeE.num),
-      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
-      curInputVarName = _react_1$useState52[0],
-      setCurInputVarName = _react_1$useState52[1]; //custom logic
+      curInputVarName = _react_1$useState50[0],
+      setCurInputVarName = _react_1$useState50[1]; //custom logic
   //needed?
 
 
-  var _react_1$useState53 = react_1.useState(false),
+  var _react_1$useState51 = react_1.useState(false),
+      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
+      showTextArea = _react_1$useState52[0],
+      setShowTextArea = _react_1$useState52[1];
+
+  var _react_1$useState53 = react_1.useState(["1", "2", "3"]),
       _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
-      showTextArea = _react_1$useState54[0],
-      setShowTextArea = _react_1$useState54[1];
+      customArray = _react_1$useState54[0],
+      setCustomArray = _react_1$useState54[1];
 
-  var _react_1$useState55 = react_1.useState(["1", "2", "3"]),
+  var _react_1$useState55 = react_1.useState("addOne"),
       _react_1$useState56 = _slicedToArray(_react_1$useState55, 2),
-      customArray = _react_1$useState56[0],
-      setCustomArray = _react_1$useState56[1];
+      customFunctionName = _react_1$useState56[0],
+      setcustomFunctionName = _react_1$useState56[1];
 
-  var _react_1$useState57 = react_1.useState("addOne"),
+  var _react_1$useState57 = react_1.useState("return num + 1;"),
       _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
-      customFunctionName = _react_1$useState58[0],
-      setcustomFunctionName = _react_1$useState58[1];
+      customFunction = _react_1$useState58[0],
+      setCustomFunction = _react_1$useState58[1];
 
-  var _react_1$useState59 = react_1.useState("return num + 1;"),
+  var _react_1$useState59 = react_1.useState("+ 1"),
       _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
-      customFunction = _react_1$useState60[0],
-      setCustomFunction = _react_1$useState60[1];
+      customFunctionBody = _react_1$useState60[0],
+      setcustomFunctionBody = _react_1$useState60[1];
 
-  var _react_1$useState61 = react_1.useState("+ 1"),
+  var _react_1$useState61 = react_1.useState("number"),
       _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
-      customFunctionBody = _react_1$useState62[0],
-      setcustomFunctionBody = _react_1$useState62[1];
+      customFuncInputType = _react_1$useState62[0],
+      setcustomFuncInputType = _react_1$useState62[1];
 
-  var _react_1$useState63 = react_1.useState("number"),
+  var _react_1$useState63 = react_1.useState("num"),
       _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
-      customFuncInputType = _react_1$useState64[0],
-      setcustomFuncInputType = _react_1$useState64[1];
-
-  var _react_1$useState65 = react_1.useState("num"),
-      _react_1$useState66 = _slicedToArray(_react_1$useState65, 2),
-      customFuncInputVarName = _react_1$useState66[0],
-      setcustomFuncInputVarName = _react_1$useState66[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      customFuncInputVarName = _react_1$useState64[0],
+      setcustomFuncInputVarName = _react_1$useState64[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -57705,7 +57711,7 @@ var Map = function Map() {
   // setCurInputVarName
 
   var changeToUpper = function changeToUpper() {
-    setCurrentStrFunctionHook(function () {
+    setCurrentFunctionHook(function () {
       return function (x) {
         return toUpper(x);
       };
@@ -57716,7 +57722,7 @@ var Map = function Map() {
   };
 
   var changeToReverse = function changeToReverse() {
-    setCurrentStrFunctionHook(function () {
+    setCurrentFunctionHook(function () {
       return function (x) {
         return reverse(x);
       };
@@ -57727,7 +57733,7 @@ var Map = function Map() {
   };
 
   var changeToEmoji = function changeToEmoji() {
-    setCurrentStrFunctionHook(function () {
+    setCurrentFunctionHook(function () {
       return function (x) {
         return cheerUp(x);
       };
@@ -57802,8 +57808,8 @@ var Map = function Map() {
       setCurLogicAsString("* 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
-    } else if (inputTypeChoice === inputTypeChoiceE.strings && currentStrFunctionName !== stringCallbacksE.emojiBeHappy) {
-      setCurrentStrFunctionName(stringCallbacksE.toUpper);
+    } else if (inputTypeChoice === inputTypeChoiceE.strings && currentFunctionName !== CallbacksE.emojiBeHappy) {
+      setCurrentFunctionName(CallbacksE.toUpper);
       setCurrentStrFunctionHook(function () {
         return function (x) {
           return toUpper(x);
@@ -57815,23 +57821,26 @@ var Map = function Map() {
     }
   }, [inputTypeChoice]);
   react_1.useEffect(function () {
-    if (currentStrFunctionName === stringCallbacksE.toUpper) {
+    console.log("mainArray", mainArray);
+  }, [mainArray]);
+  react_1.useEffect(function () {
+    if (currentFunctionName === CallbacksE.toUpper) {
       changeToUpper();
-    } else if (currentStrFunctionName === stringCallbacksE.emojiBeHappy) {
+    } else if (currentFunctionName === CallbacksE.emojiBeHappy) {
       changeToEmoji();
-    } else if (currentStrFunctionName === stringCallbacksE.reverse) {
+    } else if (currentFunctionName === CallbacksE.reverse) {
       changeToReverse();
     }
-  }, [currentStrFunctionName]);
+  }, [currentFunctionName]);
   react_1.useEffect(function () {
     //update the current callback function here
-    if (currentFunctionName === numberCallbacksE.double) {
+    if (currentFunctionName === CallbacksE.double) {
       changeToDoubleNumber();
-    } else if (currentFunctionName === numberCallbacksE.halve) {
+    } else if (currentFunctionName === CallbacksE.halve) {
       changeToHalve();
-    } else if (currentFunctionName === numberCallbacksE.square) {
+    } else if (currentFunctionName === CallbacksE.square) {
       changeToSquare();
-    } else if (currentFunctionName === numberCallbacksE.triple) {
+    } else if (currentFunctionName === CallbacksE.triple) {
       changeToTriple();
     }
   }, [currentFunctionName]);
@@ -57898,7 +57907,8 @@ var Map = function Map() {
 
 
             console.log("currentNumFunctionHook", currentFunctionHook);
-            var transformed = currentFunctionHook(stateObj.mainArray[stateObj.curIdx]);
+            var transformed = currentFunctionHook( //@ts-ignore
+            stateObj.mainArray[stateObj.curIdx]);
             console.log("transformed", transformed);
             copy.push(transformed);
             setStateObj.setOutputArray(copy);
@@ -57931,25 +57941,15 @@ var Map = function Map() {
     setShowTextArea: setShowTextArea,
     resetting: resetting,
     setinputTypeChoice: setinputTypeChoice,
-    setCurrentStrFunctionName: setCurrentStrFunctionName
-  }) : "", stateObj.inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? React.createElement(generics_1.default, {
+    setCurrentFunctionName: setCurrentFunctionName
+  }) : "", React.createElement(generics_1.default, {
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,
     resetting: resetting,
     boolSwitch: showInputsOptions,
     //@ts-ignore
-    updateNumberCallBacks: setCurrentFunctionName
-  }) : //   : stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
-  //   showInputsOptions &&
-  //   currentStrFunctionName !== stringCallbacksE.emojiBeHappy ? (
-  //   <Strings
-  //     updateStringCallBacks={setCurrentStrFunctionName}
-  //     resetting={resetting}
-  //     setStrings={setStateObj.setMainArray}
-  //     setType={setinputTypeChoice}
-  //   />
-  // )
-  "", showTextArea && showInputsOptions ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
+    updateCallBacks: setCurrentFunctionName
+  }), showTextArea && showInputsOptions ? // https://stackoverflow.com/questions/36073656/element-with-higher-z-index-value-not-overlaying-another
   React.createElement("div", null, React.createElement("div", null, React.createElement("label", null, " ", "all the prefilled values are examples, and will work if you click submit"), React.createElement("div", {
     style: {
       border: "1px solid black",
@@ -58032,16 +58032,7 @@ var Map = function Map() {
     className: "waves-effect waves-light amber btn"
   }, "submit function"))))) : "", React.createElement(explainer_1.default, Object.assign({
     explainer: explainer
-  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), inputTypeChoice === inputTypeChoiceE.strings ? // <StringCallback
-  //   {...stateObj}
-  //   {...setStateObj}
-  //   FunctionName={currentStrFunctionName}
-  //   actualCallback={currentStrFunctionHook}
-  //   callbackLogic={curLogicAsString}
-  //   inputType={curInputType}
-  //   inputVarName={curInputVarName}
-  // />
-  "" : React.createElement(genericCallback_1.default, Object.assign({}, stateObj, setStateObj, {
+  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(genericCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentFunctionName,
     actualCallback: currentFunctionHook,
     callbackLogic: curLogicAsString,
@@ -58195,7 +58186,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53395" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54143" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

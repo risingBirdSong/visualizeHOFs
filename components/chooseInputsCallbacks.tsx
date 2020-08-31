@@ -4,17 +4,20 @@ enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
 }
-enum stringCallbacksE {
+enum CallbacksE {
+  "double" = "double",
+  "halve" = "halve",
+  "square" = "square",
+  "triple" = "triple",
   "toUpper" = "toUpper",
   "reverse" = "reverse",
   "emojiBeHappy" = "emojiBeHappy",
 }
-
 interface ChooseInputsCallbacksI {
   setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setinputTypeChoice: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
-  setCurrentStrFunctionName: React.Dispatch<
-    React.SetStateAction<stringCallbacksE | undefined>
+  setCurrentFunctionName: React.Dispatch<
+    React.SetStateAction<CallbacksE | undefined>
   >;
   resetting: () => void;
   setShowTextArea: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,7 +41,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
         <button
           onClick={() => {
             props.resetting();
-            props.setCurrentStrFunctionName(stringCallbacksE.toUpper);
+            props.setCurrentFunctionName(CallbacksE.toUpper);
             props.setMainArray(["guitar", "drum", "synth", "tuba", "flute"]);
             props.setinputTypeChoice(inputTypeChoiceE.strings);
           }}
@@ -52,7 +55,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
           onClick={() => {
             props.resetting();
             props.setinputTypeChoice(inputTypeChoiceE.strings);
-            props.setCurrentStrFunctionName(stringCallbacksE.emojiBeHappy);
+            props.setCurrentFunctionName(CallbacksE.emojiBeHappy);
             props.setMainArray(["😔", "🙁", "😣", "😫", "😭", "😡", "👿"]);
           }}
           className={`waves-effect purple-text amber darken-1 waves-light btn`}
