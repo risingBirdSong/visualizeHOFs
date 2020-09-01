@@ -1,6 +1,8 @@
 import * as React from "react";
-import Map from "./components/Map";
+import { useState } from "react";
+import HOF from "./components/Hof";
 const App = () => {
+  let [shown, setShown] = useState(<HOF hofType={"MAP"} />);
   return (
     <main className="container">
       <nav>
@@ -11,18 +13,30 @@ const App = () => {
           <li>
             <a>Further Reading</a>
           </li>
-          <li className="active">
-            <a>Map</a>
+          <li>
+            <a
+              onClick={() => {
+                setShown(<HOF hofType={"MAP"} />);
+              }}
+            >
+              Map
+            </a>
           </li>
           <li>
-            <a>Filter</a>
+            <a
+              onClick={() => {
+                setShown(<HOF hofType={"FILTER"} />);
+              }}
+            >
+              Filter
+            </a>
           </li>
           <li>
             <a>Reduce</a>
           </li>
         </ul>
       </nav>
-      <Map />
+      {shown}
     </main>
   );
 };

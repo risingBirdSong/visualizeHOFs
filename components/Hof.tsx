@@ -89,8 +89,13 @@ let emojiObj = {
   "👿": "😇",
 };
 
-const Map = () => {
+export interface HofOption {
+  hofType: "MAP" | "FILTER" | "REDUCE";
+}
+
+const HOF = (props: HofOption) => {
   //state hooks
+
   const inputEl = useRef(null);
   const [mainArray, setMainArray] = useState<(number | string)[]>([2, 4, 6, 8]);
 
@@ -605,7 +610,12 @@ const Map = () => {
         ) : (
           ""
         )}
-        <Explainer explainer={explainer} {...stateObj} {...setStateObj} />
+        <Explainer
+          hof={props.hofType}
+          explainer={explainer}
+          {...stateObj}
+          {...setStateObj}
+        />
         <InputArray {...stateObj} {...setStateObj} />
         {/* <DefualtCallback
           {...stateObj}
@@ -629,4 +639,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default HOF;

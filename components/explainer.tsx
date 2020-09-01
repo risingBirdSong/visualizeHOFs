@@ -1,10 +1,12 @@
 import React from "react";
+type HofType = "MAP" | "FILTER" | "REDUCE";
 
 interface ExplainerI {
   explainer: boolean;
   setAnimInput: React.Dispatch<React.SetStateAction<boolean>>;
   setAnimTarget: React.Dispatch<React.SetStateAction<string>>;
   setfastRefToggler: React.Dispatch<React.SetStateAction<boolean>>;
+  hof: HofType;
 }
 
 const Explainer = (props: ExplainerI) => {
@@ -27,7 +29,8 @@ const Explainer = (props: ExplainerI) => {
       style={{ padding: "10px", marginBottom: "15px", borderRadius: "5px" }}
     >
       <h5 className="amber-text center-align">
-        the .map method boils down to 3 basic steps
+        the {props.hof === "MAP" ? ".map" : ".filter"} method boils down to 3
+        basic steps
       </h5>
       <ul className={`explainList row`}>
         <div style={{ display: "flex" }}>

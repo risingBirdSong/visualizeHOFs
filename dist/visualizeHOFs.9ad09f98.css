@@ -1,3 +1,8 @@
+nav {
+  position: relative;
+  z-index: 2;
+}
+
 .row {
   display: flex;
   align-self: center;
@@ -112,8 +117,8 @@ form {
 
 @keyframes stepperglow {
   50% {
-    box-shadow: 1px 1px 4px teal, -1px -1px 4px teal, 1px -1px 4px teal,
-      -1px 1px 4px teal;
+    box-shadow: 1px 1px 2px teal, -1px -1px 2px teal, 1px -1px 2px teal,
+      -1px 1px 2px teal;
   }
 }
 

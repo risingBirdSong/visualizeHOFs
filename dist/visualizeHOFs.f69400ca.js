@@ -56944,7 +56944,7 @@ var Explainer = function Explainer(props) {
     }
   }, react_1.default.createElement("h5", {
     className: "amber-text center-align"
-  }, "the .map method boils down to 3 basic steps"), react_1.default.createElement("ul", {
+  }, "the ", props.hof === "MAP" ? ".map" : ".filter", " method boils down to 3 basic steps"), react_1.default.createElement("ul", {
     className: "explainList row"
   }, react_1.default.createElement("div", {
     style: {
@@ -57423,7 +57423,7 @@ var Strings = function Strings(props) {
 };
 
 exports.default = Strings;
-},{"react":"node_modules/react/index.js","../strings/stringInputs":"components/inputTypes/strings/stringInputs.tsx","./stringCallbacks":"components/inputTypes/generics/stringCallbacks.tsx"}],"components/Map.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../strings/stringInputs":"components/inputTypes/strings/stringInputs.tsx","./stringCallbacks":"components/inputTypes/generics/stringCallbacks.tsx"}],"components/Hof.tsx":[function(require,module,exports) {
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -57602,7 +57602,7 @@ var emojiObj = {
   "👿": "😇"
 };
 
-var Map = function Map() {
+var HOF = function HOF(props) {
   //state hooks
   var inputEl = react_1.useRef(null);
 
@@ -58182,6 +58182,7 @@ var Map = function Map() {
     },
     className: "waves-effect waves-light amber btn"
   }, "submit function"))))) : "", React.createElement(explainer_1.default, Object.assign({
+    hof: props.hofType,
     explainer: explainer
   }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(genericCallback_1.default, Object.assign({}, stateObj, setStateObj, {
     FunctionName: currentFunctionName,
@@ -58192,9 +58193,21 @@ var Map = function Map() {
   })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))));
 };
 
-exports.default = Map;
+exports.default = HOF;
 },{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
@@ -58242,20 +58255,39 @@ Object.defineProperty(exports, "__esModule", {
 
 var React = __importStar(require("react"));
 
-var Map_1 = __importDefault(require("./components/Map"));
+var react_1 = require("react");
+
+var Hof_1 = __importDefault(require("./components/Hof"));
 
 var App = function App() {
+  var _react_1$useState = react_1.useState(React.createElement(Hof_1.default, {
+    hofType: "MAP"
+  })),
+      _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
+      shown = _react_1$useState2[0],
+      setShown = _react_1$useState2[1];
+
   return React.createElement("main", {
     className: "container"
   }, React.createElement("nav", null, React.createElement("ul", {
     className: "row z-depth-2"
-  }, React.createElement("li", null, React.createElement("a", null, "About")), React.createElement("li", null, React.createElement("a", null, "Further Reading")), React.createElement("li", {
-    className: "active"
-  }, React.createElement("a", null, "Map")), React.createElement("li", null, React.createElement("a", null, "Filter")), React.createElement("li", null, React.createElement("a", null, "Reduce")))), React.createElement(Map_1.default, null));
+  }, React.createElement("li", null, React.createElement("a", null, "About")), React.createElement("li", null, React.createElement("a", null, "Further Reading")), React.createElement("li", null, React.createElement("a", {
+    onClick: function onClick() {
+      setShown(React.createElement(Hof_1.default, {
+        hofType: "MAP"
+      }));
+    }
+  }, "Map")), React.createElement("li", null, React.createElement("a", {
+    onClick: function onClick() {
+      setShown(React.createElement(Hof_1.default, {
+        hofType: "FILTER"
+      }));
+    }
+  }, "Filter")), React.createElement("li", null, React.createElement("a", null, "Reduce")))), shown);
 };
 
 exports.default = App;
-},{"react":"node_modules/react/index.js","./components/Map":"components/Map.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/Hof":"components/Hof.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
