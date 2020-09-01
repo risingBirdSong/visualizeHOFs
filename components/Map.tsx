@@ -30,13 +30,6 @@ const squareNum = (num: number | string): number => {
   return Number(num) * Number(num);
 };
 
-const numCallBackContainer: ((num: number | string) => number)[] = [
-  halveNum,
-  doubleNum,
-  tripleNum,
-  squareNum,
-];
-
 //string functions
 const toUpper = (str: number | string): string => {
   return String(str).toLocaleUpperCase();
@@ -100,14 +93,7 @@ const Map = () => {
   //state hooks
   const inputEl = useRef(null);
   const [mainArray, setMainArray] = useState<(number | string)[]>([2, 4, 6, 8]);
-  // const [strs, setStrs] = useState<string[]>([
-  //   "guitar",
-  //   "drum",
-  //   "synth",
-  //   "tuba",
-  //   "flute",
-  // ]);
-  // const [emojis, setEmojis] = useState<any[]>([&#129409;, &#129409;])
+
   const [algoHasStarted, setAlgoHasStarted] = useState(true);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
   const [algoWillReset, setAlgoWillReset] = useState(false);
@@ -129,6 +115,21 @@ const Map = () => {
   const [inputTypeChoice, setinputTypeChoice] = useState<inputTypeChoiceE>(
     inputTypeChoiceE.numbers
   );
+
+  const [numCallBackContainer, setNumCallBackContainer] = useState([
+    halveNum,
+    doubleNum,
+    tripleNum,
+    squareNum,
+  ]);
+
+  const addNumCallBackToContainer = (
+    func: (num: number | string) => number
+  ): void => {
+    let copyNumContainer = [...numCallBackContainer];
+    copyNumContainer.push(func);
+    setNumCallBackContainer(copyNumContainer);
+  };
   //callback hooks
   //https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
   //learned to store function as hook
@@ -390,14 +391,6 @@ const Map = () => {
       ) {
         if (stateObj.mainArray[stateObj.curIdx]) {
           let copy = [...stateObj.outputArray];
-          //changed from hard coded function to currentFunction
-
-          //here here
-          // console.log("funct", Function(customFunction));
-          // console.log("4", Function(customFunction)(4));
-          // console.log("7", Function(customFunction)(7));
-          console.log("currentNumFunctionHook", currentFunctionHook);
-
           let transformed = currentFunctionHook(
             //@ts-ignore
             stateObj.mainArray[stateObj.curIdx]
@@ -433,7 +426,7 @@ const Map = () => {
         {showInputsOptions ? (
           <ChooseInputsCallbacks
             setMainArray={setMainArray}
-            setShowTextArea={setShowTextArea}
+            setShowWriteCustomFunc={setShowTextArea}
             resetting={resetting}
             setinputTypeChoice={setinputTypeChoice}
             setCurrentFunctionName={setCurrentFunctionName}
@@ -480,35 +473,51 @@ const Map = () => {
                   margin: "8px",
                 }}
               >
+                {/* TODO break this out */}
                 <form>
                   <div>
                     <label>
                       array {"->"} write as comma separated numbers, like 1,2,3
-                      (currently number array only)
                     </label>
                     <input
                       onChange={(e) => {
                         console.log("e", e.target.value);
                         let strArray = e.target.value.split(",");
                         setCustomArray(strArray);
+                        console.log("custom array", customArray);
                       }}
-                      //@ts-ignore TODO
                       value={customArray}
                     ></input>
                   </div>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      let toNums = customArray
-                        .filter((str) => {
-                          let tryNum = Number(str);
-                          if (isNaN(tryNum)) {
-                            return false;
-                          } else return true;
+                      if (
+                        customArray.every((val) => {
+                          let candidate = Number(val);
+                          if (
+                            typeof candidate === "number" &&
+                            !isNaN(candidate)
+                          ) {
+                            return true;
+                          } else return false;
                         })
-                        .map((x) => Number(x));
-                      setMainArray(toNums);
-                      setCustomArray(["1", "2", "3"]);
+                      ) {
+                        let toNums = customArray
+                          .filter((str) => {
+                            let tryNum = Number(str);
+                            if (isNaN(tryNum)) {
+                              return false;
+                            } else return true;
+                          })
+                          .map((x) => Number(x));
+                        setMainArray(toNums);
+                        setCustomArray(["1", "2", "3"]);
+                      } else {
+                        // let str = ""
+                        setMainArray(customArray);
+                        setCustomArray(["1", "2", "3"]);
+                      }
                     }}
                     className="waves-effect waves-light amber btn"
                   >
@@ -525,7 +534,6 @@ const Map = () => {
                 }}
               >
                 <form>
-                  {/* here here */}
                   <label>function name : (please use camel case)</label>
                   <input
                     onChange={(e) => {
@@ -533,6 +541,9 @@ const Map = () => {
                     }}
                     value={customFunctionName}
                   ></input>
+                  {/* <p>testing ...</p>
+            
+                  <p>... testing</p> */}
                   <label>
                     function input variable name (limited to one at the moment)
                   </label>
@@ -572,7 +583,6 @@ const Map = () => {
                     onClick={(e) => {
                       e.preventDefault();
                       setCurrentFunctionName(customFunctionName);
-
                       try {
                         let b = () => (x: any) =>
                           Function(customFuncInputVarName, customFunction)(x);

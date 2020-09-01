@@ -53,7 +53,6 @@ const InputArray = (props: inputArrayI) => {
       {props.inputTypeChoice === inputTypeChoiceE.numbers ||
       props.inputTypeChoice === inputTypeChoiceE.strings
         ? props.mainArray.map((val, idx) => {
-            console.log("val", val);
             let currentNumber = (
               <p
                 ref={(ele) => {

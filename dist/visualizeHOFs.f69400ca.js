@@ -28511,7 +28511,6 @@ var InputArray = function InputArray(props) {
   }, "input"), " :", " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number [ ]" : "string [ ]", " "), " ", "=", " ")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.inputTypeChoice === inputTypeChoiceE.numbers || props.inputTypeChoice === inputTypeChoiceE.strings ? props.mainArray.map(function (val, idx) {
-    console.log("val", val);
     var currentNumber = react_1.default.createElement("p", {
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
@@ -57053,7 +57052,7 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
     className: "waves-effect purple-text amber darken-1 waves-light btn"
   }, "emoji")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
-      props.setShowTextArea(function (prev) {
+      props.setShowWriteCustomFunc(function (prev) {
         return !prev;
       });
     },
@@ -57529,9 +57528,8 @@ var tripleNum = function tripleNum(num) {
 
 var squareNum = function squareNum(num) {
   return Number(num) * Number(num);
-};
+}; //string functions
 
-var numCallBackContainer = [halveNum, doubleNum, tripleNum, squareNum]; //string functions
 
 var toUpper = function toUpper(str) {
   return String(str).toLocaleUpperCase();
@@ -57611,15 +57609,7 @@ var Map = function Map() {
   var _react_1$useState = react_1.useState([2, 4, 6, 8]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       mainArray = _react_1$useState2[0],
-      setMainArray = _react_1$useState2[1]; // const [strs, setStrs] = useState<string[]>([
-  //   "guitar",
-  //   "drum",
-  //   "synth",
-  //   "tuba",
-  //   "flute",
-  // ]);
-  // const [emojis, setEmojis] = useState<any[]>([&#129409;, &#129409;])
-
+      setMainArray = _react_1$useState2[1];
 
   var _react_1$useState3 = react_1.useState(true),
       _react_1$useState4 = _slicedToArray(_react_1$useState3, 2),
@@ -57718,83 +57708,95 @@ var Map = function Map() {
       inputTypeChoice = _react_1$useState36[0],
       setinputTypeChoice = _react_1$useState36[1];
 
-  var _react_1$useState37 = react_1.useState(function () {
+  var _react_1$useState37 = react_1.useState([halveNum, doubleNum, tripleNum, squareNum]),
+      _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
+      numCallBackContainer = _react_1$useState38[0],
+      setNumCallBackContainer = _react_1$useState38[1];
+
+  var addNumCallBackToContainer = function addNumCallBackToContainer(func) {
+    var copyNumContainer = _toConsumableArray(numCallBackContainer);
+
+    copyNumContainer.push(func);
+    setNumCallBackContainer(copyNumContainer);
+  };
+
+  var _react_1$useState39 = react_1.useState(function () {
     return function (x) {
       return doubleNum(x);
     };
   }),
-      _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
-      currentFunctionHook = _react_1$useState38[0],
-      setCurrentFunctionHook = _react_1$useState38[1];
+      _react_1$useState40 = _slicedToArray(_react_1$useState39, 2),
+      currentFunctionHook = _react_1$useState40[0],
+      setCurrentFunctionHook = _react_1$useState40[1];
 
-  var _react_1$useState39 = react_1.useState(function () {
+  var _react_1$useState41 = react_1.useState(function () {
     return function (x) {
       return toUpper(x);
     };
   }),
-      _react_1$useState40 = _slicedToArray(_react_1$useState39, 2),
-      currentStrFunctionHook = _react_1$useState40[0],
-      setCurrentStrFunctionHook = _react_1$useState40[1];
-
-  var _react_1$useState41 = react_1.useState(doubleNum.name),
       _react_1$useState42 = _slicedToArray(_react_1$useState41, 2),
-      currentFunctionName = _react_1$useState42[0],
-      setCurrentFunctionName = _react_1$useState42[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
+      currentStrFunctionHook = _react_1$useState42[0],
+      setCurrentStrFunctionHook = _react_1$useState42[1];
+
+  var _react_1$useState43 = react_1.useState(doubleNum.name),
+      _react_1$useState44 = _slicedToArray(_react_1$useState43, 2),
+      currentFunctionName = _react_1$useState44[0],
+      setCurrentFunctionName = _react_1$useState44[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
   //   stringCallbacksE
   // >();
 
 
-  var _react_1$useState43 = react_1.useState("* 2"),
-      _react_1$useState44 = _slicedToArray(_react_1$useState43, 2),
-      curLogicAsString = _react_1$useState44[0],
-      setCurLogicAsString = _react_1$useState44[1];
-
-  var _react_1$useState45 = react_1.useState("number"),
+  var _react_1$useState45 = react_1.useState("* 2"),
       _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
-      curInputType = _react_1$useState46[0],
-      setCurInputType = _react_1$useState46[1];
+      curLogicAsString = _react_1$useState46[0],
+      setCurLogicAsString = _react_1$useState46[1];
 
-  var _react_1$useState47 = react_1.useState(inputVarTypeE.num),
+  var _react_1$useState47 = react_1.useState("number"),
       _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
-      curInputVarName = _react_1$useState48[0],
-      setCurInputVarName = _react_1$useState48[1]; //custom logic
+      curInputType = _react_1$useState48[0],
+      setCurInputType = _react_1$useState48[1];
+
+  var _react_1$useState49 = react_1.useState(inputVarTypeE.num),
+      _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
+      curInputVarName = _react_1$useState50[0],
+      setCurInputVarName = _react_1$useState50[1]; //custom logic
   //needed?
 
 
-  var _react_1$useState49 = react_1.useState(false),
-      _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
-      showTextArea = _react_1$useState50[0],
-      setShowTextArea = _react_1$useState50[1];
-
-  var _react_1$useState51 = react_1.useState(["1", "2", "3"]),
+  var _react_1$useState51 = react_1.useState(false),
       _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
-      customArray = _react_1$useState52[0],
-      setCustomArray = _react_1$useState52[1];
+      showTextArea = _react_1$useState52[0],
+      setShowTextArea = _react_1$useState52[1];
 
-  var _react_1$useState53 = react_1.useState("addOne"),
+  var _react_1$useState53 = react_1.useState(["1", "2", "3"]),
       _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
-      customFunctionName = _react_1$useState54[0],
-      setcustomFunctionName = _react_1$useState54[1];
+      customArray = _react_1$useState54[0],
+      setCustomArray = _react_1$useState54[1];
 
-  var _react_1$useState55 = react_1.useState("return num + 1;"),
+  var _react_1$useState55 = react_1.useState("addOne"),
       _react_1$useState56 = _slicedToArray(_react_1$useState55, 2),
-      customFunction = _react_1$useState56[0],
-      setCustomFunction = _react_1$useState56[1];
+      customFunctionName = _react_1$useState56[0],
+      setcustomFunctionName = _react_1$useState56[1];
 
-  var _react_1$useState57 = react_1.useState("+ 1"),
+  var _react_1$useState57 = react_1.useState("return num + 1;"),
       _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
-      customFunctionBody = _react_1$useState58[0],
-      setcustomFunctionBody = _react_1$useState58[1];
+      customFunction = _react_1$useState58[0],
+      setCustomFunction = _react_1$useState58[1];
 
-  var _react_1$useState59 = react_1.useState("number"),
+  var _react_1$useState59 = react_1.useState("+ 1"),
       _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
-      customFuncInputType = _react_1$useState60[0],
-      setcustomFuncInputType = _react_1$useState60[1];
+      customFunctionBody = _react_1$useState60[0],
+      setcustomFunctionBody = _react_1$useState60[1];
 
-  var _react_1$useState61 = react_1.useState("num"),
+  var _react_1$useState61 = react_1.useState("number"),
       _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
-      customFuncInputVarName = _react_1$useState62[0],
-      setcustomFuncInputVarName = _react_1$useState62[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      customFuncInputType = _react_1$useState62[0],
+      setcustomFuncInputType = _react_1$useState62[1];
+
+  var _react_1$useState63 = react_1.useState("num"),
+      _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
+      customFuncInputVarName = _react_1$useState64[0],
+      setcustomFuncInputVarName = _react_1$useState64[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -58035,14 +58037,8 @@ var Map = function Map() {
         // a little silly, but still figuring this out TODO change later
         if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers || stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
           if (stateObj.mainArray[stateObj.curIdx]) {
-            var copy = _toConsumableArray(stateObj.outputArray); //changed from hard coded function to currentFunction
-            //here here
-            // console.log("funct", Function(customFunction));
-            // console.log("4", Function(customFunction)(4));
-            // console.log("7", Function(customFunction)(7));
+            var copy = _toConsumableArray(stateObj.outputArray);
 
-
-            console.log("currentNumFunctionHook", currentFunctionHook);
             var transformed = currentFunctionHook( //@ts-ignore
             stateObj.mainArray[stateObj.curIdx]);
             console.log("transformed", transformed);
@@ -58074,7 +58070,7 @@ var Map = function Map() {
     takeStep: takeStep
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
     setMainArray: setMainArray,
-    setShowTextArea: setShowTextArea,
+    setShowWriteCustomFunc: setShowTextArea,
     resetting: resetting,
     setinputTypeChoice: setinputTypeChoice,
     setCurrentFunctionName: setCurrentFunctionName
@@ -58099,28 +58095,41 @@ var Map = function Map() {
       padding: "8px",
       margin: "8px"
     }
-  }, React.createElement("form", null, React.createElement("div", null, React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 1,2,3 (currently number array only)"), React.createElement("input", {
+  }, React.createElement("form", null, React.createElement("div", null, React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 1,2,3"), React.createElement("input", {
     onChange: function onChange(e) {
       console.log("e", e.target.value);
       var strArray = e.target.value.split(",");
       setCustomArray(strArray);
+      console.log("custom array", customArray);
     },
-    //@ts-ignore TODO
     value: customArray
   })), React.createElement("button", {
     onClick: function onClick(e) {
       e.preventDefault();
-      var toNums = customArray.filter(function (str) {
-        var tryNum = Number(str);
 
-        if (isNaN(tryNum)) {
-          return false;
-        } else return true;
-      }).map(function (x) {
-        return Number(x);
-      });
-      setMainArray(toNums);
-      setCustomArray(["1", "2", "3"]);
+      if (customArray.every(function (val) {
+        var candidate = Number(val);
+
+        if (typeof candidate === "number" && !isNaN(candidate)) {
+          return true;
+        } else return false;
+      })) {
+        var toNums = customArray.filter(function (str) {
+          var tryNum = Number(str);
+
+          if (isNaN(tryNum)) {
+            return false;
+          } else return true;
+        }).map(function (x) {
+          return Number(x);
+        });
+        setMainArray(toNums);
+        setCustomArray(["1", "2", "3"]);
+      } else {
+        // let str = ""
+        setMainArray(customArray);
+        setCustomArray(["1", "2", "3"]);
+      }
     },
     className: "waves-effect waves-light amber btn"
   }, "submit array"))), React.createElement("div", {

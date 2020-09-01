@@ -18,7 +18,7 @@ interface ChooseInputsCallbacksI {
   setinputTypeChoice: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
   setCurrentFunctionName: React.Dispatch<React.SetStateAction<string>>;
   resetting: () => void;
-  setShowTextArea: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowWriteCustomFunc: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
@@ -66,7 +66,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
       <li>
         <button
           onClick={() => {
-            props.setShowTextArea((prev) => !prev);
+            props.setShowWriteCustomFunc((prev) => !prev);
           }}
           className={`waves-effect purple-text amber darken-1 waves-light btn`}
         >
