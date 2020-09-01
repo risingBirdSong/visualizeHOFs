@@ -10,15 +10,15 @@ interface MapMainControlsI {
 
 const MapMainControls = (props: MapMainControlsI) => {
   return (
-    <ul className="row">
+    <ul className="row buttonul">
       <div style={{ display: "flex", flex: "row" }}>
-        <li className="z-depth-3">
+        <li className="z-depth-3 stepper">
           <button
             onClick={() => {
               props.setShowInputsOptions(false);
               props.takeStep(props.algoHasFinished === true ? true : false);
             }}
-            className={`waves-effect waves-light btn`}
+            className={`waves-effect waves-light stepper btn`}
           >
             <span>
               {!props.algoHasStarted && !props.algoHasFinished

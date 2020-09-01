@@ -28303,20 +28303,20 @@ var react_1 = __importDefault(require("react"));
 
 var MapMainControls = function MapMainControls(props) {
   return react_1.default.createElement("ul", {
-    className: "row"
+    className: "row buttonul"
   }, react_1.default.createElement("div", {
     style: {
       display: "flex",
       flex: "row"
     }
   }, react_1.default.createElement("li", {
-    className: "z-depth-3"
+    className: "z-depth-3 stepper"
   }, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.setShowInputsOptions(false);
       props.takeStep(props.algoHasFinished === true ? true : false);
     },
-    className: "waves-effect waves-light btn"
+    className: "waves-effect waves-light stepper btn"
   }, react_1.default.createElement("span", null, !props.algoHasStarted && !props.algoHasFinished ? "start" : props.algoWillReset ? "restart" : "step"))), react_1.default.createElement("li", {
     className: "z-depth-3"
   }, react_1.default.createElement("button", {
@@ -58337,7 +58337,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55750" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63754" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

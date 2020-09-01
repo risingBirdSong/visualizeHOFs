@@ -105,3 +105,20 @@ form {
   position: relative;
   /* z-index: 10; */
 }
+
+.buttonul li {
+  margin: 4px;
+}
+
+@keyframes stepperglow {
+  50% {
+    box-shadow: 1px 1px 4px teal, -1px -1px 4px teal, 1px -1px 4px teal,
+      -1px 1px 4px teal;
+  }
+}
+
+.stepper {
+  animation-name: stepperglow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
