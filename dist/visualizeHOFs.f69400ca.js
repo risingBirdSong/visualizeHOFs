@@ -56957,13 +56957,13 @@ var KonvaLayer = function KonvaLayer(props) {
     fill: "blue"
   })) : props.currentTask === currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === false ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
-    points: [props.outputCoords.x + 5, props.outputCoords.y - 10, props.outputCoords.x - 20, props.outputCoords.y - 20, props.trashCoords.x, props.trashCoords.y, props.trashCoords.x, props.trashCoords.y],
+    points: [props.outputCoords.x + 5, props.outputCoords.y - 10, props.outputCoords.x - 20, props.outputCoords.y - 20, props.trashCoords.x + 13, props.trashCoords.y - 8, props.trashCoords.x + 19, props.trashCoords.y - 12],
     bezier: true
   }), react_1.default.createElement(react_konva_1.Wedge, {
-    x: props.trashCoords.x + 3,
-    y: props.trashCoords.y - 3,
+    x: props.trashCoords.x + 15,
+    y: props.trashCoords.y - 2,
     angle: 60,
-    rotation: -130,
+    rotation: -110,
     radius: 14,
     fill: "blue"
   })) : null) : null));
@@ -57011,9 +57011,11 @@ var Explainer = function Explainer(props) {
       marginBottom: "15px",
       borderRadius: "5px"
     }
-  }, react_1.default.createElement("h5", {
+  }, props.hof === "FILTER" ? react_1.default.createElement("h6", {
     className: "amber-text center-align"
-  }, "the ", props.hof === "MAP" ? ".map" : ".filter", " method boils down to 3 basic steps"), react_1.default.createElement("ul", {
+  }, ".filter uses a callback function to either accept a value (return true) or reject a value (return false)") : "", react_1.default.createElement("h5", {
+    className: "amber-text center-align"
+  }, props.hof === "MAP" ? "the .map method " : "it", " boils down to", " ", props.hof === "MAP" ? "3 " : "4 ", "basic steps"), react_1.default.createElement("ul", {
     className: "explainList row"
   }, react_1.default.createElement("div", {
     style: {
@@ -57041,7 +57043,18 @@ var Explainer = function Explainer(props) {
       }, 2000);
     },
     className: "waves-effect purple lighten-2  btn tolowercase"
-  }, react_1.default.createElement("span", null, "call callback with each element"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, react_1.default.createElement("span", null, "call callback with element"))), props.hof === "FILTER" ? react_1.default.createElement("li", null, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      fastToggler();
+      props.setAnimInput(true);
+      props.setAnimTarget("trashCanAnimate");
+      setTimeout(function () {
+        props.setAnimInput(false);
+        props.setAnimTarget("");
+      }, 2000);
+    },
+    className: "waves-effect purple lighten-2  btn tolowercase"
+  }, react_1.default.createElement("span", null, "reject values"))) : "", react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       fastToggler();
       props.setAnimInput(true);
@@ -57052,7 +57065,7 @@ var Explainer = function Explainer(props) {
       }, 2000);
     },
     className: "waves-effect purple lighten-2 btn tolowercase"
-  }, react_1.default.createElement("span", null, "put the returned element into output array.")))))) : //to keep TS happy
+  }, props.hof === "MAP" ? react_1.default.createElement("span", null, "put the returned element into output array.") : props.hof === "FILTER" ? react_1.default.createElement("span", null, " accept values ") : ""))))) : //to keep TS happy
   react_1.default.createElement("p", null, "\"\"");
 };
 
@@ -58345,7 +58358,9 @@ var HOF = function HOF(props) {
     inputVarName: curInputVarName
   })), React.createElement(outputArray_1.default, Object.assign({
     typeHof: props.hofType
-  }, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("p", null, "trash can |", React.createElement("span", {
+  }, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("p", {
+    className: "".concat(animTarget === "trashCanAnimate" ? "trashCanAnimate" : "")
+  }, "trash can", React.createElement("span", {
     ref: function ref(ele) {
       var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
       var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; // console.log("hof type", props.hofType);
@@ -58360,7 +58375,7 @@ var HOF = function HOF(props) {
         }
       }
     }
-  }, "_"), "|") : ""));
+  }, "\uD83D\uDDD1\uFE0F")) : ""));
 };
 
 exports.default = HOF;

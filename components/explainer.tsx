@@ -28,8 +28,17 @@ const Explainer = (props: ExplainerI) => {
       className="explanation blue lighten-1 z-depth-2 "
       style={{ padding: "10px", marginBottom: "15px", borderRadius: "5px" }}
     >
+      {props.hof === "FILTER" ? (
+        <h6 className="amber-text center-align">
+          .filter uses a callback function to either accept a value (return
+          true) or reject a value (return false)
+        </h6>
+      ) : (
+        ""
+      )}
       <h5 className="amber-text center-align">
-        the {props.hof === "MAP" ? ".map" : ".filter"} method boils down to 3
+        {props.hof === "MAP" ? "the .map method " : "it"} boils down to{" "}
+        {props.hof === "MAP" ? "3 " : "4 "}
         basic steps
       </h5>
       <ul className={`explainList row`}>
@@ -65,9 +74,31 @@ const Explainer = (props: ExplainerI) => {
               }}
               className={`waves-effect purple lighten-2  btn tolowercase`}
             >
-              <span>call callback with each element</span>
+              <span>call callback with element</span>
             </button>
           </li>
+          {props.hof === "FILTER" ? (
+            <li>
+              <button
+                onClick={() => {
+                  fastToggler();
+
+                  props.setAnimInput(true);
+                  props.setAnimTarget("trashCanAnimate");
+                  setTimeout(() => {
+                    props.setAnimInput(false);
+
+                    props.setAnimTarget("");
+                  }, 2000);
+                }}
+                className={`waves-effect purple lighten-2  btn tolowercase`}
+              >
+                <span>reject values</span>
+              </button>
+            </li>
+          ) : (
+            ""
+          )}
           <li>
             <button
               onClick={() => {
@@ -84,7 +115,13 @@ const Explainer = (props: ExplainerI) => {
               }}
               className="waves-effect purple lighten-2 btn tolowercase"
             >
-              <span>put the returned element into output array.</span>
+              {props.hof === "MAP" ? (
+                <span>put the returned element into output array.</span>
+              ) : props.hof === "FILTER" ? (
+                <span> accept values </span>
+              ) : (
+                ""
+              )}
             </button>
           </li>
         </div>

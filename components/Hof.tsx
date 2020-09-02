@@ -735,8 +735,12 @@ const HOF = (props: HofOption) => {
 
         <OutputArray typeHof={props.hofType} {...stateObj} {...setStateObj} />
         {props.hofType === "FILTER" ? (
-          <p>
-            trash can |
+          <p
+            className={`${
+              animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
+            }`}
+          >
+            trash can
             <span
               ref={(ele) => {
                 let trashX = ele?.getBoundingClientRect().x;
@@ -751,9 +755,8 @@ const HOF = (props: HofOption) => {
                 }
               }}
             >
-              _
+              🗑️
             </span>
-            |
           </p>
         ) : (
           ""
