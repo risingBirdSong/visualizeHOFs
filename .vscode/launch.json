@@ -5,11 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "chrome",
+      "type": "edge",
       "request": "launch",
-      "name": "Launch Chrome against localhost",
-      "url": "http://localhost:8080",
-      "webRoot": "${workspaceFolder}"
+      "name": "Launch against localhost",
+      "url": "http://localhost:1234",
+      "webRoot": "${workspaceFolder}",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "../*": "${webRoot}/*"
+      }
     }
   ]
 }

@@ -4,6 +4,7 @@ export interface coordsI {
   x: number;
   y: number;
 }
+type hofType = "MAP" | "FILTER" | "REDUCE";
 
 enum inputTypeChoiceE {
   "numbers" = "numbers",
@@ -23,6 +24,7 @@ interface OutputArrI {
   algoWillReset: boolean;
   animTarget: string;
   fastRefToggler: boolean;
+  typeHof: hofType;
 }
 const OutputArray = (props: OutputArrI) =>
   props.algoHasStarted && !props.algoHasFinished ? (
@@ -48,13 +50,24 @@ const OutputArray = (props: OutputArrI) =>
       </div>
       <li className={`arrBrkt col s1 bracket`}>[</li>
       {props.outputArray.map((num, idx) => {
+        console.log("num", num);
+
         let outputted = (
           <p
             className={`num amber lighten-1 z-depth-5`}
             ref={(ele) => {
               let x = ele?.getBoundingClientRect().x;
               let y = ele?.getBoundingClientRect().y;
-              if (x && y && x !== props.curOutputNumCoords.x) {
+              console.log("x ---- ", x);
+              console.log("y ---- ", y);
+              //yeah this only hits on map, not filter, why is that?
+              // props.setCurOutputNumCoords({ x: x || 5, y: y || 5 });
+              if (
+                x &&
+                y &&
+                x !== props.curOutputNumCoords.x &&
+                y !== props.curOutputNumCoords.y
+              ) {
                 props.setCurOutputNumCoords({ x, y });
               }
             }}
@@ -62,6 +75,13 @@ const OutputArray = (props: OutputArrI) =>
             {num}
           </p>
         );
+        if (props.typeHof === "FILTER") {
+          return (
+            <li className={"col s1"} key={idx}>
+              {outputted}
+            </li>
+          );
+        }
         return (
           <li className={"col s1"} key={idx}>
             {idx === props.curIdx && props.fastRefToggler ? (

@@ -137,7 +137,10 @@ const HOF = (props: HofOption) => {
   const [curIdx, setCurIdx] = useState(-1);
   const [outputArray, setOutputArray] = useState<(number | string)[]>([]);
   const [curNumCoords, setCurNumCoords] = useState({ x: 0, y: 0 });
-  const [curOutputNumCoords, setCurOutputNumCoords] = useState({ x: 0, y: 0 });
+  const [curOutputNumCoords, setCurOutputNumCoords] = useState({
+    x: 1,
+    y: 1,
+  });
   const [inputCoords, setInputCoords] = useState({ x: 0, y: 0 });
   const [outputCoords, setOutPutCoords] = useState({ x: 0, y: 0 });
   const [currentTask, setCurrentTask] = useState<currentTaskE>(
@@ -721,7 +724,7 @@ const HOF = (props: HofOption) => {
           inputVarName={curInputVarName}
         />
 
-        <OutputArray {...stateObj} {...setStateObj} />
+        <OutputArray typeHof={props.hofType} {...stateObj} {...setStateObj} />
         {props.hofType === "FILTER" ? (
           <p>
             trash can |
@@ -729,8 +732,8 @@ const HOF = (props: HofOption) => {
               ref={(ele) => {
                 let trashX = ele?.getBoundingClientRect().x;
                 let trashY = ele?.getBoundingClientRect().y;
-                console.log("hof type", props.hofType);
-                console.log("trash x", trashX, "trash y", trashY);
+                // console.log("hof type", props.hofType);
+                // console.log("trash x", trashX, "trash y", trashY);
 
                 if (trashX && trashY) {
                   if (curTrashCoords.x !== trashX) {

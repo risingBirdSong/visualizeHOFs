@@ -28580,13 +28580,17 @@ var OutputArray = function OutputArray(props) {
   }, "output :"), " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number[ ]" : "string [ ]"), " ", "=")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.outputArray.map(function (num, idx) {
+    console.log("num", num);
     var outputted = react_1.default.createElement("p", {
       className: "num amber lighten-1 z-depth-5",
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+        console.log("x ---- ", x);
+        console.log("y ---- ", y); //yeah this only hits on map, not filter, why is that?
+        // props.setCurOutputNumCoords({ x: x || 5, y: y || 5 });
 
-        if (x && y && x !== props.curOutputNumCoords.x) {
+        if (x && y && x !== props.curOutputNumCoords.x && y !== props.curOutputNumCoords.y) {
           props.setCurOutputNumCoords({
             x: x,
             y: y
@@ -28594,6 +28598,14 @@ var OutputArray = function OutputArray(props) {
         }
       }
     }, num);
+
+    if (props.typeHof === "FILTER") {
+      return react_1.default.createElement("li", {
+        className: "col s1",
+        key: idx
+      }, outputted);
+    }
+
     return react_1.default.createElement("li", {
       className: "col s1",
       key: idx
@@ -56871,6 +56883,9 @@ var currentTaskE;
 })(currentTaskE || (currentTaskE = {}));
 
 var KonvaLayer = function KonvaLayer(props) {
+  //why is this resetting to zero for filter?
+  console.log("curOutputNumCoords", props.curOutputNumCoords); // console.log("outputCoords", props.outputCoords);
+
   return react_1.default.createElement("div", null, react_1.default.createElement(react_konva_1.Stage, {
     width: window.innerWidth - 100,
     height: window.innerHeight,
@@ -57702,8 +57717,8 @@ var HOF = function HOF(props) {
       setCurNumCoords = _react_1$useState16[1];
 
   var _react_1$useState17 = react_1.useState({
-    x: 0,
-    y: 0
+    x: 1,
+    y: 1
   }),
       _react_1$useState18 = _slicedToArray(_react_1$useState17, 2),
       curOutputNumCoords = _react_1$useState18[0],
@@ -58302,12 +58317,13 @@ var HOF = function HOF(props) {
     callbackLogic: curLogicAsString,
     inputType: curInputType,
     inputVarName: curInputVarName
-  })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("p", null, "trash can |", React.createElement("span", {
+  })), React.createElement(outputArray_1.default, Object.assign({
+    typeHof: props.hofType
+  }, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("p", null, "trash can |", React.createElement("span", {
     ref: function ref(ele) {
       var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-      console.log("hof type", props.hofType);
-      console.log("trash x", trashX, "trash y", trashY);
+      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; // console.log("hof type", props.hofType);
+      // console.log("trash x", trashX, "trash y", trashY);
 
       if (trashX && trashY) {
         if (curTrashCoords.x !== trashX) {
@@ -58497,7 +58513,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63754" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50868" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

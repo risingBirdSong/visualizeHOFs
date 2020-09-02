@@ -27,6 +27,10 @@ interface KonvaLayerI {
 }
 
 const KonvaLayer = (props: KonvaLayerI) => {
+  //why is this resetting to zero for filter?
+  console.log("curOutputNumCoords", props.curOutputNumCoords);
+  // console.log("outputCoords", props.outputCoords);
+
   return (
     <div>
       <Stage
