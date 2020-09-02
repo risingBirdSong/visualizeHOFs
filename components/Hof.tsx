@@ -15,7 +15,25 @@ import Numbers from "./inputTypes/generics/numbers";
 import Strings from "./inputTypes/generics/strings";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
-//number functions
+//filter functions
+
+const isEven = (num: number): boolean => {
+  return num % 2 === 0 ? true : false;
+};
+
+const isPrime = (num: number): boolean => {
+  for (let i = 2; num > i; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+  return num > 1;
+};
+
+const lessThan10 = (num: number): boolean => {
+  return num < 10;
+};
+//number functions map
 const halveNum = (num: number | string): number => {
   return Number(num) / 2;
 };
@@ -92,12 +110,25 @@ let emojiObj = {
 export interface HofOption {
   hofType: "MAP" | "FILTER" | "REDUCE";
 }
+interface coordsI {
+  x: number;
+  y: number;
+}
 
 const HOF = (props: HofOption) => {
   //state hooks
 
   const inputEl = useRef(null);
-  const [mainArray, setMainArray] = useState<(number | string)[]>([2, 4, 6, 8]);
+  const [mainArray, setMainArray] = useState<(number | string)[]>([
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+  ]);
 
   const [algoHasStarted, setAlgoHasStarted] = useState(true);
   const [algoHasFinished, setAlgoHasFinished] = useState(false);
@@ -120,8 +151,17 @@ const HOF = (props: HofOption) => {
   const [inputTypeChoice, setinputTypeChoice] = useState<inputTypeChoiceE>(
     inputTypeChoiceE.numbers
   );
+  //filtering
+  const [curTrashCoords, setCurTrashCoords] = useState({ x: 0, y: 0 });
+  const [filterStatus, setfilterStatus] = useState(false);
 
-  const [numCallBackContainer, setNumCallBackContainer] = useState([
+  const [numFilterCallBack, setnumFilterCallBack] = useState([
+    isEven,
+    isPrime,
+    lessThan10,
+  ]);
+
+  const [numMapCallBackContainer, setNumMapCallBackContainer] = useState([
     halveNum,
     doubleNum,
     tripleNum,
@@ -131,18 +171,21 @@ const HOF = (props: HofOption) => {
   const addNumCallBackToContainer = (
     func: (num: number | string) => number
   ): void => {
-    let copyNumContainer = [...numCallBackContainer];
+    let copyNumContainer = [...numMapCallBackContainer];
     copyNumContainer.push(func);
-    setNumCallBackContainer(copyNumContainer);
+    setNumMapCallBackContainer(copyNumContainer);
   };
   //callback hooks
   //https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
   //learned to store function as hook
-  type numCallBack = (x: number) => number;
-  type strCallBack = (x: string) => string;
+  //map types
+  type numMapCallBack = (x: number) => number;
+  type strMapCallBack = (x: string) => string;
+  //filter types
+  type numFilterCallBack = (x: number) => boolean;
 
   const [currentFunctionHook, setCurrentFunctionHook] = useState<
-    numCallBack | strCallBack
+    numMapCallBack | strMapCallBack | numFilterCallBack
   >(() => (x: number | string) => doubleNum(x));
 
   const [
@@ -225,6 +268,8 @@ const HOF = (props: HofOption) => {
   // setCurInputType
   // setCurInputVarName
 
+  //change to map
+
   const changeToUpper = () => {
     setCurrentFunctionHook(() => (x: string) => toUpper(x));
     setCurLogicAsString(".ToUpperCase()");
@@ -274,6 +319,15 @@ const HOF = (props: HofOption) => {
     setCurInputVarName(inputVarTypeE.num);
   };
 
+  // change to filter
+
+  const changeToIsEven = () => {
+    setCurrentFunctionHook(() => (x: number) => isEven(x));
+    setCurLogicAsString("% 2 === 0");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
   const resetting = () => {
     setAlgoWillReset(true);
     setStepNumber(0);
@@ -283,7 +337,15 @@ const HOF = (props: HofOption) => {
   };
 
   useEffect(() => {
-    console.log("input type choice", inputTypeChoice);
+    console.log("hof", props.hofType);
+    if (props.hofType === "MAP") {
+      setCurrentFunctionName(doubleNum.name);
+    } else if (props.hofType === "FILTER") {
+      setCurrentFunctionName("isEven");
+    }
+  }, [props.hofType]);
+
+  useEffect(() => {
     // unexpected toggling
     if (inputTypeChoice === inputTypeChoiceE.numbers) {
       setCurrentFunctionHook(() => (x: number | string) => doubleNum(x));
@@ -306,6 +368,7 @@ const HOF = (props: HofOption) => {
     console.log("mainArray", mainArray);
   }, [mainArray]);
 
+  //strings
   useEffect(() => {
     if (currentFunctionName === CallbacksE.toUpper) {
       changeToUpper();
@@ -316,8 +379,10 @@ const HOF = (props: HofOption) => {
     }
   }, [currentFunctionName]);
 
+  //numbers
   useEffect(() => {
     //update the current callback function here
+    //map
     if (currentFunctionName === doubleNum.name) {
       changeToDoubleNumber();
     } else if (currentFunctionName === halveNum.name) {
@@ -326,6 +391,10 @@ const HOF = (props: HofOption) => {
       changeToSquare();
     } else if (currentFunctionName === tripleNum.name) {
       changeToTriple();
+    }
+    // filter
+    else if (currentFunctionName === isEven.name) {
+      changeToIsEven();
     }
   }, [currentFunctionName]);
 
@@ -401,8 +470,21 @@ const HOF = (props: HofOption) => {
             stateObj.mainArray[stateObj.curIdx]
           );
           console.log("transformed", transformed);
-
-          copy.push(transformed);
+          //filtering
+          if (transformed === true) {
+            setfilterStatus(true);
+            copy.push(stateObj.mainArray[stateObj.curIdx]);
+          } else if (transformed === false) {
+            console.log(
+              "going to the trash",
+              stateObj.mainArray[stateObj.curIdx],
+              "coords",
+              curTrashCoords
+            );
+            setfilterStatus(false);
+          } else {
+            copy.push(transformed);
+          }
           setStateObj.setOutputArray(copy);
           setStateObj.setCurrentTask(currentTaskE.output);
         }
@@ -425,7 +507,13 @@ const HOF = (props: HofOption) => {
   return (
     <div className="allApp">
       <div className="foundation">
-        <KonvaLayer {...stateObj} {...setStateObj} />
+        <KonvaLayer
+          typeHof={props.hofType}
+          filterStatus={filterStatus}
+          trashCoords={curTrashCoords}
+          {...stateObj}
+          {...setStateObj}
+        />
 
         <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
         {showInputsOptions ? (
@@ -441,7 +529,7 @@ const HOF = (props: HofOption) => {
         )}
         {inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? (
           <Numbers
-            numCallBackContainer={numCallBackContainer}
+            numCallBackContainer={numMapCallBackContainer}
             inputType={inputTypeChoice}
             setType={setinputTypeChoice}
             setMainArray={setStateObj.setMainArray}
@@ -634,6 +722,30 @@ const HOF = (props: HofOption) => {
         />
 
         <OutputArray {...stateObj} {...setStateObj} />
+        {props.hofType === "FILTER" ? (
+          <p>
+            trash can |
+            <span
+              ref={(ele) => {
+                let trashX = ele?.getBoundingClientRect().x;
+                let trashY = ele?.getBoundingClientRect().y;
+                console.log("hof type", props.hofType);
+                console.log("trash x", trashX, "trash y", trashY);
+
+                if (trashX && trashY) {
+                  if (curTrashCoords.x !== trashX) {
+                    setCurTrashCoords({ x: trashX, y: trashY });
+                  }
+                }
+              }}
+            >
+              _
+            </span>
+            |
+          </p>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

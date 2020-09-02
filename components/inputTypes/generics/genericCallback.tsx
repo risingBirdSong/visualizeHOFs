@@ -28,6 +28,7 @@ enum stringCallbacks {
 
 type numFunc = (num: number) => number;
 type strFunc = (str: string) => string;
+type numFilterCallBack = (x: number) => boolean;
 
 interface genericCallbackI {
   FunctionName: string | undefined;
@@ -47,7 +48,7 @@ interface genericCallbackI {
   outputCoords: coordsI;
   animInput: boolean;
   animTarget: string;
-  actualCallback: numFunc | strFunc;
+  actualCallback: numFunc | strFunc | numFilterCallBack;
   fastRefToggler: boolean;
 }
 

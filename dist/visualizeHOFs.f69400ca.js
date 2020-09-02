@@ -56875,7 +56875,7 @@ var KonvaLayer = function KonvaLayer(props) {
     width: window.innerWidth - 100,
     height: window.innerHeight,
     className: "overlay"
-  }, props.curIdx < props.mainArray.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+  }, props.curIdx < props.mainArray.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input && props.typeHof === "MAP" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "blue",
     points: [props.curNumCoords.x + 18, props.curNumCoords.y + 22, props.curNumCoords.x + 4, props.curNumCoords.y + 50, props.inputCoords.x - 10, props.inputCoords.y - 30, props.inputCoords.x, props.inputCoords.y - 3],
     bezier: true
@@ -56886,13 +56886,46 @@ var KonvaLayer = function KonvaLayer(props) {
     rotation: -140,
     radius: 14,
     fill: "blue"
-  })) : props.currentTask === currentTaskE.output ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+  })) : props.currentTask === currentTaskE.output && props.typeHof === "MAP" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
     points: [props.curOutputNumCoords.x + 5, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
     bezier: true
   }), react_1.default.createElement(react_konva_1.Wedge, {
     x: props.curOutputNumCoords.x + 3,
     y: props.curOutputNumCoords.y - 3,
+    angle: 60,
+    rotation: -130,
+    radius: 14,
+    fill: "blue"
+  })) : props.currentTask === currentTaskE.input && props.typeHof === "FILTER" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+    stroke: "blue",
+    points: [props.curNumCoords.x + 18, props.curNumCoords.y + 22, props.curNumCoords.x + 4, props.curNumCoords.y + 50, props.inputCoords.x - 10, props.inputCoords.y - 30, props.inputCoords.x, props.inputCoords.y - 3],
+    bezier: true
+  }), react_1.default.createElement(react_konva_1.Wedge, {
+    x: props.inputCoords.x + 2,
+    y: props.inputCoords.y + 2,
+    angle: 60,
+    rotation: -140,
+    radius: 14,
+    fill: "blue"
+  })) : props.currentTask === currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === true ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+    stroke: "purple",
+    points: [props.curOutputNumCoords.x + 5, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
+    bezier: true
+  }), react_1.default.createElement(react_konva_1.Wedge, {
+    x: props.curOutputNumCoords.x + 3,
+    y: props.curOutputNumCoords.y - 3,
+    angle: 60,
+    rotation: -130,
+    radius: 14,
+    fill: "blue"
+  })) : props.currentTask === currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === false ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+    stroke: "purple",
+    points: [props.outputCoords.x + 5, props.outputCoords.y - 10, props.outputCoords.x - 20, props.outputCoords.y - 20, props.trashCoords.x, props.trashCoords.y, props.trashCoords.x, props.trashCoords.y],
+    bezier: true
+  }), react_1.default.createElement(react_konva_1.Wedge, {
+    x: props.trashCoords.x + 3,
+    y: props.trashCoords.y - 3,
     angle: 60,
     rotation: -130,
     radius: 14,
@@ -57511,7 +57544,26 @@ var chooseInputsCallbacks_1 = __importDefault(require("./chooseInputsCallbacks")
 var numbers_1 = __importDefault(require("./inputTypes/generics/numbers"));
 
 var strings_1 = __importDefault(require("./inputTypes/generics/strings")); // import { Ellipse } from "konva/types/shapes/Ellipse";
-//number functions
+//filter functions
+
+
+var isEven = function isEven(num) {
+  return num % 2 === 0 ? true : false;
+};
+
+var isPrime = function isPrime(num) {
+  for (var i = 2; num > i; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+
+  return num > 1;
+};
+
+var lessThan10 = function lessThan10(num) {
+  return num < 10;
+}; //number functions map
 
 
 var halveNum = function halveNum(num) {
@@ -57606,7 +57658,7 @@ var HOF = function HOF(props) {
   //state hooks
   var inputEl = react_1.useRef(null);
 
-  var _react_1$useState = react_1.useState([2, 4, 6, 8]),
+  var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       mainArray = _react_1$useState2[0],
       setMainArray = _react_1$useState2[1];
@@ -57706,97 +57758,116 @@ var HOF = function HOF(props) {
   var _react_1$useState35 = react_1.useState(inputTypeChoiceE.numbers),
       _react_1$useState36 = _slicedToArray(_react_1$useState35, 2),
       inputTypeChoice = _react_1$useState36[0],
-      setinputTypeChoice = _react_1$useState36[1];
+      setinputTypeChoice = _react_1$useState36[1]; //filtering
 
-  var _react_1$useState37 = react_1.useState([halveNum, doubleNum, tripleNum, squareNum]),
+
+  var _react_1$useState37 = react_1.useState({
+    x: 0,
+    y: 0
+  }),
       _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
-      numCallBackContainer = _react_1$useState38[0],
-      setNumCallBackContainer = _react_1$useState38[1];
+      curTrashCoords = _react_1$useState38[0],
+      setCurTrashCoords = _react_1$useState38[1];
+
+  var _react_1$useState39 = react_1.useState(false),
+      _react_1$useState40 = _slicedToArray(_react_1$useState39, 2),
+      filterStatus = _react_1$useState40[0],
+      setfilterStatus = _react_1$useState40[1];
+
+  var _react_1$useState41 = react_1.useState([isEven, isPrime, lessThan10]),
+      _react_1$useState42 = _slicedToArray(_react_1$useState41, 2),
+      numFilterCallBack = _react_1$useState42[0],
+      setnumFilterCallBack = _react_1$useState42[1];
+
+  var _react_1$useState43 = react_1.useState([halveNum, doubleNum, tripleNum, squareNum]),
+      _react_1$useState44 = _slicedToArray(_react_1$useState43, 2),
+      numMapCallBackContainer = _react_1$useState44[0],
+      setNumMapCallBackContainer = _react_1$useState44[1];
 
   var addNumCallBackToContainer = function addNumCallBackToContainer(func) {
-    var copyNumContainer = _toConsumableArray(numCallBackContainer);
+    var copyNumContainer = _toConsumableArray(numMapCallBackContainer);
 
     copyNumContainer.push(func);
-    setNumCallBackContainer(copyNumContainer);
+    setNumMapCallBackContainer(copyNumContainer);
   };
 
-  var _react_1$useState39 = react_1.useState(function () {
+  var _react_1$useState45 = react_1.useState(function () {
     return function (x) {
       return doubleNum(x);
     };
   }),
-      _react_1$useState40 = _slicedToArray(_react_1$useState39, 2),
-      currentFunctionHook = _react_1$useState40[0],
-      setCurrentFunctionHook = _react_1$useState40[1];
+      _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
+      currentFunctionHook = _react_1$useState46[0],
+      setCurrentFunctionHook = _react_1$useState46[1];
 
-  var _react_1$useState41 = react_1.useState(function () {
+  var _react_1$useState47 = react_1.useState(function () {
     return function (x) {
       return toUpper(x);
     };
   }),
-      _react_1$useState42 = _slicedToArray(_react_1$useState41, 2),
-      currentStrFunctionHook = _react_1$useState42[0],
-      setCurrentStrFunctionHook = _react_1$useState42[1];
+      _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
+      currentStrFunctionHook = _react_1$useState48[0],
+      setCurrentStrFunctionHook = _react_1$useState48[1];
 
-  var _react_1$useState43 = react_1.useState(doubleNum.name),
-      _react_1$useState44 = _slicedToArray(_react_1$useState43, 2),
-      currentFunctionName = _react_1$useState44[0],
-      setCurrentFunctionName = _react_1$useState44[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
+  var _react_1$useState49 = react_1.useState(doubleNum.name),
+      _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
+      currentFunctionName = _react_1$useState50[0],
+      setCurrentFunctionName = _react_1$useState50[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
   //   stringCallbacksE
   // >();
 
 
-  var _react_1$useState45 = react_1.useState("* 2"),
-      _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
-      curLogicAsString = _react_1$useState46[0],
-      setCurLogicAsString = _react_1$useState46[1];
+  var _react_1$useState51 = react_1.useState("* 2"),
+      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
+      curLogicAsString = _react_1$useState52[0],
+      setCurLogicAsString = _react_1$useState52[1];
 
-  var _react_1$useState47 = react_1.useState("number"),
-      _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
-      curInputType = _react_1$useState48[0],
-      setCurInputType = _react_1$useState48[1];
+  var _react_1$useState53 = react_1.useState("number"),
+      _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
+      curInputType = _react_1$useState54[0],
+      setCurInputType = _react_1$useState54[1];
 
-  var _react_1$useState49 = react_1.useState(inputVarTypeE.num),
-      _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
-      curInputVarName = _react_1$useState50[0],
-      setCurInputVarName = _react_1$useState50[1]; //custom logic
+  var _react_1$useState55 = react_1.useState(inputVarTypeE.num),
+      _react_1$useState56 = _slicedToArray(_react_1$useState55, 2),
+      curInputVarName = _react_1$useState56[0],
+      setCurInputVarName = _react_1$useState56[1]; //custom logic
   //needed?
 
 
-  var _react_1$useState51 = react_1.useState(false),
-      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
-      showTextArea = _react_1$useState52[0],
-      setShowTextArea = _react_1$useState52[1];
-
-  var _react_1$useState53 = react_1.useState(["1", "2", "3"]),
-      _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
-      customArray = _react_1$useState54[0],
-      setCustomArray = _react_1$useState54[1];
-
-  var _react_1$useState55 = react_1.useState("addOne"),
-      _react_1$useState56 = _slicedToArray(_react_1$useState55, 2),
-      customFunctionName = _react_1$useState56[0],
-      setcustomFunctionName = _react_1$useState56[1];
-
-  var _react_1$useState57 = react_1.useState("return num + 1;"),
+  var _react_1$useState57 = react_1.useState(false),
       _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
-      customFunction = _react_1$useState58[0],
-      setCustomFunction = _react_1$useState58[1];
+      showTextArea = _react_1$useState58[0],
+      setShowTextArea = _react_1$useState58[1];
 
-  var _react_1$useState59 = react_1.useState("+ 1"),
+  var _react_1$useState59 = react_1.useState(["1", "2", "3"]),
       _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
-      customFunctionBody = _react_1$useState60[0],
-      setcustomFunctionBody = _react_1$useState60[1];
+      customArray = _react_1$useState60[0],
+      setCustomArray = _react_1$useState60[1];
 
-  var _react_1$useState61 = react_1.useState("number"),
+  var _react_1$useState61 = react_1.useState("addOne"),
       _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
-      customFuncInputType = _react_1$useState62[0],
-      setcustomFuncInputType = _react_1$useState62[1];
+      customFunctionName = _react_1$useState62[0],
+      setcustomFunctionName = _react_1$useState62[1];
 
-  var _react_1$useState63 = react_1.useState("num"),
+  var _react_1$useState63 = react_1.useState("return num + 1;"),
       _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
-      customFuncInputVarName = _react_1$useState64[0],
-      setcustomFuncInputVarName = _react_1$useState64[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      customFunction = _react_1$useState64[0],
+      setCustomFunction = _react_1$useState64[1];
+
+  var _react_1$useState65 = react_1.useState("+ 1"),
+      _react_1$useState66 = _slicedToArray(_react_1$useState65, 2),
+      customFunctionBody = _react_1$useState66[0],
+      setcustomFunctionBody = _react_1$useState66[1];
+
+  var _react_1$useState67 = react_1.useState("number"),
+      _react_1$useState68 = _slicedToArray(_react_1$useState67, 2),
+      customFuncInputType = _react_1$useState68[0],
+      setcustomFuncInputType = _react_1$useState68[1];
+
+  var _react_1$useState69 = react_1.useState("num"),
+      _react_1$useState70 = _slicedToArray(_react_1$useState69, 2),
+      customFuncInputVarName = _react_1$useState70[0],
+      setcustomFuncInputVarName = _react_1$useState70[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -57847,6 +57918,7 @@ var HOF = function HOF(props) {
   // setCurLogicAsString
   // setCurInputType
   // setCurInputVarName
+  //change to map
 
   var changeToUpper = function changeToUpper() {
     setCurrentFunctionHook(function () {
@@ -57924,6 +57996,18 @@ var HOF = function HOF(props) {
     setCurLogicAsString("* 3");
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
+  }; // change to filter
+
+
+  var changeToIsEven = function changeToIsEven() {
+    setCurrentFunctionHook(function () {
+      return function (x) {
+        return isEven(x);
+      };
+    });
+    setCurLogicAsString("% 2 === 0");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
   };
 
   var resetting = function resetting() {
@@ -57935,8 +58019,16 @@ var HOF = function HOF(props) {
   };
 
   react_1.useEffect(function () {
-    console.log("input type choice", inputTypeChoice); // unexpected toggling
+    console.log("hof", props.hofType);
 
+    if (props.hofType === "MAP") {
+      setCurrentFunctionName(doubleNum.name);
+    } else if (props.hofType === "FILTER") {
+      setCurrentFunctionName("isEven");
+    }
+  }, [props.hofType]);
+  react_1.useEffect(function () {
+    // unexpected toggling
     if (inputTypeChoice === inputTypeChoiceE.numbers) {
       setCurrentFunctionHook(function () {
         return function (x) {
@@ -57960,7 +58052,8 @@ var HOF = function HOF(props) {
   }, [inputTypeChoice]);
   react_1.useEffect(function () {
     console.log("mainArray", mainArray);
-  }, [mainArray]);
+  }, [mainArray]); //strings
+
   react_1.useEffect(function () {
     if (currentFunctionName === CallbacksE.toUpper) {
       changeToUpper();
@@ -57969,9 +58062,11 @@ var HOF = function HOF(props) {
     } else if (currentFunctionName === CallbacksE.reverse) {
       changeToReverse();
     }
-  }, [currentFunctionName]);
+  }, [currentFunctionName]); //numbers
+
   react_1.useEffect(function () {
     //update the current callback function here
+    //map
     if (currentFunctionName === doubleNum.name) {
       changeToDoubleNumber();
     } else if (currentFunctionName === halveNum.name) {
@@ -57980,7 +58075,10 @@ var HOF = function HOF(props) {
       changeToSquare();
     } else if (currentFunctionName === tripleNum.name) {
       changeToTriple();
-    }
+    } // filter
+    else if (currentFunctionName === isEven.name) {
+        changeToIsEven();
+      }
   }, [currentFunctionName]);
   react_1.useEffect(function () {
     //ah this is if check is useful because we dont want this fire initially
@@ -58041,8 +58139,18 @@ var HOF = function HOF(props) {
 
             var transformed = currentFunctionHook( //@ts-ignore
             stateObj.mainArray[stateObj.curIdx]);
-            console.log("transformed", transformed);
-            copy.push(transformed);
+            console.log("transformed", transformed); //filtering
+
+            if (transformed === true) {
+              setfilterStatus(true);
+              copy.push(stateObj.mainArray[stateObj.curIdx]);
+            } else if (transformed === false) {
+              console.log("going to the trash", stateObj.mainArray[stateObj.curIdx], "coords", curTrashCoords);
+              setfilterStatus(false);
+            } else {
+              copy.push(transformed);
+            }
+
             setStateObj.setOutputArray(copy);
             setStateObj.setCurrentTask(currentTaskE.output);
           } // } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
@@ -58066,7 +58174,11 @@ var HOF = function HOF(props) {
     className: "allApp"
   }, React.createElement("div", {
     className: "foundation"
-  }, React.createElement(KonvaLayer_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
+  }, React.createElement(KonvaLayer_1.default, Object.assign({
+    typeHof: props.hofType,
+    filterStatus: filterStatus,
+    trashCoords: curTrashCoords
+  }, stateObj, setStateObj)), React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
     takeStep: takeStep
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
     setMainArray: setMainArray,
@@ -58075,7 +58187,7 @@ var HOF = function HOF(props) {
     setinputTypeChoice: setinputTypeChoice,
     setCurrentFunctionName: setCurrentFunctionName
   }) : "", inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? React.createElement(numbers_1.default, {
-    numCallBackContainer: numCallBackContainer,
+    numCallBackContainer: numMapCallBackContainer,
     inputType: inputTypeChoice,
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,
@@ -58190,7 +58302,23 @@ var HOF = function HOF(props) {
     callbackLogic: curLogicAsString,
     inputType: curInputType,
     inputVarName: curInputVarName
-  })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj))));
+  })), React.createElement(outputArray_1.default, Object.assign({}, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("p", null, "trash can |", React.createElement("span", {
+    ref: function ref(ele) {
+      var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
+      console.log("hof type", props.hofType);
+      console.log("trash x", trashX, "trash y", trashY);
+
+      if (trashX && trashY) {
+        if (curTrashCoords.x !== trashX) {
+          setCurTrashCoords({
+            x: trashX,
+            y: trashY
+          });
+        }
+      }
+    }
+  }, "_"), "|") : ""));
 };
 
 exports.default = HOF;

@@ -36,7 +36,17 @@
 
 great to find a solution to the broken line animation problem with the fast toggler to ensure refs stay fresh. Works even better than i though, notice the difference between inputArray and outPut array. input array explicilty toggles the same content depending on fastToggler state whereas I didnt change anything about outputArray and it still worked. Not sure exactly why but it looks like react is noticing all the fast state changes and the refs are being automatically updated.
 
+# filtering variables
+
+## number filtering
+
+basic functions - isEven, isPrime, lessThan10
+useState - [numFilterCallBack, setnumFilterCallBack]
+type = numFilterCallBack
+
 # next task
 
-combine the different types numbers and strings into a single JSX logic that is generic...
-comment out the string logic and fix the errors one by one.
+implement filter
+
+--proper logic
+--proper pointers
