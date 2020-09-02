@@ -22,6 +22,12 @@ nav {
   justify-content: center;
 }
 
+.filterOutputArr {
+  display: flex;
+  align-self: flex-start;
+  justify-content: start;
+}
+
 .overlay {
   position: absolute;
   left: 0px;

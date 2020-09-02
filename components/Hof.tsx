@@ -138,8 +138,8 @@ const HOF = (props: HofOption) => {
   const [outputArray, setOutputArray] = useState<(number | string)[]>([]);
   const [curNumCoords, setCurNumCoords] = useState({ x: 0, y: 0 });
   const [curOutputNumCoords, setCurOutputNumCoords] = useState({
-    x: 1,
-    y: 1,
+    x: 0,
+    y: 0,
   });
   const [inputCoords, setInputCoords] = useState({ x: 0, y: 0 });
   const [outputCoords, setOutPutCoords] = useState({ x: 0, y: 0 });
@@ -340,6 +340,10 @@ const HOF = (props: HofOption) => {
   };
 
   useEffect(() => {
+    console.log("coords", curOutputNumCoords);
+  }, [curOutputNumCoords]);
+
+  useEffect(() => {
     console.log("hof", props.hofType);
     if (props.hofType === "MAP") {
       setCurrentFunctionName(doubleNum.name);
@@ -518,7 +522,12 @@ const HOF = (props: HofOption) => {
           {...setStateObj}
         />
 
-        <MapMainControls {...stateObj} {...setStateObj} takeStep={takeStep} />
+        <MapMainControls
+          hofType={props.hofType}
+          {...stateObj}
+          {...setStateObj}
+          takeStep={takeStep}
+        />
         {showInputsOptions ? (
           <ChooseInputsCallbacks
             setMainArray={setMainArray}

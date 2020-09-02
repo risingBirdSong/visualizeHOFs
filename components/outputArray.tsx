@@ -29,7 +29,9 @@ interface OutputArrI {
 const OutputArray = (props: OutputArrI) =>
   props.algoHasStarted && !props.algoHasFinished ? (
     <ul
-      className={`numArr valign-wrapper row pink lighten-2 center-align array ${
+      className={`${
+        props.typeHof === "MAP" ? "numArr" : "filterOutputArr"
+      } valign-wrapper row pink lighten-2 center-align ${
         props.animTarget === "outputAnimate" ? "outputAnimate" : ""
       }`}
       style={{ borderRadius: "5px" }}
@@ -50,25 +52,35 @@ const OutputArray = (props: OutputArrI) =>
       </div>
       <li className={`arrBrkt col s1 bracket`}>[</li>
       {props.outputArray.map((num, idx) => {
-        console.log("num", num);
-
         let outputted = (
           <p
             className={`num amber lighten-1 z-depth-5`}
             ref={(ele) => {
               let x = ele?.getBoundingClientRect().x;
               let y = ele?.getBoundingClientRect().y;
-              console.log("x ---- ", x);
-              console.log("y ---- ", y);
               //yeah this only hits on map, not filter, why is that?
               // props.setCurOutputNumCoords({ x: x || 5, y: y || 5 });
-              if (
-                x &&
-                y &&
-                x !== props.curOutputNumCoords.x &&
-                y !== props.curOutputNumCoords.y
-              ) {
-                props.setCurOutputNumCoords({ x, y });
+              if (props.typeHof === "MAP") {
+                if (x && y && x !== props.curOutputNumCoords.x) {
+                  props.setCurOutputNumCoords({ x, y });
+                }
+              } else if (props.typeHof === "FILTER") {
+                if (
+                  props.curOutputNumCoords.x === 0 &&
+                  props.curOutputNumCoords.y === 0 &&
+                  x &&
+                  y
+                ) {
+                  //@ts-ignore
+                  props.setCurOutputNumCoords({ x, y });
+                }
+                // if (
+                //   x &&
+                //   y &&
+                //   x !== props.curOutputNumCoords.x &&
+                //   y !== props.curOutputNumCoords.y
+                // ) {
+                // }
               }
             }}
           >

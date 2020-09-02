@@ -28315,6 +28315,13 @@ var MapMainControls = function MapMainControls(props) {
     onClick: function onClick() {
       props.setShowInputsOptions(false);
       props.takeStep(props.algoHasFinished === true ? true : false);
+
+      if (props.hofType === "FILTER") {
+        props.setCurOutputNumCoords({
+          x: 0,
+          y: 0
+        });
+      }
     },
     className: "waves-effect waves-light stepper btn"
   }, react_1.default.createElement("span", null, !props.algoHasStarted && !props.algoHasFinished ? "start" : props.algoWillReset ? "restart" : "step"))), react_1.default.createElement("li", {
@@ -28564,7 +28571,7 @@ var inputTypeChoiceE;
 
 var OutputArray = function OutputArray(props) {
   return props.algoHasStarted && !props.algoHasFinished ? react_1.default.createElement("ul", {
-    className: "numArr valign-wrapper row pink lighten-2 center-align array ".concat(props.animTarget === "outputAnimate" ? "outputAnimate" : ""),
+    className: "".concat(props.typeHof === "MAP" ? "numArr" : "filterOutputArr", " valign-wrapper row pink lighten-2 center-align ").concat(props.animTarget === "outputAnimate" ? "outputAnimate" : ""),
     style: {
       borderRadius: "5px"
     }
@@ -28580,21 +28587,35 @@ var OutputArray = function OutputArray(props) {
   }, "output :"), " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number[ ]" : "string [ ]"), " ", "=")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.outputArray.map(function (num, idx) {
-    console.log("num", num);
     var outputted = react_1.default.createElement("p", {
       className: "num amber lighten-1 z-depth-5",
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
-        console.log("x ---- ", x);
-        console.log("y ---- ", y); //yeah this only hits on map, not filter, why is that?
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; //yeah this only hits on map, not filter, why is that?
         // props.setCurOutputNumCoords({ x: x || 5, y: y || 5 });
 
-        if (x && y && x !== props.curOutputNumCoords.x && y !== props.curOutputNumCoords.y) {
-          props.setCurOutputNumCoords({
-            x: x,
-            y: y
-          });
+        if (props.typeHof === "MAP") {
+          if (x && y && x !== props.curOutputNumCoords.x) {
+            props.setCurOutputNumCoords({
+              x: x,
+              y: y
+            });
+          }
+        } else if (props.typeHof === "FILTER") {
+          if (props.curOutputNumCoords.x === 0 && props.curOutputNumCoords.y === 0 && x && y) {
+            //@ts-ignore
+            props.setCurOutputNumCoords({
+              x: x,
+              y: y
+            });
+          } // if (
+          //   x &&
+          //   y &&
+          //   x !== props.curOutputNumCoords.x &&
+          //   y !== props.curOutputNumCoords.y
+          // ) {
+          // }
+
         }
       }
     }, num);
@@ -57717,8 +57738,8 @@ var HOF = function HOF(props) {
       setCurNumCoords = _react_1$useState16[1];
 
   var _react_1$useState17 = react_1.useState({
-    x: 1,
-    y: 1
+    x: 0,
+    y: 0
   }),
       _react_1$useState18 = _slicedToArray(_react_1$useState17, 2),
       curOutputNumCoords = _react_1$useState18[0],
@@ -58034,6 +58055,9 @@ var HOF = function HOF(props) {
   };
 
   react_1.useEffect(function () {
+    console.log("coords", curOutputNumCoords);
+  }, [curOutputNumCoords]);
+  react_1.useEffect(function () {
     console.log("hof", props.hofType);
 
     if (props.hofType === "MAP") {
@@ -58193,7 +58217,9 @@ var HOF = function HOF(props) {
     typeHof: props.hofType,
     filterStatus: filterStatus,
     trashCoords: curTrashCoords
-  }, stateObj, setStateObj)), React.createElement(mapMainControls_1.MapMainControls, Object.assign({}, stateObj, setStateObj, {
+  }, stateObj, setStateObj)), React.createElement(mapMainControls_1.MapMainControls, Object.assign({
+    hofType: props.hofType
+  }, stateObj, setStateObj, {
     takeStep: takeStep
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
     setMainArray: setMainArray,

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { coordsI } from "./outputArray";
 interface MapMainControlsI {
   takeStep: (restart: boolean) => void;
   algoHasStarted: boolean;
@@ -6,6 +7,8 @@ interface MapMainControlsI {
   algoWillReset: boolean;
   setExplainer: React.Dispatch<React.SetStateAction<boolean>>;
   setShowInputsOptions: React.Dispatch<React.SetStateAction<boolean>>;
+  hofType: "MAP" | "FILTER" | "REDUCE";
+  setCurOutputNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
 }
 
 const MapMainControls = (props: MapMainControlsI) => {
@@ -17,6 +20,9 @@ const MapMainControls = (props: MapMainControlsI) => {
             onClick={() => {
               props.setShowInputsOptions(false);
               props.takeStep(props.algoHasFinished === true ? true : false);
+              if (props.hofType === "FILTER") {
+                props.setCurOutputNumCoords({ x: 0, y: 0 });
+              }
             }}
             className={`waves-effect waves-light stepper btn`}
           >
