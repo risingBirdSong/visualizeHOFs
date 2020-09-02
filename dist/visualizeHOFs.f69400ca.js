@@ -58059,6 +58059,13 @@ var HOF = function HOF(props) {
     setCurInputVarName(inputVarTypeE.num);
   };
 
+  var starting = function starting() {
+    setStepNumber(0);
+    setCurIdx(-1);
+    setOutputArray([]);
+    setCurrentTask(currentTaskE.inactive);
+  };
+
   var resetting = function resetting() {
     setAlgoWillReset(true);
     setStepNumber(0);
@@ -58067,6 +58074,9 @@ var HOF = function HOF(props) {
     setCurrentTask(currentTaskE.inactive);
   };
 
+  react_1.useEffect(function () {
+    starting();
+  }, [props.hofType]);
   react_1.useEffect(function () {
     console.log("coords", curOutputNumCoords);
   }, [curOutputNumCoords]);

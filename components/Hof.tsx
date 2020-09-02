@@ -331,6 +331,13 @@ const HOF = (props: HofOption) => {
     setCurInputVarName(inputVarTypeE.num);
   };
 
+  const starting = () => {
+    setStepNumber(0);
+    setCurIdx(-1);
+    setOutputArray([]);
+    setCurrentTask(currentTaskE.inactive);
+  };
+
   const resetting = () => {
     setAlgoWillReset(true);
     setStepNumber(0);
@@ -338,6 +345,10 @@ const HOF = (props: HofOption) => {
     setOutputArray([]);
     setCurrentTask(currentTaskE.inactive);
   };
+
+  useEffect(() => {
+    starting();
+  }, [props.hofType]);
 
   useEffect(() => {
     console.log("coords", curOutputNumCoords);
