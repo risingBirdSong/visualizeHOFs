@@ -22,13 +22,17 @@ const StringInputs = (props: StringArraysI) => {
               props.setType(inputTypeChoiceE.strings);
               props.resetting();
               props.setMainArray([
+                "bend",
                 "stream",
                 "lake",
                 "river",
+                "cove",
                 "creek",
                 "canal",
+                "loch",
                 "beach",
                 "ocean",
+                "moat",
                 "waterfall",
               ]);
             }}
@@ -42,19 +46,25 @@ const StringInputs = (props: StringArraysI) => {
             onClick={() => {
               props.resetting();
               props.setMainArray([
-                "bunnies",
-                "puppies",
-                "kittens",
-                "sloths",
-                "otters",
-                "pandas",
-                "penguins",
-                "owls",
+                "bunny",
+                "wombat",
+                "bear",
+                "anteater",
+                "lamb",
+                "kitten",
+                "foal",
+                "sloth",
+                "boar",
+                "otter",
+                "panda",
+                "goat",
+                "penguin",
+                "owl",
               ]);
             }}
             className={`btn amber waves-effect`}
           >
-            <span>cute baby animals</span>
+            <span>cute animals</span>
           </button>{" "}
         </li>
         {/* <li>

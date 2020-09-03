@@ -57153,7 +57153,7 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
     onClick: function onClick() {
       props.resetting();
       props.hofType === "MAP" ? props.setCurrentFunctionName(CallbacksE.toUpper) : props.hofType === "FILTER" ? props.setCurrentFunctionName(CallbacksE.fourLetterWord) : "";
-      props.setMainArray(["guitar", "drum", "harp", "synth", "tuba", "flute", "banjo", "trumpet", "violin"]);
+      props.setMainArray(["gong", "guitar", "drum", "harp", "synth", "tuba", "flute", "banjo", "lute", "trumpet", "violin"]);
       props.setinputTypeChoice(inputTypeChoiceE.strings);
     },
     className: "waves-effect purple-text amber waves-light btn"
@@ -57392,16 +57392,16 @@ var StringInputs = function StringInputs(props) {
     onClick: function onClick() {
       props.setType(inputTypeChoiceE.strings);
       props.resetting();
-      props.setMainArray(["stream", "lake", "river", "creek", "canal", "beach", "ocean", "waterfall"]);
+      props.setMainArray(["bend", "stream", "lake", "river", "cove", "creek", "canal", "loch", "beach", "ocean", "moat", "waterfall"]);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "bodies of water"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setMainArray(["bunnies", "puppies", "kittens", "sloths", "otters", "pandas", "penguins", "owls"]);
+      props.setMainArray(["bunny", "wombat", "bear", "anteater", "lamb", "kitten", "foal", "sloth", "boar", "otter", "panda", "goat", "penguin", "owl"]);
     },
     className: "btn amber waves-effect"
-  }, react_1.default.createElement("span", null, "cute baby animals")), " ")));
+  }, react_1.default.createElement("span", null, "cute animals")), " ")));
 };
 
 exports.default = StringInputs;
@@ -57433,21 +57433,18 @@ var CallbacksE;
 })(CallbacksE || (CallbacksE = {}));
 
 var StringCallbacks = function StringCallbacks(props) {
+  var stringCallbacks = props.typeHof === "MAP" ? props.strMapCallBackContainer : props.strFilterCallBackContainer;
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
-  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.resetting();
-      props.updateCallBacks(CallbacksE.toUpper);
-    },
-    className: "btn amber waves-effect"
-  }, react_1.default.createElement("span", null, "toUpper "))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.resetting();
-      props.updateCallBacks(CallbacksE.reverse);
-    },
-    className: "btn amber waves-effect"
-  }, react_1.default.createElement("span", null, "reverse ")), " ")));
+  }, stringCallbacks.map(function (strFunc) {
+    return react_1.default.createElement("li", null, react_1.default.createElement("button", {
+      onClick: function onClick() {
+        props.resetting();
+        props.updateCallBacks(strFunc.name);
+      },
+      className: "btn amber waves-effect"
+    }, react_1.default.createElement("span", null, strFunc.name, " ")));
+  })));
 };
 
 exports.default = StringCallbacks;
@@ -57681,6 +57678,15 @@ var isPrime = function isPrime(num) {
 
 var lessThan10 = function lessThan10(num) {
   return num < 10;
+}; //filter strings
+
+
+var fourLetterWord = function fourLetterWord(str) {
+  return str.length === 4 ? true : false;
+};
+
+var wordcontainsT = function wordcontainsT(str) {
+  return RegExp(/t/).test(str);
 };
 
 var currentTaskE;
@@ -57872,6 +57878,16 @@ var HOF = function HOF(props) {
       numMapCallBackContainer = _react_1$useState44[0],
       setNumMapCallBackContainer = _react_1$useState44[1];
 
+  var _react_1$useState45 = react_1.useState([toUpper, reverse]),
+      _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
+      strMapCallBackContainer = _react_1$useState46[0],
+      setstrMapCallBackContainer = _react_1$useState46[1];
+
+  var _react_1$useState47 = react_1.useState([fourLetterWord, wordcontainsT]),
+      _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
+      strFilterCallBackContainer = _react_1$useState48[0],
+      setstrFilterCallBackContainer = _react_1$useState48[1];
+
   var addNumCallBackToContainer = function addNumCallBackToContainer(func) {
     var copyNumContainer = _toConsumableArray(numMapCallBackContainer);
 
@@ -57879,83 +57895,83 @@ var HOF = function HOF(props) {
     setNumMapCallBackContainer(copyNumContainer);
   };
 
-  var _react_1$useState45 = react_1.useState(function () {
+  var _react_1$useState49 = react_1.useState(function () {
     return function (x) {
       return doubleNum(x);
     };
   }),
-      _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
-      currentFunctionHook = _react_1$useState46[0],
-      setCurrentFunctionHook = _react_1$useState46[1];
+      _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
+      currentFunctionHook = _react_1$useState50[0],
+      setCurrentFunctionHook = _react_1$useState50[1];
 
-  var _react_1$useState47 = react_1.useState(function () {
+  var _react_1$useState51 = react_1.useState(function () {
     return function (x) {
       return toUpper(x);
     };
   }),
-      _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
-      currentStrFunctionHook = _react_1$useState48[0],
-      setCurrentStrFunctionHook = _react_1$useState48[1];
+      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
+      currentStrFunctionHook = _react_1$useState52[0],
+      setCurrentStrFunctionHook = _react_1$useState52[1];
 
-  var _react_1$useState49 = react_1.useState(doubleNum.name),
-      _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
-      currentFunctionName = _react_1$useState50[0],
-      setCurrentFunctionName = _react_1$useState50[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
+  var _react_1$useState53 = react_1.useState(doubleNum.name),
+      _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
+      currentFunctionName = _react_1$useState54[0],
+      setCurrentFunctionName = _react_1$useState54[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
   //   stringCallbacksE
   // >();
 
 
-  var _react_1$useState51 = react_1.useState("* 2"),
-      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
-      curLogicAsString = _react_1$useState52[0],
-      setCurLogicAsString = _react_1$useState52[1];
-
-  var _react_1$useState53 = react_1.useState("number"),
-      _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
-      curInputType = _react_1$useState54[0],
-      setCurInputType = _react_1$useState54[1];
-
-  var _react_1$useState55 = react_1.useState(inputVarTypeE.num),
+  var _react_1$useState55 = react_1.useState("* 2"),
       _react_1$useState56 = _slicedToArray(_react_1$useState55, 2),
-      curInputVarName = _react_1$useState56[0],
-      setCurInputVarName = _react_1$useState56[1]; //custom logic
+      curLogicAsString = _react_1$useState56[0],
+      setCurLogicAsString = _react_1$useState56[1];
+
+  var _react_1$useState57 = react_1.useState("number"),
+      _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
+      curInputType = _react_1$useState58[0],
+      setCurInputType = _react_1$useState58[1];
+
+  var _react_1$useState59 = react_1.useState(inputVarTypeE.num),
+      _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
+      curInputVarName = _react_1$useState60[0],
+      setCurInputVarName = _react_1$useState60[1]; //custom logic
   //needed?
 
 
-  var _react_1$useState57 = react_1.useState(false),
-      _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
-      showTextArea = _react_1$useState58[0],
-      setShowTextArea = _react_1$useState58[1];
-
-  var _react_1$useState59 = react_1.useState(["1", "2", "3"]),
-      _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
-      customArray = _react_1$useState60[0],
-      setCustomArray = _react_1$useState60[1];
-
-  var _react_1$useState61 = react_1.useState("addOne"),
+  var _react_1$useState61 = react_1.useState(false),
       _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
-      customFunctionName = _react_1$useState62[0],
-      setcustomFunctionName = _react_1$useState62[1];
+      showTextArea = _react_1$useState62[0],
+      setShowTextArea = _react_1$useState62[1];
 
-  var _react_1$useState63 = react_1.useState("return num + 1;"),
+  var _react_1$useState63 = react_1.useState(["1", "2", "3"]),
       _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
-      customFunction = _react_1$useState64[0],
-      setCustomFunction = _react_1$useState64[1];
+      customArray = _react_1$useState64[0],
+      setCustomArray = _react_1$useState64[1];
 
-  var _react_1$useState65 = react_1.useState("+ 1"),
+  var _react_1$useState65 = react_1.useState("addOne"),
       _react_1$useState66 = _slicedToArray(_react_1$useState65, 2),
-      customFunctionBody = _react_1$useState66[0],
-      setcustomFunctionBody = _react_1$useState66[1];
+      customFunctionName = _react_1$useState66[0],
+      setcustomFunctionName = _react_1$useState66[1];
 
-  var _react_1$useState67 = react_1.useState("number"),
+  var _react_1$useState67 = react_1.useState("return num + 1;"),
       _react_1$useState68 = _slicedToArray(_react_1$useState67, 2),
-      customFuncInputType = _react_1$useState68[0],
-      setcustomFuncInputType = _react_1$useState68[1];
+      customFunction = _react_1$useState68[0],
+      setCustomFunction = _react_1$useState68[1];
 
-  var _react_1$useState69 = react_1.useState("num"),
+  var _react_1$useState69 = react_1.useState("+ 1"),
       _react_1$useState70 = _slicedToArray(_react_1$useState69, 2),
-      customFuncInputVarName = _react_1$useState70[0],
-      setcustomFuncInputVarName = _react_1$useState70[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      customFunctionBody = _react_1$useState70[0],
+      setcustomFunctionBody = _react_1$useState70[1];
+
+  var _react_1$useState71 = react_1.useState("number"),
+      _react_1$useState72 = _slicedToArray(_react_1$useState71, 2),
+      customFuncInputType = _react_1$useState72[0],
+      setcustomFuncInputType = _react_1$useState72[1];
+
+  var _react_1$useState73 = react_1.useState("num"),
+      _react_1$useState74 = _slicedToArray(_react_1$useState73, 2),
+      customFuncInputVarName = _react_1$useState74[0],
+      setcustomFuncInputVarName = _react_1$useState74[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -58120,6 +58136,28 @@ var HOF = function HOF(props) {
     setCurInputVarName(inputVarTypeE.num);
   };
 
+  var changeToFourLetterWord = function changeToFourLetterWord() {
+    setCurrentFunctionHook(function () {
+      return function (x) {
+        return fourLetterWord(x);
+      };
+    });
+    setCurLogicAsString("str.length === 4");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
+  var changeToWordcontainsT = function changeToWordcontainsT() {
+    setCurrentFunctionHook(function () {
+      return function (x) {
+        return wordcontainsT(x);
+      };
+    });
+    setCurLogicAsString("RegExp(/t/).test(str)");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
   var starting = function starting() {
     setStepNumber(0);
     setCurIdx(-1);
@@ -58180,6 +58218,10 @@ var HOF = function HOF(props) {
       changeToEmoji();
     } else if (currentFunctionName === CallbacksE.reverse) {
       changeToReverse();
+    } else if (currentFunctionName === fourLetterWord.name) {
+      changeToFourLetterWord();
+    } else if (currentFunctionName === wordcontainsT.name) {
+      changeToWordcontainsT();
     }
   }, [currentFunctionName]); //numbers
 
@@ -58323,6 +58365,9 @@ var HOF = function HOF(props) {
     boolSwitch: showInputsOptions,
     updateCallBacks: setCurrentFunctionName
   }) : inputTypeChoice === inputTypeChoiceE.strings && showInputsOptions ? React.createElement(strings_1.default, {
+    strMapCallBackContainer: strMapCallBackContainer,
+    strFilterCallBackContainer: strFilterCallBackContainer,
+    typeHof: props.hofType,
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,
     resetting: resetting,

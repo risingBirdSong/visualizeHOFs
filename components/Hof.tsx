@@ -61,6 +61,15 @@ const lessThan10 = (num: number): boolean => {
   return num < 10;
 };
 
+//filter strings
+const fourLetterWord = (str: string) => {
+  return str.length === 4 ? true : false;
+};
+
+const wordcontainsT = (str: string) => {
+  return RegExp(/t/).test(str);
+};
+
 export type hofType = "MAP" | "FILTER" | "REDUCE";
 
 enum currentTaskE {
@@ -191,6 +200,15 @@ const HOF = (props: HofOption) => {
     squareNum,
   ]);
 
+  const [strMapCallBackContainer, setstrMapCallBackContainer] = useState([
+    toUpper,
+    reverse,
+  ]);
+  const [strFilterCallBackContainer, setstrFilterCallBackContainer] = useState([
+    fourLetterWord,
+    wordcontainsT,
+  ]);
+
   const addNumCallBackToContainer = (
     func: (num: number | string) => number
   ): void => {
@@ -206,9 +224,10 @@ const HOF = (props: HofOption) => {
   type strMapCallBack = (x: string) => string;
   //filter types
   type numFilterCallBack = (x: number) => boolean;
+  type strFilterCallBack = (x: string) => boolean;
 
   const [currentFunctionHook, setCurrentFunctionHook] = useState<
-    numMapCallBack | strMapCallBack | numFilterCallBack
+    numMapCallBack | strMapCallBack | numFilterCallBack | strFilterCallBack
   >(() => (x: number | string) => doubleNum(x));
 
   const [
@@ -362,6 +381,18 @@ const HOF = (props: HofOption) => {
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
   };
+  const changeToFourLetterWord = () => {
+    setCurrentFunctionHook(() => (x: string) => fourLetterWord(x));
+    setCurLogicAsString("str.length === 4");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+  const changeToWordcontainsT = () => {
+    setCurrentFunctionHook(() => (x: string) => wordcontainsT(x));
+    setCurLogicAsString("RegExp(/t/).test(str)");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
 
   const starting = () => {
     setStepNumber(0);
@@ -425,6 +456,10 @@ const HOF = (props: HofOption) => {
       changeToEmoji();
     } else if (currentFunctionName === CallbacksE.reverse) {
       changeToReverse();
+    } else if (currentFunctionName === fourLetterWord.name) {
+      changeToFourLetterWord();
+    } else if (currentFunctionName === wordcontainsT.name) {
+      changeToWordcontainsT();
     }
   }, [currentFunctionName]);
 
@@ -601,6 +636,9 @@ const HOF = (props: HofOption) => {
         ) : inputTypeChoice === inputTypeChoiceE.strings &&
           showInputsOptions ? (
           <Strings
+            strMapCallBackContainer={strMapCallBackContainer}
+            strFilterCallBackContainer={strFilterCallBackContainer}
+            typeHof={props.hofType}
             setType={setinputTypeChoice}
             setMainArray={setStateObj.setMainArray}
             resetting={resetting}

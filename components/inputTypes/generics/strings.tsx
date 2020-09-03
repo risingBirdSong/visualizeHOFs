@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import StringInputs from "../strings/stringInputs";
 import StringCallbacks from "./stringCallbacks";
+import { hofType } from "../../Hof";
 
 // enum numberCallbacksE {
 //   "double" = "double",
@@ -27,8 +28,10 @@ interface StringsI {
   setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
   updateCallBacks: React.Dispatch<React.SetStateAction<string>>;
+  strMapCallBackContainer: ((str: number | string) => string)[];
+  strFilterCallBackContainer: ((str: string) => boolean)[];
   resetting: () => void;
-
+  typeHof: hofType;
   // boolSwitch: boolean;
   // updateNumberCallBacks: React.Dispatch<React.SetStateAction<numberCallbacksE>>;
 }

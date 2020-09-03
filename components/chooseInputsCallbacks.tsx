@@ -54,6 +54,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
               ? props.setCurrentFunctionName(CallbacksE.fourLetterWord)
               : "";
             props.setMainArray([
+              "gong",
               "guitar",
               "drum",
               "harp",
@@ -61,6 +62,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
               "tuba",
               "flute",
               "banjo",
+              "lute",
               "trumpet",
               "violin",
             ]);
