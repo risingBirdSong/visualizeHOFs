@@ -31,9 +31,10 @@ const App = () => {
               Filter
             </a>
           </li>
-          <li>
+          {/* TODO someday */}
+          {/* <li>
             <a>Reduce</a>
-          </li>
+          </li> */}
         </ul>
       </nav>
       {shown}

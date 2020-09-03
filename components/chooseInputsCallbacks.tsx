@@ -1,4 +1,5 @@
 import React from "react";
+import { emojiArr } from "./Hof";
 // import inputTypeChoiceE from "./Map"; doesnt import enum correctly, so redefine it
 enum inputTypeChoiceE {
   "numbers" = "numbers",
@@ -14,6 +15,7 @@ enum CallbacksE {
   "emojiBeHappy" = "emojiBeHappy",
   "isEven" = "isEven",
   "fourLetterWord" = "fourLetterWord",
+  "isHappyEmoji" = "isHappyEmoji",
 }
 interface ChooseInputsCallbacksI {
   setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
@@ -78,8 +80,13 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
           onClick={() => {
             props.resetting();
             props.setinputTypeChoice(inputTypeChoiceE.strings);
-            props.setCurrentFunctionName(CallbacksE.emojiBeHappy);
-            props.setMainArray(["😔", "🙁", "😣", "😫", "😭", "😡", "👿"]);
+            if (props.hofType === "MAP") {
+              props.setCurrentFunctionName(CallbacksE.emojiBeHappy);
+              props.setMainArray(["😔", "🙁", "😣", "😫", "😭", "😡", "👿"]);
+            } else if (props.hofType === "FILTER") {
+              props.setCurrentFunctionName(CallbacksE.isHappyEmoji);
+              props.setMainArray(emojiArr);
+            }
           }}
           className={`waves-effect purple-text amber darken-1 waves-light btn`}
         >

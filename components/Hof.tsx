@@ -70,6 +70,9 @@ const wordcontainsT = (str: string) => {
   return RegExp(/t/).test(str);
 };
 
+const isHappyEmoji = (str: string) => happyEmojis.includes(str);
+const isSufferingEmoji = (str: string) => !happyEmojis.includes(str);
+
 export type hofType = "MAP" | "FILTER" | "REDUCE";
 
 enum currentTaskE {
@@ -111,21 +114,23 @@ enum cls {
 }
 
 export let emojiArr = [
+  "😆",
   "😔",
+  "😌",
   "🙁",
+  "😂",
   "😣",
+  "🙂",
+  "👿",
+  "😆",
   "😫",
   "😭",
-  "😡",
-  "👿",
-  "😌",
-  "🙂",
-  "😆",
-  "😆",
-  "😂",
   "😊",
+  "😡",
   "😇",
 ];
+
+let happyEmojis = ["😌", "🙂", "😆", "😆", "😂", "😊", "😇"];
 
 let emojiObj = {
   "😔": "😌",
@@ -208,6 +213,11 @@ const HOF = (props: HofOption) => {
   const [strFilterCallBackContainer, setstrFilterCallBackContainer] = useState([
     fourLetterWord,
     wordcontainsT,
+  ]);
+
+  const [emojiFilterCallBackCont, setemojiFilterCallBackCont] = useState([
+    isHappyEmoji,
+    isSufferingEmoji,
   ]);
 
   const addNumCallBackToContainer = (
@@ -305,14 +315,6 @@ const HOF = (props: HofOption) => {
     setCustomArray: setCustomArray,
   };
 
-  // setCurrentFunctionHook
-  // setCurFunctionName
-  // setCurLogicAsString
-  // setCurInputType
-  // setCurInputVarName
-
-  //change to map
-
   const changeToUpper = () => {
     setCurrentFunctionHook(() => (x: string) => toUpper(x));
     setCurLogicAsString(".ToUpperCase()");
@@ -395,6 +397,13 @@ const HOF = (props: HofOption) => {
     setCurInputVarName(inputVarTypeE.str);
   };
 
+  const changeToIsEmojiHappy = () => {
+    setCurrentFunctionHook(() => (x: string) => isHappyEmoji(x));
+    setCurLogicAsString(".isHappy()");
+    setCurInputType("string");
+    setCurInputVarName(inputVarTypeE.str);
+  };
+
   const starting = () => {
     setStepNumber(0);
     setCurIdx(-1);
@@ -469,6 +478,8 @@ const HOF = (props: HofOption) => {
       changeToFourLetterWord();
     } else if (currentFunctionName === wordcontainsT.name) {
       changeToWordcontainsT();
+    } else if (currentFunctionName === isHappyEmoji.name) {
+      changeToIsEmojiHappy();
     }
   }, [currentFunctionName]);
 

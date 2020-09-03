@@ -55,7 +55,7 @@ const MainControls = (props: MapMainControlsI) => {
               props.setShowInputsOptions((prev) => !prev);
             }}
           >
-            <span>swap inputs + callbacks (work in progress)</span>
+            <span>swap inputs and callbacks</span>
           </button>
         </li>
       </div>
