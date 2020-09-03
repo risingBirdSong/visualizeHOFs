@@ -31,7 +31,7 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
         <button
           onClick={() => {
             props.resetting();
-            props.setMainArray([2, 4, 6, 8]);
+            props.setMainArray([1, 2, 3, 4, 5, 6, 7, 8]);
             props.setinputTypeChoice(inputTypeChoiceE.numbers);
             props.hofType === "MAP"
               ? props.setCurrentFunctionName(CallbacksE.double)

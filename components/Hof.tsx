@@ -91,6 +91,7 @@ enum CallbacksE {
   "toUpper" = "toUpper",
   "reverse" = "reverse",
   "emojiBeHappy" = "emojiBeHappy",
+  "fourLetterWord" = "fourLetterWord",
 }
 // enum stringCallbacksE {
 //   "toUpper" = "toUpper",
@@ -417,11 +418,18 @@ const HOF = (props: HofOption) => {
     // console.log("coords", curOutputNumCoords);
   }, [curOutputNumCoords]);
 
+  //here here
   useEffect(() => {
-    if (props.hofType === "MAP") {
+    console.log("----- input type ", inputTypeChoice);
+
+    if (props.hofType === "MAP" && inputTypeChoice === "numbers") {
       setCurrentFunctionName(doubleNum.name);
-    } else if (props.hofType === "FILTER") {
+    } else if (props.hofType === "MAP" && inputTypeChoice === "strings") {
+      setCurrentFunctionName(CallbacksE.toUpper);
+    } else if (props.hofType === "FILTER" && inputTypeChoice === "numbers") {
       setCurrentFunctionName("isEven");
+    } else if (props.hofType === "FILTER" && inputTypeChoice === "strings") {
+      setCurrentFunctionName(CallbacksE.fourLetterWord);
     }
   }, [props.hofType]);
 
@@ -434,10 +442,11 @@ const HOF = (props: HofOption) => {
       setCurInputVarName(inputVarTypeE.num);
     } else if (
       inputTypeChoice === inputTypeChoiceE.strings &&
-      currentFunctionName !== CallbacksE.emojiBeHappy
+      currentFunctionName !== CallbacksE.emojiBeHappy &&
+      props.hofType === "MAP"
     ) {
       setCurrentFunctionName(CallbacksE.toUpper);
-      setCurrentStrFunctionHook(() => (x: string) => toUpper(x));
+      setCurrentFunctionHook(() => (x: string) => toUpper(x));
       setCurLogicAsString(".ToUpperCase()");
       setCurInputType("string");
       setCurInputVarName(inputVarTypeE.str);

@@ -57144,7 +57144,7 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setMainArray([2, 4, 6, 8]);
+      props.setMainArray([1, 2, 3, 4, 5, 6, 7, 8]);
       props.setinputTypeChoice(inputTypeChoiceE.numbers);
       props.hofType === "MAP" ? props.setCurrentFunctionName(CallbacksE.double) : props.hofType === "FILTER" ? props.setCurrentFunctionName(CallbacksE.isEven) : "";
     },
@@ -57714,6 +57714,7 @@ var CallbacksE;
   CallbacksE["toUpper"] = "toUpper";
   CallbacksE["reverse"] = "reverse";
   CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+  CallbacksE["fourLetterWord"] = "fourLetterWord";
 })(CallbacksE || (CallbacksE = {})); // enum stringCallbacksE {
 //   "toUpper" = "toUpper",
 //   "reverse" = "reverse",
@@ -58177,12 +58178,19 @@ var HOF = function HOF(props) {
     starting();
   }, [props.hofType]);
   react_1.useEffect(function () {// console.log("coords", curOutputNumCoords);
-  }, [curOutputNumCoords]);
+  }, [curOutputNumCoords]); //here here
+
   react_1.useEffect(function () {
-    if (props.hofType === "MAP") {
+    console.log("----- input type ", inputTypeChoice);
+
+    if (props.hofType === "MAP" && inputTypeChoice === "numbers") {
       setCurrentFunctionName(doubleNum.name);
-    } else if (props.hofType === "FILTER") {
+    } else if (props.hofType === "MAP" && inputTypeChoice === "strings") {
+      setCurrentFunctionName(CallbacksE.toUpper);
+    } else if (props.hofType === "FILTER" && inputTypeChoice === "numbers") {
       setCurrentFunctionName("isEven");
+    } else if (props.hofType === "FILTER" && inputTypeChoice === "strings") {
+      setCurrentFunctionName(CallbacksE.fourLetterWord);
     }
   }, [props.hofType]);
   react_1.useEffect(function () {
@@ -58196,9 +58204,9 @@ var HOF = function HOF(props) {
       setCurLogicAsString("* 2");
       setCurInputType("number");
       setCurInputVarName(inputVarTypeE.num);
-    } else if (inputTypeChoice === inputTypeChoiceE.strings && currentFunctionName !== CallbacksE.emojiBeHappy) {
+    } else if (inputTypeChoice === inputTypeChoiceE.strings && currentFunctionName !== CallbacksE.emojiBeHappy && props.hofType === "MAP") {
       setCurrentFunctionName(CallbacksE.toUpper);
-      setCurrentStrFunctionHook(function () {
+      setCurrentFunctionHook(function () {
         return function (x) {
           return toUpper(x);
         };
