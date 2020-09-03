@@ -28352,6 +28352,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
+var Hof_1 = require("../../Hof");
+
 var currentTaskE;
 
 (function (currentTaskE) {
@@ -28386,6 +28388,10 @@ var stringCallbacks;
 var GenericCallback = function GenericCallback(props) {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   var input = react_1.default.createElement("span", {
+    style: {
+      fontSize: "".concat( //@ts-ignore
+      Hof_1.emojiArr.includes(props.mainArray[props.curIdx]) ? "25px" : "")
+    },
     ref: function ref(ele) {
       var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
 
@@ -28459,6 +28465,10 @@ var GenericCallback = function GenericCallback(props) {
   }, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
   }, "output"), " \xA0", " ", props.mainArray[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
+    style: {
+      fontSize: "".concat( //@ts-ignore
+      Hof_1.emojiArr.includes(props.mainArray[props.curIdx]) ? "25px" : "")
+    },
     ref: function ref(ele) {
       var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
       var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; //prevent infinite loop
@@ -28477,7 +28487,7 @@ var GenericCallback = function GenericCallback(props) {
 };
 
 exports.default = GenericCallback;
-},{"react":"node_modules/react/index.js"}],"components/inputArray.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../../Hof":"components/Hof.tsx"}],"components/inputArray.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -28491,6 +28501,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var react_1 = __importDefault(require("react"));
+
+var Hof_1 = require("./Hof");
 
 var inputTypeChoiceE;
 
@@ -28519,7 +28531,13 @@ var InputArray = function InputArray(props) {
   }, "input"), " :", " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number [ ]" : "string [ ]", " "), " ", "=", " ")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.inputTypeChoice === inputTypeChoiceE.numbers || props.inputTypeChoice === inputTypeChoiceE.strings ? props.mainArray.map(function (val, idx) {
-    var currentNumber = react_1.default.createElement("p", {
+    // is emoji?
+    // console.log("emoji includes?", emojiArr.includes(val));
+    var currentVal = react_1.default.createElement("p", {
+      //@ts-ignore
+      style: {
+        fontSize: "".concat(Hof_1.emojiArr.includes(val) ? "25px" : "")
+      },
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
         var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
@@ -28538,7 +28556,11 @@ var InputArray = function InputArray(props) {
     return react_1.default.createElement("li", {
       className: "col s1",
       key: idx
-    }, idx === props.curIdx && props.fastRefToggler ? currentNumber : idx === props.curIdx && !props.fastRefToggler ? currentNumber : react_1.default.createElement("p", {
+    }, idx === props.curIdx && props.fastRefToggler ? currentVal : idx === props.curIdx && !props.fastRefToggler ? currentVal : react_1.default.createElement("p", {
+      style: {
+        //@ts-ignore
+        fontSize: "".concat(Hof_1.emojiArr.includes(val) ? "25px" : "")
+      },
       className: "num z-depth-3"
     }, val));
   }) : "", react_1.default.createElement("li", {
@@ -28547,7 +28569,7 @@ var InputArray = function InputArray(props) {
 };
 
 exports.default = InputArray;
-},{"react":"node_modules/react/index.js"}],"components/outputArray.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Hof":"components/Hof.tsx"}],"components/outputArray.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -28561,6 +28583,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var react_1 = __importDefault(require("react"));
+
+var Hof_1 = require("./Hof");
 
 var inputTypeChoiceE;
 
@@ -28587,8 +28611,12 @@ var OutputArray = function OutputArray(props) {
     className: "blue-text text-darken-3"
   }, "output :"), " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number[ ]" : "string [ ]"), " ", "=")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "["), props.outputArray.map(function (num, idx) {
+  }, "["), props.outputArray.map(function (val, idx) {
     var outputted = react_1.default.createElement("p", {
+      style: {
+        fontSize: "".concat( //@ts-ignore
+        Hof_1.emojiArr.includes(val) ? "25px" : "")
+      },
       className: "num amber lighten-1 z-depth-5",
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
@@ -28619,7 +28647,7 @@ var OutputArray = function OutputArray(props) {
 
         }
       }
-    }, num);
+    }, val);
 
     if (props.typeHof === "FILTER") {
       return react_1.default.createElement("li", {
@@ -28632,8 +28660,12 @@ var OutputArray = function OutputArray(props) {
       className: "col s1",
       key: idx
     }, idx === props.curIdx && props.fastRefToggler ? outputted : idx === props.curIdx && !props.fastRefToggler ? outputted : react_1.default.createElement("p", {
+      style: {
+        fontSize: "".concat( //@ts-ignore
+        Hof_1.emojiArr.includes(val) ? "25px" : "")
+      },
       className: "num amber lighten-4 z-depth-3"
-    }, num));
+    }, val));
   }), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "]")) : props.algoWillReset ? react_1.default.createElement("h5", {
@@ -28644,7 +28676,7 @@ var OutputArray = function OutputArray(props) {
 };
 
 exports.default = OutputArray;
-},{"react":"node_modules/react/index.js"}],"node_modules/konva/lib/Global.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Hof":"components/Hof.tsx"}],"node_modules/konva/lib/Global.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -56906,8 +56938,6 @@ var currentTaskE;
 
 var KonvaLayer = function KonvaLayer(props) {
   //why is this resetting to zero for filter?
-  console.log("curOutputNumCoords", props.curOutputNumCoords); // console.log("outputCoords", props.outputCoords);
-
   return react_1.default.createElement("div", null, react_1.default.createElement(react_konva_1.Stage, {
     width: window.innerWidth - 100,
     height: window.innerHeight,
@@ -57105,6 +57135,7 @@ var CallbacksE;
   CallbacksE["reverse"] = "reverse";
   CallbacksE["emojiBeHappy"] = "emojiBeHappy";
   CallbacksE["isEven"] = "isEven";
+  CallbacksE["fourLetterWord"] = "fourLetterWord";
 })(CallbacksE || (CallbacksE = {}));
 
 var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
@@ -57121,8 +57152,8 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   }, react_1.default.createElement("span", null, "numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setCurrentFunctionName(CallbacksE.toUpper);
-      props.setMainArray(["guitar", "drum", "synth", "tuba", "flute"]);
+      props.hofType === "MAP" ? props.setCurrentFunctionName(CallbacksE.toUpper) : props.hofType === "FILTER" ? props.setCurrentFunctionName(CallbacksE.fourLetterWord) : "";
+      props.setMainArray(["guitar", "drum", "harp", "synth", "tuba", "flute", "banjo", "trumpet", "violin"]);
       props.setinputTypeChoice(inputTypeChoiceE.strings);
     },
     className: "waves-effect purple-text amber waves-light btn"
@@ -57577,6 +57608,7 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.emojiArr = void 0;
 
 var React = __importStar(require("react"));
 
@@ -57599,26 +57631,7 @@ var chooseInputsCallbacks_1 = __importDefault(require("./chooseInputsCallbacks")
 var numbers_1 = __importDefault(require("./inputTypes/generics/numbers"));
 
 var strings_1 = __importDefault(require("./inputTypes/generics/strings")); // import { Ellipse } from "konva/types/shapes/Ellipse";
-//filter functions
-
-
-var isEven = function isEven(num) {
-  return num % 2 === 0 ? true : false;
-};
-
-var isPrime = function isPrime(num) {
-  for (var i = 2; num > i; i++) {
-    if (num % i == 0) {
-      return false;
-    }
-  }
-
-  return num > 1;
-};
-
-var lessThan10 = function lessThan10(num) {
-  return num < 10;
-}; //number functions map
+//number functions map
 
 
 var halveNum = function halveNum(num) {
@@ -57649,6 +57662,25 @@ var reverse = function reverse(str) {
 var cheerUp = function cheerUp(str) {
   //@ts-ignore
   return emojiObj[str];
+}; //filter functions
+
+
+var isEven = function isEven(num) {
+  return num % 2 === 0 ? true : false;
+};
+
+var isPrime = function isPrime(num) {
+  for (var i = 2; num > i; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+
+  return num > 1;
+};
+
+var lessThan10 = function lessThan10(num) {
+  return num < 10;
 };
 
 var currentTaskE;
@@ -57699,6 +57731,7 @@ var cls;
   cls["callbackFunc"] = "callbackFunc";
 })(cls || (cls = {}));
 
+exports.emojiArr = ["😔", "🙁", "😣", "😫", "😭", "😡", "👿", "😌", "🙂", "😆", "😆", "😂", "😊", "😇"];
 var emojiObj = {
   "😔": "😌",
   "🙁": "🙂",
@@ -58105,12 +58138,9 @@ var HOF = function HOF(props) {
   react_1.useEffect(function () {
     starting();
   }, [props.hofType]);
-  react_1.useEffect(function () {
-    console.log("coords", curOutputNumCoords);
+  react_1.useEffect(function () {// console.log("coords", curOutputNumCoords);
   }, [curOutputNumCoords]);
   react_1.useEffect(function () {
-    console.log("hof", props.hofType);
-
     if (props.hofType === "MAP") {
       setCurrentFunctionName(doubleNum.name);
     } else if (props.hofType === "FILTER") {
@@ -58140,8 +58170,7 @@ var HOF = function HOF(props) {
       setCurInputVarName(inputVarTypeE.str);
     }
   }, [inputTypeChoice]);
-  react_1.useEffect(function () {
-    console.log("mainArray", mainArray);
+  react_1.useEffect(function () {// console.log("mainArray", mainArray);
   }, [mainArray]); //strings
 
   react_1.useEffect(function () {
@@ -58232,8 +58261,8 @@ var HOF = function HOF(props) {
             var copy = _toConsumableArray(stateObj.outputArray);
 
             var transformed = currentFunctionHook( //@ts-ignore
-            stateObj.mainArray[stateObj.curIdx]);
-            console.log("transformed", transformed); //filtering
+            stateObj.mainArray[stateObj.curIdx]); // console.log("transformed", transformed);
+            //filtering
 
             if (transformed === true) {
               setfilterStatus(true);
@@ -58308,10 +58337,8 @@ var HOF = function HOF(props) {
     }
   }, React.createElement("form", null, React.createElement("div", null, React.createElement("label", null, "array ", "->", " write as comma separated numbers, like 1,2,3"), React.createElement("input", {
     onChange: function onChange(e) {
-      console.log("e", e.target.value);
       var strArray = e.target.value.split(",");
       setCustomArray(strArray);
-      console.log("custom array", customArray);
     },
     value: customArray
   })), React.createElement("button", {

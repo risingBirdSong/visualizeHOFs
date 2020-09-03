@@ -15,24 +15,6 @@ import Numbers from "./inputTypes/generics/numbers";
 import Strings from "./inputTypes/generics/strings";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
-//filter functions
-
-const isEven = (num: number): boolean => {
-  return num % 2 === 0 ? true : false;
-};
-
-const isPrime = (num: number): boolean => {
-  for (let i = 2; num > i; i++) {
-    if (num % i == 0) {
-      return false;
-    }
-  }
-  return num > 1;
-};
-
-const lessThan10 = (num: number): boolean => {
-  return num < 10;
-};
 //number functions map
 const halveNum = (num: number | string): number => {
   return Number(num) / 2;
@@ -58,6 +40,25 @@ const reverse = (str: number | string): string => {
 const cheerUp = (str: number | string): string => {
   //@ts-ignore
   return emojiObj[str];
+};
+
+//filter functions
+
+const isEven = (num: number): boolean => {
+  return num % 2 === 0 ? true : false;
+};
+
+const isPrime = (num: number): boolean => {
+  for (let i = 2; num > i; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+  return num > 1;
+};
+
+const lessThan10 = (num: number): boolean => {
+  return num < 10;
 };
 
 export type hofType = "MAP" | "FILTER" | "REDUCE";
@@ -98,6 +99,23 @@ enum cls {
   arrBrkt = "arrBrkt",
   callbackFunc = "callbackFunc",
 }
+
+export let emojiArr = [
+  "😔",
+  "🙁",
+  "😣",
+  "😫",
+  "😭",
+  "😡",
+  "👿",
+  "😌",
+  "🙂",
+  "😆",
+  "😆",
+  "😂",
+  "😊",
+  "😇",
+];
 
 let emojiObj = {
   "😔": "😌",
@@ -365,11 +383,10 @@ const HOF = (props: HofOption) => {
   }, [props.hofType]);
 
   useEffect(() => {
-    console.log("coords", curOutputNumCoords);
+    // console.log("coords", curOutputNumCoords);
   }, [curOutputNumCoords]);
 
   useEffect(() => {
-    console.log("hof", props.hofType);
     if (props.hofType === "MAP") {
       setCurrentFunctionName(doubleNum.name);
     } else if (props.hofType === "FILTER") {
@@ -397,7 +414,7 @@ const HOF = (props: HofOption) => {
   }, [inputTypeChoice]);
 
   useEffect(() => {
-    console.log("mainArray", mainArray);
+    // console.log("mainArray", mainArray);
   }, [mainArray]);
 
   //strings
@@ -505,7 +522,7 @@ const HOF = (props: HofOption) => {
             //@ts-ignore
             stateObj.mainArray[stateObj.curIdx]
           );
-          console.log("transformed", transformed);
+          // console.log("transformed", transformed);
           //filtering
           if (transformed === true) {
             setfilterStatus(true);
@@ -618,10 +635,8 @@ const HOF = (props: HofOption) => {
                     </label>
                     <input
                       onChange={(e) => {
-                        console.log("e", e.target.value);
                         let strArray = e.target.value.split(",");
                         setCustomArray(strArray);
-                        console.log("custom array", customArray);
                       }}
                       value={customArray}
                     ></input>

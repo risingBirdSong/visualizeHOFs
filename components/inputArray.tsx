@@ -1,4 +1,5 @@
 import React from "react";
+import { emojiArr } from "./Hof";
 
 interface coordsI {
   x: number;
@@ -53,8 +54,13 @@ const InputArray = (props: inputArrayI) => {
       {props.inputTypeChoice === inputTypeChoiceE.numbers ||
       props.inputTypeChoice === inputTypeChoiceE.strings
         ? props.mainArray.map((val, idx) => {
-            let currentNumber = (
+            // is emoji?
+            // console.log("emoji includes?", emojiArr.includes(val));
+
+            let currentVal = (
               <p
+                //@ts-ignore
+                style={{ fontSize: `${emojiArr.includes(val) ? "25px" : ""}` }}
                 ref={(ele) => {
                   let x = ele?.getBoundingClientRect().x;
                   let y = ele?.getBoundingClientRect().y;
@@ -72,11 +78,19 @@ const InputArray = (props: inputArrayI) => {
             return (
               <li className={"col s1"} key={idx}>
                 {idx === props.curIdx && props.fastRefToggler ? (
-                  currentNumber
+                  currentVal
                 ) : idx === props.curIdx && !props.fastRefToggler ? (
-                  currentNumber
+                  currentVal
                 ) : (
-                  <p className={`num z-depth-3`}>{val}</p>
+                  <p
+                    style={{
+                      //@ts-ignore
+                      fontSize: `${emojiArr.includes(val) ? "25px" : ""}`,
+                    }}
+                    className={`num z-depth-3`}
+                  >
+                    {val}
+                  </p>
                 )}
               </li>
             );

@@ -5,6 +5,7 @@ export interface coordsI {
   y: number;
 }
 type hofType = "MAP" | "FILTER" | "REDUCE";
+import { emojiArr } from "./Hof";
 
 enum inputTypeChoiceE {
   "numbers" = "numbers",
@@ -51,9 +52,15 @@ const OutputArray = (props: OutputArrI) =>
         </h5>
       </div>
       <li className={`arrBrkt col s1 bracket`}>[</li>
-      {props.outputArray.map((num, idx) => {
+      {props.outputArray.map((val, idx) => {
         let outputted = (
           <p
+            style={{
+              fontSize: `${
+                //@ts-ignore
+                emojiArr.includes(val) ? "25px" : ""
+              }`,
+            }}
             className={`num amber lighten-1 z-depth-5`}
             ref={(ele) => {
               let x = ele?.getBoundingClientRect().x;
@@ -84,7 +91,7 @@ const OutputArray = (props: OutputArrI) =>
               }
             }}
           >
-            {num}
+            {val}
           </p>
         );
         if (props.typeHof === "FILTER") {
@@ -101,7 +108,17 @@ const OutputArray = (props: OutputArrI) =>
             ) : idx === props.curIdx && !props.fastRefToggler ? (
               outputted
             ) : (
-              <p className={`num amber lighten-4 z-depth-3`}>{num}</p>
+              <p
+                style={{
+                  fontSize: `${
+                    //@ts-ignore
+                    emojiArr.includes(val) ? "25px" : ""
+                  }`,
+                }}
+                className={`num amber lighten-4 z-depth-3`}
+              >
+                {val}
+              </p>
             )}
           </li>
         );

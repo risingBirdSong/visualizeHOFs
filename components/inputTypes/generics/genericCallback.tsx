@@ -1,5 +1,6 @@
 import React from "react";
-import {hofType} from "../../Hof";
+import { hofType } from "../../Hof";
+import { emojiArr } from "../../Hof";
 interface coordsI {
   x: number;
   y: number;
@@ -57,6 +58,12 @@ const GenericCallback = (props: genericCallbackI) => {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   let input = (
     <span
+      style={{
+        fontSize: `${
+          //@ts-ignore
+          emojiArr.includes(props.mainArray[props.curIdx]) ? "25px" : ""
+        }`,
+      }}
       ref={(ele) => {
         let curX = ele?.getBoundingClientRect().x;
         if (props.inputCoords.x !== curX) {
@@ -149,6 +156,14 @@ const GenericCallback = (props: genericCallbackI) => {
               {props.mainArray[props.curIdx] &&
               props.currentTask === currentTaskE.output ? (
                 <span
+                  style={{
+                    fontSize: `${
+                      //@ts-ignore
+                      emojiArr.includes(props.mainArray[props.curIdx])
+                        ? "25px"
+                        : ""
+                    }`,
+                  }}
                   ref={(ele) => {
                     let x = ele?.getBoundingClientRect().x;
                     let y = ele?.getBoundingClientRect().y;
