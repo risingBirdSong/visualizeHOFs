@@ -11,7 +11,7 @@ interface MapMainControlsI {
   setCurOutputNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
 }
 
-const MapMainControls = (props: MapMainControlsI) => {
+const MainControls = (props: MapMainControlsI) => {
   return (
     <ul className="row buttonul">
       <div style={{ display: "flex", flex: "row" }}>
@@ -63,4 +63,4 @@ const MapMainControls = (props: MapMainControlsI) => {
   );
 };
 
-export { MapMainControls };
+export { MainControls as MapMainControls };

@@ -3,6 +3,7 @@ import GenericsInputs from "./genericInputs";
 import NumberCallbacks from "./numberCallbacks";
 import StringCallbacks from "./stringCallbacks";
 import { useState } from "react";
+import { hofType } from "../../Hof";
 
 enum CallbacksE {
   "double" = "double",
@@ -24,7 +25,9 @@ interface NumbersI {
   updateCallBacks: React.Dispatch<React.SetStateAction<string>>;
   inputType: inputTypeChoiceE;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
-  numCallBackContainer: ((num: number | string) => number)[];
+  mapNumCallBackContainer: ((num: number | string) => number)[];
+  filterNumCallBackContainer: ((num: number) => boolean)[];
+  hof: hofType;
 }
 const Numbers = (props: NumbersI) => {
   const [showArrays, setShowArrays] = useState(false);
@@ -59,8 +62,20 @@ const Numbers = (props: NumbersI) => {
         </ul>
       </div>
       {showArrays ? <GenericsInputs {...props} /> : ""}
-      {showCallbacks && props.inputType === inputTypeChoiceE.numbers ? (
-        <NumberCallbacks {...props} />
+      {showCallbacks &&
+      props.inputType === inputTypeChoiceE.numbers &&
+      props.hof === "MAP" ? (
+        <NumberCallbacks
+          callBackContainer={props.mapNumCallBackContainer}
+          {...props}
+        />
+      ) : showCallbacks &&
+        props.inputType === inputTypeChoiceE.numbers &&
+        props.hof === "FILTER" ? (
+        <NumberCallbacks
+          callBackContainer={props.filterNumCallBackContainer}
+          {...props}
+        />
       ) : (
         ""
       )}

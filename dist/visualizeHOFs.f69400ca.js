@@ -28285,7 +28285,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/mapMainControls.tsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"components/MainControls.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -28301,7 +28301,7 @@ exports.MapMainControls = void 0;
 
 var react_1 = __importDefault(require("react"));
 
-var MapMainControls = function MapMainControls(props) {
+var MainControls = function MainControls(props) {
   return react_1.default.createElement("ul", {
     className: "row buttonul"
   }, react_1.default.createElement("div", {
@@ -28336,7 +28336,7 @@ var MapMainControls = function MapMainControls(props) {
   }, react_1.default.createElement("span", null, "swap inputs + callbacks (work in progress)")))));
 };
 
-exports.MapMainControls = MapMainControls;
+exports.MapMainControls = MainControls;
 },{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/genericCallback.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -28472,7 +28472,8 @@ var GenericCallback = function GenericCallback(props) {
         });
       }
     }
-  }, " ", props.actualCallback(props.mainArray[props.curIdx]), " ") : props.mainArray[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "") : "")));
+  }, " ", props.typeHof === "MAP" ? // @ts-ignore
+  props.actualCallback(props.mainArray[props.curIdx]) : props.typeHof === "FILTER" ? props.mainArray[props.curIdx] : "", " ") : props.mainArray[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "") : "")));
 };
 
 exports.default = GenericCallback;
@@ -56946,7 +56947,7 @@ var KonvaLayer = function KonvaLayer(props) {
     fill: "blue"
   })) : props.currentTask === currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === true ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
-    points: [props.curOutputNumCoords.x + 5, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
+    points: [props.curOutputNumCoords.x + 3, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
     bezier: true
   }), react_1.default.createElement(react_konva_1.Wedge, {
     x: props.curOutputNumCoords.x + 3,
@@ -56957,11 +56958,11 @@ var KonvaLayer = function KonvaLayer(props) {
     fill: "blue"
   })) : props.currentTask === currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === false ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
-    points: [props.outputCoords.x + 5, props.outputCoords.y - 10, props.outputCoords.x - 20, props.outputCoords.y - 20, props.trashCoords.x + 13, props.trashCoords.y - 8, props.trashCoords.x + 19, props.trashCoords.y - 12],
+    points: [props.outputCoords.x, props.outputCoords.y, props.outputCoords.x - 30, props.outputCoords.y + 30, props.trashCoords.x + 15, props.trashCoords.y - 4, props.trashCoords.x + 19, props.trashCoords.y - 8],
     bezier: true
   }), react_1.default.createElement(react_konva_1.Wedge, {
-    x: props.trashCoords.x + 15,
-    y: props.trashCoords.y - 2,
+    x: props.trashCoords.x + 16,
+    y: props.trashCoords.y + 2,
     angle: 60,
     rotation: -110,
     radius: 14,
@@ -57103,6 +57104,7 @@ var CallbacksE;
   CallbacksE["toUpper"] = "toUpper";
   CallbacksE["reverse"] = "reverse";
   CallbacksE["emojiBeHappy"] = "emojiBeHappy";
+  CallbacksE["isEven"] = "isEven";
 })(CallbacksE || (CallbacksE = {}));
 
 var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
@@ -57111,9 +57113,9 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setCurrentFunctionName(CallbacksE.double);
       props.setMainArray([2, 4, 6, 8]);
       props.setinputTypeChoice(inputTypeChoiceE.numbers);
+      props.hofType === "MAP" ? props.setCurrentFunctionName(CallbacksE.double) : props.hofType === "FILTER" ? props.setCurrentFunctionName(CallbacksE.isEven) : "";
     },
     className: "waves-effect purple-text amber lighten-1 waves-light btn"
   }, react_1.default.createElement("span", null, "numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
@@ -57229,7 +57231,7 @@ var CallbacksE;
 var NumberCallbacks = function NumberCallbacks(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
-  }, props.numCallBackContainer.map(function (func, idx) {
+  }, props.callBackContainer.map(function (func, idx) {
     return react_1.default.createElement("li", null, react_1.default.createElement("button", {
       onClick: function onClick() {
         props.resetting();
@@ -57322,7 +57324,11 @@ var Numbers = function Numbers(props) {
       setShowArrays(false);
     },
     className: "btn waves-effect"
-  }, "number callbacks")))), showArrays ? react_1.default.createElement(genericInputs_1.default, Object.assign({}, props)) : "", showCallbacks && props.inputType === inputTypeChoiceE.numbers ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({}, props)) : "");
+  }, "number callbacks")))), showArrays ? react_1.default.createElement(genericInputs_1.default, Object.assign({}, props)) : "", showCallbacks && props.inputType === inputTypeChoiceE.numbers && props.hof === "MAP" ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({
+    callBackContainer: props.mapNumCallBackContainer
+  }, props)) : showCallbacks && props.inputType === inputTypeChoiceE.numbers && props.hof === "FILTER" ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({
+    callBackContainer: props.filterNumCallBackContainer
+  }, props)) : "");
 };
 
 exports.default = Numbers;
@@ -57576,7 +57582,7 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
-var mapMainControls_1 = require("./mapMainControls");
+var MainControls_1 = require("./MainControls");
 
 var genericCallback_1 = __importDefault(require("./inputTypes/generics/genericCallback"));
 
@@ -58059,6 +58065,28 @@ var HOF = function HOF(props) {
     setCurInputVarName(inputVarTypeE.num);
   };
 
+  var changeToIsPrime = function changeToIsPrime() {
+    setCurrentFunctionHook(function () {
+      return function (x) {
+        return isPrime(x);
+      };
+    });
+    setCurLogicAsString(".isPrime()");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
+  var changeToLessThan10 = function changeToLessThan10() {
+    setCurrentFunctionHook(function () {
+      return function (x) {
+        return lessThan10(x);
+      };
+    });
+    setCurLogicAsString("< 10");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+
   var starting = function starting() {
     setStepNumber(0);
     setCurIdx(-1);
@@ -58140,6 +58168,10 @@ var HOF = function HOF(props) {
     } // filter
     else if (currentFunctionName === isEven.name) {
         changeToIsEven();
+      } else if (currentFunctionName === isPrime.name) {
+        changeToIsPrime();
+      } else if (currentFunctionName === lessThan10.name) {
+        changeToLessThan10();
       }
   }, [currentFunctionName]);
   react_1.useEffect(function () {
@@ -58240,18 +58272,21 @@ var HOF = function HOF(props) {
     typeHof: props.hofType,
     filterStatus: filterStatus,
     trashCoords: curTrashCoords
-  }, stateObj, setStateObj)), React.createElement(mapMainControls_1.MapMainControls, Object.assign({
+  }, stateObj, setStateObj)), React.createElement(MainControls_1.MapMainControls, Object.assign({
     hofType: props.hofType
   }, stateObj, setStateObj, {
     takeStep: takeStep
   })), showInputsOptions ? React.createElement(chooseInputsCallbacks_1.default, {
+    hofType: props.hofType,
     setMainArray: setMainArray,
     setShowWriteCustomFunc: setShowTextArea,
     resetting: resetting,
     setinputTypeChoice: setinputTypeChoice,
     setCurrentFunctionName: setCurrentFunctionName
   }) : "", inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? React.createElement(numbers_1.default, {
-    numCallBackContainer: numMapCallBackContainer,
+    hof: props.hofType,
+    filterNumCallBackContainer: numFilterCallBack,
+    mapNumCallBackContainer: numMapCallBackContainer,
     inputType: inputTypeChoice,
     setType: setinputTypeChoice,
     setMainArray: setStateObj.setMainArray,
@@ -58360,7 +58395,9 @@ var HOF = function HOF(props) {
   }, "submit function"))))) : "", React.createElement(explainer_1.default, Object.assign({
     hof: props.hofType,
     explainer: explainer
-  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(genericCallback_1.default, Object.assign({}, stateObj, setStateObj, {
+  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(genericCallback_1.default, Object.assign({
+    typeHof: props.hofType
+  }, stateObj, setStateObj, {
     FunctionName: currentFunctionName,
     actualCallback: currentFunctionHook,
     callbackLogic: curLogicAsString,
@@ -58368,7 +58405,7 @@ var HOF = function HOF(props) {
     inputVarName: curInputVarName
   })), React.createElement(outputArray_1.default, Object.assign({
     typeHof: props.hofType
-  }, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("p", {
+  }, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("h5", {
     className: "".concat(animTarget === "trashCanAnimate" ? "trashCanAnimate" : "")
   }, "trash can", React.createElement("span", {
     ref: function ref(ele) {
@@ -58389,7 +58426,7 @@ var HOF = function HOF(props) {
 };
 
 exports.default = HOF;
-},{"react":"node_modules/react/index.js","./mapMainControls":"components/mapMainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./MainControls":"components/MainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }

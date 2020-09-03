@@ -11,7 +11,7 @@ enum CallbacksE {
 }
 interface GenericsCallbacksI {
   updateCallBacks: React.Dispatch<React.SetStateAction<string>>;
-  numCallBackContainer: ((num: number | string) => number)[];
+  callBackContainer: Function[];
   // setNums: React.Dispatch<React.SetStateAction<number[]>>;
   resetting: () => void;
 }
@@ -19,7 +19,7 @@ const NumberCallbacks = (props: GenericsCallbacksI) => {
   return (
     <div>
       <ul className="numberArrayChoices row">
-        {props.numCallBackContainer.map((func, idx) => {
+        {props.callBackContainer.map((func, idx) => {
           return (
             <li>
               <button

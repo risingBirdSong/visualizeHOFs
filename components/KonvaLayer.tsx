@@ -125,7 +125,7 @@ const KonvaLayer = (props: KonvaLayerI) => {
                 <Line
                   stroke="purple"
                   points={[
-                    props.curOutputNumCoords.x + 5,
+                    props.curOutputNumCoords.x + 3,
                     props.curOutputNumCoords.y - 10,
                     props.curOutputNumCoords.x - 20,
                     props.curOutputNumCoords.y - 20,
@@ -152,20 +152,20 @@ const KonvaLayer = (props: KonvaLayerI) => {
                 <Line
                   stroke="purple"
                   points={[
-                    props.outputCoords.x + 5,
-                    props.outputCoords.y - 10,
-                    props.outputCoords.x - 20,
-                    props.outputCoords.y - 20,
-                    props.trashCoords.x + 13,
-                    props.trashCoords.y - 8,
+                    props.outputCoords.x,
+                    props.outputCoords.y,
+                    props.outputCoords.x - 30,
+                    props.outputCoords.y + 30,
+                    props.trashCoords.x + 15,
+                    props.trashCoords.y - 4,
                     props.trashCoords.x + 19,
-                    props.trashCoords.y - 12,
+                    props.trashCoords.y - 8,
                   ]}
                   bezier
                 />
                 <Wedge
-                  x={props.trashCoords.x + 15}
-                  y={props.trashCoords.y - 2}
+                  x={props.trashCoords.x + 16}
+                  y={props.trashCoords.y + 2}
                   angle={60}
                   rotation={-110}
                   radius={14}

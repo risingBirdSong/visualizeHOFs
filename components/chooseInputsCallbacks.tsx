@@ -12,6 +12,7 @@ enum CallbacksE {
   "toUpper" = "toUpper",
   "reverse" = "reverse",
   "emojiBeHappy" = "emojiBeHappy",
+  "isEven" = "isEven",
 }
 interface ChooseInputsCallbacksI {
   setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
@@ -19,6 +20,7 @@ interface ChooseInputsCallbacksI {
   setCurrentFunctionName: React.Dispatch<React.SetStateAction<string>>;
   resetting: () => void;
   setShowWriteCustomFunc: React.Dispatch<React.SetStateAction<boolean>>;
+  hofType: "MAP" | "FILTER" | "REDUCE";
 }
 
 const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
@@ -28,9 +30,13 @@ const ChooseInputsCallbacks = (props: ChooseInputsCallbacksI) => {
         <button
           onClick={() => {
             props.resetting();
-            props.setCurrentFunctionName(CallbacksE.double);
             props.setMainArray([2, 4, 6, 8]);
             props.setinputTypeChoice(inputTypeChoiceE.numbers);
+            props.hofType === "MAP"
+              ? props.setCurrentFunctionName(CallbacksE.double)
+              : props.hofType === "FILTER"
+              ? props.setCurrentFunctionName(CallbacksE.isEven)
+              : "";
           }}
           className={`waves-effect purple-text amber lighten-1 waves-light btn`}
         >

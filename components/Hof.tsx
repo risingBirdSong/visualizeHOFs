@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
 import ReactDOM from "react-dom";
-import { MapMainControls } from "./mapMainControls";
+import { MapMainControls } from "./MainControls";
 import DefualtCallback from "./defaultNumCallback";
 import GenericCallback from "./inputTypes/generics/genericCallback";
 import StringCallback from "./inputTypes/strings/stringCallback";
@@ -59,6 +59,8 @@ const cheerUp = (str: number | string): string => {
   //@ts-ignore
   return emojiObj[str];
 };
+
+export type hofType = "MAP" | "FILTER" | "REDUCE";
 
 enum currentTaskE {
   "inactive",
@@ -330,6 +332,18 @@ const HOF = (props: HofOption) => {
     setCurInputType("number");
     setCurInputVarName(inputVarTypeE.num);
   };
+  const changeToIsPrime = () => {
+    setCurrentFunctionHook(() => (x: number) => isPrime(x));
+    setCurLogicAsString(`.isPrime()`);
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
+  const changeToLessThan10 = () => {
+    setCurrentFunctionHook(() => (x: number) => lessThan10(x));
+    setCurLogicAsString("< 10");
+    setCurInputType("number");
+    setCurInputVarName(inputVarTypeE.num);
+  };
 
   const starting = () => {
     setStepNumber(0);
@@ -413,6 +427,10 @@ const HOF = (props: HofOption) => {
     // filter
     else if (currentFunctionName === isEven.name) {
       changeToIsEven();
+    } else if (currentFunctionName === isPrime.name) {
+      changeToIsPrime();
+    } else if (currentFunctionName === lessThan10.name) {
+      changeToLessThan10();
     }
   }, [currentFunctionName]);
 
@@ -541,6 +559,7 @@ const HOF = (props: HofOption) => {
         />
         {showInputsOptions ? (
           <ChooseInputsCallbacks
+            hofType={props.hofType}
             setMainArray={setMainArray}
             setShowWriteCustomFunc={setShowTextArea}
             resetting={resetting}
@@ -552,7 +571,9 @@ const HOF = (props: HofOption) => {
         )}
         {inputTypeChoice === inputTypeChoiceE.numbers && showInputsOptions ? (
           <Numbers
-            numCallBackContainer={numMapCallBackContainer}
+            hof={props.hofType}
+            filterNumCallBackContainer={numFilterCallBack}
+            mapNumCallBackContainer={numMapCallBackContainer}
             inputType={inputTypeChoice}
             setType={setinputTypeChoice}
             setMainArray={setStateObj.setMainArray}
@@ -735,6 +756,7 @@ const HOF = (props: HofOption) => {
         /> */}
 
         <GenericCallback
+          typeHof={props.hofType}
           {...stateObj}
           {...setStateObj}
           FunctionName={currentFunctionName}
@@ -746,7 +768,7 @@ const HOF = (props: HofOption) => {
 
         <OutputArray typeHof={props.hofType} {...stateObj} {...setStateObj} />
         {props.hofType === "FILTER" ? (
-          <p
+          <h5
             className={`${
               animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
             }`}
@@ -768,7 +790,7 @@ const HOF = (props: HofOption) => {
             >
               🗑️
             </span>
-          </p>
+          </h5>
         ) : (
           ""
         )}

@@ -1,5 +1,5 @@
 import React from "react";
-
+import {hofType} from "../../Hof";
 interface coordsI {
   x: number;
   y: number;
@@ -50,6 +50,7 @@ interface genericCallbackI {
   animTarget: string;
   actualCallback: numFunc | strFunc | numFilterCallBack;
   fastRefToggler: boolean;
+  typeHof: hofType;
 }
 
 const GenericCallback = (props: genericCallbackI) => {
@@ -161,9 +162,12 @@ const GenericCallback = (props: genericCallbackI) => {
                 >
                   {" "}
                   {/* TODO how to fix this never argument? */}
-                  {/* 
-                  // @ts-ignore */}
-                  {props.actualCallback(props.mainArray[props.curIdx])}{" "}
+                  {props.typeHof === "MAP"
+                    ? // @ts-ignore
+                      props.actualCallback(props.mainArray[props.curIdx])
+                    : props.typeHof === "FILTER"
+                    ? props.mainArray[props.curIdx]
+                    : ""}{" "}
                 </span>
               ) : props.mainArray[props.curIdx] &&
                 props.currentTask === currentTaskE.input ? (
