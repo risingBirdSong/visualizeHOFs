@@ -10,11 +10,17 @@ const LooksLike = (props: lookslikeI) => {
       className="purple segment lighten-3 valign-wrapper center-align z-depth-3"
       style={{ justifyContent: "center" }}
     >
-      <p>
-        {`let output = input.${props.hofType.toLocaleLowerCase()}(${
-          props.func
-        })`}
-      </p>
+      <h5>
+        <span className="amber-text">let </span>
+        <span className="blue-text text-accent-4">output </span>
+        <span style={{ color: "whitesmoke" }}>= </span>
+        <span className="blue-text text-accent-4">input</span>
+        <span style={{ color: "whitesmoke" }}>.</span>
+        <span className="amber-text">{`${props.hofType.toLocaleLowerCase()}`}</span>
+        <span>(</span>
+        <span className={"blue-text text-accent-2"}>{props.func}</span>
+        <span>)</span>
+      </h5>
     </div>
   );
 };

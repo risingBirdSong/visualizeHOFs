@@ -42,10 +42,10 @@ const OutputArray = (props: OutputArrI) =>
           borderRadius: "5px",
           padding: "4px",
           alignSelf: "center",
-          marginLeft: "2em",
+          marginLeft: "1em",
         }}
       >
-        <h5>
+        <h6>
           <span className="blue-text text-darken-3">output :</span>{" "}
           <span>
             {props.inputTypeChoice === inputTypeChoiceE.numbers
@@ -53,7 +53,7 @@ const OutputArray = (props: OutputArrI) =>
               : "string [ ]"}
           </span>{" "}
           =
-        </h5>
+        </h6>
       </div>
       <li className={`arrBrkt col s1 bracket`}>[</li>
       {props.outputArray.map((val, idx) => {

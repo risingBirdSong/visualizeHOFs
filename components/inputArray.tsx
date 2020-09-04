@@ -36,10 +36,10 @@ const InputArray = (props: inputArrayI) => {
           padding: "4px",
           borderRadius: "4px",
           alignSelf: "center",
-          marginLeft: "2em",
+          marginLeft: "1em",
         }}
       >
-        <h5>
+        <h6>
           <span className="blue-text text-darken-4">input</span> :{" "}
           <span>
             {props.inputTypeChoice === inputTypeChoiceE.numbers
@@ -47,7 +47,7 @@ const InputArray = (props: inputArrayI) => {
               : "string [ ]"}{" "}
           </span>{" "}
           ={" "}
-        </h5>
+        </h6>
       </div>
       <li className={"arrBrkt col s1 bracket"}>[</li>
       {props.inputTypeChoice === inputTypeChoiceE.numbers ||

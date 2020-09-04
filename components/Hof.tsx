@@ -158,8 +158,6 @@ const HOF = (props: HofOption) => {
     4,
     5,
     6,
-    7,
-    8,
   ]);
 
   const [algoHasStarted, setAlgoHasStarted] = useState(true);

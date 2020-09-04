@@ -28550,9 +28550,9 @@ var InputArray = function InputArray(props) {
       padding: "4px",
       borderRadius: "4px",
       alignSelf: "center",
-      marginLeft: "2em"
+      marginLeft: "1em"
     }
-  }, react_1.default.createElement("h5", null, react_1.default.createElement("span", {
+  }, react_1.default.createElement("h6", null, react_1.default.createElement("span", {
     className: "blue-text text-darken-4"
   }, "input"), " :", " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number [ ]" : "string [ ]", " "), " ", "=", " ")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
@@ -28629,9 +28629,9 @@ var OutputArray = function OutputArray(props) {
       borderRadius: "5px",
       padding: "4px",
       alignSelf: "center",
-      marginLeft: "2em"
+      marginLeft: "1em"
     }
-  }, react_1.default.createElement("h5", null, react_1.default.createElement("span", {
+  }, react_1.default.createElement("h6", null, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
   }, "output :"), " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number[ ]" : "string [ ]"), " ", "=")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
@@ -57591,7 +57591,25 @@ var LooksLike = function LooksLike(props) {
     style: {
       justifyContent: "center"
     }
-  }, react_1.default.createElement("p", null, "let output = input.".concat(props.hofType.toLocaleLowerCase(), "(").concat(props.func, ")")));
+  }, react_1.default.createElement("h5", null, react_1.default.createElement("span", {
+    className: "amber-text"
+  }, "let "), react_1.default.createElement("span", {
+    className: "blue-text text-accent-4"
+  }, "output "), react_1.default.createElement("span", {
+    style: {
+      color: "whitesmoke"
+    }
+  }, "= "), react_1.default.createElement("span", {
+    className: "blue-text text-accent-4"
+  }, "input"), react_1.default.createElement("span", {
+    style: {
+      color: "whitesmoke"
+    }
+  }, "."), react_1.default.createElement("span", {
+    className: "amber-text"
+  }, "".concat(props.hofType.toLocaleLowerCase())), react_1.default.createElement("span", null, "("), react_1.default.createElement("span", {
+    className: "blue-text text-accent-2"
+  }, props.func), react_1.default.createElement("span", null, ")")));
 };
 
 exports.default = LooksLike;
@@ -57820,7 +57838,7 @@ var HOF = function HOF(props) {
   //state hooks
   var inputEl = react_1.useRef(null);
 
-  var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6, 7, 8]),
+  var _react_1$useState = react_1.useState([1, 2, 3, 4, 5, 6]),
       _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
       mainArray = _react_1$useState2[0],
       setMainArray = _react_1$useState2[1];
