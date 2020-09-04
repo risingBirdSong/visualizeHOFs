@@ -68,7 +68,7 @@ const MainControls = (props: MapMainControlsI) => {
               }}
               className={`waves-effect waves-light btn`}
             >
-              <span>tutorial</span>
+              <span>tutorial (work in progress)</span>
             </button>
           </li>
         </div>

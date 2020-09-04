@@ -28347,7 +28347,7 @@ var MainControls = function MainControls(props) {
       });
     },
     className: "waves-effect waves-light btn"
-  }, react_1.default.createElement("span", null, "tutorial"))))), props.showtutorialPanel ? react_1.default.createElement("ul", {
+  }, react_1.default.createElement("span", null, "tutorial (work in progress)"))))), props.showtutorialPanel ? react_1.default.createElement("ul", {
     className: "row buttonul"
   }, react_1.default.createElement("li", {
     className: "z-depth-3"
@@ -57576,7 +57576,32 @@ var Strings = function Strings(props) {
 };
 
 exports.default = Strings;
-},{"react":"node_modules/react/index.js","../strings/stringInputs":"components/inputTypes/strings/stringInputs.tsx","./stringCallbacks":"components/inputTypes/generics/stringCallbacks.tsx"}],"components/Hof.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../strings/stringInputs":"components/inputTypes/strings/stringInputs.tsx","./stringCallbacks":"components/inputTypes/generics/stringCallbacks.tsx"}],"components/LooksLike.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var LooksLike = function LooksLike(props) {
+  return react_1.default.createElement("div", {
+    className: "purple lighten-3 valign-wrapper center-align z-depth-3",
+    style: {
+      justifyContent: "center"
+    }
+  }, react_1.default.createElement("p", null, "let output = input.".concat(props.hofType.toLocaleLowerCase(), "(").concat(props.func, ")")));
+};
+
+exports.default = LooksLike;
+},{"react":"node_modules/react/index.js"}],"components/Hof.tsx":[function(require,module,exports) {
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -57642,7 +57667,7 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.emojiArr = void 0;
+exports.emojiArr = exports.CallbacksE = void 0;
 
 var React = __importStar(require("react"));
 
@@ -57664,7 +57689,9 @@ var chooseInputsCallbacks_1 = __importDefault(require("./chooseInputsCallbacks")
 
 var numbers_1 = __importDefault(require("./inputTypes/generics/numbers"));
 
-var strings_1 = __importDefault(require("./inputTypes/generics/strings")); // import { Ellipse } from "konva/types/shapes/Ellipse";
+var strings_1 = __importDefault(require("./inputTypes/generics/strings"));
+
+var LooksLike_1 = __importDefault(require("./LooksLike")); // import { Ellipse } from "konva/types/shapes/Ellipse";
 //number functions map
 
 
@@ -57760,7 +57787,7 @@ var CallbacksE;
   CallbacksE["reverse"] = "reverse";
   CallbacksE["emojiBeHappy"] = "emojiBeHappy";
   CallbacksE["fourLetterWord"] = "fourLetterWord";
-})(CallbacksE || (CallbacksE = {})); // enum stringCallbacksE {
+})(CallbacksE = exports.CallbacksE || (exports.CallbacksE = {})); // enum stringCallbacksE {
 //   "toUpper" = "toUpper",
 //   "reverse" = "reverse",
 //   "emojiBeHappy" = "emojiBeHappy",
@@ -58542,7 +58569,10 @@ var HOF = function HOF(props) {
   }, "submit function"))))) : "", React.createElement(explainer_1.default, Object.assign({
     hof: props.hofType,
     explainer: explainer
-  }, stateObj, setStateObj)), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(genericCallback_1.default, Object.assign({
+  }, stateObj, setStateObj)), React.createElement(LooksLike_1.default, {
+    hofType: props.hofType,
+    func: currentFunctionName
+  }), React.createElement(inputArray_1.default, Object.assign({}, stateObj, setStateObj)), React.createElement(genericCallback_1.default, Object.assign({
     typeHof: props.hofType
   }, stateObj, setStateObj, {
     FunctionName: currentFunctionName,
@@ -58573,7 +58603,7 @@ var HOF = function HOF(props) {
 };
 
 exports.default = HOF;
-},{"react":"node_modules/react/index.js","./MainControls":"components/MainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx"}],"components/About.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./MainControls":"components/MainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx","./LooksLike":"components/LooksLike.tsx"}],"components/About.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -58811,7 +58841,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56628" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62767" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

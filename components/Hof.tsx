@@ -13,6 +13,7 @@ import Explainer from "./explainer";
 import ChooseInputsCallbacks from "./chooseInputsCallbacks";
 import Numbers from "./inputTypes/generics/numbers";
 import Strings from "./inputTypes/generics/strings";
+import LooksLike from "./LooksLike";
 // import { Ellipse } from "konva/types/shapes/Ellipse";
 
 //number functions map
@@ -86,7 +87,7 @@ enum inputTypeChoiceE {
   "strings" = "strings",
 }
 
-enum CallbacksE {
+export enum CallbacksE {
   "double" = "double",
   "halve" = "halve",
   "square" = "square",
@@ -826,6 +827,7 @@ const HOF = (props: HofOption) => {
           {...stateObj}
           {...setStateObj}
         />
+        <LooksLike hofType={props.hofType} func={currentFunctionName} />
         <InputArray {...stateObj} {...setStateObj} />
         {/* <DefualtCallback
           {...stateObj}
