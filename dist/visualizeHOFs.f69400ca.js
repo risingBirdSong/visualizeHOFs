@@ -58631,7 +58631,17 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 
 var About = function About() {
-  return react_1.default.createElement("div", null, react_1.default.createElement("h2", null, "let's visualize .map and .filter"), react_1.default.createElement("h2", null, "credits"), react_1.default.createElement("ul", null, react_1.default.createElement("li", null, "Paul Ferguson"), react_1.default.createElement("li", null, "Kate Raskauskas")));
+  return react_1.default.createElement("div", null, react_1.default.createElement("h2", null, "let's visualize .map and .filter"), react_1.default.createElement("h2", null, "credits"), react_1.default.createElement("ul", null, react_1.default.createElement("li", null, react_1.default.createElement("span", {
+    style: {
+      fontSize: "25px",
+      color: "darkblue"
+    }
+  }, "Paul Ferguson"), " ", react_1.default.createElement("p", null, " for odds and ends help")), react_1.default.createElement("li", null, react_1.default.createElement("span", {
+    style: {
+      fontSize: "25px",
+      color: "darkblue"
+    }
+  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. let example = input.map(str ", "=>", " str.toUpperCase())"), " ")));
 };
 
 exports.default = About;
