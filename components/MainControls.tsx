@@ -15,7 +15,10 @@ interface MapMainControlsI {
 
 const MainControls = (props: MapMainControlsI) => {
   return (
-    <div className="row" style={{ justifyContent: "center" }}>
+    <div
+      className="row"
+      style={{ justifyContent: "center", marginTop: -7, marginBottom: -18 }}
+    >
       <ul className="row buttonul">
         <div style={{ display: "flex", flex: "row" }}>
           <li className="z-depth-3 stepper">

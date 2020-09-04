@@ -32,14 +32,18 @@ const OutputArray = (props: OutputArrI) =>
     <ul
       className={`${
         props.typeHof === "MAP" ? "numArr" : "filterOutputArr"
-      } valign-wrapper row pink lighten-2 center-align ${
+      } segment valign-wrapper row pink lighten-2 center-align ${
         props.animTarget === "outputAnimate" ? "outputAnimate" : ""
       }`}
-      style={{ borderRadius: "5px" }}
     >
       <div
         className="z-depth-1"
-        style={{ borderRadius: "5px", marginLeft: "2em", padding: "4px" }}
+        style={{
+          borderRadius: "5px",
+          padding: "4px",
+          alignSelf: "center",
+          marginLeft: "2em",
+        }}
       >
         <h5>
           <span className="blue-text text-darken-3">output :</span>{" "}

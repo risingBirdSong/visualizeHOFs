@@ -85,13 +85,12 @@ const GenericCallback = (props: genericCallbackI) => {
     <div
       style={{
         padding: "8px",
-        margin: "2px",
+        // margin: "2px",
         display: "flex",
-        borderRadius: "5px",
         flexDirection: "row",
         justifyContent: "space-evenly",
       }}
-      className={`callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3 ${
+      className={`callbackFunc segment purple lighten-3 valign-wrapper center-align z-depth-3 ${
         props.animTarget === "callBackAnimate" ? "callBackAnimate" : ""
       }`}
     >

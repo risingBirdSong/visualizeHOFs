@@ -141,5 +141,11 @@ form {
   animation-iteration-count: infinite;
 }
 
+.segment {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
 
 /*# sourceMappingURL=/visualizeHOFs.9ad09f98.css.map */

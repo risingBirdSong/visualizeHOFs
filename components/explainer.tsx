@@ -25,8 +25,8 @@ const Explainer = (props: ExplainerI) => {
   };
   return props.explainer ? (
     <div
-      className="explanation blue lighten-1 z-depth-2 "
-      style={{ padding: "10px", marginBottom: "15px", borderRadius: "5px" }}
+      className=" explanation segment blue lighten-1 z-depth-2 "
+      style={{ padding: "2px" }}
     >
       {props.hof === "FILTER" ? (
         <h6 className="amber-text center-align">

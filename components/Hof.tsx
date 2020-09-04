@@ -1,11 +1,7 @@
 import * as React from "react";
 import { useState, useRef, useEffect } from "react";
-import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
-import ReactDOM from "react-dom";
 import { MapMainControls } from "./MainControls";
-import DefualtCallback from "./defaultNumCallback";
 import GenericCallback from "./inputTypes/generics/genericCallback";
-import StringCallback from "./inputTypes/strings/stringCallback";
 import InputArray from "./inputArray";
 import OutputArray from "./outputArray";
 import KonvaLayer from "./KonvaLayer";

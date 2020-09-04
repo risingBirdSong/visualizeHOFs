@@ -7,7 +7,7 @@ interface lookslikeI {
 const LooksLike = (props: lookslikeI) => {
   return (
     <div
-      className="purple lighten-3 valign-wrapper center-align z-depth-3"
+      className="purple segment lighten-3 valign-wrapper center-align z-depth-3"
       style={{ justifyContent: "center" }}
     >
       <p>

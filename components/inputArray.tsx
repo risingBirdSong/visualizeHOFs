@@ -26,10 +26,9 @@ interface inputArrayI {
 const InputArray = (props: inputArrayI) => {
   return (
     <ul
-      className={`numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ${
+      className={`numArr segment valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ${
         props.animTarget === "inputArrayAnim" ? "inputArrayAnim" : ""
       }`}
-      style={{ borderRadius: "5px" }}
     >
       <div
         className="z-depth-1"

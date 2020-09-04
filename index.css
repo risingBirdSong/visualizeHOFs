@@ -140,3 +140,9 @@ form {
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
+
+.segment {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}

@@ -28305,7 +28305,9 @@ var MainControls = function MainControls(props) {
   return react_1.default.createElement("div", {
     className: "row",
     style: {
-      justifyContent: "center"
+      justifyContent: "center",
+      marginTop: -7,
+      marginBottom: -18
     }
   }, react_1.default.createElement("ul", {
     className: "row buttonul"
@@ -28440,13 +28442,12 @@ var GenericCallback = function GenericCallback(props) {
   return react_1.default.createElement("div", {
     style: {
       padding: "8px",
-      margin: "2px",
+      // margin: "2px",
       display: "flex",
-      borderRadius: "5px",
       flexDirection: "row",
       justifyContent: "space-evenly"
     },
-    className: "callbackFunc purple lighten-3 valign-wrapper center-align z-depth-3 ".concat(props.animTarget === "callBackAnimate" ? "callBackAnimate" : "")
+    className: "callbackFunc segment purple lighten-3 valign-wrapper center-align z-depth-3 ".concat(props.animTarget === "callBackAnimate" ? "callBackAnimate" : "")
   }, react_1.default.createElement("h5", {
     className: "purple lighten-2 amber-text text-accent-4 z-depth-1",
     style: {
@@ -28542,10 +28543,7 @@ var inputTypeChoiceE;
 
 var InputArray = function InputArray(props) {
   return react_1.default.createElement("ul", {
-    className: "numArr valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animTarget === "inputArrayAnim" ? "inputArrayAnim" : ""),
-    style: {
-      borderRadius: "5px"
-    }
+    className: "numArr segment valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animTarget === "inputArrayAnim" ? "inputArrayAnim" : "")
   }, react_1.default.createElement("div", {
     className: "z-depth-1",
     style: {
@@ -28624,16 +28622,14 @@ var inputTypeChoiceE;
 
 var OutputArray = function OutputArray(props) {
   return props.algoHasStarted && !props.algoHasFinished ? react_1.default.createElement("ul", {
-    className: "".concat(props.typeHof === "MAP" ? "numArr" : "filterOutputArr", " valign-wrapper row pink lighten-2 center-align ").concat(props.animTarget === "outputAnimate" ? "outputAnimate" : ""),
-    style: {
-      borderRadius: "5px"
-    }
+    className: "".concat(props.typeHof === "MAP" ? "numArr" : "filterOutputArr", " segment valign-wrapper row pink lighten-2 center-align ").concat(props.animTarget === "outputAnimate" ? "outputAnimate" : "")
   }, react_1.default.createElement("div", {
     className: "z-depth-1",
     style: {
       borderRadius: "5px",
-      marginLeft: "2em",
-      padding: "4px"
+      padding: "4px",
+      alignSelf: "center",
+      marginLeft: "2em"
     }
   }, react_1.default.createElement("h5", null, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
@@ -57064,11 +57060,9 @@ var Explainer = function Explainer(props) {
   };
 
   return props.explainer ? react_1.default.createElement("div", {
-    className: "explanation blue lighten-1 z-depth-2 ",
+    className: " explanation segment blue lighten-1 z-depth-2 ",
     style: {
-      padding: "10px",
-      marginBottom: "15px",
-      borderRadius: "5px"
+      padding: "2px"
     }
   }, props.hof === "FILTER" ? react_1.default.createElement("h6", {
     className: "amber-text center-align"
@@ -57593,7 +57587,7 @@ var react_1 = __importDefault(require("react"));
 
 var LooksLike = function LooksLike(props) {
   return react_1.default.createElement("div", {
-    className: "purple lighten-3 valign-wrapper center-align z-depth-3",
+    className: "purple segment lighten-3 valign-wrapper center-align z-depth-3",
     style: {
       justifyContent: "center"
     }
