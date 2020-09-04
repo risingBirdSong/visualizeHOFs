@@ -3,9 +3,22 @@ import React from "react";
 const About = () => {
   return (
     <div>
-      <h2>let's visualize .map and .filter</h2>
-      <h2>credits</h2>
-      <ul>
+      <h2 className="center-align">let's visualize .map and .filter</h2>
+      <div className="center-align">
+        <h5>map</h5>
+        <p>
+          transform each element of an input array and place the new value into
+          an output array
+        </p>
+        <h5>filter</h5>
+        <p>
+          the callback will either accept or reject elements from the input
+          array according to a truth test. It'll place the accepted values into
+          an output array.
+        </p>
+      </div>
+      <h2 className="center-align">credits</h2>
+      <ul className="center-align">
         <li>
           <span style={{ fontSize: "25px", color: "darkblue" }}>
             Paul Ferguson
@@ -20,7 +33,7 @@ const About = () => {
           <p>
             {" "}
             for a good idea about showing how the code looks like when called.
-            let example = input.map(str {"=>"} str.toUpperCase())
+            for example let output = input.map(str {"=>"} str.toUpperCase())
           </p>{" "}
         </li>
       </ul>

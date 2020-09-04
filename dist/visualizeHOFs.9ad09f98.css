@@ -32,6 +32,7 @@ nav {
   position: absolute;
   left: 0px;
   bottom: 0px;
+  z-index: 0;
 }
 
 @keyframes backForth {
@@ -147,8 +148,14 @@ form {
   border-radius: 5px;
 }
 
-.explainer {
-  border: 2px solid black;
+.tutorial {
+  position: absolute;
+  padding: 5px;
+  margin-left: 65em;
+  margin-top: 16em;
+  z-index: 2;
+  /* border: 2px solid black; */
+  background-color: blanchedalmond;
 }
 
 

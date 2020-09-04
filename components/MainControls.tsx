@@ -71,7 +71,7 @@ const MainControls = (props: MapMainControlsI) => {
             </button>
           </li>
           <li className="z-depth-3">
-            <button
+            {/* <button
               onClick={() => {
                 props.setshowtutorialPanel((state) => {
                   props.showOnlyOne(undefined);
@@ -81,7 +81,7 @@ const MainControls = (props: MapMainControlsI) => {
               className={`waves-effect waves-light btn`}
             >
               <span>tutorial (work in progress)</span>
-            </button>
+            </button> */}
           </li>
         </div>
       </ul>
@@ -121,11 +121,30 @@ const MainControls = (props: MapMainControlsI) => {
       ) : (
         ""
       )}
-      <div className="explainer">
-        {props.tutorialSegmentsContainer[0] ? <p>test step a</p> : ""}
-        {props.tutorialSegmentsContainer[1] ? <p>test step b</p> : ""}
-        {props.tutorialSegmentsContainer[2] ? <p>test step c</p> : ""}
-      </div>
+      {props.tutorialSegmentsContainer[0] ? (
+        <div className="tutorial">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos
+            perspiciatis architecto dolorem inventore asperiores atque. Velit
+          </p>
+        </div>
+      ) : (
+        ""
+      )}
+      {props.tutorialSegmentsContainer[1] ? (
+        <div className="tutorial">
+          <p>abc</p>
+        </div>
+      ) : (
+        ""
+      )}
+      {props.tutorialSegmentsContainer[2] ? (
+        <div className="tutorial">
+          <p>def</p>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

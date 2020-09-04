@@ -3,6 +3,7 @@ import { useState } from "react";
 import HOF from "./components/Hof";
 import About from "./components/About";
 import FurtherReading from "./components/FurtherRead";
+import HowToUse from "./components/HowTo";
 const App = () => {
   let [shown, setShown] = useState(<HOF hofType={"MAP"} />);
   let aboutAndHof = (
@@ -30,6 +31,15 @@ const App = () => {
               }}
             >
               Further Reading
+            </a>
+          </li>
+          <li>
+            <a
+              onClick={() => {
+                setShown(HowToUse);
+              }}
+            >
+              How to use{" "}
             </a>
           </li>
           <li>

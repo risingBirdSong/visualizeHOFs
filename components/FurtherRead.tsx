@@ -3,9 +3,11 @@ import React from "react";
 const FurtherReading = () => {
   return (
     <div>
-      <h1>Further Reading</h1>
-      <h4>There are plenty of great resources to read further</h4>
-      <ul>
+      <h1 className="center-align">Further Reading</h1>
+      <h4 className="center-align">
+        There are plenty of great resources to read further
+      </h4>
+      <ul className="center-align">
         <li>
           {" "}
           <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">

@@ -28342,15 +28342,7 @@ var MainControls = function MainControls(props) {
     }
   }, react_1.default.createElement("span", null, "swap inputs and callbacks"))), react_1.default.createElement("li", {
     className: "z-depth-3"
-  }, react_1.default.createElement("button", {
-    onClick: function onClick() {
-      props.setshowtutorialPanel(function (state) {
-        props.showOnlyOne(undefined);
-        return !state;
-      });
-    },
-    className: "waves-effect waves-light btn"
-  }, react_1.default.createElement("span", null, "tutorial (work in progress)"))))), props.showtutorialPanel ? react_1.default.createElement("ul", {
+  }))), props.showtutorialPanel ? react_1.default.createElement("ul", {
     className: "row buttonul"
   }, react_1.default.createElement("li", {
     className: "z-depth-3"
@@ -28373,9 +28365,13 @@ var MainControls = function MainControls(props) {
       props.showOnlyOne(props.settutorialSegmentsContainer[2]);
     },
     className: "waves-effect waves-light btn"
-  }, "explainer"))) : "", react_1.default.createElement("div", {
-    className: "explainer"
-  }, props.tutorialSegmentsContainer[0] ? react_1.default.createElement("p", null, "test step a") : "", props.tutorialSegmentsContainer[1] ? react_1.default.createElement("p", null, "test step b") : "", props.tutorialSegmentsContainer[2] ? react_1.default.createElement("p", null, "test step c") : ""));
+  }, "explainer"))) : "", props.tutorialSegmentsContainer[0] ? react_1.default.createElement("div", {
+    className: "tutorial"
+  }, react_1.default.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos perspiciatis architecto dolorem inventore asperiores atque. Velit")) : "", props.tutorialSegmentsContainer[1] ? react_1.default.createElement("div", {
+    className: "tutorial"
+  }, react_1.default.createElement("p", null, "abc")) : "", props.tutorialSegmentsContainer[2] ? react_1.default.createElement("div", {
+    className: "tutorial"
+  }, react_1.default.createElement("p", null, "def")) : "");
 };
 
 exports.MapMainControls = MainControls;
@@ -58671,7 +58667,15 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 
 var About = function About() {
-  return react_1.default.createElement("div", null, react_1.default.createElement("h2", null, "let's visualize .map and .filter"), react_1.default.createElement("h2", null, "credits"), react_1.default.createElement("ul", null, react_1.default.createElement("li", null, react_1.default.createElement("span", {
+  return react_1.default.createElement("div", null, react_1.default.createElement("h2", {
+    className: "center-align"
+  }, "let's visualize .map and .filter"), react_1.default.createElement("div", {
+    className: "center-align"
+  }, react_1.default.createElement("h5", null, "map"), react_1.default.createElement("p", null, "transform each element of an input array and place the new value into an output array"), react_1.default.createElement("h5", null, "filter"), react_1.default.createElement("p", null, "the callback will either accept or reject elements from the input array according to a truth test. It'll place the accepted values into an output array.")), react_1.default.createElement("h2", {
+    className: "center-align"
+  }, "credits"), react_1.default.createElement("ul", {
+    className: "center-align"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("span", {
     style: {
       fontSize: "25px",
       color: "darkblue"
@@ -58681,7 +58685,7 @@ var About = function About() {
       fontSize: "25px",
       color: "darkblue"
     }
-  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. let example = input.map(str ", "=>", " str.toUpperCase())"), " ")));
+  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. for example let output = input.map(str ", "=>", " str.toUpperCase())"), " ")));
 };
 
 exports.default = About;
@@ -58701,7 +58705,13 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 
 var FurtherReading = function FurtherReading() {
-  return react_1.default.createElement("div", null, react_1.default.createElement("h1", null, "Further Reading"), react_1.default.createElement("h4", null, "There are plenty of great resources to read further"), react_1.default.createElement("ul", null, react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
+  return react_1.default.createElement("div", null, react_1.default.createElement("h1", {
+    className: "center-align"
+  }, "Further Reading"), react_1.default.createElement("h4", {
+    className: "center-align"
+  }, "There are plenty of great resources to read further"), react_1.default.createElement("ul", {
+    className: "center-align"
+  }, react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
     href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
   }, "MDN documentation", " "), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
     href: "https://www.freecodecamp.org/news/javascript-map-reduce-and-filter-explained-with-examples/"
@@ -58715,6 +58725,30 @@ var FurtherReading = function FurtherReading() {
 };
 
 exports.default = FurtherReading;
+},{"react":"node_modules/react/index.js"}],"components/HowTo.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var HowToUse = function HowToUse() {
+  return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
+    className: "center-align"
+  }, react_1.default.createElement("li", null, react_1.default.createElement("h2", {
+    className: "center-align"
+  }, "step / restart button"), react_1.default.createElement("p", null, "the main button that will iterate the array and process each element with the callback function")), react_1.default.createElement("li", null, react_1.default.createElement("h2", null, "swap inputs and callbacks button"), react_1.default.createElement("p", null, "try out different input arrays and callback functions. Works with numbers, strings and emojis. The callbacks are simple little functions just to help demonstrate the concepts with different examples.")), react_1.default.createElement("li", null, react_1.default.createElement("h2", null, "more buttons"), react_1.default.createElement("p", null, "the buttons in the blue area will wiggle the corresponding section that they describe"))));
+};
+
+exports.default = HowToUse;
 },{"react":"node_modules/react/index.js"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -58784,6 +58818,8 @@ var About_1 = __importDefault(require("./components/About"));
 
 var FurtherRead_1 = __importDefault(require("./components/FurtherRead"));
 
+var HowTo_1 = __importDefault(require("./components/HowTo"));
+
 var App = function App() {
   var _react_1$useState = react_1.useState(React.createElement(Hof_1.default, {
     hofType: "MAP"
@@ -58807,6 +58843,10 @@ var App = function App() {
     }
   }, "Further Reading")), React.createElement("li", null, React.createElement("a", {
     onClick: function onClick() {
+      setShown(HowTo_1.default);
+    }
+  }, "How to use", " ")), React.createElement("li", null, React.createElement("a", {
+    onClick: function onClick() {
       setShown(React.createElement(Hof_1.default, {
         hofType: "MAP"
       }));
@@ -58821,7 +58861,7 @@ var App = function App() {
 };
 
 exports.default = App;
-},{"react":"node_modules/react/index.js","./components/Hof":"components/Hof.tsx","./components/About":"components/About.tsx","./components/FurtherRead":"components/FurtherRead.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/Hof":"components/Hof.tsx","./components/About":"components/About.tsx","./components/FurtherRead":"components/FurtherRead.tsx","./components/HowTo":"components/HowTo.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
