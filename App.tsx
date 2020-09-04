@@ -5,6 +5,11 @@ import About from "./components/About";
 import FurtherReading from "./components/FurtherRead";
 const App = () => {
   let [shown, setShown] = useState(<HOF hofType={"MAP"} />);
+  let aboutAndHof = (
+    <div>
+      <About />
+    </div>
+  );
   return (
     <main className="container">
       <nav>
@@ -12,7 +17,7 @@ const App = () => {
           <li>
             <a
               onClick={() => {
-                setShown(About);
+                setShown(aboutAndHof);
               }}
             >
               About

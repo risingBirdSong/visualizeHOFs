@@ -58553,7 +58553,7 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react"));
 
 var About = function About() {
-  return react_1.default.createElement("div", null, react_1.default.createElement("ul", null, react_1.default.createElement("li", null, "todo")));
+  return react_1.default.createElement("div", null, react_1.default.createElement("h2", null, "let's visualize .map and .filter"), react_1.default.createElement("h2", null, "credits"), react_1.default.createElement("ul", null, react_1.default.createElement("li", null, "Paul Ferguson"), react_1.default.createElement("li", null, "Kate Raskauskas")));
 };
 
 exports.default = About;
@@ -58664,13 +58664,14 @@ var App = function App() {
       shown = _react_1$useState2[0],
       setShown = _react_1$useState2[1];
 
+  var aboutAndHof = React.createElement("div", null, React.createElement(About_1.default, null));
   return React.createElement("main", {
     className: "container"
   }, React.createElement("nav", null, React.createElement("ul", {
     className: "row z-depth-2"
   }, React.createElement("li", null, React.createElement("a", {
     onClick: function onClick() {
-      setShown(About_1.default);
+      setShown(aboutAndHof);
     }
   }, "About")), React.createElement("li", null, React.createElement("a", {
     onClick: function onClick() {
@@ -58774,7 +58775,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50868" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56628" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
