@@ -189,6 +189,9 @@ const HOF = (props: HofOption) => {
   const [inputTypeChoice, setinputTypeChoice] = useState<inputTypeChoiceE>(
     inputTypeChoiceE.numbers
   );
+
+  // tutorial
+  const [showtutorialPanel, setshowtutorialPanel] = useState(false);
   //filtering
   const [curTrashCoords, setCurTrashCoords] = useState({ x: 0, y: 0 });
   const [filterStatus, setfilterStatus] = useState(false);
@@ -624,6 +627,8 @@ const HOF = (props: HofOption) => {
         />
 
         <MapMainControls
+          setshowtutorialPanel={setshowtutorialPanel}
+          showtutorialPanel={showtutorialPanel}
           hofType={props.hofType}
           {...stateObj}
           {...setStateObj}

@@ -28302,7 +28302,12 @@ exports.MapMainControls = void 0;
 var react_1 = __importDefault(require("react"));
 
 var MainControls = function MainControls(props) {
-  return react_1.default.createElement("ul", {
+  return react_1.default.createElement("div", {
+    className: "row",
+    style: {
+      justifyContent: "center"
+    }
+  }, react_1.default.createElement("ul", {
     className: "row buttonul"
   }, react_1.default.createElement("div", {
     style: {
@@ -28333,7 +28338,30 @@ var MainControls = function MainControls(props) {
         return !prev;
       });
     }
-  }, react_1.default.createElement("span", null, "swap inputs and callbacks")))));
+  }, react_1.default.createElement("span", null, "swap inputs and callbacks"))), react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    onClick: function onClick() {
+      props.setshowtutorialPanel(function (state) {
+        return !state;
+      });
+    },
+    className: "waves-effect waves-light btn"
+  }, react_1.default.createElement("span", null, "tutorial"))))), props.showtutorialPanel ? react_1.default.createElement("ul", {
+    className: "row buttonul"
+  }, react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    className: "waves-effect waves-light btn"
+  }, "step")), react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    className: "waves-effect waves-light btn"
+  }, "update")), react_1.default.createElement("li", {
+    className: "z-depth-3"
+  }, react_1.default.createElement("button", {
+    className: "waves-effect waves-light btn"
+  }, "explainer"))) : "");
 };
 
 exports.MapMainControls = MainControls;
@@ -57871,46 +57899,52 @@ var HOF = function HOF(props) {
   var _react_1$useState35 = react_1.useState(inputTypeChoiceE.numbers),
       _react_1$useState36 = _slicedToArray(_react_1$useState35, 2),
       inputTypeChoice = _react_1$useState36[0],
-      setinputTypeChoice = _react_1$useState36[1]; //filtering
+      setinputTypeChoice = _react_1$useState36[1]; // tutorial
 
 
-  var _react_1$useState37 = react_1.useState({
+  var _react_1$useState37 = react_1.useState(false),
+      _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
+      showtutorialPanel = _react_1$useState38[0],
+      setshowtutorialPanel = _react_1$useState38[1]; //filtering
+
+
+  var _react_1$useState39 = react_1.useState({
     x: 0,
     y: 0
   }),
-      _react_1$useState38 = _slicedToArray(_react_1$useState37, 2),
-      curTrashCoords = _react_1$useState38[0],
-      setCurTrashCoords = _react_1$useState38[1];
-
-  var _react_1$useState39 = react_1.useState(false),
       _react_1$useState40 = _slicedToArray(_react_1$useState39, 2),
-      filterStatus = _react_1$useState40[0],
-      setfilterStatus = _react_1$useState40[1];
+      curTrashCoords = _react_1$useState40[0],
+      setCurTrashCoords = _react_1$useState40[1];
 
-  var _react_1$useState41 = react_1.useState([isEven, isPrime, lessThan10]),
+  var _react_1$useState41 = react_1.useState(false),
       _react_1$useState42 = _slicedToArray(_react_1$useState41, 2),
-      numFilterCallBack = _react_1$useState42[0],
-      setnumFilterCallBack = _react_1$useState42[1];
+      filterStatus = _react_1$useState42[0],
+      setfilterStatus = _react_1$useState42[1];
 
-  var _react_1$useState43 = react_1.useState([halveNum, doubleNum, tripleNum, squareNum]),
+  var _react_1$useState43 = react_1.useState([isEven, isPrime, lessThan10]),
       _react_1$useState44 = _slicedToArray(_react_1$useState43, 2),
-      numMapCallBackContainer = _react_1$useState44[0],
-      setNumMapCallBackContainer = _react_1$useState44[1];
+      numFilterCallBack = _react_1$useState44[0],
+      setnumFilterCallBack = _react_1$useState44[1];
 
-  var _react_1$useState45 = react_1.useState([toUpper, reverse]),
+  var _react_1$useState45 = react_1.useState([halveNum, doubleNum, tripleNum, squareNum]),
       _react_1$useState46 = _slicedToArray(_react_1$useState45, 2),
-      strMapCallBackContainer = _react_1$useState46[0],
-      setstrMapCallBackContainer = _react_1$useState46[1];
+      numMapCallBackContainer = _react_1$useState46[0],
+      setNumMapCallBackContainer = _react_1$useState46[1];
 
-  var _react_1$useState47 = react_1.useState([fourLetterWord, wordcontainsT]),
+  var _react_1$useState47 = react_1.useState([toUpper, reverse]),
       _react_1$useState48 = _slicedToArray(_react_1$useState47, 2),
-      strFilterCallBackContainer = _react_1$useState48[0],
-      setstrFilterCallBackContainer = _react_1$useState48[1];
+      strMapCallBackContainer = _react_1$useState48[0],
+      setstrMapCallBackContainer = _react_1$useState48[1];
 
-  var _react_1$useState49 = react_1.useState([isHappyEmoji, isSufferingEmoji]),
+  var _react_1$useState49 = react_1.useState([fourLetterWord, wordcontainsT]),
       _react_1$useState50 = _slicedToArray(_react_1$useState49, 2),
-      emojiFilterCallBackCont = _react_1$useState50[0],
-      setemojiFilterCallBackCont = _react_1$useState50[1];
+      strFilterCallBackContainer = _react_1$useState50[0],
+      setstrFilterCallBackContainer = _react_1$useState50[1];
+
+  var _react_1$useState51 = react_1.useState([isHappyEmoji, isSufferingEmoji]),
+      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
+      emojiFilterCallBackCont = _react_1$useState52[0],
+      setemojiFilterCallBackCont = _react_1$useState52[1];
 
   var addNumCallBackToContainer = function addNumCallBackToContainer(func) {
     var copyNumContainer = _toConsumableArray(numMapCallBackContainer);
@@ -57919,83 +57953,83 @@ var HOF = function HOF(props) {
     setNumMapCallBackContainer(copyNumContainer);
   };
 
-  var _react_1$useState51 = react_1.useState(function () {
+  var _react_1$useState53 = react_1.useState(function () {
     return function (x) {
       return doubleNum(x);
     };
   }),
-      _react_1$useState52 = _slicedToArray(_react_1$useState51, 2),
-      currentFunctionHook = _react_1$useState52[0],
-      setCurrentFunctionHook = _react_1$useState52[1];
+      _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
+      currentFunctionHook = _react_1$useState54[0],
+      setCurrentFunctionHook = _react_1$useState54[1];
 
-  var _react_1$useState53 = react_1.useState(function () {
+  var _react_1$useState55 = react_1.useState(function () {
     return function (x) {
       return toUpper(x);
     };
   }),
-      _react_1$useState54 = _slicedToArray(_react_1$useState53, 2),
-      currentStrFunctionHook = _react_1$useState54[0],
-      setCurrentStrFunctionHook = _react_1$useState54[1];
-
-  var _react_1$useState55 = react_1.useState(doubleNum.name),
       _react_1$useState56 = _slicedToArray(_react_1$useState55, 2),
-      currentFunctionName = _react_1$useState56[0],
-      setCurrentFunctionName = _react_1$useState56[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
+      currentStrFunctionHook = _react_1$useState56[0],
+      setCurrentStrFunctionHook = _react_1$useState56[1];
+
+  var _react_1$useState57 = react_1.useState(doubleNum.name),
+      _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
+      currentFunctionName = _react_1$useState58[0],
+      setCurrentFunctionName = _react_1$useState58[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
   //   stringCallbacksE
   // >();
 
 
-  var _react_1$useState57 = react_1.useState("* 2"),
-      _react_1$useState58 = _slicedToArray(_react_1$useState57, 2),
-      curLogicAsString = _react_1$useState58[0],
-      setCurLogicAsString = _react_1$useState58[1];
-
-  var _react_1$useState59 = react_1.useState("number"),
+  var _react_1$useState59 = react_1.useState("* 2"),
       _react_1$useState60 = _slicedToArray(_react_1$useState59, 2),
-      curInputType = _react_1$useState60[0],
-      setCurInputType = _react_1$useState60[1];
+      curLogicAsString = _react_1$useState60[0],
+      setCurLogicAsString = _react_1$useState60[1];
 
-  var _react_1$useState61 = react_1.useState(inputVarTypeE.num),
+  var _react_1$useState61 = react_1.useState("number"),
       _react_1$useState62 = _slicedToArray(_react_1$useState61, 2),
-      curInputVarName = _react_1$useState62[0],
-      setCurInputVarName = _react_1$useState62[1]; //custom logic
+      curInputType = _react_1$useState62[0],
+      setCurInputType = _react_1$useState62[1];
+
+  var _react_1$useState63 = react_1.useState(inputVarTypeE.num),
+      _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
+      curInputVarName = _react_1$useState64[0],
+      setCurInputVarName = _react_1$useState64[1]; //custom logic
   //needed?
 
 
-  var _react_1$useState63 = react_1.useState(false),
-      _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
-      showTextArea = _react_1$useState64[0],
-      setShowTextArea = _react_1$useState64[1];
-
-  var _react_1$useState65 = react_1.useState(["1", "2", "3"]),
+  var _react_1$useState65 = react_1.useState(false),
       _react_1$useState66 = _slicedToArray(_react_1$useState65, 2),
-      customArray = _react_1$useState66[0],
-      setCustomArray = _react_1$useState66[1];
+      showTextArea = _react_1$useState66[0],
+      setShowTextArea = _react_1$useState66[1];
 
-  var _react_1$useState67 = react_1.useState("addOne"),
+  var _react_1$useState67 = react_1.useState(["1", "2", "3"]),
       _react_1$useState68 = _slicedToArray(_react_1$useState67, 2),
-      customFunctionName = _react_1$useState68[0],
-      setcustomFunctionName = _react_1$useState68[1];
+      customArray = _react_1$useState68[0],
+      setCustomArray = _react_1$useState68[1];
 
-  var _react_1$useState69 = react_1.useState("return num + 1;"),
+  var _react_1$useState69 = react_1.useState("addOne"),
       _react_1$useState70 = _slicedToArray(_react_1$useState69, 2),
-      customFunction = _react_1$useState70[0],
-      setCustomFunction = _react_1$useState70[1];
+      customFunctionName = _react_1$useState70[0],
+      setcustomFunctionName = _react_1$useState70[1];
 
-  var _react_1$useState71 = react_1.useState("+ 1"),
+  var _react_1$useState71 = react_1.useState("return num + 1;"),
       _react_1$useState72 = _slicedToArray(_react_1$useState71, 2),
-      customFunctionBody = _react_1$useState72[0],
-      setcustomFunctionBody = _react_1$useState72[1];
+      customFunction = _react_1$useState72[0],
+      setCustomFunction = _react_1$useState72[1];
 
-  var _react_1$useState73 = react_1.useState("number"),
+  var _react_1$useState73 = react_1.useState("+ 1"),
       _react_1$useState74 = _slicedToArray(_react_1$useState73, 2),
-      customFuncInputType = _react_1$useState74[0],
-      setcustomFuncInputType = _react_1$useState74[1];
+      customFunctionBody = _react_1$useState74[0],
+      setcustomFunctionBody = _react_1$useState74[1];
 
-  var _react_1$useState75 = react_1.useState("num"),
+  var _react_1$useState75 = react_1.useState("number"),
       _react_1$useState76 = _slicedToArray(_react_1$useState75, 2),
-      customFuncInputVarName = _react_1$useState76[0],
-      setcustomFuncInputVarName = _react_1$useState76[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
+      customFuncInputType = _react_1$useState76[0],
+      setcustomFuncInputType = _react_1$useState76[1];
+
+  var _react_1$useState77 = react_1.useState("num"),
+      _react_1$useState78 = _slicedToArray(_react_1$useState77, 2),
+      customFuncInputVarName = _react_1$useState78[0],
+      setcustomFuncInputVarName = _react_1$useState78[1]; // state object's job is to keep our disparate state's better organized, easier to remember, good intellisense...
 
 
   var stateObj = {
@@ -58383,6 +58417,8 @@ var HOF = function HOF(props) {
     filterStatus: filterStatus,
     trashCoords: curTrashCoords
   }, stateObj, setStateObj)), React.createElement(MainControls_1.MapMainControls, Object.assign({
+    setshowtutorialPanel: setshowtutorialPanel,
+    showtutorialPanel: showtutorialPanel,
     hofType: props.hofType
   }, stateObj, setStateObj, {
     takeStep: takeStep
