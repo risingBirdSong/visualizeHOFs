@@ -19,6 +19,12 @@ const HowToUse = () => {
             functions just to help demonstrate the concepts with different
             examples.
           </p>
+          <br />
+          <p>
+            you can write your own simple, single variable callback functions by
+            filling out the values in the form by clicking "write your own".
+            Click again to toggle the forms off.
+          </p>
         </li>
         <li>
           <h2>more buttons</h2>
