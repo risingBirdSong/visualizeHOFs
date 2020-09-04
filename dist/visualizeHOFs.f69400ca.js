@@ -58537,7 +58537,57 @@ var HOF = function HOF(props) {
 };
 
 exports.default = HOF;
-},{"react":"node_modules/react/index.js","./MainControls":"components/MainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx"}],"App.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./MainControls":"components/MainControls.tsx","./inputTypes/generics/genericCallback":"components/inputTypes/generics/genericCallback.tsx","./inputArray":"components/inputArray.tsx","./outputArray":"components/outputArray.tsx","./KonvaLayer":"components/KonvaLayer.tsx","./explainer":"components/explainer.tsx","./chooseInputsCallbacks":"components/chooseInputsCallbacks.tsx","./inputTypes/generics/numbers":"components/inputTypes/generics/numbers.tsx","./inputTypes/generics/strings":"components/inputTypes/generics/strings.tsx"}],"components/About.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var About = function About() {
+  return react_1.default.createElement("div", null, react_1.default.createElement("ul", null, react_1.default.createElement("li", null, "todo")));
+};
+
+exports.default = About;
+},{"react":"node_modules/react/index.js"}],"components/FurtherRead.tsx":[function(require,module,exports) {
+"use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(require("react"));
+
+var FurtherReading = function FurtherReading() {
+  return react_1.default.createElement("div", null, react_1.default.createElement("h1", null, "Further Reading"), react_1.default.createElement("h4", null, "There are plenty of great resources to read further"), react_1.default.createElement("ul", null, react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
+    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
+  }, "MDN documentation", " "), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
+    href: "https://www.freecodecamp.org/news/javascript-map-reduce-and-filter-explained-with-examples/"
+  }, "by Beau Carnes", " "), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
+    href: "https://medium.com/@joomiguelcunha/learn-map-filter-and-reduce-in-javascript-ea59009593c4"
+  }, "by Jo\xE3o Miguel Cunha", " "), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
+    href: "https://willtaylor.blog/javascript-map-filter-reduce/"
+  }, "by Will Taylor", " "), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("a", {
+    href: "https://flaviocopes.com/javascript-loops-map-filter-reduce-find/"
+  }, "by Flavio Copes", " "), " ")));
+};
+
+exports.default = FurtherReading;
+},{"react":"node_modules/react/index.js"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -58602,6 +58652,10 @@ var react_1 = require("react");
 
 var Hof_1 = __importDefault(require("./components/Hof"));
 
+var About_1 = __importDefault(require("./components/About"));
+
+var FurtherRead_1 = __importDefault(require("./components/FurtherRead"));
+
 var App = function App() {
   var _react_1$useState = react_1.useState(React.createElement(Hof_1.default, {
     hofType: "MAP"
@@ -58614,7 +58668,15 @@ var App = function App() {
     className: "container"
   }, React.createElement("nav", null, React.createElement("ul", {
     className: "row z-depth-2"
-  }, React.createElement("li", null, React.createElement("a", null, "About")), React.createElement("li", null, React.createElement("a", null, "Further Reading")), React.createElement("li", null, React.createElement("a", {
+  }, React.createElement("li", null, React.createElement("a", {
+    onClick: function onClick() {
+      setShown(About_1.default);
+    }
+  }, "About")), React.createElement("li", null, React.createElement("a", {
+    onClick: function onClick() {
+      setShown(FurtherRead_1.default);
+    }
+  }, "Further Reading")), React.createElement("li", null, React.createElement("a", {
     onClick: function onClick() {
       setShown(React.createElement(Hof_1.default, {
         hofType: "MAP"
@@ -58630,7 +58692,7 @@ var App = function App() {
 };
 
 exports.default = App;
-},{"react":"node_modules/react/index.js","./components/Hof":"components/Hof.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/Hof":"components/Hof.tsx","./components/About":"components/About.tsx","./components/FurtherRead":"components/FurtherRead.tsx"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {

@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
 import HOF from "./components/Hof";
+import About from "./components/About";
+import FurtherReading from "./components/FurtherRead";
 const App = () => {
   let [shown, setShown] = useState(<HOF hofType={"MAP"} />);
   return (
@@ -8,10 +10,22 @@ const App = () => {
       <nav>
         <ul className="row z-depth-2">
           <li>
-            <a>About</a>
+            <a
+              onClick={() => {
+                setShown(About);
+              }}
+            >
+              About
+            </a>
           </li>
           <li>
-            <a>Further Reading</a>
+            <a
+              onClick={() => {
+                setShown(FurtherReading);
+              }}
+            >
+              Further Reading
+            </a>
           </li>
           <li>
             <a
