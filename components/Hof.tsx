@@ -187,6 +187,25 @@ const HOF = (props: HofOption) => {
 
   // tutorial
   const [showtutorialPanel, setshowtutorialPanel] = useState(false);
+  const [showTutorial_step, setshowTutorial_step] = useState(false);
+  const [showTutorial_update, setshowTutorial_update] = useState(false);
+  const [showTutorial_explainer, setshowTutorial_explainer] = useState(false);
+  const tutorialSegmentsContainer = [
+    showTutorial_step,
+    showTutorial_update,
+    showTutorial_explainer,
+  ];
+  const settutorialSegmentsContainer = [
+    setshowTutorial_step,
+    setshowTutorial_update,
+    setshowTutorial_explainer,
+  ];
+  const showOnlyOne = (
+    tutorialSegment: React.Dispatch<React.SetStateAction<boolean>> | undefined
+  ) => {
+    settutorialSegmentsContainer.forEach((ts) => ts(false));
+    tutorialSegment ? tutorialSegment(true) : "";
+  };
   //filtering
   const [curTrashCoords, setCurTrashCoords] = useState({ x: 0, y: 0 });
   const [filterStatus, setfilterStatus] = useState(false);
@@ -622,6 +641,9 @@ const HOF = (props: HofOption) => {
         />
 
         <MapMainControls
+          tutorialSegmentsContainer={tutorialSegmentsContainer}
+          showOnlyOne={showOnlyOne}
+          settutorialSegmentsContainer={settutorialSegmentsContainer}
           setshowtutorialPanel={setshowtutorialPanel}
           showtutorialPanel={showtutorialPanel}
           hofType={props.hofType}

@@ -146,3 +146,7 @@ form {
   margin-bottom: 10px;
   border-radius: 5px;
 }
+
+.explainer {
+  border: 2px solid black;
+}

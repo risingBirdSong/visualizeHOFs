@@ -11,6 +11,12 @@ interface MapMainControlsI {
   setCurOutputNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
   setshowtutorialPanel: React.Dispatch<React.SetStateAction<boolean>>;
   showtutorialPanel: boolean;
+  tutorialSegmentsContainer: boolean[];
+  settutorialSegmentsContainer: React.Dispatch<React.SetStateAction<boolean>>[];
+
+  showOnlyOne: (
+    tutorialSegment: React.Dispatch<React.SetStateAction<boolean>> | undefined
+  ) => void;
 }
 
 const MainControls = (props: MapMainControlsI) => {
@@ -67,7 +73,10 @@ const MainControls = (props: MapMainControlsI) => {
           <li className="z-depth-3">
             <button
               onClick={() => {
-                props.setshowtutorialPanel((state) => !state);
+                props.setshowtutorialPanel((state) => {
+                  props.showOnlyOne(undefined);
+                  return !state;
+                });
               }}
               className={`waves-effect waves-light btn`}
             >
@@ -79,13 +88,32 @@ const MainControls = (props: MapMainControlsI) => {
       {props.showtutorialPanel ? (
         <ul className="row buttonul">
           <li className="z-depth-3">
-            <button className={`waves-effect waves-light btn`}>step</button>
+            <button
+              onClick={() => {
+                props.showOnlyOne(props.settutorialSegmentsContainer[0]);
+              }}
+              className={`waves-effect waves-light btn`}
+            >
+              step
+            </button>
           </li>
           <li className="z-depth-3">
-            <button className={`waves-effect waves-light btn`}>update</button>
+            <button
+              onClick={() => {
+                props.showOnlyOne(props.settutorialSegmentsContainer[1]);
+              }}
+              className={`waves-effect waves-light btn`}
+            >
+              update
+            </button>
           </li>
           <li className="z-depth-3">
-            <button className={`waves-effect waves-light btn`}>
+            <button
+              onClick={() => {
+                props.showOnlyOne(props.settutorialSegmentsContainer[2]);
+              }}
+              className={`waves-effect waves-light btn`}
+            >
               explainer
             </button>
           </li>
@@ -93,6 +121,11 @@ const MainControls = (props: MapMainControlsI) => {
       ) : (
         ""
       )}
+      <div className="explainer">
+        {props.tutorialSegmentsContainer[0] ? <p>test step a</p> : ""}
+        {props.tutorialSegmentsContainer[1] ? <p>test step b</p> : ""}
+        {props.tutorialSegmentsContainer[2] ? <p>test step c</p> : ""}
+      </div>
     </div>
   );
 };
