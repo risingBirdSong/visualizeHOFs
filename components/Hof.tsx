@@ -557,11 +557,13 @@ const HOF = (props: HofOption) => {
     else if (stepNumber % 2 !== 0) {
       if (stateObj.inputTypeChoice) {
         if (stateObj.mainArray[stateObj.curIdx]) {
+          let curVal = mainArray[stateObj.curIdx];
           let copy = [...stateObj.outputArray];
           let transformed = currentFunctionHook(
             //TODO ts why is this considered a never?
+            // stateObj.mainArray[stateObj.curIdx]
             //@ts-ignore
-            stateObj.mainArray[stateObj.curIdx]
+            curVal
           );
           //filtering
           if (transformed === true) {

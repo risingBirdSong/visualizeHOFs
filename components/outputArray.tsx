@@ -1,5 +1,5 @@
 import React from "react";
-import { coordsI, hofType, inputTypeChoiceE } from "./Hof";
+import { coordsI, hofType, inputTypeChoiceE, emojiArr } from "./Hof";
 
 interface OutputArrI {
   algoHasStarted: boolean;
@@ -78,10 +78,8 @@ const OutputArray = (props: OutputArrI) => {
         let outputted = (
           <p
             style={{
-              fontSize: `${
-                //@ts-ignore
-                emojiArr.includes(val) ? "25px" : ""
-              }`,
+              //@ts-ignore
+              fontSize: `${emojiArr.includes(val) ? "25px" : ""}`,
             }}
             className={`num amber lighten-1 z-depth-5`}
             ref={(ele) => {

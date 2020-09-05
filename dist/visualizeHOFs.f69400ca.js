@@ -28622,8 +28622,8 @@ var OutputArray = function OutputArray(props) {
   }, "["), props.outputArray.map(function (val, idx) {
     var outputted = react_1.default.createElement("p", {
       style: {
-        fontSize: "".concat( //@ts-ignore
-        emojiArr.includes(val) ? "25px" : "")
+        //@ts-ignore
+        fontSize: "".concat(Hof_1.emojiArr.includes(val) ? "25px" : "")
       },
       className: "num amber lighten-1 z-depth-5",
       ref: function ref(ele) {
@@ -28661,7 +28661,7 @@ var OutputArray = function OutputArray(props) {
     }, idx === props.curIdx && props.fastRefToggler ? outputted : idx === props.curIdx && !props.fastRefToggler ? outputted : react_1.default.createElement("p", {
       style: {
         fontSize: "".concat( //@ts-ignore
-        emojiArr.includes(val) ? "25px" : "")
+        Hof_1.emojiArr.includes(val) ? "25px" : "")
       },
       className: "num amber lighten-4 z-depth-3"
     }, val));
@@ -58281,11 +58281,14 @@ var HOF = function HOF(props) {
     else if (stepNumber % 2 !== 0) {
         if (stateObj.inputTypeChoice) {
           if (stateObj.mainArray[stateObj.curIdx]) {
+            var curVal = mainArray[stateObj.curIdx];
+
             var copy = _toConsumableArray(stateObj.outputArray);
 
             var transformed = currentFunctionHook( //TODO ts why is this considered a never?
+            // stateObj.mainArray[stateObj.curIdx]
             //@ts-ignore
-            stateObj.mainArray[stateObj.curIdx]); //filtering
+            curVal); //filtering
 
             if (transformed === true) {
               setfilterStatus(true);
