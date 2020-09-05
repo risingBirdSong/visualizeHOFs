@@ -1,22 +1,9 @@
 import React from "react";
-
-export interface coordsI {
-  x: number;
-  y: number;
-}
-type hofType = "MAP" | "FILTER" | "REDUCE";
-import { emojiArr } from "./Hof";
-
-enum inputTypeChoiceE {
-  "numbers" = "numbers",
-  "strings" = "strings",
-  "emojis" = "emojis",
-}
+import { coordsI, hofType, inputTypeChoiceE } from "./Hof";
 
 interface OutputArrI {
   algoHasStarted: boolean;
   algoHasFinished: boolean;
-  //todo make generic
   curIdx: number;
   outputArray: (number | string)[];
   curOutputNumCoords: coordsI;
@@ -42,7 +29,6 @@ const OutputArray = (props: OutputArrI) => {
           ref={(ele) => {
             let trashX = ele?.getBoundingClientRect().x;
             let trashY = ele?.getBoundingClientRect().y;
-            // console.log("hof type", props.hofType);
             console.log("trash x", trashX, "trash y", trashY);
 
             if (trashX && trashY) {
@@ -101,8 +87,7 @@ const OutputArray = (props: OutputArrI) => {
             ref={(ele) => {
               let x = ele?.getBoundingClientRect().x;
               let y = ele?.getBoundingClientRect().y;
-              //yeah this only hits on map, not filter, why is that?
-              // props.setCurOutputNumCoords({ x: x || 5, y: y || 5 });
+
               if (props.typeHof === "MAP") {
                 if (x && y && x !== props.curOutputNumCoords.x) {
                   props.setCurOutputNumCoords({ x, y });
@@ -114,16 +99,8 @@ const OutputArray = (props: OutputArrI) => {
                   x &&
                   y
                 ) {
-                  //@ts-ignore
                   props.setCurOutputNumCoords({ x, y });
                 }
-                // if (
-                //   x &&
-                //   y &&
-                //   x !== props.curOutputNumCoords.x &&
-                //   y !== props.curOutputNumCoords.y
-                // ) {
-                // }
               }
             }}
           >
@@ -163,35 +140,7 @@ const OutputArray = (props: OutputArrI) => {
 
       {props.typeHof === "FILTER" && props.fastRefToggler
         ? trashCan
-        : // <div style={{ marginLeft: "-1.5em", marginRight: ".5em" }}>
-        //   <h5
-        //     className={`${
-        //       props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
-        //     }`}
-        //   >
-        //     trash can
-        //     <span
-        //       ref={(ele) => {
-        //         let trashX = ele?.getBoundingClientRect().x;
-        //         let trashY = ele?.getBoundingClientRect().y;
-        //         // console.log("hof type", props.hofType);
-        //         // console.log("trash x", trashX, "trash y", trashY);
-
-        //         if (trashX && trashY) {
-        //           if (
-        //             props.curTrashCoords.x !== trashX &&
-        //             props.curTrashCoords.y !== trashY
-        //           ) {
-        //             props.setCurTrashCoords({ x: trashX, y: trashY });
-        //           }
-        //         }
-        //       }}
-        //     >
-        //       🗑️
-        //     </span>
-        //   </h5>
-        // </div>
-        props.typeHof === "FILTER" && !props.fastRefToggler
+        : props.typeHof === "FILTER" && !props.fastRefToggler
         ? trashCan
         : ""}
     </ul>

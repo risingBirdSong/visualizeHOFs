@@ -1,17 +1,7 @@
 import React from "react";
 // import currentTaskE from "../Map";
 import { Stage, Layer, Star, Text, Circle, Line, Wedge } from "react-konva";
-import { coordsI } from "./outputArray";
-
-//redefining same enum here because of bug
-//todo see why the import doesn behave the same as redefining same thing here
-enum currentTaskE {
-  "inactive",
-  "input",
-  "output",
-}
-
-type hofType = "MAP" | "FILTER" | "REDUCE";
+import { coordsI, hofType, currentTaskE } from "./Hof";
 
 interface KonvaLayerI {
   curIdx: number;

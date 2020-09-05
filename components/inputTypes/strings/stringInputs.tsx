@@ -1,8 +1,6 @@
 import React from "react";
-enum inputTypeChoiceE {
-  "numbers" = "numbers",
-  "strings" = "strings",
-}
+import { inputTypeChoiceE } from "../../Hof";
+
 interface StringArraysI {
   setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
@@ -12,10 +10,6 @@ const StringInputs = (props: StringArraysI) => {
   return (
     <div>
       <ul className="stringArrayChoices row">
-        <li>
-          {/* todo */}
-          {/* <h5 className="valign-wrapper">number array choices</h5> */}
-        </li>
         <li>
           <button
             onClick={() => {
@@ -67,17 +61,6 @@ const StringInputs = (props: StringArraysI) => {
             <span>cute animals</span>
           </button>{" "}
         </li>
-        {/* <li>
-          <button
-            onClick={() => {
-              props.resetting();
-              props.setStrings(["😟", "😀", "😁", "😆", "😅"]);
-            }}
-            className={`btn amber waves-effect`}
-          >
-            <span>emoji</span>
-          </button>{" "}
-        </li> */}
       </ul>
     </div>
   );

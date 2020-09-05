@@ -10,7 +10,6 @@ import ChooseInputsCallbacks from "./chooseInputsCallbacks";
 import Numbers from "./inputTypes/generics/numbers";
 import Strings from "./inputTypes/generics/strings";
 import LooksLike from "./LooksLike";
-// import { Ellipse } from "konva/types/shapes/Ellipse";
 
 //number functions map
 const halveNum = (num: number | string): number => {
@@ -72,13 +71,13 @@ const isSufferingEmoji = (str: string) => !happyEmojis.includes(str);
 
 export type hofType = "MAP" | "FILTER" | "REDUCE";
 
-enum currentTaskE {
+export enum currentTaskE {
   "inactive",
   "input",
   "output",
 }
 
-enum inputTypeChoiceE {
+export enum inputTypeChoiceE {
   "numbers" = "numbers",
   "strings" = "strings",
 }
@@ -92,22 +91,28 @@ export enum CallbacksE {
   "reverse" = "reverse",
   "emojiBeHappy" = "emojiBeHappy",
   "fourLetterWord" = "fourLetterWord",
+  "isEven" = "isEven",
+  "isHappyEmoji" = "isHappyEmoji",
 }
-// enum stringCallbacksE {
-//   "toUpper" = "toUpper",
-//   "reverse" = "reverse",
-//   "emojiBeHappy" = "emojiBeHappy",
-// }
-enum inputVarTypeE {
+
+export enum inputVarTypeE {
   "num" = "num",
   "str" = "str",
 }
 
-enum cls {
+export enum cls {
   numArr = "numArr",
   num = "num",
   arrBrkt = "arrBrkt",
   callbackFunc = "callbackFunc",
+}
+
+export interface HofOption {
+  hofType: "MAP" | "FILTER" | "REDUCE";
+}
+export interface coordsI {
+  x: number;
+  y: number;
 }
 
 export let emojiArr = [
@@ -138,14 +143,6 @@ let emojiObj = {
   "😡": "😊",
   "👿": "😇",
 };
-
-export interface HofOption {
-  hofType: "MAP" | "FILTER" | "REDUCE";
-}
-interface coordsI {
-  x: number;
-  y: number;
-}
 
 const HOF = (props: HofOption) => {
   //state hooks
@@ -265,9 +262,7 @@ const HOF = (props: HofOption) => {
   const [currentFunctionName, setCurrentFunctionName] = useState<string>(
     doubleNum.name
   );
-  // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
-  //   stringCallbacksE
-  // >();
+
   const [curLogicAsString, setCurLogicAsString] = useState("* 2");
   const [curInputType, setCurInputType] = useState("number");
   const [curInputVarName, setCurInputVarName] = useState<inputVarTypeE>(
@@ -303,7 +298,6 @@ const HOF = (props: HofOption) => {
     fastRefToggler: fastRefToggler,
     showInputsOptions: showInputsOptions,
     inputTypeChoice: inputTypeChoice,
-    // strs: strs,
     mainArray: mainArray,
     customArray: customArray,
   };
@@ -327,7 +321,6 @@ const HOF = (props: HofOption) => {
     setfastRefToggler: setfastRefToggler,
     setShowInputsOptions: setShowInputsOptions,
     setinputTypeChoiceE: setinputTypeChoice,
-    // setStrs: setStrs,
     setMainArray: setMainArray,
     setCustomArray: setCustomArray,
   };
@@ -440,14 +433,9 @@ const HOF = (props: HofOption) => {
     starting();
   }, [props.hofType]);
 
-  useEffect(() => {
-    // console.log("coords", curOutputNumCoords);
-  }, [curOutputNumCoords]);
+  useEffect(() => {}, [curOutputNumCoords]);
 
-  //here here
   useEffect(() => {
-    console.log("----- input type ", inputTypeChoice);
-
     if (props.hofType === "MAP" && inputTypeChoice === "numbers") {
       setCurrentFunctionName(doubleNum.name);
     } else if (props.hofType === "MAP" && inputTypeChoice === "strings") {
@@ -478,10 +466,6 @@ const HOF = (props: HofOption) => {
       setCurInputVarName(inputVarTypeE.str);
     }
   }, [inputTypeChoice]);
-
-  useEffect(() => {
-    // console.log("mainArray", mainArray);
-  }, [mainArray]);
 
   //strings
   useEffect(() => {
@@ -534,17 +518,6 @@ const HOF = (props: HofOption) => {
     }
   }, [algoHasFinished]);
 
-  useEffect(() => {
-    if (!showInputsOptions) {
-      // what will committing this out break?
-      // setinputTypeChoice(inputTypeChoiceE.numbers);
-    }
-  }, [showInputsOptions]);
-
-  // useEffect(() => {
-  //   console.log("strs", strs);
-  // }, [strs]);
-
   const takeStep = (restart: boolean) => {
     setStateObj.setAlgoHasStarted(true);
     setStateObj.setStepNumber((val) => ++val);
@@ -566,7 +539,6 @@ const HOF = (props: HofOption) => {
       setStateObj.setAlgoHasFinished(true);
     } else if (
       stateObj.inputTypeChoice === inputTypeChoiceE.strings &&
-      // stateObj.curIdx === stateObj.strs.length - 1 &&
       stateObj.curIdx === stateObj.mainArray.length - 1 &&
       stateObj.currentTask === currentTaskE.output
     ) {
@@ -583,29 +555,19 @@ const HOF = (props: HofOption) => {
     }
     //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
-      // a little silly, but still figuring this out TODO change later
-      if (
-        stateObj.inputTypeChoice === inputTypeChoiceE.numbers ||
-        stateObj.inputTypeChoice === inputTypeChoiceE.strings
-      ) {
+      if (stateObj.inputTypeChoice) {
         if (stateObj.mainArray[stateObj.curIdx]) {
           let copy = [...stateObj.outputArray];
           let transformed = currentFunctionHook(
+            //TODO ts why is this considered a never?
             //@ts-ignore
             stateObj.mainArray[stateObj.curIdx]
           );
-          // console.log("transformed", transformed);
           //filtering
           if (transformed === true) {
             setfilterStatus(true);
             copy.push(stateObj.mainArray[stateObj.curIdx]);
           } else if (transformed === false) {
-            console.log(
-              "going to the trash",
-              stateObj.mainArray[stateObj.curIdx],
-              "coords",
-              curTrashCoords
-            );
             setfilterStatus(false);
           } else {
             copy.push(transformed);
@@ -613,18 +575,6 @@ const HOF = (props: HofOption) => {
           setStateObj.setOutputArray(copy);
           setStateObj.setCurrentTask(currentTaskE.output);
         }
-        // } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
-        //   if (stateObj.mainArray[stateObj.curIdx]) {
-        //     let copy = [...stateObj.outputArray];
-        //     //changed from hard coded function to currentFunction
-        //     let transformed = currentStrFunctionHook(
-        //       stateObj.mainArray[stateObj.curIdx]
-        //     );
-        //     copy.push(transformed);
-        //     setStateObj.setOutputArray(copy);
-        //     setStateObj.setCurrentTask(currentTaskE.output);
-        //   }
-        // }
       }
     }
   };
@@ -746,7 +696,6 @@ const HOF = (props: HofOption) => {
                         setMainArray(toNums);
                         setCustomArray(["1", "2", "3"]);
                       } else {
-                        // let str = ""
                         setMainArray(customArray);
                         setCustomArray(["1", "2", "3"]);
                       }
@@ -773,9 +722,7 @@ const HOF = (props: HofOption) => {
                     }}
                     value={customFunctionName}
                   ></input>
-                  {/* <p>testing ...</p>
-            
-                  <p>... testing</p> */}
+
                   <label>
                     function input variable name (limited to one at the moment)
                   </label>
@@ -785,13 +732,7 @@ const HOF = (props: HofOption) => {
                     }}
                     value={customFuncInputVarName}
                   ></input>
-                  {/* <label>function variable input type</label>
-                <input
-                  onChange={(e) => {
-                    setcustomFuncInputType(e.target.value);
-                  }}
-                  value={customFuncInputType}
-                ></input> */}
+
                   <label>function body </label>
                   <input
                     onChange={(e) => {
@@ -845,11 +786,6 @@ const HOF = (props: HofOption) => {
         />
         <LooksLike hofType={props.hofType} func={currentFunctionName} />
         <InputArray {...stateObj} {...setStateObj} />
-        {/* <DefualtCallback
-          {...stateObj}
-          {...setStateObj}
-          doubleNumber={doubleNumber}
-        /> */}
 
         <GenericCallback
           typeHof={props.hofType}

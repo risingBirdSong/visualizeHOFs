@@ -28392,43 +28392,14 @@ var react_1 = __importDefault(require("react"));
 
 var Hof_1 = require("../../Hof");
 
-var currentTaskE;
-
-(function (currentTaskE) {
-  currentTaskE[currentTaskE["inactive"] = 0] = "inactive";
-  currentTaskE[currentTaskE["input"] = 1] = "input";
-  currentTaskE[currentTaskE["output"] = 2] = "output";
-})(currentTaskE || (currentTaskE = {}));
-
-var inputVarTypeE;
-
-(function (inputVarTypeE) {
-  inputVarTypeE["num"] = "num";
-  inputVarTypeE["str"] = "str";
-})(inputVarTypeE || (inputVarTypeE = {}));
-
-var numberCalbacks;
-
-(function (numberCalbacks) {
-  numberCalbacks["double"] = "double";
-  numberCalbacks["halve"] = "halve";
-  numberCalbacks["square"] = "square";
-  numberCalbacks["triple"] = "triple";
-})(numberCalbacks || (numberCalbacks = {}));
-
-var stringCallbacks;
-
-(function (stringCallbacks) {
-  stringCallbacks["toUpper"] = "toUpper";
-  stringCallbacks["reverse"] = "reverse";
-})(stringCallbacks || (stringCallbacks = {}));
+var Hof_2 = require("../../Hof");
 
 var GenericCallback = function GenericCallback(props) {
   //define input up here because we'll use it twice. The reason is that we toggle the identical JSX because of fastRefToggler toggling back and forth for the sake of the line animation.
   var input = react_1.default.createElement("span", {
     style: {
       fontSize: "".concat( //@ts-ignore
-      Hof_1.emojiArr.includes(props.mainArray[props.curIdx]) ? "25px" : "")
+      Hof_2.emojiArr.includes(props.mainArray[props.curIdx]) ? "25px" : "")
     },
     ref: function ref(ele) {
       var curX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
@@ -28450,7 +28421,6 @@ var GenericCallback = function GenericCallback(props) {
   return react_1.default.createElement("div", {
     style: {
       padding: "8px",
-      // margin: "2px",
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-evenly"
@@ -28501,10 +28471,10 @@ var GenericCallback = function GenericCallback(props) {
     className: "output valign-wrapper"
   }, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
-  }, "output"), " \xA0", " ", props.mainArray[props.curIdx] && props.currentTask === currentTaskE.output ? react_1.default.createElement("span", {
+  }, "output"), " \xA0", " ", props.mainArray[props.curIdx] && props.currentTask === Hof_1.currentTaskE.output ? react_1.default.createElement("span", {
     style: {
       fontSize: "".concat( //@ts-ignore
-      Hof_1.emojiArr.includes(props.mainArray[props.curIdx]) ? "25px" : "")
+      Hof_2.emojiArr.includes(props.mainArray[props.curIdx]) ? "25px" : "")
     },
     ref: function ref(ele) {
       var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
@@ -28520,7 +28490,7 @@ var GenericCallback = function GenericCallback(props) {
       }
     }
   }, " ", props.typeHof === "MAP" ? // @ts-ignore
-  props.actualCallback(props.mainArray[props.curIdx]) : props.typeHof === "FILTER" ? props.mainArray[props.curIdx] : "", " ") : props.mainArray[props.curIdx] && props.currentTask === currentTaskE.input ? react_1.default.createElement("span", null, "?") : "") : "")));
+  props.actualCallback(props.mainArray[props.curIdx]) : props.typeHof === "FILTER" ? props.mainArray[props.curIdx] : "", " ") : props.mainArray[props.curIdx] && props.currentTask === Hof_1.currentTaskE.input ? react_1.default.createElement("span", null, "?") : "") : "")));
 };
 
 exports.default = GenericCallback;
@@ -28541,14 +28511,6 @@ var react_1 = __importDefault(require("react"));
 
 var Hof_1 = require("./Hof");
 
-var inputTypeChoiceE;
-
-(function (inputTypeChoiceE) {
-  inputTypeChoiceE["numbers"] = "numbers";
-  inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
-
 var InputArray = function InputArray(props) {
   return react_1.default.createElement("ul", {
     className: "numArr segment valign-wrapper row pink lighten-4 center-align inputArrayNums z-depth-2 ".concat(props.animTarget === "inputArrayAnim" ? "inputArrayAnim" : "")
@@ -28562,12 +28524,11 @@ var InputArray = function InputArray(props) {
     }
   }, react_1.default.createElement("h6", null, react_1.default.createElement("span", {
     className: "blue-text text-darken-4"
-  }, "input"), " :", " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number [ ]" : "string [ ]", " "), " ", "=", " ")), react_1.default.createElement("li", {
+  }, "input"), " :", " ", react_1.default.createElement("span", null, props.inputTypeChoice === Hof_1.inputTypeChoiceE.numbers ? "number [ ]" : "string [ ]", " "), " ", "=", " ")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "["), props.inputTypeChoice === inputTypeChoiceE.numbers || props.inputTypeChoice === inputTypeChoiceE.strings ? props.mainArray.map(function (val, idx) {
-    // is emoji?
-    // console.log("emoji includes?", emojiArr.includes(val));
+  }, "["), props.inputTypeChoice === Hof_1.inputTypeChoiceE.numbers || props.inputTypeChoice === Hof_1.inputTypeChoiceE.strings ? props.mainArray.map(function (val, idx) {
     var currentVal = react_1.default.createElement("p", {
+      //TODO ts
       //@ts-ignore
       style: {
         fontSize: "".concat(Hof_1.emojiArr.includes(val) ? "25px" : "")
@@ -28620,14 +28581,6 @@ var react_1 = __importDefault(require("react"));
 
 var Hof_1 = require("./Hof");
 
-var inputTypeChoiceE;
-
-(function (inputTypeChoiceE) {
-  inputTypeChoiceE["numbers"] = "numbers";
-  inputTypeChoiceE["strings"] = "strings";
-  inputTypeChoiceE["emojis"] = "emojis";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
-
 var OutputArray = function OutputArray(props) {
   var trashCan = react_1.default.createElement("div", {
     style: {
@@ -28639,8 +28592,7 @@ var OutputArray = function OutputArray(props) {
   }, "trash can", react_1.default.createElement("span", {
     ref: function ref(ele) {
       var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; // console.log("hof type", props.hofType);
-
+      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
       console.log("trash x", trashX, "trash y", trashY);
 
       if (trashX && trashY) {
@@ -28665,19 +28617,18 @@ var OutputArray = function OutputArray(props) {
     }
   }, react_1.default.createElement("h6", null, react_1.default.createElement("span", {
     className: "blue-text text-darken-3"
-  }, "output :"), " ", react_1.default.createElement("span", null, props.inputTypeChoice === inputTypeChoiceE.numbers ? "number[ ]" : "string [ ]"), " ", "=")), react_1.default.createElement("li", {
+  }, "output :"), " ", react_1.default.createElement("span", null, props.inputTypeChoice === Hof_1.inputTypeChoiceE.numbers ? "number[ ]" : "string [ ]"), " ", "=")), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
   }, "["), props.outputArray.map(function (val, idx) {
     var outputted = react_1.default.createElement("p", {
       style: {
         fontSize: "".concat( //@ts-ignore
-        Hof_1.emojiArr.includes(val) ? "25px" : "")
+        emojiArr.includes(val) ? "25px" : "")
       },
       className: "num amber lighten-1 z-depth-5",
       ref: function ref(ele) {
         var x = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; //yeah this only hits on map, not filter, why is that?
-        // props.setCurOutputNumCoords({ x: x || 5, y: y || 5 });
+        var y = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y;
 
         if (props.typeHof === "MAP") {
           if (x && y && x !== props.curOutputNumCoords.x) {
@@ -28688,19 +28639,11 @@ var OutputArray = function OutputArray(props) {
           }
         } else if (props.typeHof === "FILTER") {
           if (props.curOutputNumCoords.x === 0 && props.curOutputNumCoords.y === 0 && x && y) {
-            //@ts-ignore
             props.setCurOutputNumCoords({
               x: x,
               y: y
             });
-          } // if (
-          //   x &&
-          //   y &&
-          //   x !== props.curOutputNumCoords.x &&
-          //   y !== props.curOutputNumCoords.y
-          // ) {
-          // }
-
+          }
         }
       }
     }, val);
@@ -28718,40 +28661,13 @@ var OutputArray = function OutputArray(props) {
     }, idx === props.curIdx && props.fastRefToggler ? outputted : idx === props.curIdx && !props.fastRefToggler ? outputted : react_1.default.createElement("p", {
       style: {
         fontSize: "".concat( //@ts-ignore
-        Hof_1.emojiArr.includes(val) ? "25px" : "")
+        emojiArr.includes(val) ? "25px" : "")
       },
       className: "num amber lighten-4 z-depth-3"
     }, val));
   }), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "]"), props.typeHof === "FILTER" && props.fastRefToggler ? trashCan : // <div style={{ marginLeft: "-1.5em", marginRight: ".5em" }}>
-  //   <h5
-  //     className={`${
-  //       props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
-  //     }`}
-  //   >
-  //     trash can
-  //     <span
-  //       ref={(ele) => {
-  //         let trashX = ele?.getBoundingClientRect().x;
-  //         let trashY = ele?.getBoundingClientRect().y;
-  //         // console.log("hof type", props.hofType);
-  //         // console.log("trash x", trashX, "trash y", trashY);
-  //         if (trashX && trashY) {
-  //           if (
-  //             props.curTrashCoords.x !== trashX &&
-  //             props.curTrashCoords.y !== trashY
-  //           ) {
-  //             props.setCurTrashCoords({ x: trashX, y: trashY });
-  //           }
-  //         }
-  //       }}
-  //     >
-  //       🗑️
-  //     </span>
-  //   </h5>
-  // </div>
-  props.typeHof === "FILTER" && !props.fastRefToggler ? trashCan : "") : props.algoWillReset ? react_1.default.createElement("h5", {
+  }, "]"), props.typeHof === "FILTER" && props.fastRefToggler ? trashCan : props.typeHof === "FILTER" && !props.fastRefToggler ? trashCan : "") : props.algoWillReset ? react_1.default.createElement("h5", {
     className: "center-align blue-text"
   }, props.typeHof === "MAP" ? "Mapping" : "Filtering", " complete! click restart to run again") : react_1.default.createElement("h5", {
     className: "center-align blue-text"
@@ -57007,17 +56923,9 @@ Object.defineProperty(exports, "__esModule", {
 var react_1 = __importDefault(require("react")); // import currentTaskE from "../Map";
 
 
-var react_konva_1 = require("react-konva"); //redefining same enum here because of bug
-//todo see why the import doesn behave the same as redefining same thing here
+var react_konva_1 = require("react-konva");
 
-
-var currentTaskE;
-
-(function (currentTaskE) {
-  currentTaskE[currentTaskE["inactive"] = 0] = "inactive";
-  currentTaskE[currentTaskE["input"] = 1] = "input";
-  currentTaskE[currentTaskE["output"] = 2] = "output";
-})(currentTaskE || (currentTaskE = {}));
+var Hof_1 = require("./Hof");
 
 var KonvaLayer = function KonvaLayer(props) {
   //why is this resetting to zero for filter?
@@ -57025,7 +56933,7 @@ var KonvaLayer = function KonvaLayer(props) {
     width: window.innerWidth - 100,
     height: window.innerHeight,
     className: "overlay"
-  }, props.curIdx < props.mainArray.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === currentTaskE.input && props.typeHof === "MAP" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+  }, props.curIdx < props.mainArray.length ? react_1.default.createElement(react_konva_1.Layer, null, props.currentTask === Hof_1.currentTaskE.input && props.typeHof === "MAP" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "blue",
     points: [props.curNumCoords.x + 18, props.curNumCoords.y + 22, props.curNumCoords.x + 4, props.curNumCoords.y + 50, props.inputCoords.x - 10, props.inputCoords.y - 30, props.inputCoords.x, props.inputCoords.y - 3],
     bezier: true
@@ -57036,7 +56944,7 @@ var KonvaLayer = function KonvaLayer(props) {
     rotation: -140,
     radius: 14,
     fill: "blue"
-  })) : props.currentTask === currentTaskE.output && props.typeHof === "MAP" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+  })) : props.currentTask === Hof_1.currentTaskE.output && props.typeHof === "MAP" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
     points: [props.curOutputNumCoords.x + 5, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
     bezier: true
@@ -57047,7 +56955,7 @@ var KonvaLayer = function KonvaLayer(props) {
     rotation: -130,
     radius: 14,
     fill: "blue"
-  })) : props.currentTask === currentTaskE.input && props.typeHof === "FILTER" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+  })) : props.currentTask === Hof_1.currentTaskE.input && props.typeHof === "FILTER" ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "blue",
     points: [props.curNumCoords.x + 18, props.curNumCoords.y + 22, props.curNumCoords.x + 4, props.curNumCoords.y + 50, props.inputCoords.x - 10, props.inputCoords.y - 30, props.inputCoords.x, props.inputCoords.y - 3],
     bezier: true
@@ -57058,7 +56966,7 @@ var KonvaLayer = function KonvaLayer(props) {
     rotation: -140,
     radius: 14,
     fill: "blue"
-  })) : props.currentTask === currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === true ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+  })) : props.currentTask === Hof_1.currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === true ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
     points: [props.curOutputNumCoords.x + 3, props.curOutputNumCoords.y - 10, props.curOutputNumCoords.x - 20, props.curOutputNumCoords.y - 20, props.outputCoords.x, props.outputCoords.y, props.outputCoords.x, props.outputCoords.y],
     bezier: true
@@ -57069,7 +56977,7 @@ var KonvaLayer = function KonvaLayer(props) {
     rotation: -130,
     radius: 14,
     fill: "blue"
-  })) : props.currentTask === currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === false ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
+  })) : props.currentTask === Hof_1.currentTaskE.output && props.typeHof === "FILTER" && props.filterStatus === false ? react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(react_konva_1.Line, {
     stroke: "purple",
     points: [props.outputCoords.x, props.outputCoords.y, props.outputCoords.x - 30, props.outputCoords.y + 30, props.trashCoords.x + 15, props.trashCoords.y - 4, props.trashCoords.x + 19, props.trashCoords.y - 8],
     bezier: true
@@ -57084,7 +56992,7 @@ var KonvaLayer = function KonvaLayer(props) {
 };
 
 exports.default = KonvaLayer;
-},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js"}],"components/explainer.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-konva":"node_modules/react-konva/lib/ReactKonva.js","./Hof":"components/Hof.tsx"}],"components/explainer.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57197,30 +57105,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
-var Hof_1 = require("./Hof"); // import inputTypeChoiceE from "./Map"; doesnt import enum correctly, so redefine it
-
-
-var inputTypeChoiceE;
-
-(function (inputTypeChoiceE) {
-  inputTypeChoiceE["numbers"] = "numbers";
-  inputTypeChoiceE["strings"] = "strings";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
-
-var CallbacksE;
-
-(function (CallbacksE) {
-  CallbacksE["double"] = "double";
-  CallbacksE["halve"] = "halve";
-  CallbacksE["square"] = "square";
-  CallbacksE["triple"] = "triple";
-  CallbacksE["toUpper"] = "toUpper";
-  CallbacksE["reverse"] = "reverse";
-  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
-  CallbacksE["isEven"] = "isEven";
-  CallbacksE["fourLetterWord"] = "fourLetterWord";
-  CallbacksE["isHappyEmoji"] = "isHappyEmoji";
-})(CallbacksE || (CallbacksE = {}));
+var Hof_1 = require("./Hof");
 
 var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
   return react_1.default.createElement("ul", {
@@ -57229,28 +57114,28 @@ var ChooseInputsCallbacks = function ChooseInputsCallbacks(props) {
     onClick: function onClick() {
       props.resetting();
       props.setMainArray([1, 2, 3, 4, 5, 6, 7, 8]);
-      props.setinputTypeChoice(inputTypeChoiceE.numbers);
-      props.hofType === "MAP" ? props.setCurrentFunctionName(CallbacksE.double) : props.hofType === "FILTER" ? props.setCurrentFunctionName(CallbacksE.isEven) : "";
+      props.setinputTypeChoice(Hof_1.inputTypeChoiceE.numbers);
+      props.hofType === "MAP" ? props.setCurrentFunctionName(Hof_1.CallbacksE.double) : props.hofType === "FILTER" ? props.setCurrentFunctionName(Hof_1.CallbacksE.isEven) : "";
     },
     className: "waves-effect purple-text amber lighten-1 waves-light btn"
   }, react_1.default.createElement("span", null, "numbers"))), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.hofType === "MAP" ? props.setCurrentFunctionName(CallbacksE.toUpper) : props.hofType === "FILTER" ? props.setCurrentFunctionName(CallbacksE.fourLetterWord) : "";
+      props.hofType === "MAP" ? props.setCurrentFunctionName(Hof_1.CallbacksE.toUpper) : props.hofType === "FILTER" ? props.setCurrentFunctionName(Hof_1.CallbacksE.fourLetterWord) : "";
       props.setMainArray(["gong", "guitar", "drum", "harp", "synth", "tuba", "flute", "banjo", "lute", "trumpet", "violin"]);
-      props.setinputTypeChoice(inputTypeChoiceE.strings);
+      props.setinputTypeChoice(Hof_1.inputTypeChoiceE.strings);
     },
     className: "waves-effect purple-text amber waves-light btn"
   }, "strings")), react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.resetting();
-      props.setinputTypeChoice(inputTypeChoiceE.strings);
+      props.setinputTypeChoice(Hof_1.inputTypeChoiceE.strings);
 
       if (props.hofType === "MAP") {
-        props.setCurrentFunctionName(CallbacksE.emojiBeHappy);
+        props.setCurrentFunctionName(Hof_1.CallbacksE.emojiBeHappy);
         props.setMainArray(["😔", "🙁", "😣", "😫", "😭", "😡", "👿"]);
       } else if (props.hofType === "FILTER") {
-        props.setCurrentFunctionName(CallbacksE.isHappyEmoji);
+        props.setCurrentFunctionName(Hof_1.CallbacksE.isHappyEmoji);
         props.setMainArray(Hof_1.emojiArr);
       }
     },
@@ -57281,20 +57166,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
-var inputTypeChoiceE;
-
-(function (inputTypeChoiceE) {
-  inputTypeChoiceE["numbers"] = "numbers";
-  inputTypeChoiceE["strings"] = "strings";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+var Hof_1 = require("../../Hof");
 
 var GenericsInputs = function GenericsInputs(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "numberArrayChoices row"
-  }, react_1.default.createElement("li", null), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
       props.setMainArray([1, 4, 9, 16, 25, 36, 49, 64, 81, 100]);
-      props.setType(inputTypeChoiceE.numbers);
+      props.setType(Hof_1.inputTypeChoiceE.numbers);
       props.resetting();
     },
     className: "btn amber waves-effect"
@@ -57302,7 +57182,7 @@ var GenericsInputs = function GenericsInputs(props) {
     onClick: function onClick() {
       props.resetting();
       props.setMainArray([1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
-      props.setType(inputTypeChoiceE.numbers);
+      props.setType(Hof_1.inputTypeChoiceE.numbers);
     },
     className: "btn amber waves-effect"
   }, react_1.default.createElement("span", null, "fibonacci numbers")), " "), react_1.default.createElement("li", null, " ", react_1.default.createElement("button", {
@@ -57314,7 +57194,7 @@ var GenericsInputs = function GenericsInputs(props) {
       }
 
       props.resetting();
-      props.setType(inputTypeChoiceE.numbers);
+      props.setType(Hof_1.inputTypeChoiceE.numbers);
       props.setMainArray(numbers);
     },
     className: "btn amber waves-effect"
@@ -57322,7 +57202,7 @@ var GenericsInputs = function GenericsInputs(props) {
 };
 
 exports.default = GenericsInputs;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/numberCallbacks.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../../Hof":"components/Hof.tsx"}],"components/inputTypes/generics/numberCallbacks.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57336,18 +57216,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var react_1 = __importDefault(require("react"));
-
-var CallbacksE;
-
-(function (CallbacksE) {
-  CallbacksE["double"] = "double";
-  CallbacksE["halve"] = "halve";
-  CallbacksE["square"] = "square";
-  CallbacksE["triple"] = "triple";
-  CallbacksE["toUpper"] = "toUpper";
-  CallbacksE["reverse"] = "reverse";
-  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
-})(CallbacksE || (CallbacksE = {}));
 
 var NumberCallbacks = function NumberCallbacks(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
@@ -57397,24 +57265,7 @@ var numberCallbacks_1 = __importDefault(require("./numberCallbacks"));
 
 var react_2 = require("react");
 
-var CallbacksE;
-
-(function (CallbacksE) {
-  CallbacksE["double"] = "double";
-  CallbacksE["halve"] = "halve";
-  CallbacksE["square"] = "square";
-  CallbacksE["triple"] = "triple";
-  CallbacksE["toUpper"] = "toUpper";
-  CallbacksE["reverse"] = "reverse";
-  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
-})(CallbacksE || (CallbacksE = {}));
-
-var inputTypeChoiceE;
-
-(function (inputTypeChoiceE) {
-  inputTypeChoiceE["numbers"] = "numbers";
-  inputTypeChoiceE["strings"] = "strings";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+var Hof_1 = require("../../Hof");
 
 var Numbers = function Numbers(props) {
   var _react_2$useState = react_2.useState(false),
@@ -57445,15 +57296,15 @@ var Numbers = function Numbers(props) {
       setShowArrays(false);
     },
     className: "btn waves-effect"
-  }, "number callbacks")))), showArrays ? react_1.default.createElement(genericInputs_1.default, Object.assign({}, props)) : "", showCallbacks && props.inputType === inputTypeChoiceE.numbers && props.hof === "MAP" ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({
+  }, "number callbacks")))), showArrays ? react_1.default.createElement(genericInputs_1.default, Object.assign({}, props)) : "", showCallbacks && props.inputType === Hof_1.inputTypeChoiceE.numbers && props.hof === "MAP" ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({
     callBackContainer: props.mapNumCallBackContainer
-  }, props)) : showCallbacks && props.inputType === inputTypeChoiceE.numbers && props.hof === "FILTER" ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({
+  }, props)) : showCallbacks && props.inputType === Hof_1.inputTypeChoiceE.numbers && props.hof === "FILTER" ? react_1.default.createElement(numberCallbacks_1.default, Object.assign({
     callBackContainer: props.filterNumCallBackContainer
   }, props)) : "");
 };
 
 exports.default = Numbers;
-},{"react":"node_modules/react/index.js","./genericInputs":"components/inputTypes/generics/genericInputs.tsx","./numberCallbacks":"components/inputTypes/generics/numberCallbacks.tsx"}],"components/inputTypes/strings/stringInputs.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./genericInputs":"components/inputTypes/generics/genericInputs.tsx","./numberCallbacks":"components/inputTypes/generics/numberCallbacks.tsx","../../Hof":"components/Hof.tsx"}],"components/inputTypes/strings/stringInputs.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57468,19 +57319,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var react_1 = __importDefault(require("react"));
 
-var inputTypeChoiceE;
-
-(function (inputTypeChoiceE) {
-  inputTypeChoiceE["numbers"] = "numbers";
-  inputTypeChoiceE["strings"] = "strings";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+var Hof_1 = require("../../Hof");
 
 var StringInputs = function StringInputs(props) {
   return react_1.default.createElement("div", null, react_1.default.createElement("ul", {
     className: "stringArrayChoices row"
-  }, react_1.default.createElement("li", null), react_1.default.createElement("li", null, react_1.default.createElement("button", {
+  }, react_1.default.createElement("li", null, react_1.default.createElement("button", {
     onClick: function onClick() {
-      props.setType(inputTypeChoiceE.strings);
+      props.setType(Hof_1.inputTypeChoiceE.strings);
       props.resetting();
       props.setMainArray(["bend", "stream", "lake", "river", "cove", "creek", "canal", "loch", "beach", "ocean", "moat", "waterfall"]);
     },
@@ -57495,7 +57341,7 @@ var StringInputs = function StringInputs(props) {
 };
 
 exports.default = StringInputs;
-},{"react":"node_modules/react/index.js"}],"components/inputTypes/generics/stringCallbacks.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../../Hof":"components/Hof.tsx"}],"components/inputTypes/generics/stringCallbacks.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -57509,18 +57355,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var react_1 = __importDefault(require("react"));
-
-var CallbacksE;
-
-(function (CallbacksE) {
-  CallbacksE["double"] = "double";
-  CallbacksE["halve"] = "halve";
-  CallbacksE["square"] = "square";
-  CallbacksE["triple"] = "triple";
-  CallbacksE["toUpper"] = "toUpper";
-  CallbacksE["reverse"] = "reverse";
-  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
-})(CallbacksE || (CallbacksE = {}));
 
 var StringCallbacks = function StringCallbacks(props) {
   var stringCallbacks = props.typeHof === "MAP" ? props.strMapCallBackContainer : props.strFilterCallBackContainer;
@@ -57569,32 +57403,7 @@ var react_2 = require("react");
 
 var stringInputs_1 = __importDefault(require("../strings/stringInputs"));
 
-var stringCallbacks_1 = __importDefault(require("./stringCallbacks")); // enum numberCallbacksE {
-//   "double" = "double",
-//   "halve" = "halve",
-//   "square" = "square",
-//   "triple" = "triple",
-// }
-
-
-var CallbacksE;
-
-(function (CallbacksE) {
-  CallbacksE["double"] = "double";
-  CallbacksE["halve"] = "halve";
-  CallbacksE["square"] = "square";
-  CallbacksE["triple"] = "triple";
-  CallbacksE["toUpper"] = "toUpper";
-  CallbacksE["reverse"] = "reverse";
-  CallbacksE["emojiBeHappy"] = "emojiBeHappy";
-})(CallbacksE || (CallbacksE = {}));
-
-var inputTypeChoiceE;
-
-(function (inputTypeChoiceE) {
-  inputTypeChoiceE["numbers"] = "numbers";
-  inputTypeChoiceE["strings"] = "strings";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+var stringCallbacks_1 = __importDefault(require("./stringCallbacks"));
 
 var Strings = function Strings(props) {
   var _react_2$useState = react_2.useState(false),
@@ -57738,7 +57547,7 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.emojiArr = exports.CallbacksE = void 0;
+exports.emojiArr = exports.cls = exports.inputVarTypeE = exports.CallbacksE = exports.inputTypeChoiceE = exports.currentTaskE = void 0;
 
 var React = __importStar(require("react"));
 
@@ -57762,8 +57571,7 @@ var numbers_1 = __importDefault(require("./inputTypes/generics/numbers"));
 
 var strings_1 = __importDefault(require("./inputTypes/generics/strings"));
 
-var LooksLike_1 = __importDefault(require("./LooksLike")); // import { Ellipse } from "konva/types/shapes/Ellipse";
-//number functions map
+var LooksLike_1 = __importDefault(require("./LooksLike")); //number functions map
 
 
 var halveNum = function halveNum(num) {
@@ -57838,14 +57646,14 @@ var currentTaskE;
   currentTaskE[currentTaskE["inactive"] = 0] = "inactive";
   currentTaskE[currentTaskE["input"] = 1] = "input";
   currentTaskE[currentTaskE["output"] = 2] = "output";
-})(currentTaskE || (currentTaskE = {}));
+})(currentTaskE = exports.currentTaskE || (exports.currentTaskE = {}));
 
 var inputTypeChoiceE;
 
 (function (inputTypeChoiceE) {
   inputTypeChoiceE["numbers"] = "numbers";
   inputTypeChoiceE["strings"] = "strings";
-})(inputTypeChoiceE || (inputTypeChoiceE = {}));
+})(inputTypeChoiceE = exports.inputTypeChoiceE || (exports.inputTypeChoiceE = {}));
 
 var CallbacksE;
 
@@ -57858,19 +57666,16 @@ var CallbacksE;
   CallbacksE["reverse"] = "reverse";
   CallbacksE["emojiBeHappy"] = "emojiBeHappy";
   CallbacksE["fourLetterWord"] = "fourLetterWord";
-})(CallbacksE = exports.CallbacksE || (exports.CallbacksE = {})); // enum stringCallbacksE {
-//   "toUpper" = "toUpper",
-//   "reverse" = "reverse",
-//   "emojiBeHappy" = "emojiBeHappy",
-// }
-
+  CallbacksE["isEven"] = "isEven";
+  CallbacksE["isHappyEmoji"] = "isHappyEmoji";
+})(CallbacksE = exports.CallbacksE || (exports.CallbacksE = {}));
 
 var inputVarTypeE;
 
 (function (inputVarTypeE) {
   inputVarTypeE["num"] = "num";
   inputVarTypeE["str"] = "str";
-})(inputVarTypeE || (inputVarTypeE = {}));
+})(inputVarTypeE = exports.inputVarTypeE || (exports.inputVarTypeE = {}));
 
 var cls;
 
@@ -57879,7 +57684,7 @@ var cls;
   cls["num"] = "num";
   cls["arrBrkt"] = "arrBrkt";
   cls["callbackFunc"] = "callbackFunc";
-})(cls || (cls = {}));
+})(cls = exports.cls || (exports.cls = {}));
 
 exports.emojiArr = ["😆", "😔", "😌", "🙁", "😂", "😣", "🙂", "👿", "😆", "😫", "😭", "😊", "😡", "😇"];
 var happyEmojis = ["😌", "🙂", "😆", "😆", "😂", "😊", "😇"];
@@ -58097,10 +57902,7 @@ var HOF = function HOF(props) {
   var _react_1$useState63 = react_1.useState(doubleNum.name),
       _react_1$useState64 = _slicedToArray(_react_1$useState63, 2),
       currentFunctionName = _react_1$useState64[0],
-      setCurrentFunctionName = _react_1$useState64[1]; // const [currentStrFunctionName, setCurrentStrFunctionName] = useState<
-  //   stringCallbacksE
-  // >();
-
+      setCurrentFunctionName = _react_1$useState64[1];
 
   var _react_1$useState65 = react_1.useState("* 2"),
       _react_1$useState66 = _slicedToArray(_react_1$useState65, 2),
@@ -58172,7 +57974,6 @@ var HOF = function HOF(props) {
     fastRefToggler: fastRefToggler,
     showInputsOptions: showInputsOptions,
     inputTypeChoice: inputTypeChoice,
-    // strs: strs,
     mainArray: mainArray,
     customArray: customArray
   }; // same as state object but for set state.
@@ -58195,7 +57996,6 @@ var HOF = function HOF(props) {
     setfastRefToggler: setfastRefToggler,
     setShowInputsOptions: setShowInputsOptions,
     setinputTypeChoiceE: setinputTypeChoice,
-    // setStrs: setStrs,
     setMainArray: setMainArray,
     setCustomArray: setCustomArray
   };
@@ -58363,12 +58163,8 @@ var HOF = function HOF(props) {
   react_1.useEffect(function () {
     starting();
   }, [props.hofType]);
-  react_1.useEffect(function () {// console.log("coords", curOutputNumCoords);
-  }, [curOutputNumCoords]); //here here
-
+  react_1.useEffect(function () {}, [curOutputNumCoords]);
   react_1.useEffect(function () {
-    console.log("----- input type ", inputTypeChoice);
-
     if (props.hofType === "MAP" && inputTypeChoice === "numbers") {
       setCurrentFunctionName(doubleNum.name);
     } else if (props.hofType === "MAP" && inputTypeChoice === "strings") {
@@ -58401,9 +58197,7 @@ var HOF = function HOF(props) {
       setCurInputType("string");
       setCurInputVarName(inputVarTypeE.str);
     }
-  }, [inputTypeChoice]);
-  react_1.useEffect(function () {// console.log("mainArray", mainArray);
-  }, [mainArray]); //strings
+  }, [inputTypeChoice]); //strings
 
   react_1.useEffect(function () {
     if (currentFunctionName === CallbacksE.toUpper) {
@@ -58451,13 +58245,6 @@ var HOF = function HOF(props) {
       setStateObj.setOutputArray([]);
     }
   }, [algoHasFinished]);
-  react_1.useEffect(function () {
-    if (!showInputsOptions) {// what will committing this out break?
-      // setinputTypeChoice(inputTypeChoiceE.numbers);
-    }
-  }, [showInputsOptions]); // useEffect(() => {
-  //   console.log("strs", strs);
-  // }, [strs]);
 
   var takeStep = function takeStep(restart) {
     setStateObj.setAlgoHasStarted(true);
@@ -58475,8 +58262,7 @@ var HOF = function HOF(props) {
 
     if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers && stateObj.curIdx === stateObj.mainArray.length - 1 && stateObj.currentTask === currentTaskE.output) {
       setStateObj.setAlgoHasFinished(true);
-    } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings && // stateObj.curIdx === stateObj.strs.length - 1 &&
-    stateObj.curIdx === stateObj.mainArray.length - 1 && stateObj.currentTask === currentTaskE.output) {
+    } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings && stateObj.curIdx === stateObj.mainArray.length - 1 && stateObj.currentTask === currentTaskE.output) {
       setStateObj.setAlgoHasFinished(true);
     } //even steps will pass control to callback funtion to process input ele
 
@@ -58493,20 +58279,18 @@ var HOF = function HOF(props) {
       setStateObj.setCurrentTask(currentTaskE.input);
     } //odd steps will send control to adding transformed ele to output
     else if (stepNumber % 2 !== 0) {
-        // a little silly, but still figuring this out TODO change later
-        if (stateObj.inputTypeChoice === inputTypeChoiceE.numbers || stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
+        if (stateObj.inputTypeChoice) {
           if (stateObj.mainArray[stateObj.curIdx]) {
             var copy = _toConsumableArray(stateObj.outputArray);
 
-            var transformed = currentFunctionHook( //@ts-ignore
-            stateObj.mainArray[stateObj.curIdx]); // console.log("transformed", transformed);
-            //filtering
+            var transformed = currentFunctionHook( //TODO ts why is this considered a never?
+            //@ts-ignore
+            stateObj.mainArray[stateObj.curIdx]); //filtering
 
             if (transformed === true) {
               setfilterStatus(true);
               copy.push(stateObj.mainArray[stateObj.curIdx]);
             } else if (transformed === false) {
-              console.log("going to the trash", stateObj.mainArray[stateObj.curIdx], "coords", curTrashCoords);
               setfilterStatus(false);
             } else {
               copy.push(transformed);
@@ -58514,19 +58298,7 @@ var HOF = function HOF(props) {
 
             setStateObj.setOutputArray(copy);
             setStateObj.setCurrentTask(currentTaskE.output);
-          } // } else if (stateObj.inputTypeChoice === inputTypeChoiceE.strings) {
-          //   if (stateObj.mainArray[stateObj.curIdx]) {
-          //     let copy = [...stateObj.outputArray];
-          //     //changed from hard coded function to currentFunction
-          //     let transformed = currentStrFunctionHook(
-          //       stateObj.mainArray[stateObj.curIdx]
-          //     );
-          //     copy.push(transformed);
-          //     setStateObj.setOutputArray(copy);
-          //     setStateObj.setCurrentTask(currentTaskE.output);
-          //   }
-          // }
-
+          }
         }
       }
   };
@@ -58610,7 +58382,6 @@ var HOF = function HOF(props) {
         setMainArray(toNums);
         setCustomArray(["1", "2", "3"]);
       } else {
-        // let str = ""
         setMainArray(customArray);
         setCustomArray(["1", "2", "3"]);
       }
@@ -58745,7 +58516,14 @@ var About = function About() {
       borderRadius: "6px"
     },
     className: "purple amber-text"
-  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. for example let output = input.map(str ", "=>", " str.toUpperCase())"), " ", react_1.default.createElement("p", null, "and for suggesting a better place to put the trash can, looks much nicer"))));
+  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. for example let output = input.map(str ", "=>", " str.toUpperCase())"), " ", react_1.default.createElement("p", null, "and for suggesting a better place to put the trash can, looks much nicer")), react_1.default.createElement("li", null, react_1.default.createElement("span", {
+    style: {
+      fontSize: "25px",
+      padding: "5px",
+      borderRadius: "6px"
+    },
+    className: "purple amber-text"
+  }, " ", "Kit Fuderich"), " ", react_1.default.createElement("p", null, " ", "for numerous ideas and helpful feedback along the process of making it."), " ")));
 };
 
 exports.default = About;

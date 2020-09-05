@@ -1,31 +1,6 @@
 import React from "react";
-import { hofType } from "../../Hof";
+import { hofType, coordsI, currentTaskE, inputVarTypeE } from "../../Hof";
 import { emojiArr } from "../../Hof";
-interface coordsI {
-  x: number;
-  y: number;
-}
-
-enum currentTaskE {
-  "inactive",
-  "input",
-  "output",
-}
-enum inputVarTypeE {
-  "num" = "num",
-  "str" = "str",
-}
-
-enum numberCalbacks {
-  "double" = "double",
-  "halve" = "halve",
-  "square" = "square",
-  "triple" = "triple",
-}
-enum stringCallbacks {
-  "toUpper" = "toUpper",
-  "reverse" = "reverse",
-}
 
 type numFunc = (num: number) => number;
 type strFunc = (str: string) => string;
@@ -85,7 +60,6 @@ const GenericCallback = (props: genericCallbackI) => {
     <div
       style={{
         padding: "8px",
-        // margin: "2px",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-evenly",

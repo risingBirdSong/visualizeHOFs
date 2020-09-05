@@ -3,21 +3,8 @@ import GenericsInputs from "./genericInputs";
 import NumberCallbacks from "./numberCallbacks";
 import StringCallbacks from "./stringCallbacks";
 import { useState } from "react";
-import { hofType } from "../../Hof";
+import { hofType, inputTypeChoiceE } from "../../Hof";
 
-enum CallbacksE {
-  "double" = "double",
-  "halve" = "halve",
-  "square" = "square",
-  "triple" = "triple",
-  "toUpper" = "toUpper",
-  "reverse" = "reverse",
-  "emojiBeHappy" = "emojiBeHappy",
-}
-enum inputTypeChoiceE {
-  "numbers" = "numbers",
-  "strings" = "strings",
-}
 interface NumbersI {
   setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
   resetting: () => void;
@@ -57,7 +44,6 @@ const Numbers = (props: NumbersI) => {
             >
               number callbacks
             </button>
-            {/* <NumberCallbacks /> */}
           </li>
         </ul>
       </div>

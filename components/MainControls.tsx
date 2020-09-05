@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { coordsI } from "./outputArray";
+import { coordsI } from "../components/Hof";
 interface MapMainControlsI {
   takeStep: (restart: boolean) => void;
   algoHasStarted: boolean;
@@ -46,20 +46,8 @@ const MainControls = (props: MapMainControlsI) => {
                   : "step"}
               </span>
             </button>
-            {/* do we really want to be able to toggle explainer? */}
           </li>
-          {/* <li className="z-depth-3">
-          <button
-          className={`waves-effect waves-light btn`}
-          onClick={() => {
-            props.setExplainer((past) => !past);
-          }}
-          >
-          <span className={`${props.showAllButtons ? "showButton" : ""}`}>
-          explain{" "}
-          </span>
-          </button>
-        </li> */}
+
           <li className="z-depth-3">
             <button
               className={`waves-effect waves-light btn`}
@@ -70,19 +58,7 @@ const MainControls = (props: MapMainControlsI) => {
               <span>swap inputs and callbacks</span>
             </button>
           </li>
-          <li className="z-depth-3">
-            {/* <button
-              onClick={() => {
-                props.setshowtutorialPanel((state) => {
-                  props.showOnlyOne(undefined);
-                  return !state;
-                });
-              }}
-              className={`waves-effect waves-light btn`}
-            >
-              <span>tutorial (work in progress)</span>
-            </button> */}
-          </li>
+          <li className="z-depth-3"></li>
         </div>
       </ul>
       {props.showtutorialPanel ? (

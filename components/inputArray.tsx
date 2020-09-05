@@ -1,21 +1,9 @@
 import React from "react";
-import { emojiArr } from "./Hof";
-
-interface coordsI {
-  x: number;
-  y: number;
-}
-
-enum inputTypeChoiceE {
-  "numbers" = "numbers",
-  "strings" = "strings",
-  "emojis" = "emojis",
-}
+import { emojiArr, coordsI, inputTypeChoiceE } from "./Hof";
 
 interface inputArrayI {
   animInput: boolean;
   curIdx: number;
-  //TODO make generic
   mainArray: (number | string)[];
   curNumCoords: coordsI;
   setCurNumCoords: React.Dispatch<React.SetStateAction<coordsI>>;
@@ -53,11 +41,9 @@ const InputArray = (props: inputArrayI) => {
       {props.inputTypeChoice === inputTypeChoiceE.numbers ||
       props.inputTypeChoice === inputTypeChoiceE.strings
         ? props.mainArray.map((val, idx) => {
-            // is emoji?
-            // console.log("emoji includes?", emojiArr.includes(val));
-
             let currentVal = (
               <p
+                //TODO ts
                 //@ts-ignore
                 style={{ fontSize: `${emojiArr.includes(val) ? "25px" : ""}` }}
                 ref={(ele) => {

@@ -1,8 +1,5 @@
 import React from "react";
-enum inputTypeChoiceE {
-  "numbers" = "numbers",
-  "strings" = "strings",
-}
+import { inputTypeChoiceE } from "../../Hof";
 interface GenericsInputsI {
   setMainArray: React.Dispatch<React.SetStateAction<(number | string)[]>>;
   setType: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;
@@ -13,10 +10,6 @@ const GenericsInputs = (props: GenericsInputsI) => {
   return (
     <div>
       <ul className="numberArrayChoices row">
-        <li>
-          {/* todo */}
-          {/* <h5 className="valign-wrapper">number array choices</h5> */}
-        </li>
         <li>
           <button
             onClick={() => {

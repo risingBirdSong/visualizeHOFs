@@ -1,22 +1,6 @@
 import React from "react";
-import { emojiArr } from "./Hof";
-// import inputTypeChoiceE from "./Map"; doesnt import enum correctly, so redefine it
-enum inputTypeChoiceE {
-  "numbers" = "numbers",
-  "strings" = "strings",
-}
-enum CallbacksE {
-  "double" = "double",
-  "halve" = "halve",
-  "square" = "square",
-  "triple" = "triple",
-  "toUpper" = "toUpper",
-  "reverse" = "reverse",
-  "emojiBeHappy" = "emojiBeHappy",
-  "isEven" = "isEven",
-  "fourLetterWord" = "fourLetterWord",
-  "isHappyEmoji" = "isHappyEmoji",
-}
+import { emojiArr, CallbacksE, inputTypeChoiceE } from "./Hof";
+
 interface ChooseInputsCallbacksI {
   setMainArray: React.Dispatch<React.SetStateAction<(string | number)[]>>;
   setinputTypeChoice: React.Dispatch<React.SetStateAction<inputTypeChoiceE>>;

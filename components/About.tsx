@@ -60,6 +60,20 @@ const About = () => {
             nicer
           </p>
         </li>
+        <li>
+          <span
+            style={{ fontSize: "25px", padding: "5px", borderRadius: "6px" }}
+            className="purple amber-text"
+          >
+            {" "}
+            Kit Fuderich
+          </span>{" "}
+          <p>
+            {" "}
+            for numerous ideas and helpful feedback along the process of making
+            it.
+          </p>{" "}
+        </li>
       </ul>
     </div>
   );
