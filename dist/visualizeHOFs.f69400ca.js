@@ -28700,7 +28700,12 @@ var OutputArray = function OutputArray(props) {
     }, val));
   }), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "]"), react_1.default.createElement("div", null, props.typeHof === "FILTER" ? react_1.default.createElement("h5", {
+  }, "]"), props.typeHof === "FILTER" ? react_1.default.createElement("div", {
+    style: {
+      marginLeft: "-1.5em",
+      marginRight: ".5em"
+    }
+  }, react_1.default.createElement("h5", {
     className: "".concat(props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : "")
   }, "trash can", react_1.default.createElement("span", {
     ref: function ref(ele) {
@@ -28717,7 +28722,7 @@ var OutputArray = function OutputArray(props) {
         }
       }
     }
-  }, "\uD83D\uDDD1\uFE0F")) : "")) : props.algoWillReset ? react_1.default.createElement("h5", {
+  }, "\uD83D\uDDD1\uFE0F"))) : "") : props.algoWillReset ? react_1.default.createElement("h5", {
     className: "center-align blue-text"
   }, "algo complete! click restart to run again") : react_1.default.createElement("h5", {
     className: "center-align blue-text"

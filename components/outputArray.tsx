@@ -130,8 +130,8 @@ const OutputArray = (props: OutputArrI) =>
         );
       })}
       <li className={`arrBrkt col s1 bracket`}>]</li>
-      <div>
-        {props.typeHof === "FILTER" ? (
+      {props.typeHof === "FILTER" ? (
+        <div style={{ marginLeft: "-1.5em", marginRight: ".5em" }}>
           <h5
             className={`${
               props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
@@ -155,10 +155,10 @@ const OutputArray = (props: OutputArrI) =>
               🗑️
             </span>
           </h5>
-        ) : (
-          ""
-        )}
-      </div>
+        </div>
+      ) : (
+        ""
+      )}
     </ul>
   ) : props.algoWillReset ? (
     <h5 className="center-align blue-text">
