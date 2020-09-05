@@ -26,6 +26,8 @@ interface OutputArrI {
   animTarget: string;
   fastRefToggler: boolean;
   typeHof: hofType;
+  curTrashCoords: coordsI;
+  setCurTrashCoords: React.Dispatch<React.SetStateAction<coordsI>>;
 }
 const OutputArray = (props: OutputArrI) =>
   props.algoHasStarted && !props.algoHasFinished ? (
@@ -128,6 +130,35 @@ const OutputArray = (props: OutputArrI) =>
         );
       })}
       <li className={`arrBrkt col s1 bracket`}>]</li>
+      <div>
+        {props.typeHof === "FILTER" ? (
+          <h5
+            className={`${
+              props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
+            }`}
+          >
+            trash can
+            <span
+              ref={(ele) => {
+                let trashX = ele?.getBoundingClientRect().x;
+                let trashY = ele?.getBoundingClientRect().y;
+                // console.log("hof type", props.hofType);
+                // console.log("trash x", trashX, "trash y", trashY);
+
+                if (trashX && trashY) {
+                  if (props.curTrashCoords.x !== trashX) {
+                    props.setCurTrashCoords({ x: trashX, y: trashY });
+                  }
+                }
+              }}
+            >
+              🗑️
+            </span>
+          </h5>
+        ) : (
+          ""
+        )}
+      </div>
     </ul>
   ) : props.algoWillReset ? (
     <h5 className="center-align blue-text">

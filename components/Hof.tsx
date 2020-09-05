@@ -862,34 +862,13 @@ const HOF = (props: HofOption) => {
           inputVarName={curInputVarName}
         />
 
-        <OutputArray typeHof={props.hofType} {...stateObj} {...setStateObj} />
-        {props.hofType === "FILTER" ? (
-          <h5
-            className={`${
-              animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
-            }`}
-          >
-            trash can
-            <span
-              ref={(ele) => {
-                let trashX = ele?.getBoundingClientRect().x;
-                let trashY = ele?.getBoundingClientRect().y;
-                // console.log("hof type", props.hofType);
-                // console.log("trash x", trashX, "trash y", trashY);
-
-                if (trashX && trashY) {
-                  if (curTrashCoords.x !== trashX) {
-                    setCurTrashCoords({ x: trashX, y: trashY });
-                  }
-                }
-              }}
-            >
-              🗑️
-            </span>
-          </h5>
-        ) : (
-          ""
-        )}
+        <OutputArray
+          curTrashCoords={curTrashCoords}
+          setCurTrashCoords={setCurTrashCoords}
+          typeHof={props.hofType}
+          {...stateObj}
+          {...setStateObj}
+        />
       </div>
     </div>
   );

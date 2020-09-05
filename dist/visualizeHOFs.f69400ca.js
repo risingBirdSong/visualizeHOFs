@@ -28700,7 +28700,24 @@ var OutputArray = function OutputArray(props) {
     }, val));
   }), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "]")) : props.algoWillReset ? react_1.default.createElement("h5", {
+  }, "]"), react_1.default.createElement("div", null, props.typeHof === "FILTER" ? react_1.default.createElement("h5", {
+    className: "".concat(props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : "")
+  }, "trash can", react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; // console.log("hof type", props.hofType);
+      // console.log("trash x", trashX, "trash y", trashY);
+
+      if (trashX && trashY) {
+        if (props.curTrashCoords.x !== trashX) {
+          props.setCurTrashCoords({
+            x: trashX,
+            y: trashY
+          });
+        }
+      }
+    }
+  }, "\uD83D\uDDD1\uFE0F")) : "")) : props.algoWillReset ? react_1.default.createElement("h5", {
     className: "center-align blue-text"
   }, "algo complete! click restart to run again") : react_1.default.createElement("h5", {
     className: "center-align blue-text"
@@ -58629,25 +58646,10 @@ var HOF = function HOF(props) {
     inputType: curInputType,
     inputVarName: curInputVarName
   })), React.createElement(outputArray_1.default, Object.assign({
+    curTrashCoords: curTrashCoords,
+    setCurTrashCoords: setCurTrashCoords,
     typeHof: props.hofType
-  }, stateObj, setStateObj)), props.hofType === "FILTER" ? React.createElement("h5", {
-    className: "".concat(animTarget === "trashCanAnimate" ? "trashCanAnimate" : "")
-  }, "trash can", React.createElement("span", {
-    ref: function ref(ele) {
-      var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; // console.log("hof type", props.hofType);
-      // console.log("trash x", trashX, "trash y", trashY);
-
-      if (trashX && trashY) {
-        if (curTrashCoords.x !== trashX) {
-          setCurTrashCoords({
-            x: trashX,
-            y: trashY
-          });
-        }
-      }
-    }
-  }, "\uD83D\uDDD1\uFE0F")) : ""));
+  }, stateObj, setStateObj))));
 };
 
 exports.default = HOF;
