@@ -28753,7 +28753,7 @@ var OutputArray = function OutputArray(props) {
   // </div>
   props.typeHof === "FILTER" && !props.fastRefToggler ? trashCan : "") : props.algoWillReset ? react_1.default.createElement("h5", {
     className: "center-align blue-text"
-  }, "algo complete! click restart to run again") : react_1.default.createElement("h5", {
+  }, props.typeHof === "MAP" ? "Mapping" : "Filtering", " complete! click restart to run again") : react_1.default.createElement("h5", {
     className: "center-align blue-text"
   }, "explanation");
 };
@@ -58704,24 +58704,48 @@ var react_1 = __importDefault(require("react"));
 
 var About = function About() {
   return react_1.default.createElement("div", null, react_1.default.createElement("h2", {
-    className: "center-align"
+    className: "center-align amber",
+    style: {
+      color: "whitesmoke"
+    }
   }, "let's visualize .map and .filter"), react_1.default.createElement("div", {
     className: "center-align"
-  }, react_1.default.createElement("h5", null, "map"), react_1.default.createElement("p", null, "transform each element of an input array and place the new value into an output array"), react_1.default.createElement("h5", null, "filter"), react_1.default.createElement("p", null, "the callback will either accept or reject elements from the input array according to a truth test. It'll place the accepted values into an output array.")), react_1.default.createElement("h2", {
-    className: "center-align"
+  }, react_1.default.createElement("span", {
+    className: "blue center-align amber-text",
+    style: {
+      padding: "5px",
+      borderRadius: "6px",
+      fontSize: "25px"
+    }
+  }, ".map"), react_1.default.createElement("p", null, "transform each element of an input array and place the new value into an output array"), react_1.default.createElement("span", {
+    className: "blue center-align amber-text",
+    style: {
+      padding: "5px",
+      borderRadius: "6px",
+      fontSize: "25px"
+    }
+  }, ".filter"), react_1.default.createElement("p", null, "the callback will either accept or reject elements from the input array according to a truth test. It'll place the accepted values into an output array.")), react_1.default.createElement("h2", {
+    className: "center-align",
+    style: {
+      textDecoration: "underline"
+    }
   }, "credits"), react_1.default.createElement("ul", {
     className: "center-align"
   }, react_1.default.createElement("li", null, react_1.default.createElement("span", {
     style: {
       fontSize: "25px",
-      color: "darkblue"
-    }
+      padding: "5px",
+      borderRadius: "6px"
+    },
+    className: "purple amber-text"
   }, "Paul Ferguson"), " ", react_1.default.createElement("p", null, " for odds and ends help")), react_1.default.createElement("li", null, react_1.default.createElement("span", {
     style: {
       fontSize: "25px",
-      color: "darkblue"
-    }
-  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. for example let output = input.map(str ", "=>", " str.toUpperCase())"), " ", react_1.default.createElement("br", null), react_1.default.createElement("p", null, "and for suggesting a better place to put the trash can, looks much nicer"))));
+      padding: "5px",
+      borderRadius: "6px"
+    },
+    className: "purple amber-text"
+  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. for example let output = input.map(str ", "=>", " str.toUpperCase())"), " ", react_1.default.createElement("p", null, "and for suggesting a better place to put the trash can, looks much nicer"))));
 };
 
 exports.default = About;

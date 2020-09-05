@@ -197,7 +197,8 @@ const OutputArray = (props: OutputArrI) => {
     </ul>
   ) : props.algoWillReset ? (
     <h5 className="center-align blue-text">
-      algo complete! click restart to run again
+      {props.typeHof === "MAP" ? "Mapping" : "Filtering"} complete! click
+      restart to run again
     </h5>
   ) : (
     <h5 className="center-align blue-text">explanation</h5>
