@@ -29,8 +29,38 @@ interface OutputArrI {
   curTrashCoords: coordsI;
   setCurTrashCoords: React.Dispatch<React.SetStateAction<coordsI>>;
 }
-const OutputArray = (props: OutputArrI) =>
-  props.algoHasStarted && !props.algoHasFinished ? (
+const OutputArray = (props: OutputArrI) => {
+  let trashCan = (
+    <div style={{ marginLeft: "-1.5em", marginRight: ".5em" }}>
+      <h5
+        className={`${
+          props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
+        }`}
+      >
+        trash can
+        <span
+          ref={(ele) => {
+            let trashX = ele?.getBoundingClientRect().x;
+            let trashY = ele?.getBoundingClientRect().y;
+            // console.log("hof type", props.hofType);
+            console.log("trash x", trashX, "trash y", trashY);
+
+            if (trashX && trashY) {
+              if (
+                props.curTrashCoords.x !== trashX &&
+                props.curTrashCoords.y !== trashY
+              ) {
+                props.setCurTrashCoords({ x: trashX, y: trashY });
+              }
+            }
+          }}
+        >
+          🗑️
+        </span>
+      </h5>
+    </div>
+  );
+  return props.algoHasStarted && !props.algoHasFinished ? (
     <ul
       className={`${
         props.typeHof === "MAP" ? "numArr" : "filterOutputArr"
@@ -130,35 +160,40 @@ const OutputArray = (props: OutputArrI) =>
         );
       })}
       <li className={`arrBrkt col s1 bracket`}>]</li>
-      {props.typeHof === "FILTER" ? (
-        <div style={{ marginLeft: "-1.5em", marginRight: ".5em" }}>
-          <h5
-            className={`${
-              props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
-            }`}
-          >
-            trash can
-            <span
-              ref={(ele) => {
-                let trashX = ele?.getBoundingClientRect().x;
-                let trashY = ele?.getBoundingClientRect().y;
-                // console.log("hof type", props.hofType);
-                // console.log("trash x", trashX, "trash y", trashY);
 
-                if (trashX && trashY) {
-                  if (props.curTrashCoords.x !== trashX) {
-                    props.setCurTrashCoords({ x: trashX, y: trashY });
-                  }
-                }
-              }}
-            >
-              🗑️
-            </span>
-          </h5>
-        </div>
-      ) : (
-        ""
-      )}
+      {props.typeHof === "FILTER" && props.fastRefToggler
+        ? trashCan
+        : // <div style={{ marginLeft: "-1.5em", marginRight: ".5em" }}>
+        //   <h5
+        //     className={`${
+        //       props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
+        //     }`}
+        //   >
+        //     trash can
+        //     <span
+        //       ref={(ele) => {
+        //         let trashX = ele?.getBoundingClientRect().x;
+        //         let trashY = ele?.getBoundingClientRect().y;
+        //         // console.log("hof type", props.hofType);
+        //         // console.log("trash x", trashX, "trash y", trashY);
+
+        //         if (trashX && trashY) {
+        //           if (
+        //             props.curTrashCoords.x !== trashX &&
+        //             props.curTrashCoords.y !== trashY
+        //           ) {
+        //             props.setCurTrashCoords({ x: trashX, y: trashY });
+        //           }
+        //         }
+        //       }}
+        //     >
+        //       🗑️
+        //     </span>
+        //   </h5>
+        // </div>
+        props.typeHof === "FILTER" && !props.fastRefToggler
+        ? trashCan
+        : ""}
     </ul>
   ) : props.algoWillReset ? (
     <h5 className="center-align blue-text">
@@ -167,5 +202,6 @@ const OutputArray = (props: OutputArrI) =>
   ) : (
     <h5 className="center-align blue-text">explanation</h5>
   );
+};
 
 export default OutputArray;

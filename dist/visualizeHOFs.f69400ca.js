@@ -28629,6 +28629,30 @@ var inputTypeChoiceE;
 })(inputTypeChoiceE || (inputTypeChoiceE = {}));
 
 var OutputArray = function OutputArray(props) {
+  var trashCan = react_1.default.createElement("div", {
+    style: {
+      marginLeft: "-1.5em",
+      marginRight: ".5em"
+    }
+  }, react_1.default.createElement("h5", {
+    className: "".concat(props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : "")
+  }, "trash can", react_1.default.createElement("span", {
+    ref: function ref(ele) {
+      var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
+      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; // console.log("hof type", props.hofType);
+
+      console.log("trash x", trashX, "trash y", trashY);
+
+      if (trashX && trashY) {
+        if (props.curTrashCoords.x !== trashX && props.curTrashCoords.y !== trashY) {
+          props.setCurTrashCoords({
+            x: trashX,
+            y: trashY
+          });
+        }
+      }
+    }
+  }, "\uD83D\uDDD1\uFE0F")));
   return props.algoHasStarted && !props.algoHasFinished ? react_1.default.createElement("ul", {
     className: "".concat(props.typeHof === "MAP" ? "numArr" : "filterOutputArr", " segment valign-wrapper row pink lighten-2 center-align ").concat(props.animTarget === "outputAnimate" ? "outputAnimate" : "")
   }, react_1.default.createElement("div", {
@@ -28700,29 +28724,34 @@ var OutputArray = function OutputArray(props) {
     }, val));
   }), react_1.default.createElement("li", {
     className: "arrBrkt col s1 bracket"
-  }, "]"), props.typeHof === "FILTER" ? react_1.default.createElement("div", {
-    style: {
-      marginLeft: "-1.5em",
-      marginRight: ".5em"
-    }
-  }, react_1.default.createElement("h5", {
-    className: "".concat(props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : "")
-  }, "trash can", react_1.default.createElement("span", {
-    ref: function ref(ele) {
-      var trashX = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().x;
-      var trashY = ele === null || ele === void 0 ? void 0 : ele.getBoundingClientRect().y; // console.log("hof type", props.hofType);
-      // console.log("trash x", trashX, "trash y", trashY);
-
-      if (trashX && trashY) {
-        if (props.curTrashCoords.x !== trashX) {
-          props.setCurTrashCoords({
-            x: trashX,
-            y: trashY
-          });
-        }
-      }
-    }
-  }, "\uD83D\uDDD1\uFE0F"))) : "") : props.algoWillReset ? react_1.default.createElement("h5", {
+  }, "]"), props.typeHof === "FILTER" && props.fastRefToggler ? trashCan : // <div style={{ marginLeft: "-1.5em", marginRight: ".5em" }}>
+  //   <h5
+  //     className={`${
+  //       props.animTarget === "trashCanAnimate" ? "trashCanAnimate" : ""
+  //     }`}
+  //   >
+  //     trash can
+  //     <span
+  //       ref={(ele) => {
+  //         let trashX = ele?.getBoundingClientRect().x;
+  //         let trashY = ele?.getBoundingClientRect().y;
+  //         // console.log("hof type", props.hofType);
+  //         // console.log("trash x", trashX, "trash y", trashY);
+  //         if (trashX && trashY) {
+  //           if (
+  //             props.curTrashCoords.x !== trashX &&
+  //             props.curTrashCoords.y !== trashY
+  //           ) {
+  //             props.setCurTrashCoords({ x: trashX, y: trashY });
+  //           }
+  //         }
+  //       }}
+  //     >
+  //       🗑️
+  //     </span>
+  //   </h5>
+  // </div>
+  props.typeHof === "FILTER" && !props.fastRefToggler ? trashCan : "") : props.algoWillReset ? react_1.default.createElement("h5", {
     className: "center-align blue-text"
   }, "algo complete! click restart to run again") : react_1.default.createElement("h5", {
     className: "center-align blue-text"
@@ -58692,7 +58721,7 @@ var About = function About() {
       fontSize: "25px",
       color: "darkblue"
     }
-  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. for example let output = input.map(str ", "=>", " str.toUpperCase())"), " ")));
+  }, " ", "Kate Raskauskas"), " ", react_1.default.createElement("p", null, " ", "for a good idea about showing how the code looks like when called. for example let output = input.map(str ", "=>", " str.toUpperCase())"), " ", react_1.default.createElement("br", null), react_1.default.createElement("p", null, "and for suggesting a better place to put the trash can, looks much nicer"))));
 };
 
 exports.default = About;

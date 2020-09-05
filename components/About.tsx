@@ -35,6 +35,11 @@ const About = () => {
             for a good idea about showing how the code looks like when called.
             for example let output = input.map(str {"=>"} str.toUpperCase())
           </p>{" "}
+          <br />
+          <p>
+            and for suggesting a better place to put the trash can, looks much
+            nicer
+          </p>
         </li>
       </ul>
     </div>
