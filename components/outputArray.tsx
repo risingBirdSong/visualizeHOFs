@@ -29,8 +29,6 @@ const OutputArray = (props: OutputArrI) => {
           ref={(ele) => {
             let trashX = ele?.getBoundingClientRect().x;
             let trashY = ele?.getBoundingClientRect().y;
-            console.log("trash x", trashX, "trash y", trashY);
-
             if (trashX && trashY) {
               if (
                 props.curTrashCoords.x !== trashX &&
